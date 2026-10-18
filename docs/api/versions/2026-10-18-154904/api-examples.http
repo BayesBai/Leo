@@ -1,0 +1,173 @@
+# VS Code REST Client 等支持 .http 的客户端可逐段运行。
+# 默认请求本机 9753；若使用项目默认端口，请改为 3000。
+# 真实产品 ID 应从 products 接口选择。请替换占位符，不使用模拟 ID 调用真实服务。
+@baseUrl = http://127.0.0.1:9753
+@productId = replace-with-products-response-id
+# 修改前替换为最近一次 result 事件内 result.id。
+@runId = replace-with-latest-result-id
+
+### 读取配置与连接状态
+GET {{baseUrl}}/api/status
+
+### 读取产品目录
+GET {{baseUrl}}/api/products
+
+### 本地规则示例，需要在服务端安装有权使用的本地知识库
+GET {{baseUrl}}/api/sample
+
+### 验证 ima，只读取服务端已有配置，客户端不传密钥
+POST {{baseUrl}}/api/connections/verify
+
+### 新建本地规则任务，返回 SSE，需要本地知识库
+# 真实 ima 模式将 mode 改为 live、knowledgeSource 改为 ima。
+# live 会实际调用模型；使用前由后端确认配置与可发送的任务资料。
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+Accept: text/event-stream
+
+{
+  "productId": "{{productId}}",
+  "audience": "大学新生",
+  "scene": "开学购机",
+  "goal": "到店体验",
+  "buyingStage": "对比选择",
+  "platforms": ["xiaohongshu", "wechat"],
+  "instructions": "语气自然，保留版本限定条件",
+  "mode": "demo",
+  "knowledgeSource": "local"
+}
+
+### 修改上一任务，返回 SSE；沿用原任务的模式与知识来源
+POST {{baseUrl}}/api/revise
+Content-Type: application/json
+Accept: text/event-stream
+
+{
+  "runId": "{{runId}}",
+  "instructions": "精简文案，改成朋友圈",
+  "platforms": ["moments"]
+}
+
+### 422 补充信息，不调用模型
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "productId": "",
+  "audience": "",
+  "scene": "",
+  "platforms": ["xiaohongshu"],
+  "mode": "demo",
+  "knowledgeSource": "local"
+}
+
+### 400 平台重复，不调用模型
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "audience": "大学新生",
+  "scene": "开学购机",
+  "platforms": ["xiaohongshu", "xiaohongshu"]
+}
+
+### 410 任务不存在，不调用模型
+POST {{baseUrl}}/api/revise
+Content-Type: application/json
+
+{
+  "runId": "nonexistent-handoff-task",
+  "instructions": "精简文案"
+}
+
+
+### 销售员任务选项
+GET {{baseUrl}}/api/task-options
+
+### 接入设置；空对象不清除配置，样例不保存密钥
+POST {{baseUrl}}/api/connections/settings
+Content-Type: application/json
+
+{}
+
+### 模型连接测试；实际使用服务端配置调用模型
+POST {{baseUrl}}/api/connections/model/verify
+
+### 生成大纲；demo 仍需本地资料
+POST {{baseUrl}}/api/outlines
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "audience": "大学新生",
+  "scene": "开学购机",
+  "goal": "到店体验",
+  "buyingStage": "对比选择",
+  "platforms": ["xiaohongshu"],
+  "mode": "demo",
+  "knowledgeSource": "local"
+}
+
+# 填入真实返回值；每次编辑或 AI 修改后更新版本。
+@outlineId = replace-with-created-outline-id
+@outlineVersion = 1
+
+### 读取大纲
+GET {{baseUrl}}/api/outlines/{{outlineId}}
+
+### 保存大纲；使用真实返回的 sections、factIds 和 imageIds 替换此结构示例
+PUT {{baseUrl}}/api/outlines/{{outlineId}}
+Content-Type: application/json
+
+{
+  "version": {{outlineVersion}},
+  "platforms": [{
+    "platform": "xiaohongshu",
+    "title": "请替换为确认的标题",
+    "angle": "开学选购",
+    "intro": "开场意图",
+    "sections": [{
+      "id": "b1", "heading": "体验建议",
+      "points": ["围绕已取得的事实组织表达"], "factIds": []
+    }],
+    "imageIds": [], "cta": "欢迎到店体验"
+  }]
+}
+
+### AI 修改；成功后更新 outlineVersion
+POST {{baseUrl}}/api/outlines/{{outlineId}}/revise
+Content-Type: application/json
+
+{ "version": {{outlineVersion}}, "instructions": "精简大纲" }
+
+### 确认；版本不增加
+POST {{baseUrl}}/api/outlines/{{outlineId}}/confirm
+Content-Type: application/json
+
+{ "version": {{outlineVersion}} }
+
+### 从确认大纲生成正文；保存 result.id 和 result.revision
+POST {{baseUrl}}/api/generate-from-outline
+Content-Type: application/json
+Accept: text/event-stream
+
+{ "outlineId": "{{outlineId}}", "version": {{outlineVersion}} }
+
+### 获取模板
+GET {{baseUrl}}/api/render-templates
+
+# 填入当前 result.revision。
+@revision = 1
+
+### 排版；需要同型号的 3 至 6 张小红书有效原图
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{
+  "runId": "{{runId}}", "revision": {{revision}},
+  "platform": "xiaohongshu", "selectedTitleIndex": 0,
+  "templateId": "xhs-cream"
+}
+
+# 使用返回的 previewUrl、downloadUrl、zipUrl，不拼句柄，不依赖重启前链接。

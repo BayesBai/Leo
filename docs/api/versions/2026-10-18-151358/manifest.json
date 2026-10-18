@@ -1,0 +1,46 @@
+{
+  "version": "2026-10-18-151358",
+  "createdAt": "2026-10-18T15:13:58+08:00",
+  "timeZone": "Asia/Shanghai",
+  "previousVersion": "2026-10-18-150507",
+  "sourceCommit": "bd179010c1175eb362cdecf990e804f6805211e1",
+  "sourceBranch": "backend/api-handoff",
+  "apiChange": "unchanged",
+  "frontendAction": "none-required",
+  "task": "整理给前端队友的协作策略",
+  "checks": {
+    "historyPreserved": true,
+    "legacyOriginalsUnchanged": true,
+    "sourceHashesUnchanged": true,
+    "docsTextConversionDisabled": true,
+    "relativeLinksValid": true,
+    "mockSchemaValid": true,
+    "mockReferencesValid": true,
+    "noLocalCredentialValues": true,
+    "scope": "static-documentation-and-snapshot-checks"
+  },
+  "files": {
+    "frontend-collaboration-strategy.md": "7cd19b8aba3823a78799b31807c5f35fd4552542d32939252ee31a610ca7087a",
+    "frontend-handoff.md": "e2ff2182161d8626325290324e22f4fe49ffe9937b3311c39bff3f4199608d37",
+    "api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "src/App.tsx": "0b0a53d4b955ee3830c6965788f30166a1b251c0c479ac0ad793e443164928a0",
+    "README.md": "5781498045e698b3a67b8c6cfb71feda24518921334e843cf4f9a5ed72740c33"
+  },
+  "legacyOriginals": {
+    "docs/frontend-handoff.md": "945d42dfd0758e5d823069764e660a47318757d0819ca6b1380640e83d9196e4",
+    "docs/api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "docs/fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea"
+  },
+  "reviewedSourceFiles": {
+    "server/index.ts": "d2ae263d0fd5056cda2a4fd210f5abe23e662b5ee1ef034d344cbca404b17499",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "server/pipeline.ts": "0d2bcde0b9feca820cc781c155a64e6233bcaf434bd2b6e28c9a02e8cb16c269",
+    "server/knowledge.ts": "63ac6309890a13a75eb19ddf99b8736f8a842fa1c594cf1c59631802eaf4136f",
+    "server/model.ts": "b34a346b7c0d33b0a6884cdc751951d8da197e18b8d2cf1fcb19d64499adf47a",
+    "server/policies.ts": "cea3a7077d7c7c7daa4fc8427111d7cde8e92504b6eebba2c7ac5586bebd848c"
+  }
+}

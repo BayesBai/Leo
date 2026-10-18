@@ -1,0 +1,82 @@
+# VS Code REST Client 等支持 .http 的客户端可逐段运行。
+# 默认请求本机 9753；若使用项目默认端口，请改为 3000。
+# 真实产品 ID 应从 products 接口选择。此处使用当前目录中的 MateBook 14 鸿蒙版。
+@baseUrl = http://127.0.0.1:9753
+@productId = pc-e2ef2fa0bf44cc5a
+# 修改前替换为最近一次 result 事件内 result.id。
+@runId = replace-with-latest-result-id
+
+### 读取配置与连接状态
+GET {{baseUrl}}/api/status
+
+### 读取产品目录
+GET {{baseUrl}}/api/products
+
+### 本地规则示例，需要在服务端安装有权使用的本地知识库
+GET {{baseUrl}}/api/sample
+
+### 验证 ima，只读取服务端已有配置，客户端不传密钥
+POST {{baseUrl}}/api/connections/verify
+
+### 新建本地规则任务，返回 SSE，需要本地知识库
+# 真实 ima 模式将 mode 改为 live、knowledgeSource 改为 ima。
+# live 会实际调用模型；使用前由后端确认配置与可发送的任务资料。
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+Accept: text/event-stream
+
+{
+  "productId": "{{productId}}",
+  "audience": "大学新生",
+  "scene": "开学购机",
+  "goal": "到店体验",
+  "buyingStage": "对比选择",
+  "platforms": ["xiaohongshu", "wechat"],
+  "instructions": "语气自然，保留版本限定条件",
+  "mode": "demo",
+  "knowledgeSource": "local"
+}
+
+### 修改上一任务，返回 SSE；沿用原任务的模式与知识来源
+POST {{baseUrl}}/api/revise
+Content-Type: application/json
+Accept: text/event-stream
+
+{
+  "runId": "{{runId}}",
+  "instructions": "精简文案，改成朋友圈",
+  "platforms": ["moments"]
+}
+
+### 422 补充信息，不调用模型
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "productId": "",
+  "audience": "",
+  "scene": "",
+  "platforms": ["xiaohongshu"],
+  "mode": "demo",
+  "knowledgeSource": "local"
+}
+
+### 400 平台重复，不调用模型
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "audience": "大学新生",
+  "scene": "开学购机",
+  "platforms": ["xiaohongshu", "xiaohongshu"]
+}
+
+### 410 任务不存在，不调用模型
+POST {{baseUrl}}/api/revise
+Content-Type: application/json
+
+{
+  "runId": "nonexistent-handoff-task",
+  "instructions": "精简文案"
+}

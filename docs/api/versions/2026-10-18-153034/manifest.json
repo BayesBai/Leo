@@ -1,0 +1,71 @@
+{
+  "version": "2026-10-18-153034",
+  "createdAt": "2026-10-18T15:30:34+08:00",
+  "previousVersion": "2026-10-18-152437",
+  "sourceCommit": "bd179010c1175eb362cdecf990e804f6805211e1",
+  "sourceBranch": "backend/api-handoff",
+  "timeZone": "Asia/Shanghai",
+  "task": "四渠道免费排版工具查询结果与实现交接",
+  "apiChange": "unchanged",
+  "apiConclusion": "已核对，无接口变更",
+  "implementationStatus": "research-and-proposal-only",
+  "frontendAction": "no-current-adaptation-required; future-rendering-work-is-proposed",
+  "checks": {
+    "mockSchemaValid": true,
+    "platformIdsValid": true,
+    "renderRouteStillProposed": true,
+    "scope": "Current Zod schemas against inherited simulated fixture; no network or rendering calls",
+    "historyPreserved": true,
+    "legacyOriginalsUnchanged": true,
+    "runtimeSourceHashesUnchanged": true,
+    "relativeLinksValid": true,
+    "requiredArchiveFilesPresent": true,
+    "codeSnapshotsMatchCurrentSources": true,
+    "researchArchiveCopyVerified": true,
+    "codeFencesBalanced": true,
+    "fourChannelsCovered": true,
+    "researchAndImplementedApiSeparated": true,
+    "newlyAuthoredResearchHasNoCredentialPatterns": true,
+    "runtimeTestsRun": false,
+    "externalRendererIntegrationRun": false,
+    "realModelOrImaCallsRun": false
+  },
+  "files": {
+    "api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea",
+    "fixtures/sales-task-options.proposed.json": "067f4bfbeb0011a47ce9909698762e394f13727a83e31256b61411923c6e823c",
+    "four-channel-free-rendering-research.md": "15e8bebc0e084078658afb2c2ecd61b219f3a880e7f3ecc579a6dbbcf05e05d4",
+    "frontend-collaboration-strategy.md": "7cd19b8aba3823a78799b31807c5f35fd4552542d32939252ee31a610ca7087a",
+    "frontend-handoff.md": "babc0d878aece55f5f1241bd387b93b4fadd63264abd5513c16ae7b6df605e3e",
+    "README.md": "6b577506719228e1c6fc447a02ecb2003c36c4fba1258db3f01e964c9aee23b9",
+    "salesperson-task-design.md": "61b7c0c61bbe0f8e006bfbd6fd07f0d5d9182ffa0ea251adfd973c0ac2c454f8",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "src/App.tsx": "0b0a53d4b955ee3830c6965788f30166a1b251c0c479ac0ad793e443164928a0",
+    "workflow-responsibilities.md": "e34fc1cf915585023880559329cc3caa05ebda1dea428bbb6bd6dd76688e4eb7"
+  },
+  "reviewedSourceFiles": {
+    "server/index.ts": "d2ae263d0fd5056cda2a4fd210f5abe23e662b5ee1ef034d344cbca404b17499",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "server/pipeline.ts": "0d2bcde0b9feca820cc781c155a64e6233bcaf434bd2b6e28c9a02e8cb16c269",
+    "server/knowledge.ts": "63ac6309890a13a75eb19ddf99b8736f8a842fa1c594cf1c59631802eaf4136f",
+    "server/model.ts": "b34a346b7c0d33b0a6884cdc751951d8da197e18b8d2cf1fcb19d64499adf47a",
+    "server/policies.ts": "cea3a7077d7c7c7daa4fc8427111d7cde8e92504b6eebba2c7ac5586bebd848c",
+    "src/App.tsx": "0b0a53d4b955ee3830c6965788f30166a1b251c0c479ac0ad793e443164928a0",
+    "package.json": "74493d235d84316aa69daa28eddac05505f16864da6f0bcc3a5950449849484a",
+    "package-lock.json": "60587a023862afeae7bbcdfaee7e528d2cd8561302e16747d31c5c248e44d05f",
+    "AGENTS.md": "dabfdf0a3ad1b6cc3b03afe550152d37be2a724d8f3655fc624ab5515b4d0d55",
+    ".gitattributes": "22713c36dc814a20f1841e1dfad092270c2598455ec200ae4cb9c702c9c2f57f",
+    ".gitignore": "348c5b083a42e80135bc3e6b8311e6fe8b726635b52ed66dfc333246c4144d9b"
+  },
+  "legacyOriginals": {
+    "docs/frontend-handoff.md": "945d42dfd0758e5d823069764e660a47318757d0819ca6b1380640e83d9196e4",
+    "docs/api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "docs/fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea"
+  },
+  "researchDocument": {
+    "path": "docs/research/four-channel-free-rendering-research.md",
+    "sha256": "bfebb23bea50fcedca416a872fa023a321004291d52d10067399fe78bf32f322"
+  }
+}
