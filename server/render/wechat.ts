@@ -30,7 +30,8 @@ export async function renderWechatArticle(draft: Draft, title: string, images: R
   draft.blocks.forEach((block, index) => { lines.push(`## ${text(block.heading)}`, '', text(block.text), ''); appendImages(index); });
   for (const p of draft.images.filter(p => p.afterBlock >= draft.blocks.length)) appendImage(images.find(i => i.id === p.imageId)!, p.caption);
   lines.push(text(draft.cta), '', text(draft.tags.map(t => `#${t}`).join(' ')));
-  const css = `#wenyan{font-family:Arial,sans-serif;color:#283a35;font-size:16px;line-height:1.9;padding:16px}#wenyan h1{font-size:27px;line-height:1.5;margin:18px 0;color:${template.id.includes('warm') ? '#9c6240' : '#274e43'}}#wenyan h2{font-size:21px;border-left:4px solid #aa6b4b;padding-left:12px;margin:28px 0 16px}#wenyan p{margin:18px 0}#wenyan img{max-width:100%;height:auto;border-radius:8px}#wenyan blockquote{color:#7c7566;border-left:3px solid #d0c3aa;padding:8px 12px}`;
+  const warm = template.id.includes('warm');
+  const css = `#wenyan{font-family:Arial,sans-serif;color:#293b43;font-size:17px;line-height:2;padding:24px;background:${warm ? '#fffcf5' : '#ffffff'}}#wenyan h1{font-size:30px;line-height:1.5;margin:22px 0 28px;color:#233843;border-bottom:3px solid ${warm ? '#b87946' : '#496c7b'};padding-bottom:22px}#wenyan h2{font-size:22px;line-height:1.6;${warm ? 'background:#f7eddd;padding:15px 18px;border-radius:6px;' : 'border-top:1px solid #bdcdd2;padding-top:22px;'}margin:38px 0 20px;color:${warm ? '#8b522e' : '#284e60'}}#wenyan p{margin:20px 0}#wenyan img{max-width:100%;height:auto;border-radius:2px}#wenyan blockquote{color:#6c7a7e;border-left:3px solid ${warm ? '#c19c71' : '#92acb9'};padding:10px 16px;font-size:14px;background:${warm ? '#f6efe4' : '#f1f5f6'}}`;
   const core = await createWenyanCore({ isWechat: true, mermaid: false, isConvertMathJax: false });
   signal?.throwIfAborted();
   // Use the public core API with an inert DOM. The Node publishing wrapper also installs
@@ -46,5 +47,5 @@ export async function renderWechatArticle(draft: Draft, title: string, images: R
     // A callback preserves literal $&, $`, and $' in image metadata.
     html = html.replace(replacement.token, () => replacement.html);
   }
-  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>${escapeHtml(title)}</title><body style="margin:0;background:white">${html}</body></html>`;
+  return `<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>${escapeHtml(title)}</title><body style="margin:0;background:#eef2f3"><section style="max-width:820px;margin:0 auto;background:white"><div style="padding:28px 24px 0;color:#6b7d82;font:12px Arial;letter-spacing:3px">知序 · 选购观察 / PC JOURNAL</div>${html}</section></body></html>`;
 }

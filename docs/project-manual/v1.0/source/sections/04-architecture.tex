@@ -1,0 +1,22 @@
+\PageHeading{04}{整体技术架构}{确定性编排与模型角色分工共同构成自研 Agent}
+\begin{center}
+\begin{tikzpicture}[x=1mm,y=1mm,font=\small,>=Stealth]
+\node[draw=Line,fill=Mist,rounded corners=2mm,text width=154mm,minimum height=22mm,align=center] (ui) at (0,0) {\Lead{交互层 · React / TypeScript}\par 欢迎接入、任务步骤、大纲编辑与确认、来源/审核、成品预览};
+\node[draw=Line,fill=Paper,rounded corners=2mm,text width=154mm,minimum height=22mm,align=center,below=7mm of ui] (api) {\Lead{接口与状态层 · Express / Zod / SSE}\par 输入校验、版本冲突、取消传播、并发限制、凭证配置和生命周期};
+\node[draw=Line,fill=Mist,rounded corners=2mm,text width=154mm,minimum height=29mm,align=center,below=7mm of api] (agent) {\Lead{业务编排层 · 自研 Agent}\par 场景/平台策略\quad $\rightarrow$\quad 可编辑大纲\quad $\rightarrow$\quad 确认快照\par 正文展开\quad $\rightarrow$\quad 规则+独立审稿调用\quad $\rightarrow$\quad 至多一次返修};
+\node[draw=Line,fill=white,rounded corners=2mm,text width=71mm,minimum height=27mm,align=center] (knowledge) at (-41,-98) {\Lead{知识与素材连接器}\par ima官方脚本/OpenAPI\par 本地演示适配器，来源显式标记};
+\node[draw=Line,fill=white,rounded corners=2mm,text width=71mm,minimum height=27mm,align=center] (model) at (41,-98) {\Lead{模型适配器}\par Messages兼容请求与文本流\par 结构化JSON、超时与有限重试};
+\node[draw=Line,fill=Paper,rounded corners=2mm,text width=154mm,minimum height=27mm,align=center] (render) at (0,-136) {\Lead{视觉成品层 · Wenyan / Satori / Sharp / Playwright}\par 公众号HTML与封面、小红书卡片、朋友圈与海报PNG\par 受控素材读取、来源ZIP、句柄访问与过期清理};
+\draw[->,Forest] (ui) -- (api);\draw[->,Forest] (api) -- (agent);
+\draw[->,Forest] (agent.south) -- ++(0,-3mm) -| (knowledge.north);
+\draw[->,Forest] (agent.south) -- ++(0,-3mm) -| (model.north);
+\draw[->,Forest] (knowledge.south) |- ([yshift=3mm]render.north);
+\draw[->,Forest] (model.south) |- ([yshift=3mm]render.north);
+\draw[->,Forest] ([yshift=3mm]render.north) -- (render.north);
+\end{tikzpicture}
+\end{center}
+\ImgCap{自研编排负责决策与约束；ima提供依据，模型提供受约束的语言生成。}
+\begin{note}\small
+\Lead{工程分工}\quad 后端维护\Code{server/}，前端维护\Code{src/}；共享类型和输入规则位于\Code{shared/types.ts}与\Code{server/schemas.ts}。接口交接按时间新增归档并记录SHA-256，避免文档与实现脱节。
+\end{note}
+\SourceNote{当前工程架构与模块边界；示意图不表示独立部署的微服务或多模型集群。}

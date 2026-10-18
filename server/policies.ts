@@ -1,4 +1,5 @@
 import type { Brief, ContentBlock, Draft, EvidenceBundle, Fact, Platform, ReviewIssue, ReviewReport, Strategy } from '../shared/types.js';
+import { channelSimilarity } from './channels.js';
 
 export interface PlatformPolicy {
   name: string; minImages: number; maxImages: number; defaultImages: number;
@@ -138,24 +139,24 @@ export function buildDemoDrafts(brief: Brief, evidence: EvidenceBundle, strategi
       id: `${platform}-block-${index + 1}`, heading: factTopic(fact), text: `${prefix}${citeFact(fact)}${suffix}`, factIds: [fact.id],
     });
     if (platform === 'xiaohongshu') {
-      titles = [`${audience}的选机备忘：把「${scene}」放进清单`, `${product}，有哪些信息值得先核对？`];
-      intro = `给正在为「${scene}」看电脑的${audience}：${profile.task}，选机时可以先把任务拆开。围绕「${goal}」，下面整理一份有资料依据的核对清单。收藏后带着自己的软件需求逐项看。`;
-      blocks = facts.map((fact, i) => makeBlock(fact, i, '资料里可以确认的是：\n', `\n怎么用这条信息：${strategy.sellingPoints[i].benefit}具体体验可结合自己的使用方式现场确认。`));
+      titles = [`${scene}选机清单，先收藏再去看`, `${audience}的装备准备清单`];
+      intro = `准备「${scene}」的${audience}，别急着把所有参数记下来。把选机拆成能现场回答的小问题，带着这张清单去看。`;
+      blocks = facts.slice(0, 2).map((fact, i) => ({ ...makeBlock(fact, i, i === 0 ? '先留意这一项：\n' : '再看另一个角度：\n'), heading: i === 0 ? '先看随身任务' : '再看日常使用' }));
       if (!blocks.length) blocks = [{ id: `${platform}-empty`, heading: '先补齐产品依据', text: '当前没有可引用的产品事实，先补充资料，再整理具体卖点。', factIds: [] }];
       blocks.push({ id: `${platform}-checklist`, heading: '带着自己的任务核对', text: `准备一份「${scene}」会用到的软件和外设清单。涉及软件支持范围、销售配置与使用条件的内容，分别向官方资料或门店确认。${stageFor(brief.buyingStage).cta}`, factIds: [] });
     } else if (platform === 'wechat') {
-      titles = [`从${scene}出发，如何了解${product}`, `面向${audience}的电脑选购观察：任务、规格与适用条件`];
-      intro = `${audience}在「${scene}」中选购电脑，首先要明确希望完成什么任务。本次以「${goal}」为目标，把能够从资料确认的信息与需要现场确认的事项分开说明，便于读者带着具体问题继续比较。`;
-      blocks = facts.map((fact, i) => makeBlock(fact, i, `围绕${profile.role}的需求，先看资料中的具体表述：\n`, `\n选购时的意义：${strategy.sellingPoints[i].benefit}这是一项比较维度，实际选型仍应结合任务、版本和配置一起判断。`));
+      titles = [`${scene}选电脑，应该先回答什么问题？`, `从真实任务理解${product}`];
+      intro = `对${audience}而言，「${scene}」中的电脑选择不是孤立比较参数。先想清${profile.task}，再把证据放回具体任务，才知道哪些问题值得带到门店。`;
+      blocks = facts.map((fact, i) => ({ ...makeBlock(fact, i, '把需求落到可以验证的细节：\n', `\n这一项提供了${profile.role}作选择的依据。它的意义取决于实际任务，不应直接推导为未经验证的体验保证。`), heading: `${factTopic(fact)}：与任务有什么关系` }));
       blocks.push({ id: `${platform}-decision`, heading: '把参数放回使用流程', text: `可以沿着「${scene}」的实际流程，把常用软件、外设和文件任务列成清单，逐项确认。资料中的规格只说明相应项目；应用适配、使用习惯与现场体验需要另行核对。${stageFor(brief.buyingStage).cta} 如需沟通选型，可将这份清单和自己的任务一起带到门店，便于围绕具体问题展开交流。`, factIds: [] });
     } else if (platform === 'moments') {
-      titles = [`给最近在看电脑的${audience}`, `${scene}的选机小提醒`];
-      intro = `围绕「${scene}」看电脑，可以先从一个与你的任务相关的看点开始。今天整理一下${product}资料中能确认的信息：`;
-      blocks = facts.slice(0, 1).map((fact, i) => makeBlock(fact, i, '', '\n选购前再带上常用软件清单，核对实际配置与适用条件。'));
+      titles = [`最近有朋友在准备${scene}`, `想聊聊你的日常任务`];
+      intro = `最近在准备${scene}的朋友，你最在意电脑的哪个细节？今天先聊一个具体的点。`;
+      blocks = facts.slice(0, 1).map((fact, i) => ({ ...makeBlock(fact, i, ''), heading: '今天聊这一点' }));
     } else {
-      titles = [`为${scene}，认真选一台电脑`, product];
-      intro = `${audience} · ${goal}`;
-      blocks = facts.slice(0, 3).map((fact, i) => makeBlock(fact, i, ''));
+      titles = [`把${scene}，带进日常`, product];
+      intro = `为${audience}的下一段日常做准备`;
+      blocks = facts.slice(0, 1).map((fact, i) => makeBlock(fact, i, ''));
     }
     return {
       id: `demo-${platform}`, platform, titles, intro, blocks, cta: `${strategy.cta}\n产品规格与功能请以实际销售版本及适用条件为准。`,
@@ -244,7 +245,7 @@ export function reviewDrafts(brief: Brief, evidence: EvidenceBundle, drafts: Dra
     const uncitedNumbers = [...new Set(numberTokens(`${draft.titles.join(' ')} ${draft.intro} ${draft.cta}`, evidence, taskContexts).filter(t => !globalAllowed.has(t)))];
     if (uncitedNumbers.length) add({ severity: 'error', category: 'fact', platform: draft.platform, message: `标题、导语或行动引导出现无依据数字：${uncitedNumbers.join('、')}。`, suggestion: '删除无依据数据，产品参数请放在引用了事实的正文段落。' });
     if ([...draft.titles, draft.intro, draft.cta].some(value => factualClaimWithoutCitation(value))) add({ severity: 'error', category: 'fact', platform: draft.platform, message: '标题、导语或行动引导含无段落引用的产品功能断言。', suggestion: '将功能或规格描述放入引用了对应事实的正文段落；标题与导语保留场景和核对建议。' });
-    if (/(最好|最强|全球第一|行业第一|全网第一|稳赚|百分之百保证|100\s*%\s*(?:保证|安全|成功|兼容|提升)|绝对(?:领先|安全|好用)|永久(?:免费|有效))/.test(text)) add({ severity: 'error', category: 'compliance', platform: draft.platform, message: '文案含绝对化或保证性宣传。', suggestion: '改为有证据支持、带适用条件的具体描述。' });
+    if (/(最好(?!先|亲手|到店|带上|核对|确认|询问)|最强|全球第一|行业第一|全网第一|稳赚|百分之百保证|100\s*%\s*(?:保证|安全|成功|兼容|提升)|绝对(?:领先|安全|好用)|永久(?:免费|有效))/.test(text)) add({ severity: 'error', category: 'compliance', platform: draft.platform, message: '文案含绝对化或保证性宣传。', suggestion: '改为有证据支持、带适用条件的具体描述。' });
     if (/(?:我|我们|本人)(?:亲自|已经|已|实际)?(?:用过|使用了|体验了|实测|亲测)|亲测|亲身体验|用了.*(?:天|周|个月)|实测(?:发现|证明|提升|续航)/.test(text)) add({ severity: 'error', category: 'compliance', platform: draft.platform, message: '文案可能虚构个人体验或实测结论。', suggestion: '改为资料说明；如需使用体验，补充真实授权的测试记录。' });
     const allSupport = draftFacts.map(f => `${f.statement} ${f.quote}`).join('\n');
     const commercial = /(到手价|售价|补贴后|国补|限时(?:抢购|优惠)|仅剩|最后\s*\d+\s*台|\d+(?:\.\d+)?\s*元)/;
@@ -269,6 +270,12 @@ export function reviewDrafts(brief: Brief, evidence: EvidenceBundle, drafts: Dra
     const wordCount = text.replace(/\s/g, '').length;
     if (wordCount < policy.minWords || wordCount > policy.maxWords) add({ severity: 'warning', category: 'platform', platform: draft.platform, message: `${policy.name}正文长度为 ${wordCount} 字，建议 ${policy.minWords}–${policy.maxWords} 字。`, suggestion: '按平台阅读习惯精简或补充场景说明，并保留来源条件。' });
     if (!draft.blocks.length || !draftFactIds.length) add({ severity: 'error', category: 'fact', platform: draft.platform, message: '当前文案没有可追溯的产品事实。', suggestion: '补充产品原文后重新生成。' });
+  }
+  for (let i = 0; i < drafts.length; i++) for (let j = i + 1; j < drafts.length; j++) {
+    const similarity = channelSimilarity(drafts[i], drafts[j], evidence);
+    if (similarity >= 0.76) add({ severity: 'warning', category: 'platform', platform: drafts[j].platform,
+      message: `${PLATFORM_POLICIES[drafts[i].platform].name}与${PLATFORM_POLICIES[drafts[j].platform].name}的标题、开场和叙事框架过于接近。`,
+      suggestion: '保留事实与必要条件，按渠道重新组织开场、段落功能和行动引导，避免同稿换皮。' });
   }
   const categories: { category: ReviewIssue['category']; label: string; ok: string }[] = [
     { category: 'fact', label: '事实与引用', ok: '事实编号有效，数字与引用依据一致。' },

@@ -9,7 +9,7 @@ export const outlinePlatformSchema = z.object({
   imageIds: z.array(z.string().max(100)).max(6), cta: z.string().trim().min(1).max(500),
 });
 export const outlineVersionSchema = z.object({ version: z.number().int().min(1) }).strict();
-export const outlineEditSchema = z.object({ version: z.number().int().min(1), platforms: z.array(outlinePlatformSchema).min(1).max(2) }).strict();
+export const outlineEditSchema = z.object({ version: z.number().int().min(1), platforms: z.array(outlinePlatformSchema).min(1).max(4) }).strict();
 export const outlineReviseSchema = z.object({ version: z.number().int().min(1), instructions: z.string().trim().min(1).max(2000) }).strict();
 export const renderRequestSchema = z.object({ runId: z.string().min(1).max(100), revision: z.number().int().min(1),
   platform: platformSchema, selectedTitleIndex: z.number().int().min(0).max(2).default(0), templateId: z.string().min(1).max(80) }).strict();
@@ -24,7 +24,7 @@ export const briefSchema = z.object({
   scene: z.string().max(250).default(''),
   goal: z.string().max(160).default('到店体验'),
   buyingStage: z.string().max(80).default('对比选择'),
-  platforms: z.array(platformSchema).min(1, '请至少选择一个平台。').max(2, '同时最多生成两个平台。').refine(v => new Set(v).size === v.length, '平台不能重复。'),
+  platforms: z.array(platformSchema).min(1, '请至少选择一个平台。').max(4, '同时最多生成四个平台。').refine(v => new Set(v).size === v.length, '平台不能重复。'),
   instructions: z.string().max(2000).default(''),
   mode: z.enum(['demo', 'live']).default('demo'),
   knowledgeSource: z.enum(['local', 'ima']).default('local'),

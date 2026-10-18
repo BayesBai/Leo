@@ -1,0 +1,35 @@
+\PageHeading{14}{提交材料与证据索引}{让评委能找到实现、运行结果与对应的来源边界}
+\Sub{按阶段核对提交材料}
+\begingroup\small
+\begin{tabularx}{\linewidth}{P{24mm}Y P{33mm}}
+\rowcolor{Forest}\color{white}\bfseries 材料 & \color{white}\bfseries 当前交付/要求 & \color{white}\bfseries 提交前动作\\
+GitHub & 完整实现、README、依赖、安装步骤、测试和提示词已提交协作分支。 & 核对仓库公开访问与分支URL；再次检查凭证。\\
+\rowcolor{Mist}魔搭页面 & 手册要求初赛即提供，与源码和说明书一致且评审期可访问。 & 当前未提供可核验URL，需创建并测试。\\
+作品说明书 & 本PDF、可编辑TeX、三组功能结果及来源标记，附架构与部署。 & 补入正式ima三组样例并更新材料版本。\\
+\rowcolor{Mist}Demo视频 & 复赛必交：真实录屏展示输入、知识调用、生成、核验与导出。 & 录制完整流程，再补换场景/平台；不可用静态效果代替。\\
+决赛演示 & 可运行作品与现场材料，按组委会最终安排执行。 & 提前测试网络、账号、额度、冷启动和统一任务。\\
+\bottomrule
+\end{tabularx}
+\endgroup
+\Sub{可核验的工程证据}
+\begin{tabularx}{\linewidth}{P{34mm}Y}
+\toprule
+源码与提示词 & \RepoLink；核心提示词位于\Code{server/prompts.ts}，大纲策划约束位于\Code{server/outlines.ts}。\\
+接口与版本 & \Code{docs/api/README.md}固定入口；版本归档含完整说明、Mock、类型和SHA-256。\\
+软件回归 & 推送前89项测试通过，生产构建通过；对应实现与测试保留于仓库。\\
+三组案例 & 本TeX项目\Code{evidence/case-a.json}、\Code{case-b.json}、\Code{case-c.json}及images目录。\\
+真实HTTP调用 & 既有去敏记录\Code{evidence/live-http-verification.json}；单样本140.6秒、PNG/ZIP实际下载。\\
+\bottomrule
+\end{tabularx}
+\Sub{来源与版本说明}
+\small
+[H1] 用户提供的《华为·产业进阶赛道·赛题手册v4》，共9页。材料与提交：第2、8页；定位与场景：第3--4页；最低功能与提示词：第5页；ima接入：第6--7页；评分与统一任务：第9页。
+
+[E1] 项目完整实现提交\Code{a8abd68}；文档与真实HTTP核验提交\Code{8574709}。
+
+正文以已交付实现8574709及接口基线163616为准。后续工作区已有DeepSeek最小验证、四渠道同选及差异化改造等增量；这些增量未并入本报告完整流程验收，具体以最新接口归档和对应实测为准。
+
+[E2] 本轮重新生成案例A/B；案例C、界面截图、海报及真实HTTP计时来自既有真实运行记录。每项证据标注来源与模式，未将Mock、规则演示或本地资料冒充ima在线结果。
+\begin{attention}\small
+\Lead{参赛前关键检查}\quad GitHub、魔搭、说明书及复赛视频应全部可访问且信息一致。正式作品的事实和图片须按指定ima共享库核验。本地实例URL仅供本机检查，不能代替评审期可访问的提交链接。
+\end{attention}

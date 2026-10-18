@@ -1,0 +1,60 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{zhixu}[2026/10/18 Project manual visual system]
+\RequirePackage[left=22mm,right=22mm,top=21mm,bottom=20mm,headheight=23pt,headsep=7mm,footskip=10mm]{geometry}
+\RequirePackage{fontspec}
+\setmainfont{texgyrepagella-regular.otf}[BoldFont=texgyrepagella-bold.otf,ItalicFont=texgyrepagella-italic.otf,BoldItalicFont=texgyrepagella-bolditalic.otf]
+\setsansfont{texgyreheros-regular.otf}[BoldFont=texgyreheros-bold.otf,ItalicFont=texgyreheros-italic.otf,BoldItalicFont=texgyreheros-bolditalic.otf]
+\setmonofont{texgyrecursor-regular.otf}[Scale=0.89,BoldFont=texgyrecursor-bold.otf]
+\RequirePackage[table]{xcolor}
+\definecolor{Forest}{HTML}{23483D}
+\definecolor{Deep}{HTML}{17382F}
+\definecolor{Ink}{HTML}{24332F}
+\definecolor{Sage}{HTML}{849782}
+\definecolor{Muted}{HTML}{6D7A73}
+\definecolor{Paper}{HTML}{F5F3ED}
+\definecolor{Mist}{HTML}{EDF2ED}
+\definecolor{Line}{HTML}{D5DED6}
+\definecolor{Rust}{HTML}{A66E48}
+\definecolor{Warm}{HTML}{FBF3E8}
+\RequirePackage{graphicx,booktabs,tabularx,array,multirow}
+\RequirePackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc,fit,backgrounds}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{enumitem,fancyhdr,lastpage,hyperref,xurl,caption,etoolbox}
+\BeforeBeginEnvironment{tabularx}{\par\noindent}
+\hypersetup{unicode=true,colorlinks=true,linkcolor=Forest,urlcolor=Forest,pdftitle={知序：AI+华为PC营销软文智能体项目说明书},pdfauthor={知序项目},pdfsubject={华为产业进阶赛道作品说明书},pdfkeywords={AI Agent,华为PC,营销软文,ima,知识溯源}}
+\urlstyle{same}
+\color{Ink}
+\linespread{1.12}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+\setlength{\emergencystretch}{2em}
+\setlist[itemize]{leftmargin=1.45em,topsep=3pt,itemsep=3pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=1.65em,topsep=3pt,itemsep=3pt,parsep=0pt}
+\setlength{\tabcolsep}{5.5pt}
+\renewcommand{\arraystretch}{1.25}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\pagestyle{fancy}\fancyhf{}
+\fancyhead[L]{\sffamily\footnotesize\color{Forest}知序\quad /\quad PC 内容工作台}
+\fancyhead[R]{\sffamily\scriptsize\color{Muted}PROJECT MANUAL\quad V1.0}
+\fancyfoot[L]{\sffamily\scriptsize\color{Muted}华为·产业进阶赛道\quad |\quad 2026.10.18}
+\fancyfoot[R]{\sffamily\small\color{Forest}\thepage\ /\ \pageref*{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{Line}\leaders\hrule height \headrulewidth\hfill}}
+\newcommand{\PageHeading}[3]{\clearpage\pdfbookmark[0]{#2}{chapter-#1}\label{sec:#1}\noindent{\sffamily\fontsize{10}{12}\selectfont\color{Rust}#1\quad /\quad ZHIXU}\par\vspace{2mm}{\sffamily\bfseries\fontsize{24}{31}\selectfont\color{Forest}#2}\par\vspace{1mm}{\sffamily\small\color{Muted}#3}\par\vspace{5mm}}
+\newcommand{\Sub}[1]{\par\vspace{3mm}{\sffamily\bfseries\large\color{Forest}#1}\par\vspace{1mm}}
+\newcommand{\Lead}[1]{{\sffamily\bfseries\color{Forest}#1}}
+\newcommand{\Code}[1]{{\small\texttt{\detokenize{#1}}}}
+\newcommand{\SourceNote}[1]{\par\nobreak\vspace{1mm}{\fontsize{8.5}{11}\selectfont\color{Muted}依据：#1}\par}
+\newtcolorbox{note}{enhanced,colback=Mist,colframe=Line,boxrule=0.5pt,arc=1.5mm,left=3mm,right=3mm,top=2mm,bottom=2mm,before skip=5pt,after skip=7pt}
+\newtcolorbox{attention}{enhanced,colback=Warm,colframe=Warm,boxrule=0pt,borderline west={2pt}{0pt}{Rust},arc=0mm,left=3mm,right=3mm,top=2mm,bottom=2mm,before skip=5pt,after skip=7pt}
+\newtcolorbox{excerpt}{enhanced,colback=Paper,colframe=Line,boxrule=0.4pt,arc=1.2mm,left=3mm,right=3mm,top=2mm,bottom=2mm,before skip=5pt,after skip=7pt}
+\newcommand{\Status}[1]{{\sffamily\footnotesize\color{Rust}#1}}
+\newcounter{reportfigure}
+\newcommand{\ImgCap}[1]{\refstepcounter{reportfigure}\par\vspace{2mm}{\footnotesize\color{Muted}图\thereportfigure\quad #1}\par}
+\newcommand{\Stat}[3]{\begin{minipage}[t]{0.31\linewidth}\begin{tcolorbox}[colback=Mist,colframe=Mist,boxrule=0pt,arc=1mm,height=29mm,valign=center,left=3mm,right=2mm]\sffamily{\fontsize{24}{27}\selectfont\bfseries\color{Forest}#1}\quad{\small\bfseries #2}\par{\scriptsize\color{Muted}#3}\end{tcolorbox}\end{minipage}}
+\newcommand{\RepoLink}{\href{https://github.com/BayesBai/Leo/tree/backend/api-handoff}{GitHub / BayesBai/Leo / backend/api-handoff}}
+\newcommand{\ModeLocal}{\Status{本地规则演示 · local · needs\_attention}}
+\newcommand{\ModeLive}{\Status{真实模型调用 · 本地资料 · needs\_attention}}
+\captionsetup{font=small,labelfont=bf}

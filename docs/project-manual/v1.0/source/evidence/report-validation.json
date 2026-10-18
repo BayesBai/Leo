@@ -1,0 +1,23 @@
+{
+  "format": "A4",
+  "pages": 16,
+  "compiler": "XeLaTeX / TeX Live 2026",
+  "overfullBoxes": 0,
+  "missingGlyphWarnings": 0,
+  "unresolvedReferences": 0,
+  "fontsEmbedded": true,
+  "wordsOutsideMediaBox": 0,
+  "allPagesVisuallyReviewed": true,
+  "handbookPages": 9,
+  "handbookSha256": "93d42fe65d9ec9f920948b0753f04094f9d0bef432346f806069afddebad876b",
+  "applicationTestsExecutedThisDocumentTask": false,
+  "modelCalledThisDocumentTask": false,
+  "imaCalledThisDocumentTask": false,
+  "newActualLocalCases": [
+    "开学季/小红书",
+    "职场办公/公众号"
+  ],
+  "existingLiveCaseReused": true,
+  "verifiedApplicationBaseline": "8574709",
+  "laterWorkspaceChangesExcludedFromEndToEndClaims": true
+}

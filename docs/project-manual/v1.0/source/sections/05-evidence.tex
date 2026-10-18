@@ -1,0 +1,31 @@
+\PageHeading{05}{知识检索与证据链}{产品事实、限定条件与同型号原图构成统一证据包}
+\Sub{ima接入遵循官方调用链}
+使用已加入共享库的同一账号配置凭证，通过保留完整目录的官方\Code{ima-skill/ima_api.cjs}执行只读调用。服务端固定ima接口域名，不上传、删除或修改知识库；内部知识库ID和签名素材链接不作为前端公开字段。
+\begingroup\small
+\begin{tabularx}{\linewidth}{P{9mm}P{57mm}Y}
+\rowcolor{Forest}\color{white}\bfseries 序 & \color{white}\bfseries 接口/环节 & \color{white}\bfseries 处理职责\\
+A & \Code{search_knowledge_base} & 按指定名称解析共享库，核对账号可访问的实际返回。\\
+B & \Code{get_knowledge_list} & 搜索为空时浏览目录回退；进入P1产品参数目录并锁定型号。\\
+C & \Code{search_knowledge} & 按型号和任务检索候选资料；处理同名包装层与相近型号。\\
+D & \Code{get_media_info} & 读取命中原文或受控链接，并解析产品图片索引及原图。\\
+E & Agent内部处理 & 提取事实、条件及来源，生成业务策略与图文，独立核验。\\
+\bottomrule
+\end{tabularx}
+\endgroup
+\Sub{一个事实必须带着适用条件进入写作}
+\begin{tabularx}{\linewidth}{P{33mm}Y}
+\toprule
+\Code{Fact} & 事实陈述、支持原文、资料标题、检索时间、必要限制、来源模式及支持状态。\\
+\Code{ImageAsset} & 产品ID、图片名、来源标题、画面说明、尺寸及受控访问句柄。\\
+\Code{EvidenceBundle} & 同一个产品的事实、图片、资料元信息和来源警告；随大纲和任务流转。\\
+\Code{Draft / Review} & 各段\Code{factIds}与配图位置，审核问题可定位到平台、段落或事实。\\
+\bottomrule
+\end{tabularx}
+\begin{excerpt}\small
+\Lead{条件保留示例}\quad “约1.33 kg”和“约1.32 kg”对应不同键盘条件；正文必须同时保留配置、制造工艺和测量方法可能影响重量的说明。不能把两个数值互相套用，也不能由一个数值外推“最轻”或未经证明的使用体验。
+\end{excerpt}
+\Sub{来源隔离和不可用时的处理}
+\Lead{local与ima显式区分。}本地规则演示不调用模型；模型创作可以使用本地证据或ima证据。ima失败不会换用本地图冒充正式素材，模型失败也不会悄悄返回规则结果。
+
+ima证据按30分钟有效性检查；任务失效、素材失效或必要事实缺失时要求重新检索。公开响应剔除完整资料正文，图片访问使用不透明句柄；原始资料、凭证与临时链接不写入交接归档。
+\SourceNote{赛题手册 v4，第6--7页；knowledge.ts、shared/types.ts。本次文档案例中的重量文本只作来源约束展示，不作当前销售配置承诺。}

@@ -1,0 +1,82 @@
+{
+  "startedAt": "2026-10-18T08:30:37.444Z",
+  "finishedAt": "2026-10-18T08:32:58.039Z",
+  "elapsedMs": 140597,
+  "transport": "HTTP APIs and frontend SSE client",
+  "mode": "live",
+  "source": "local",
+  "success": true,
+  "modelName": "claude-opus-5",
+  "outlineVersion": 1,
+  "outlineSections": 1,
+  "reviewedBy": "rules+model",
+  "reviewStatus": "needs_attention",
+  "issues": [
+    {
+      "severity": "warning",
+      "category": "source"
+    },
+    {
+      "severity": "warning",
+      "category": "source"
+    },
+    {
+      "severity": "warning",
+      "category": "source"
+    },
+    {
+      "severity": "warning",
+      "category": "compliance"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "朋友圈-01.png",
+      "width": 1080,
+      "height": 1440,
+      "bytes": 272978
+    }
+  ],
+  "zipBytes": 250838,
+  "steps": [
+    {
+      "method": "GET",
+      "path": "/api/status",
+      "status": 200,
+      "elapsedMs": 32
+    },
+    {
+      "method": "GET",
+      "path": "/api/products",
+      "status": 200,
+      "elapsedMs": 3
+    },
+    {
+      "method": "POST",
+      "path": "/api/outlines",
+      "status": 200,
+      "elapsedMs": 26109
+    },
+    {
+      "method": "POST",
+      "path": "/api/outlines/:id/confirm",
+      "status": 200,
+      "elapsedMs": 11
+    },
+    {
+      "method": "POST",
+      "path": "/api/generate-from-outline",
+      "status": 200,
+      "terminalEvent": "result",
+      "elapsedMs": 114040
+    },
+    {
+      "method": "POST",
+      "path": "/api/render",
+      "status": 200,
+      "elapsedMs": 329
+    }
+  ],
+  "realModelInvoked": true,
+  "realImaInvoked": false
+}

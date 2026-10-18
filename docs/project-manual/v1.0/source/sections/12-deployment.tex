@@ -1,0 +1,31 @@
+\PageHeading{12}{部署、复现与前后端交接}{从完整仓库运行，所有凭证与原始资料保持在本机}
+\Sub{安装与启动}
+\begin{excerpt}\small\ttfamily
+git clone --branch backend/api-handoff https://github.com/BayesBai/Leo.git\par
+cd Leo\par
+npm ci\par
+npm run setup:render\par
+npm run build\par
+npm start
+\end{excerpt}
+\smallskip
+运行环境为Node.js 22.12或更新版本；Chromium由setup:render下载到本机缓存，中文字体与许可随源码提供。正常启动不需要Python。默认监听127.0.0.1，端口按环境配置；当前演示实例为\url{http://127.0.0.1:9755/}。
+\Sub{模型与知识库配置}
+复制\Code{.env.example}为\Code{.env.local}，仅在本机填写模型地址、模型标识与密钥，以及ima账号凭证和知识库名称。\textbf{不在说明书中提供任何真实Key或Client ID}。持久配置修改后重启；页面保存只更新服务端进程内存。
+
+当前适配器使用\Code{POST /v1/messages}及Messages兼容文本流，不是任意模型协议自动适配。若服务只支持其他协议，需修改模型适配器；不能仅替换Base URL。界面新增域名须先在服务端配置并重启，页面仅允许受控HTTPS域名。
+
+ima正式模式需使用已加入指定共享库的同一账号，验证实际权限和额度。本地模式需要获授权的产品参数与原图；新克隆缺少原始知识库时只展示公开型号元数据，不伪造事实。
+\Sub{核心接口与交接规则}
+\begingroup\small
+\begin{tabularx}{\linewidth}{P{64mm}Y}
+\toprule
+\Code{/api/status / products / task-options} & 连接状态、产品目录、场景及人群选项。\\
+\Code{/api/outlines}及版本操作 & 创建、完整保存、AI修改和确认大纲。\\
+\Code{/api/generate-from-outline} & 已确认版本门禁与SSE正文/审核结果。\\
+\Code{/api/render / render-assets/:handle} & 绑定任务与模板排版，受控访问HTML/PNG/ZIP。\\
+\bottomrule
+\end{tabularx}
+\endgroup
+独立前端通过保留Host的\Code{/api}代理访问；图片及成品也使用相同代理。409表示版本/确认或配置冲突，410表示失效，422提示输入/素材/排版问题，429表示并发已满。具体字段以\Code{docs/api/README.md}的最新归档为准。
+\SourceNote{项目README、package.json、model.ts、connections.ts与接口交接说明。源码入口：\RepoLink。}

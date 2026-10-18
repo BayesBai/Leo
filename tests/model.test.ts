@@ -5,12 +5,13 @@ import { callModel, hasRealSecret, modelConfig, parseModelJson, readMessageStrea
 import { briefSchema, draftSchema, modelReviewSchema } from '../server/schemas.js';
 
 function configure() {
-  const previous = { key: process.env.LLM_API_KEY, base: process.env.LLM_BASE_URL, model: process.env.LLM_MODEL };
+  const previous = { key: process.env.LLM_API_KEY, base: process.env.LLM_BASE_URL, model: process.env.LLM_MODEL, thinking: process.env.LLM_THINKING };
+  delete process.env.LLM_THINKING;
   process.env.LLM_API_KEY = 'unit-test-secret-do-not-log';
   process.env.LLM_BASE_URL = 'https://api.openai-next.com/v1/';
   process.env.LLM_MODEL = 'claude-opus-5';
   return () => {
-    for (const [field, value] of Object.entries({ LLM_API_KEY: previous.key, LLM_BASE_URL: previous.base, LLM_MODEL: previous.model })) {
+    for (const [field, value] of Object.entries({ LLM_API_KEY: previous.key, LLM_BASE_URL: previous.base, LLM_MODEL: previous.model, LLM_THINKING: previous.thinking })) {
       if (value === undefined) delete process.env[field]; else process.env[field] = value;
     }
   };
@@ -37,10 +38,36 @@ test('sends Anthropic Messages protocol and extracts only final text blocks', as
       assert.equal(headers['x-api-key'], 'unit-test-secret-do-not-log');
       const body = JSON.parse(String(init!.body));
       assert.equal(body.model, 'claude-opus-5'); assert.equal(body.stream, true);
+      assert.equal(body.thinking, undefined);
       assert.equal(body.system, 'system'); assert.equal(body.messages[0].content, 'user');
       return new Response(JSON.stringify({ stop_reason: 'end_turn', content: [{ type: 'thinking', thinking: 'not exposed' }, { type: 'text', text: '{"ok":true}' }] }), { status: 200 });
     };
     assert.equal(await callModel('system', 'user', { fetcher: fakeFetch }), '{"ok":true}');
+  } finally { restore(); }
+});
+
+test('DeepSeek Anthropic configuration retains its path prefix and disables thinking only when requested', async () => {
+  const restore = configure();
+  try {
+    process.env.LLM_BASE_URL = 'https://api.deepseek.com/anthropic/v1/';
+    process.env.LLM_MODEL = 'deepseek-flash'; process.env.LLM_THINKING = 'disabled';
+    assert.equal(await callModel('s', 'u', { maxTokens: 16, fetcher: async (url, init) => {
+      assert.equal(String(url), 'https://api.deepseek.com/anthropic/v1/messages');
+      const body = JSON.parse(String(init!.body));
+      assert.equal(body.model, 'deepseek-flash'); assert.deepEqual(body.thinking, { type: 'disabled' });
+      assert.equal(body.max_tokens, 16);
+      assert.equal((init!.headers as Record<string, string>)['x-api-key'], 'unit-test-secret-do-not-log');
+      return new Response(JSON.stringify({ content: [{ type: 'text', text: 'OK' }] }));
+    } }), 'OK');
+  } finally { restore(); }
+});
+
+test('unsupported thinking configuration fails before any network request', async () => {
+  const restore = configure(); let called = false;
+  try {
+    process.env.LLM_THINKING = 'invalid';
+    await assert.rejects(callModel('s', 'u', { fetcher: async () => { called = true; throw new Error('must not call'); } }), /LLM_THINKING/);
+    assert.equal(called, false);
   } finally { restore(); }
 });
 

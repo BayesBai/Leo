@@ -202,7 +202,7 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
         const input = z.object({ outlineId: z.string().min(1).max(100), version: z.number().int().min(1) }).strict().parse(req.body);
         outline = confirmedOutline(input.outlineId, input.version); brief = outline.brief; canonicalEvidence = outline.evidence;
       } else if (revise) {
-        const input = z.object({ runId: z.string().min(1).max(100), instructions: z.string().trim().min(1, '请填写修改要求。').max(2000), platforms: z.array(platformSchema).min(1).max(2).optional() }).parse(req.body);
+        const input = z.object({ runId: z.string().min(1).max(100), instructions: z.string().trim().min(1, '请填写修改要求。').max(2000), platforms: z.array(platformSchema).min(1).max(4).optional() }).parse(req.body);
         const saved = runs.get(input.runId);
         if (!saved || Date.now() - saved.touched > RUN_TTL) { res.status(410).json({ message: '上次任务已过期，请重新生成。' }); return; }
         prior = saved.result; saved.touched = Date.now();

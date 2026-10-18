@@ -1,0 +1,16 @@
+{
+  "base": "http://127.0.0.1:9755",
+  "page": 200,
+  "javascript": 200,
+  "status": 200,
+  "products": 10,
+  "scenarios": 8,
+  "templates": 8,
+  "localAvailable": true,
+  "modelConfigured": true,
+  "imaConfigured": true,
+  "imaVerified": false,
+  "externalModelCalled": false,
+  "externalImaCalled": false,
+  "browserPanelOpenRequest": "queued"
+}

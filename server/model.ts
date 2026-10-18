@@ -9,6 +9,8 @@ export function hasRealSecret(value: string | undefined): boolean {
 }
 
 export function modelConfig() {
+  const thinking = process.env.LLM_THINKING?.trim() || 'default';
+  if (!['default', 'disabled'].includes(thinking)) throw new ModelError('LLM_THINKING 仅支持 default 或 disabled。', 'MODEL_CONFIG');
   const raw = process.env.LLM_BASE_URL || 'https://api.openai-next.com';
   let baseUrl = 'https://api.openai-next.com';
   try {
@@ -22,6 +24,7 @@ export function modelConfig() {
     configured: hasRealSecret(process.env.LLM_API_KEY),
     baseUrl,
     name: process.env.LLM_MODEL || 'claude-opus-5',
+    thinkingDisabled: thinking === 'disabled',
     timeoutMs: Math.max(5_000, Math.min(Number(process.env.LLM_TIMEOUT_MS) || 180_000, 300_000)),
   };
 }
@@ -116,6 +119,7 @@ export async function callModel(
         body: JSON.stringify({
           model: config.name, max_tokens: options.maxTokens || 6000,
           stream: true, system,
+          ...(config.thinkingDisabled ? { thinking: { type: 'disabled' } } : {}),
           messages: [{ role: 'user', content: user }],
         }),
         signal,

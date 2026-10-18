@@ -1,0 +1,220 @@
+{
+  "id": "b",
+  "createdAt": "2026-10-18T08:43:40.131Z",
+  "brief": {
+    "productId": "pc-e2ef2fa0bf44cc5a",
+    "audience": "经常出差的移动办公者",
+    "scene": "职场办公",
+    "goal": "到店体验",
+    "buyingStage": "对比选择",
+    "platforms": [
+      "wechat"
+    ],
+    "instructions": "",
+    "mode": "demo",
+    "knowledgeSource": "local"
+  },
+  "product": "HUAWEI MateBook 14（鸿蒙版）",
+  "mode": "demo",
+  "source": "local",
+  "outlineVersion": 1,
+  "title": "从职场办公出发，如何了解HUAWEI MateBook 14（鸿蒙版）",
+  "draft": {
+    "id": "wechat-ed70eca8",
+    "platform": "wechat",
+    "titles": [
+      "从职场办公出发，如何了解HUAWEI MateBook 14（鸿蒙版）"
+    ],
+    "intro": "经常出差的移动办公者在「职场办公」中选购电脑，首先要明确希望完成什么任务。本次以「到店体验」为目标，把能够从资料确认的信息与需要现场确认的事项分开说明，便于读者带着具体问题继续比较。",
+    "blocks": [
+      {
+        "id": "wechat-block-1",
+        "heading": "携带相关规格",
+        "text": "围绕办公使用者的需求，先看资料中的具体表述：\n机身重量：约 1.33 kg（圆键盘含电池）；约 1.32 kg（方键盘含电池）。实际重量依配置和测量方法而异。\n适用条件：实际机身重量根据配置、制造工艺、测量方法的不同可能有所差异。\n选购时的意义：把携带相关规格列入办公使用者的对比选择核对清单。这是一项比较维度，实际选型仍应结合任务、版本和配置一起判断。",
+        "factIds": [
+          "fact-ffcdc7255f86d0d6"
+        ]
+      },
+      {
+        "id": "wechat-block-2",
+        "heading": "外设连接条件",
+        "text": "围绕办公使用者的需求，先看资料中的具体表述：\n接口信息：左侧：HDMI2.1 TMDS × 1；USB-C × 1*；USB -A × 1**；3.5 mm 耳机和麦克风二合一接口。接口与功能适用条件请核对具体版本。\n适用条件：左侧第 2 个、右侧第 2 个，USB 3.2 Gen1 × 2，支持充电、支持数据（USB3.2 Gen1）和支持对外供电 10 W（5V2A）\n选购时的意义：把外设连接条件列入办公使用者的对比选择核对清单。这是一项比较维度，实际选型仍应结合任务、版本和配置一起判断。",
+        "factIds": [
+          "fact-81ee63db2cdaf606"
+        ]
+      },
+      {
+        "id": "wechat-block-3",
+        "heading": "电池相关规格",
+        "text": "围绕办公使用者的需求，先看资料中的具体表述：\n电池容量：70 Wh（额定容量）\n选购时的意义：把电池相关规格列入办公使用者的对比选择核对清单。这是一项比较维度，实际选型仍应结合任务、版本和配置一起判断。",
+        "factIds": [
+          "fact-9476371f45e8b49a"
+        ]
+      },
+      {
+        "id": "wechat-decision",
+        "heading": "把参数放回使用流程",
+        "text": "可以沿着「职场办公」的实际流程，把常用软件、外设和文件任务列成清单，逐项确认。资料中的规格只说明相应项目；应用适配、使用习惯与现场体验需要另行核对。把这些核对项加入候选清单，比较时统一配置与版本。 如需沟通选型，可将这份清单和自己的任务一起带到门店，便于围绕具体问题展开交流。",
+        "factIds": []
+      }
+    ],
+    "cta": "欢迎带着常用软件清单到店体验，并核对所选配置与销售版本。 把这些核对项加入候选清单，比较时统一配置与版本。\n产品规格与功能请以实际销售版本及适用条件为准。",
+    "tags": [],
+    "images": [
+      {
+        "imageId": "image-28dab9832c909c66",
+        "afterBlock": -1,
+        "caption": "原野绿多彩配色",
+        "reason": "确认大纲的同型号配图"
+      },
+      {
+        "imageId": "image-729e41cf464651a2",
+        "afterBlock": 0,
+        "caption": "HUAWEI MateBook 14 樱粉金",
+        "reason": "确认大纲的同型号配图"
+      },
+      {
+        "imageId": "image-6c22bfc3b04e6df4",
+        "afterBlock": 1,
+        "caption": "手写笔创作场景",
+        "reason": "确认大纲的同型号配图"
+      }
+    ]
+  },
+  "review": {
+    "status": "needs_attention",
+    "issues": [
+      {
+        "severity": "warning",
+        "category": "source",
+        "message": "本次依据来自本地知识库，尚未通过 ima 在线检索核验。",
+        "suggestion": "可用于本地演示；正式提交前切换 ima 并重新生成。",
+        "id": "review-1"
+      },
+      {
+        "severity": "warning",
+        "category": "source",
+        "message": "当前依据来自本地知识库快照，未通过 ima 在线检索或实时官网复核，不能视为当前销售配置的确认。",
+        "suggestion": "核对原始资料，补足依据后再发布。",
+        "id": "review-2"
+      },
+      {
+        "severity": "warning",
+        "category": "source",
+        "message": "配置可能因销售版本而异，请以实际销售版本为准；不得跨系统、年份、屏幕或处理器版本套用。",
+        "suggestion": "核对原始资料，补足依据后再发布。",
+        "id": "review-3"
+      }
+    ],
+    "factCount": 9,
+    "citedFactCount": 3,
+    "imageCount": 3,
+    "checks": [
+      {
+        "label": "事实与引用",
+        "status": "pass",
+        "detail": "事实编号有效，数字与引用依据一致。"
+      },
+      {
+        "label": "图片与型号",
+        "status": "pass",
+        "detail": "图片存在，归属型号一致，未重复使用。"
+      },
+      {
+        "label": "营销表达",
+        "status": "pass",
+        "detail": "未发现规则涵盖的无依据销售承诺或绝对化表达。"
+      },
+      {
+        "label": "平台规则",
+        "status": "pass",
+        "detail": "图片数量、长度与结构符合本平台规则。"
+      },
+      {
+        "label": "来源状态",
+        "status": "warning",
+        "detail": "本次依据来自本地知识库，尚未通过 ima 在线检索核验。 当前依据来自本地知识库快照，未通过 ima 在线检索或实时官网复核，不能视为当前销售配置的确认。 配置可能因销售版本而异，请以实际销售版本为准；不得跨系统、年份、屏幕或处理器版本套用。"
+      }
+    ],
+    "reviewedBy": "rules"
+  },
+  "artifacts": [
+    {
+      "role": "article",
+      "format": "wechat-richtext",
+      "name": "公众号-排版文章.html",
+      "sourceImageIds": [
+        "image-28dab9832c909c66",
+        "image-729e41cf464651a2",
+        "image-6c22bfc3b04e6df4"
+      ],
+      "factIds": [
+        "fact-ffcdc7255f86d0d6",
+        "fact-81ee63db2cdaf606",
+        "fact-9476371f45e8b49a"
+      ]
+    },
+    {
+      "role": "cover",
+      "format": "png",
+      "name": "公众号-封面.png",
+      "width": 1200,
+      "height": 900,
+      "sourceImageIds": [
+        "image-28dab9832c909c66"
+      ],
+      "factIds": []
+    }
+  ],
+  "sources": [
+    {
+      "title": "HUAWEI MateBook 14（鸿蒙版） · 产品事实（本地资料）",
+      "sourceMode": "local",
+      "retrievedAt": "2026-10-18T08:43:39.513Z"
+    },
+    {
+      "title": "HUAWEI MateBook 14（鸿蒙版） · 图片索引（本地资料）",
+      "sourceMode": "local",
+      "retrievedAt": "2026-10-18T08:43:39.513Z"
+    }
+  ],
+  "sourceImages": [
+    {
+      "name": "hwpc_matebook-14-harmonyos_原野绿多彩配色_04.png",
+      "productId": "pc-e2ef2fa0bf44cc5a",
+      "description": "原野绿多彩配色",
+      "sourceTitle": "HUAWEI MateBook 14（鸿蒙版） · 图片索引",
+      "width": 817,
+      "height": 892,
+      "sourceMode": "local"
+    },
+    {
+      "name": "hwpc_matebook-14-harmonyos_多彩配色外观_01_7e0eedb6.png",
+      "productId": "pc-e2ef2fa0bf44cc5a",
+      "description": "HUAWEI MateBook 14 樱粉金",
+      "sourceTitle": "HUAWEI MateBook 14（鸿蒙版） · 图片索引",
+      "width": 817,
+      "height": 892,
+      "sourceMode": "local"
+    },
+    {
+      "name": "hwpc_matebook-14-harmonyos_手写笔创作场景_07.jpg",
+      "productId": "pc-e2ef2fa0bf44cc5a",
+      "description": "手写笔创作场景",
+      "sourceTitle": "HUAWEI MateBook 14（鸿蒙版） · 图片索引",
+      "width": 1048,
+      "height": 588,
+      "sourceMode": "local"
+    },
+    {
+      "name": "hwpc_matebook-14-harmonyos_深空灰沉稳配色_05.png",
+      "productId": "pc-e2ef2fa0bf44cc5a",
+      "description": "深空灰沉稳配色",
+      "sourceTitle": "HUAWEI MateBook 14（鸿蒙版） · 图片索引",
+      "width": 817,
+      "height": 892,
+      "sourceMode": "local"
+    }
+  ],
+  "modelCalled": false
+}
