@@ -1,11 +1,11 @@
 import { randomUUID } from 'node:crypto';
 import { z } from 'zod';
-import type { Brief, Draft, EvidenceBundle, Platform, ReviewReport, RunResult, Strategy, TraceEntry } from '../shared/types.js';
+import type { Brief, Draft, EvidenceBundle, OutlineResult, Platform, ReviewReport, RunResult, Strategy, TraceEntry } from '../shared/types.js';
 import { getEvidence } from './knowledge.js';
 import { PLATFORM_POLICIES, buildDemoDrafts, buildStrategies, reviewDrafts } from './policies.js';
 import { completeJson, modelConfig } from './model.js';
 import { briefSchema, draftSchema, modelReviewSchema, strategySchema } from './schemas.js';
-import { REVIEW_PROMPT, STRATEGY_PROMPT, WRITER_PROMPT } from './prompts.js';
+import { OUTLINE_WRITER_PROMPT, REVIEW_PROMPT, STRATEGY_PROMPT, WRITER_PROMPT } from './prompts.js';
 
 export class InputRequiredError extends Error {
   constructor(public fields: { field: string; question: string }[]) { super('请补充必要信息后再生成。'); }
@@ -96,7 +96,7 @@ function shortenDemoDrafts(drafts: Draft[], instructions: string): Draft[] {
   }));
 }
 
-function evidenceForInstructions(evidence: EvidenceBundle, instructions: string): EvidenceBundle {
+export function evidenceForInstructions(evidence: EvidenceBundle, instructions: string): EvidenceBundle {
   const removeGroups: [RegExp, RegExp][] = [
     [/(?:去掉|删掉|删除|不写|不要).{0,8}(?:续航|电池)/, /续航|电池|供电/],
     [/(?:去掉|删掉|删除|不写|不要).{0,8}(?:屏幕|显示)/, /屏幕|显示|分辨率|OLED/],
@@ -116,7 +116,7 @@ export function publicResult(result: RunResult): RunResult {
 export async function runPipeline(
   brief: Brief,
   onProgress: (entry: TraceEntry) => void = () => {},
-  options: { signal?: AbortSignal; evidence?: EvidenceBundle; revision?: number; previous?: RunResult; onEvidence?: (evidence: EvidenceBundle) => void } = {},
+  options: { signal?: AbortSignal; evidence?: EvidenceBundle; revision?: number; previous?: RunResult; onEvidence?: (evidence: EvidenceBundle) => void; outline?: OutlineResult } = {},
 ): Promise<RunResult> {
   const trace: TraceEntry[] = [];
   const totalStart = Date.now();
@@ -141,7 +141,11 @@ export async function runPipeline(
   stage('strategy', '制定平台策略', brief.mode === 'live' ? '模型根据人群与场景制定内容策略' : '演示规则根据人群与场景选择内容切入点', 'running');
   let strategies: Strategy[];
   const ctx = context(brief, evidence);
-  if (brief.mode === 'live') {
+  if (options.outline) {
+    strategies = options.outline.platforms.map(p => ({ platform: p.platform, angle: p.angle, painPoint: `${brief.audience}在${brief.scene}的选购需求`,
+      sellingPoints: p.sections.flatMap(s => s.factIds.map(factId => ({ factId, benefit: s.heading }))),
+      tone: '按确认大纲组织', structure: p.sections.map(s => s.heading), imageCount: p.imageIds.length, cta: p.cta, buyingStage: brief.buyingStage }));
+  } else if (brief.mode === 'live') {
     const output = await completeJson(STRATEGY_PROMPT, ctx, z.object({ strategies: platformSetSchema(strategySchema, brief.platforms) }), options.signal, 2400,
       characters => stage('strategy', '制定平台策略', `模型正在输出结构化策略，已接收 ${characters} 个字符`, 'running'));
     strategies = output.strategies;
@@ -164,10 +168,23 @@ export async function runPipeline(
           if (existing) return existing;
         }
         const scopedContext = context({ ...brief, platforms: [platform] }, evidence);
+        const approved = options.outline?.platforms.find(p => p.platform === platform);
+        if (approved) {
+          const approvedSchema = z.object({ intro: z.string().max(1000),
+            blocks: z.array(z.object({ id: z.string().max(40), text: z.string().min(1).max(2200) })).length(approved.sections.length)
+              .refine(blocks => new Set(blocks.map(b => b.id)).size === approved.sections.length && blocks.every(b => approved.sections.some(s => s.id === b.id)), '必须逐一填写已确认段落，保留原段落ID'),
+            cta: z.string().min(1).max(500), tags: z.array(z.string().max(40)).max(8) });
+          const output = await completeJson(OUTLINE_WRITER_PROMPT, `${scopedContext}\n确认的大纲：${JSON.stringify(approved)}${scopedFeedback ? `\n仅修复这些审核问题：${JSON.stringify(scopedFeedback)}` : ''}`, approvedSchema, signal, 3500,
+            characters => stage(feedback ? 'repair' : 'write', feedback ? '定向修订一次' : '按确认大纲写作', `${PLATFORM_POLICIES[platform].name}：已接收 ${characters} 个字符`, 'running'));
+          return { id: `${platform}-${randomUUID().slice(0, 8)}`, platform, titles: [approved.title], intro: output.intro,
+            blocks: approved.sections.map(section => ({ id: section.id, heading: section.heading, text: output.blocks.find(b => b.id === section.id)!.text, factIds: [...section.factIds] })),
+            cta: output.cta, tags: output.tags, images: approved.imageIds.map((imageId, i) => ({ imageId, afterBlock: i === 0 ? -1 : Math.min(i - 1, approved.sections.length - 1), caption: evidence.images.find(image => image.id === imageId)?.description || '', reason: '确认大纲中的同型号素材' })) };
+        }
         const writerSchema = z.object({ drafts: platformSetSchema(draftSchema, [platform]) });
         const output = await completeJson(WRITER_PROMPT, `${scopedContext}\n策略：${JSON.stringify(strategies.filter(strategy => strategy.platform === platform))}${previous}${scopedFeedback ? `\n需要修订的稿件与审核问题：${JSON.stringify(scopedFeedback)}` : ''}`, writerSchema, signal, 3500,
           characters => stage(feedback ? 'repair' : 'write', feedback ? '定向修订一次' : '编排与创作图文', `${PLATFORM_POLICIES[platform].name}：已接收 ${characters} 个字符，完成后统一核验`, 'running'));
-        return { ...output.drafts[0], id: `${platform}-${randomUUID().slice(0, 8)}` };
+        const draft = output.drafts[0];
+        return { ...draft, id: `${platform}-${randomUUID().slice(0, 8)}` };
       }));
     } catch (error) { controller.abort(); throw error; }
   };
@@ -176,7 +193,9 @@ export async function runPipeline(
     if (options.previous && brief.instructions && !/精简|缩短|压缩|简短|更短|去掉|删掉|删除|不写|不要|恢复|换平台|改成|换成|突出|强调|优先|价格|补贴|亲测|实测|第一|最好|最强|元/.test(brief.instructions)) {
       throw new Error('本地规则演示支持精简文案、移除卖点和切换平台。指定段落的自由改写请配置模型并使用模型创作。');
     }
-    drafts = shortenDemoDrafts(buildDemoDrafts(brief, evidence, strategies), brief.instructions);
+    drafts = options.outline ? options.outline.platforms.map(p => ({ id: `${p.platform}-${randomUUID().slice(0, 8)}`, platform: p.platform,
+      titles: [p.title], intro: p.intro, blocks: p.sections.map(s => ({ id: s.id, heading: s.heading, text: s.points.join('\n'), factIds: s.factIds })),
+      cta: p.cta, tags: [], images: p.imageIds.map((id, i) => ({ imageId: id, afterBlock: i === 0 ? -1 : Math.min(i - 1, p.sections.length - 1), caption: evidence.images.find(image => image.id === id)?.description || '', reason: '确认大纲的同型号配图' })) })) : shortenDemoDrafts(buildDemoDrafts(brief, evidence, strategies), brief.instructions);
   }
   stage('write', '编排与创作图文', `完成 ${drafts.length} 份稿件，图片均引用本次证据包`);
   stage('review', '核验事实、图片与表达', brief.mode === 'live' ? '执行规则检查与独立模型审稿' : '执行来源、引用、图片和表达的规则初检', 'running');
@@ -200,6 +219,7 @@ export async function runPipeline(
   return {
     id: randomUUID(), createdAt: new Date().toISOString(), brief, product: evidence.product,
     evidence, strategies, drafts, review, trace, revision: options.revision || 1,
+    ...(options.outline ? { outline: { id: options.outline.id, version: options.outline.version } } : {}),
     notice: brief.mode === 'demo'
       ? '本地演示：文案由规则引擎生成，资料来自本地知识库。未调用大模型、未验证 ima 接入，也未复核当前官网事实。'
       : evidence.sourceMode === 'local'

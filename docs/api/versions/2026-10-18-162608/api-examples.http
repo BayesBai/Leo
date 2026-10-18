@@ -1,0 +1,152 @@
+@baseUrl = http://127.0.0.1:9755
+# 以下是假句柄/模拟ID；先手动执行目录与生成请求，再复制实际响应ID。
+# 不要“运行全部”：生成/验证会调用所选模式，配置变更会修改本地后端内存。
+@productId = REPLACE_WITH_PRODUCT_ID
+@outlineId = REPLACE_WITH_OUTLINE_ID
+@outlineVersion = 1
+@runId = REPLACE_WITH_RESULT_ID
+@revision = 1
+@renderHandle = 00000000-0000-0000-0000-000000000000
+
+### 状态（不会返回密钥）
+GET {{baseUrl}}/api/status
+
+### 目录
+GET {{baseUrl}}/api/products
+
+### 销售员场景与客户建议
+GET {{baseUrl}}/api/task-options
+
+### 保存配置的安全空样例：空白密钥保留原值
+# 完整可选字段见frontend-handoff.md；实际凭证仅在本机接入表单填写，不写进此文件。
+POST {{baseUrl}}/api/connections/settings
+Content-Type: application/json
+
+{"apiKey":"","imaClientId":"","imaApiKey":""}
+
+### 模型连接验证（真实调用，有用量）
+POST {{baseUrl}}/api/connections/model/verify
+Content-Type: application/json
+
+{}
+
+### ima只读连接验证
+POST {{baseUrl}}/api/connections/verify
+Content-Type: application/json
+
+{}
+
+### 生成大纲：有本地资料才能运行规则演示
+POST {{baseUrl}}/api/outlines
+Content-Type: application/json
+
+{
+  "productId":"{{productId}}",
+  "audience":"大学新生",
+  "scene":"开学季",
+  "goal":"到店体验",
+  "buyingStage":"对比选择",
+  "platforms":["xiaohongshu","wechat"],
+  "instructions":"语气自然，不编造价格或亲测经历。",
+  "mode":"demo",
+  "knowledgeSource":"local"
+}
+
+### 当前大纲
+GET {{baseUrl}}/api/outlines/{{outlineId}}
+
+### 完整保存形状：仅纯模拟示例，必须用GET响应中的platforms与引用替换
+PUT {{baseUrl}}/api/outlines/{{outlineId}}
+Content-Type: application/json
+
+{
+  "version":{{outlineVersion}},
+  "platforms":[{
+    "platform":"moments","title":"纯模拟的选购核对清单","angle":"纯模拟场景","intro":"此处不提供产品事实。",
+    "sections":[{"id":"mock-section","heading":"核对要点","points":["只用于协议形状展示"],"factIds":[]}],
+    "imageIds":[],"cta":"请替换为实际大纲中的内容与引用。"
+  }]
+}
+
+### AI修改（规则演示支持精简；模型模式可自由改写）
+POST {{baseUrl}}/api/outlines/{{outlineId}}/revise
+Content-Type: application/json
+
+{"version":{{outlineVersion}},"instructions":"精简"}
+
+### 确认当前保存版，旧版本应返回409
+POST {{baseUrl}}/api/outlines/{{outlineId}}/confirm
+Content-Type: application/json
+
+{"version":{{outlineVersion}}}
+
+### 只有已确认当前版可进入正文；响应为SSE
+POST {{baseUrl}}/api/generate-from-outline
+Content-Type: application/json
+Accept: text/event-stream
+
+{"outlineId":"{{outlineId}}","version":{{outlineVersion}}}
+
+### 受控模板目录
+GET {{baseUrl}}/api/render-templates
+
+### 按实际正文ID和revision渲染小红书
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId":"{{runId}}","revision":{{revision}},"platform":"xiaohongshu","selectedTitleIndex":0,"templateId":"xhs-cream"}
+
+### 公众号：同一run必须已经含wechat稿件
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId":"{{runId}}","revision":{{revision}},"platform":"wechat","selectedTitleIndex":0,"templateId":"wechat-editorial"}
+
+### 朋友圈：需先用moments任务完成独立大纲和正文
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId":"{{runId}}","revision":{{revision}},"platform":"moments","selectedTitleIndex":0,"templateId":"moments-square"}
+
+### 门店海报：需先用poster任务完成独立大纲和正文
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId":"{{runId}}","revision":{{revision}},"platform":"poster","selectedTitleIndex":0,"templateId":"poster-paper"}
+
+### 预览字节：使用响应实际句柄；下面的模拟句柄返回410
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}
+
+### 下载字节：blocked应返回409；ZIP也使用同一路由
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}?download=1
+
+### 兼容：旧示例仍返回RunResult，不是大纲
+GET {{baseUrl}}/api/sample
+
+### 兼容：旧正文修订，返回SSE
+POST {{baseUrl}}/api/revise
+Content-Type: application/json
+Accept: text/event-stream
+
+{"runId":"{{runId}}","instructions":"精简文案"}
+
+### 兼容：旧直接生成（新前端不用此路径跳过确认）
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+Accept: text/event-stream
+
+{"productId":"{{productId}}","audience":"大学新生","scene":"开学季","platforms":["moments"],"mode":"demo","knowledgeSource":"local"}
+
+### 负向安全样例：跨站来源返回403，不会修改配置
+POST {{baseUrl}}/api/connections/settings
+Origin: https://untrusted.invalid
+Content-Type: application/json
+
+{}
+
+### 负向安全样例：非允许Host的只读请求也返回403
+GET {{baseUrl}}/api/task-options
+Host: untrusted.invalid
+
+# 浏览器请使用相对/api和同源代理；不要把此Origin复制到正常请求中。
+# 取消后配置可能暂时409：后端完成异步清理后再保存。

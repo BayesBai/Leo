@@ -74,6 +74,35 @@ export interface RunResult {
   evidence: EvidenceBundle; strategies: Strategy[]; drafts: Draft[];
   review: ReviewReport; trace: TraceEntry[]; revision: number;
   notice: string;
+  outline?: { id: string; version: number };
+}
+export interface OutlineSection { id: string; heading: string; points: string[]; factIds: string[] }
+export interface PlatformOutline {
+  platform: Platform; title: string; angle: string; intro: string;
+  sections: OutlineSection[]; imageIds: string[]; cta: string;
+}
+export interface OutlineResult {
+  id: string; version: number; status: 'editing' | 'confirmed'; createdAt: string;
+  confirmedAt?: string; brief: Brief; product: Product; evidence: EvidenceBundle;
+  platforms: PlatformOutline[]; warnings: string[];
+}
+export interface TaskOptions {
+  operatorRole: 'salesperson'; operatorLabel: string;
+  scenarios: { id: string; label: string; audienceSuggestions: string[]; focusSuggestions: string[] }[];
+  goals: string[]; buyingStages: string[];
+  platforms: { id: Platform; label: string; minImages: number; maxImages: number }[];
+}
+export interface RenderTemplate { id: string; platform: Platform; name: string; width: number; height: number }
+export interface RenderRequest { runId: string; revision: number; platform: Platform; selectedTitleIndex: number; templateId: string }
+export interface RenderArtifact {
+  id: string; role: 'article' | 'cover' | 'card' | 'poster'; format: 'wechat-richtext' | 'png';
+  previewUrl: string; downloadUrl?: string; width?: number; height?: number;
+  sourceImageIds: string[]; factIds: string[]; name: string;
+}
+export interface RenderBundle {
+  id: string; runId: string; revision: number; selectedTitleIndex: number; platform: Platform;
+  templateId: string; artifacts: RenderArtifact[]; reviewStatus: ReviewReport['status'];
+  warnings: string[]; copyText: string; zipUrl?: string; expiresAt: string;
 }
 export interface AppStatus {
   model: { configured: boolean; name: string; baseUrl: string };

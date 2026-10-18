@@ -2,6 +2,22 @@ import { z } from 'zod';
 import { PLATFORMS } from '../shared/types.js';
 
 export const platformSchema = z.enum(PLATFORMS);
+export const outlinePlatformSchema = z.object({
+  platform: platformSchema, title: z.string().trim().min(1).max(140), angle: z.string().max(300), intro: z.string().max(1000),
+  sections: z.array(z.object({ id: z.string().min(1).max(40), heading: z.string().max(100),
+    points: z.array(z.string().trim().min(1).max(650)).min(1).max(4), factIds: z.array(z.string().max(100)).max(10) })).min(1).max(8),
+  imageIds: z.array(z.string().max(100)).max(6), cta: z.string().trim().min(1).max(500),
+});
+export const outlineVersionSchema = z.object({ version: z.number().int().min(1) }).strict();
+export const outlineEditSchema = z.object({ version: z.number().int().min(1), platforms: z.array(outlinePlatformSchema).min(1).max(2) }).strict();
+export const outlineReviseSchema = z.object({ version: z.number().int().min(1), instructions: z.string().trim().min(1).max(2000) }).strict();
+export const renderRequestSchema = z.object({ runId: z.string().min(1).max(100), revision: z.number().int().min(1),
+  platform: platformSchema, selectedTitleIndex: z.number().int().min(0).max(2).default(0), templateId: z.string().min(1).max(80) }).strict();
+export const connectionSettingsSchema = z.object({
+  baseUrl: z.string().url().max(300).optional(), model: z.string().trim().min(1).max(100).optional(),
+  apiKey: z.string().trim().max(500).optional(), imaClientId: z.string().trim().max(300).optional(),
+  imaApiKey: z.string().trim().max(500).optional(), imaKbName: z.string().trim().min(1).max(120).optional(),
+}).strict();
 export const briefSchema = z.object({
   productId: z.string().max(180).default(''),
   audience: z.string().max(120).default(''),
