@@ -1,0 +1,41 @@
+{
+  "version": "2026-10-18-150358",
+  "createdAt": "2026-10-18T15:03:58+08:00",
+  "timeZone": "Asia/Shanghai",
+  "previousVersion": "2026-10-18-150252",
+  "sourceCommit": "593b89c97f0cdbaa630ab16b09ea014fbe401602",
+  "apiChange": "unchanged",
+  "frontendAction": "none-required",
+  "task": "确认向队友推送接口资料的交接范围",
+  "checks": {
+    "historyPreserved": true,
+    "sourceHashesUnchanged": true,
+    "relativeLinksValid": true,
+    "mockSchemaValid": true,
+    "noLocalCredentialValues": true,
+    "scope": "static-documentation-and-snapshot-checks"
+  },
+  "files": {
+    "frontend-handoff.md": "d93b994601efda542acf4ff6ade17038f2b0265de13084a96b17b37c57e828d7",
+    "api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "src/App.tsx": "0b0a53d4b955ee3830c6965788f30166a1b251c0c479ac0ad793e443164928a0",
+    "README.md": "4afca3a90b721522b083d266f06582d557ae5eb7c5a33bfdeeb59817757ecaeb"
+  },
+  "legacyOriginals": {
+    "docs/frontend-handoff.md": "945d42dfd0758e5d823069764e660a47318757d0819ca6b1380640e83d9196e4",
+    "docs/api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "docs/fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea"
+  },
+  "reviewedSourceFiles": {
+    "server/index.ts": "d2ae263d0fd5056cda2a4fd210f5abe23e662b5ee1ef034d344cbca404b17499",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "server/pipeline.ts": "0d2bcde0b9feca820cc781c155a64e6233bcaf434bd2b6e28c9a02e8cb16c269",
+    "server/knowledge.ts": "63ac6309890a13a75eb19ddf99b8736f8a842fa1c594cf1c59631802eaf4136f",
+    "server/model.ts": "b34a346b7c0d33b0a6884cdc751951d8da197e18b8d2cf1fcb19d64499adf47a",
+    "server/policies.ts": "cea3a7077d7c7c7daa4fc8427111d7cde8e92504b6eebba2c7ac5586bebd848c"
+  }
+}

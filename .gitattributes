@@ -1,0 +1,2 @@
+# Preserve the exact bytes used by immutable documentation snapshot manifests.
+docs/** -text
