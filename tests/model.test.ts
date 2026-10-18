@@ -121,3 +121,38 @@ test('model review normalizes unassigned null locations without weakening issue 
   assert.equal(review.issues[0].factId, undefined);
   assert.equal(modelReviewSchema.safeParse({ summary: '', issues: [{ severity: 'always-pass', category: 'fact' }] }).success, false);
 });
+
+test('retries retain the original credential even when runtime settings change', async () => {
+  const restore = configure(); let calls = 0;
+  try {
+    const text = await callModel('s', 'u', { fetcher: async (_url, init) => {
+      assert.equal((init!.headers as Record<string, string>)['x-api-key'], 'unit-test-secret-do-not-log');
+      calls++;
+      if (calls === 1) { process.env.LLM_API_KEY = 'replacement-test-key'; return new Response('', { status: 503, headers: { 'retry-after': '0.001' } }); }
+      return new Response(JSON.stringify({ content: [{ type: 'text', text: 'OK' }] }));
+    } });
+    assert.equal(text, 'OK'); assert.equal(calls, 2);
+  } finally { restore(); }
+});
+
+test('network errors redact the credential captured before a settings change', async () => {
+  const restore = configure();
+  try {
+    await assert.rejects(callModel('s', 'u', { fetcher: async () => {
+      process.env.LLM_API_KEY = 'replacement-test-key';
+      throw new Error('request contained unit-test-secret-do-not-log and replacement-test-key');
+    } }), error => { assert.doesNotMatch(String(error), /unit-test-secret|replacement-test-key/); return true; });
+  } finally { restore(); }
+});
+
+test('non-stream model responses stop reading at the byte limit and cancel the body', async () => {
+  const restore = configure(); let pulls = 0, cancelled = false;
+  try {
+    const stream = new ReadableStream<Uint8Array>({
+      pull(controller) { pulls++; controller.enqueue(new Uint8Array(1_000_001)); },
+      cancel() { cancelled = true; },
+    }, { highWaterMark: 0 });
+    await assert.rejects(callModel('s', 'u', { fetcher: async () => new Response(stream) }), /响应超过限制/);
+    assert.equal(pulls, 2); assert.equal(cancelled, true);
+  } finally { restore(); }
+});

@@ -7,13 +7,19 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-if not exist "node_modules\tsx" (
+if not exist "node_modules\@wenyan-md\core" (
   call npm install
   if errorlevel 1 (
     echo 依赖安装失败，请检查网络后重试。
     pause
     exit /b 1
   )
+)
+call npm run setup:render
+if errorlevel 1 (
+  echo Chromium 安装失败。请检查网络后重试，或手动运行 npm run setup:render。
+  pause
+  exit /b 1
 )
 call npm run build
 if errorlevel 1 (

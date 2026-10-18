@@ -32,9 +32,27 @@ export function parseModelJson(text: string): unknown {
   catch { throw new ModelError('模型未返回完整 JSON，已停止使用该输出。', 'MODEL_JSON'); }
 }
 
-function redact(message: string): string {
-  const key = process.env.LLM_API_KEY;
-  return (key ? message.split(key).join('[redacted]') : message).replace(/sk-[a-zA-Z0-9_-]{8,}/g, '[redacted]').slice(0, 250);
+function redact(message: string, requestKey?: string): string {
+  for (const key of [requestKey, process.env.LLM_API_KEY]) {
+    if (key) message = message.split(key).join('[redacted]');
+  }
+  return message.replace(/sk-[a-zA-Z0-9_-]{8,}/g, '[redacted]').slice(0, 250);
+}
+
+/** Enforce the response limit while reading, rather than after buffering a whole body. */
+async function readBoundedBody(response: Response): Promise<string> {
+  if (!response.body) throw new ModelError('模型响应为空。', 'MODEL_EMPTY');
+  const reader = response.body.getReader(); const decoder = new TextDecoder();
+  let bytes = 0, text = '';
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) return text + decoder.decode();
+      bytes += value.byteLength;
+      if (bytes > 2_000_000) throw new ModelError('模型响应超过限制。', 'MODEL_RESPONSE_SIZE');
+      text += decoder.decode(value, { stream: true });
+    }
+  } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
 }
 
 /** Accumulate Messages SSE text only. Thinking/signature blocks never enter the returned result. */
@@ -80,6 +98,7 @@ export async function callModel(
   options: { signal?: AbortSignal; maxTokens?: number; fetcher?: typeof fetch; onActivity?: (characters: number) => void } = {},
 ): Promise<string> {
   const config = modelConfig();
+  const apiKey = process.env.LLM_API_KEY;
   if (!config.configured) throw new ModelError('尚未配置模型密钥。请在项目 .env.local 中填写 LLM_API_KEY，重启服务后使用模型创作。', 'MODEL_NOT_CONFIGURED');
   const fetcher = options.fetcher || fetch;
   for (let attempt = 0; attempt < 2; attempt++) {
@@ -91,7 +110,7 @@ export async function callModel(
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-api-key': process.env.LLM_API_KEY!,
+          'x-api-key': apiKey!,
           'anthropic-version': '2023-06-01',
         },
         body: JSON.stringify({
@@ -117,8 +136,7 @@ export async function callModel(
         throw new ModelError(`模型接口返回 HTTP ${response.status}。${hint}`, 'MODEL_HTTP');
       }
       if (response.headers.get('content-type')?.includes('text/event-stream')) return await readMessageStream(response, options.onActivity);
-      const body = await response.text();
-      if (body.length > 2_000_000) throw new ModelError('模型响应超过限制。', 'MODEL_RESPONSE_SIZE');
+      const body = await readBoundedBody(response);
       let data: { content?: { type?: string; text?: string }[]; stop_reason?: string; error?: unknown };
       try { data = JSON.parse(body); }
       catch { throw new ModelError('中转站返回了非 JSON 响应，请确认 Messages 协议可用。', 'MODEL_PROTOCOL'); }
@@ -133,7 +151,7 @@ export async function callModel(
       if (options.signal?.aborted) throw new ModelError('任务已取消。', 'CANCELLED');
       if (timeout.aborted) throw new ModelError(`模型调用超时（${Math.round(config.timeoutMs / 1000)} 秒），可调整 LLM_TIMEOUT_MS 后重试。`, 'MODEL_TIMEOUT');
       if (error instanceof ModelError) throw error;
-      throw new ModelError(`模型连接失败：${redact(error instanceof Error ? error.message : '网络异常')}`, 'MODEL_NETWORK');
+      throw new ModelError(`模型连接失败：${redact(error instanceof Error ? error.message : '网络异常', apiKey)}`, 'MODEL_NETWORK');
     }
   }
   throw new ModelError('模型暂不可用，请稍后重试。');

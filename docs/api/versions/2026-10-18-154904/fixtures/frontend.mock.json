@@ -1,0 +1,695 @@
+{
+  "_notice": "纯模拟前端夹具，不是真实接口运行记录。模拟 ID 不能发送到真实生成或修改接口；SVG 由代码生成，无外部图片请求。 本版补充 outline、renderTemplates、renderRequest、renderBundle，均为模拟结构，非真实运行结果。",
+  "status": {
+    "model": {
+      "configured": false,
+      "name": "未连接 模拟数据",
+      "baseUrl": ""
+    },
+    "ima": {
+      "configured": false,
+      "verified": false,
+      "kbName": "未连接",
+      "accountLabel": "模拟界面",
+      "message": "模拟夹具未连接 ima。"
+    },
+    "local": {
+      "available": false,
+      "productCount": 0,
+      "imageCount": 0
+    }
+  },
+  "products": {
+    "products": [
+      {
+        "id": "mock-pc-layout",
+        "name": "前端占位产品 非销售型号",
+        "system": "模拟系统",
+        "category": "布局样例",
+        "description": "仅供前端布局和接口形状验证",
+        "imageCount": 3,
+        "coverUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dbe4d3%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAGE%3C%2Ftext%3E%3C%2Fsvg%3E"
+      }
+    ]
+  },
+  "result": {
+    "id": "run-mock-layout",
+    "createdAt": "2026-10-18T06:00:00.000Z",
+    "brief": {
+      "productId": "mock-pc-layout",
+      "audience": "设计联调用户",
+      "scene": "前端布局验证",
+      "goal": "检查页面交互",
+      "buyingStage": "对比选择",
+      "platforms": [
+        "xiaohongshu",
+        "wechat"
+      ],
+      "instructions": "仅使用模拟数据，不发送真实生成请求。",
+      "mode": "demo",
+      "knowledgeSource": "local"
+    },
+    "product": {
+      "id": "mock-pc-layout",
+      "name": "前端占位产品 非销售型号",
+      "system": "模拟系统",
+      "category": "布局样例",
+      "description": "仅供前端布局和接口形状验证",
+      "imageCount": 3,
+      "coverUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dbe4d3%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAGE%3C%2Ftext%3E%3C%2Fsvg%3E"
+    },
+    "evidence": {
+      "product": {
+        "id": "mock-pc-layout",
+        "name": "前端占位产品 非销售型号",
+        "system": "模拟系统",
+        "category": "布局样例",
+        "description": "仅供前端布局和接口形状验证",
+        "imageCount": 3,
+        "coverUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dbe4d3%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAGE%3C%2Ftext%3E%3C%2Fsvg%3E"
+      },
+      "facts": [
+        {
+          "id": "fact-mock-appearance",
+          "statement": "模拟产品外观使用几何占位图表达。",
+          "quote": "本夹具以几何占位图表达产品外观，仅用于界面布局，不描述任何在售产品。",
+          "sourceTitle": "前端布局说明",
+          "retrievedAt": "2026-10-18T06:00:00.000Z",
+          "qualifiers": [
+            "纯模拟数据，不可作为产品事实发布。"
+          ],
+          "sourceMode": "local",
+          "status": "supported"
+        },
+        {
+          "id": "fact-mock-scenario",
+          "statement": "模拟任务用于验证平台内容与引用展示。",
+          "quote": "本任务用于验证平台内容、事实引用和图片位置的展示，不调用模型或知识库。",
+          "sourceTitle": "前端布局说明",
+          "retrievedAt": "2026-10-18T06:00:00.000Z",
+          "qualifiers": [
+            "不代表真实生成效果或产品体验。"
+          ],
+          "sourceMode": "local",
+          "status": "supported"
+        }
+      ],
+      "images": [
+        {
+          "id": "image-mock-sage",
+          "name": "前端占位图鼠尾草绿.svg",
+          "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dbe4d3%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAGE%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "productId": "mock-pc-layout",
+          "description": "鼠尾草绿几何占位图，不是真实产品图片",
+          "sourceTitle": "前端布局夹具",
+          "width": 800,
+          "height": 500,
+          "sourceMode": "local"
+        },
+        {
+          "id": "image-mock-sand",
+          "name": "前端占位图沙色.svg",
+          "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23e8dfce%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAND%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "productId": "mock-pc-layout",
+          "description": "沙色几何占位图，不是真实产品图片",
+          "sourceTitle": "前端布局夹具",
+          "width": 800,
+          "height": 500,
+          "sourceMode": "local"
+        },
+        {
+          "id": "image-mock-slate",
+          "name": "前端占位图灰色.svg",
+          "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dce1e4%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SLATE%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "productId": "mock-pc-layout",
+          "description": "灰色几何占位图，不是真实产品图片",
+          "sourceTitle": "前端布局夹具",
+          "width": 800,
+          "height": 500,
+          "sourceMode": "local"
+        }
+      ],
+      "sources": [
+        {
+          "id": "source-mock-layout",
+          "title": "前端布局说明",
+          "retrievedAt": "2026-10-18T06:00:00.000Z",
+          "sourceMode": "local"
+        }
+      ],
+      "retrievedAt": "2026-10-18T06:00:00.000Z",
+      "sourceMode": "local",
+      "warnings": [
+        "这是前端布局夹具，不可作为真实生成或产品依据。"
+      ]
+    },
+    "strategies": [
+      {
+        "platform": "xiaohongshu",
+        "angle": "模拟清单式笔记布局",
+        "painPoint": "验证不同长度、引用、配图和审核状态的页面表现。",
+        "sellingPoints": [
+          {
+            "factId": "fact-mock-appearance",
+            "benefit": "布局演练：原文支持、限定条件与引用跳转一起呈现。"
+          },
+          {
+            "factId": "fact-mock-scenario",
+            "benefit": "布局演练：原文支持、限定条件与引用跳转一起呈现。"
+          }
+        ],
+        "tone": "轻量清单，纯模拟",
+        "structure": [
+          "场景开头",
+          "占位说明",
+          "引用与配图",
+          "行动提示"
+        ],
+        "imageCount": 3,
+        "cta": "继续检查配图和核验面板。",
+        "buyingStage": "对比选择"
+      },
+      {
+        "platform": "wechat",
+        "angle": "模拟分段说明文章布局",
+        "painPoint": "验证不同长度、引用、配图和审核状态的页面表现。",
+        "sellingPoints": [
+          {
+            "factId": "fact-mock-appearance",
+            "benefit": "布局演练：原文支持、限定条件与引用跳转一起呈现。"
+          },
+          {
+            "factId": "fact-mock-scenario",
+            "benefit": "布局演练：原文支持、限定条件与引用跳转一起呈现。"
+          }
+        ],
+        "tone": "结构化说明，纯模拟",
+        "structure": [
+          "场景开头",
+          "占位说明",
+          "引用与配图",
+          "行动提示"
+        ],
+        "imageCount": 2,
+        "cta": "继续检查配图和核验面板。",
+        "buyingStage": "对比选择"
+      }
+    ],
+    "drafts": [
+      {
+        "id": "draft-mock-xiaohongshu",
+        "platform": "xiaohongshu",
+        "titles": [
+          "前端模拟笔记 标题与配图怎么呈现",
+          "前端模拟笔记 备选标题"
+        ],
+        "intro": "这是供前端布局使用的占位内容。所有原文、素材和审核状态均为人工构造的界面样例。",
+        "blocks": [
+          {
+            "id": "block-mock-appearance",
+            "heading": "先看外观占位图",
+            "text": "这段模拟正文用于检查标题、行距、引用按钮和长文本的排版。页面可以通过引用按钮定位右侧说明，并展示适用条件。这里不包含任何华为在售产品参数。",
+            "factIds": [
+              "fact-mock-appearance"
+            ]
+          },
+          {
+            "id": "block-mock-scenario",
+            "heading": "再看引用与场景",
+            "text": "这段模拟正文用于验证平台卡片、正文段落和图片插入位置的关系。前端可调整视觉布局，同时保持事实与图片的 ID 关联。此内容不代表真实模型输出。",
+            "factIds": [
+              "fact-mock-scenario"
+            ]
+          }
+        ],
+        "cta": "点击依据、展开配图，检查待确认提示。",
+        "tags": [
+          "前端模拟",
+          "布局验证"
+        ],
+        "images": [
+          {
+            "imageId": "image-mock-sage",
+            "afterBlock": -1,
+            "caption": "封面占位图",
+            "reason": "测试封面出现在导语前。"
+          },
+          {
+            "imageId": "image-mock-sand",
+            "afterBlock": 0,
+            "caption": "正文第一段后的占位图",
+            "reason": "测试 afterBlock 为 0。"
+          },
+          {
+            "imageId": "image-mock-slate",
+            "afterBlock": 1,
+            "caption": "正文第二段后的占位图",
+            "reason": "测试 afterBlock 为 1。"
+          }
+        ]
+      },
+      {
+        "id": "draft-mock-wechat",
+        "platform": "wechat",
+        "titles": [
+          "前端模拟文章 从任务到引用的页面结构",
+          "前端模拟文章 备选标题"
+        ],
+        "intro": "这是供前端布局使用的占位内容。所有原文、素材和审核状态均为人工构造的界面样例。",
+        "blocks": [
+          {
+            "id": "block-mock-appearance",
+            "heading": "先看外观占位图",
+            "text": "这段模拟正文用于检查标题、行距、引用按钮和长文本的排版。页面可以通过引用按钮定位右侧说明，并展示适用条件。这里不包含任何华为在售产品参数。",
+            "factIds": [
+              "fact-mock-appearance"
+            ]
+          },
+          {
+            "id": "block-mock-scenario",
+            "heading": "再看引用与场景",
+            "text": "这段模拟正文用于验证平台卡片、正文段落和图片插入位置的关系。前端可调整视觉布局，同时保持事实与图片的 ID 关联。此内容不代表真实模型输出。",
+            "factIds": [
+              "fact-mock-scenario"
+            ]
+          }
+        ],
+        "cta": "点击依据、展开配图，检查待确认提示。",
+        "tags": [
+          "前端模拟",
+          "布局验证"
+        ],
+        "images": [
+          {
+            "imageId": "image-mock-slate",
+            "afterBlock": -1,
+            "caption": "公众号封面占位图",
+            "reason": "测试平台之间使用不同封面。"
+          },
+          {
+            "imageId": "image-mock-sage",
+            "afterBlock": 1,
+            "caption": "公众号段后占位图",
+            "reason": "测试两平台复用素材与独立编排。"
+          }
+        ]
+      }
+    ],
+    "review": {
+      "status": "needs_attention",
+      "issues": [
+        {
+          "id": "issue-mock-source",
+          "severity": "warning",
+          "category": "source",
+          "message": "这是人工构造的布局夹具，不能作为真实产品核验结果。",
+          "suggestion": "真实验收时切换到后端返回的数据。"
+        },
+        {
+          "id": "issue-mock-length",
+          "severity": "warning",
+          "category": "platform",
+          "platform": "wechat",
+          "message": "模拟文章篇幅短，仅用于验证页面布局。",
+          "suggestion": "使用长文样例补充滚动与展开测试。"
+        }
+      ],
+      "factCount": 2,
+      "citedFactCount": 2,
+      "imageCount": 3,
+      "checks": [
+        {
+          "label": "事实与引用",
+          "status": "pass",
+          "detail": "模拟字段：两个引用 ID 都能在夹具中找到。"
+        },
+        {
+          "label": "图片与型号",
+          "status": "pass",
+          "detail": "模拟字段：三张 SVG 占位图绑定同一模拟产品。"
+        },
+        {
+          "label": "营销表达",
+          "status": "pass",
+          "detail": "模拟字段：占位文字不承诺真实产品能力。"
+        },
+        {
+          "label": "平台规则",
+          "status": "warning",
+          "detail": "模拟文字篇幅不用于验收真实平台文案质量。"
+        },
+        {
+          "label": "来源状态",
+          "status": "warning",
+          "detail": "纯模拟数据，未读取 ima 或实际本地知识库。"
+        }
+      ],
+      "reviewedBy": "rules"
+    },
+    "trace": [
+      {
+        "step": "understand",
+        "label": "模拟任务",
+        "status": "done",
+        "detail": "使用静态夹具，未创建后端任务。",
+        "at": "2026-10-18T06:00:00.000Z",
+        "elapsedMs": 0
+      },
+      {
+        "step": "done",
+        "label": "布局数据已加载",
+        "status": "done",
+        "detail": "供前端检查引用、图片和审核提示。",
+        "at": "2026-10-18T06:00:00.000Z",
+        "elapsedMs": 0
+      }
+    ],
+    "revision": 1,
+    "notice": "纯模拟数据：未调用模型、未读取 ima，不含真实产品事实；仅用于前端设计和交互验收。"
+  },
+  "progressEvents": [
+    {
+      "type": "progress",
+      "entry": {
+        "step": "understand",
+        "label": "理解营销任务",
+        "status": "done",
+        "detail": "模拟进度事件，仅供交互演练。",
+        "at": "2026-10-18T06:00:00.000Z",
+        "elapsedMs": 0
+      }
+    },
+    {
+      "type": "progress",
+      "entry": {
+        "step": "retrieve",
+        "label": "读取资料与图片",
+        "status": "running",
+        "detail": "模拟读取中，无网络请求。",
+        "at": "2026-10-18T06:00:00.000Z",
+        "elapsedMs": 100
+      }
+    },
+    {
+      "type": "progress",
+      "entry": {
+        "step": "retrieve",
+        "label": "读取资料与图片",
+        "status": "done",
+        "detail": "已装载纯模拟夹具。",
+        "at": "2026-10-18T06:00:00.000Z",
+        "elapsedMs": 300
+      }
+    }
+  ],
+  "terminalEvents": {
+    "needs_input": {
+      "type": "needs_input",
+      "message": "请补充必要信息后再生成。",
+      "fields": [
+        {
+          "field": "audience",
+          "question": "这篇内容面向谁？"
+        },
+        {
+          "field": "scene",
+          "question": "需要解决哪个场景中的问题？"
+        }
+      ]
+    },
+    "error": {
+      "type": "error",
+      "message": "模拟模型连接失败，请重试。"
+    }
+  },
+  "httpErrors": [
+    {
+      "status": 400,
+      "body": {
+        "message": "platforms：平台不能重复。"
+      }
+    },
+    {
+      "status": 422,
+      "body": {
+        "type": "needs_input",
+        "message": "请补充必要信息后再生成。",
+        "fields": [
+          {
+            "field": "audience",
+            "question": "这篇内容面向谁？"
+          },
+          {
+            "field": "scene",
+            "question": "需要解决哪个场景中的问题？"
+          }
+        ]
+      }
+    },
+    {
+      "status": 410,
+      "body": {
+        "message": "上次任务已过期，请重新生成。"
+      }
+    },
+    {
+      "status": 429,
+      "body": {
+        "message": "已有任务正在运行，请等待完成或先取消。"
+      }
+    },
+    {
+      "status": 413,
+      "body": {
+        "message": "请求内容过长，请减少附加要求后重试。"
+      }
+    }
+  ],
+  "variants": {
+    "blockedReview": {
+      "status": "blocked",
+      "issues": [
+        {
+          "id": "issue-mock-invalid-fact",
+          "severity": "error",
+          "category": "fact",
+          "platform": "xiaohongshu",
+          "message": "模拟错误：正文中的产品描述没有有效依据。",
+          "suggestion": "删除描述或补足可读取原文。"
+        }
+      ],
+      "factCount": 2,
+      "citedFactCount": 2,
+      "imageCount": 3,
+      "checks": [
+        {
+          "label": "事实与引用",
+          "status": "fail",
+          "detail": "模拟待修正状态，用于检查错误样式。"
+        }
+      ],
+      "reviewedBy": "rules"
+    }
+  },
+  "outline": {
+    "id": "mock-outline-unusable-on-server",
+    "version": 1,
+    "status": "editing",
+    "createdAt": "2026-10-18T06:00:00.000Z",
+    "brief": {
+      "productId": "mock-pc-layout",
+      "audience": "设计联调用户",
+      "scene": "前端布局验证",
+      "goal": "检查页面交互",
+      "buyingStage": "对比选择",
+      "platforms": [
+        "xiaohongshu"
+      ],
+      "instructions": "仅使用模拟数据，不发送真实生成请求。",
+      "mode": "demo",
+      "knowledgeSource": "local"
+    },
+    "product": {
+      "id": "mock-pc-layout",
+      "name": "前端占位产品 非销售型号",
+      "system": "模拟系统",
+      "category": "布局样例",
+      "description": "仅供前端布局和接口形状验证",
+      "imageCount": 3,
+      "coverUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dbe4d3%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAGE%3C%2Ftext%3E%3C%2Fsvg%3E"
+    },
+    "evidence": {
+      "product": {
+        "id": "mock-pc-layout",
+        "name": "前端占位产品 非销售型号",
+        "system": "模拟系统",
+        "category": "布局样例",
+        "description": "仅供前端布局和接口形状验证",
+        "imageCount": 3,
+        "coverUrl": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dbe4d3%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAGE%3C%2Ftext%3E%3C%2Fsvg%3E"
+      },
+      "facts": [
+        {
+          "id": "fact-mock-appearance",
+          "statement": "模拟产品外观使用几何占位图表达。",
+          "quote": "本夹具以几何占位图表达产品外观，仅用于界面布局，不描述任何在售产品。",
+          "sourceTitle": "前端布局说明",
+          "retrievedAt": "2026-10-18T06:00:00.000Z",
+          "qualifiers": [
+            "纯模拟数据，不可作为产品事实发布。"
+          ],
+          "sourceMode": "local",
+          "status": "supported"
+        },
+        {
+          "id": "fact-mock-scenario",
+          "statement": "模拟任务用于验证平台内容与引用展示。",
+          "quote": "本任务用于验证平台内容、事实引用和图片位置的展示，不调用模型或知识库。",
+          "sourceTitle": "前端布局说明",
+          "retrievedAt": "2026-10-18T06:00:00.000Z",
+          "qualifiers": [
+            "不代表真实生成效果或产品体验。"
+          ],
+          "sourceMode": "local",
+          "status": "supported"
+        }
+      ],
+      "images": [
+        {
+          "id": "image-mock-sage",
+          "name": "前端占位图鼠尾草绿.svg",
+          "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dbe4d3%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAGE%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "productId": "mock-pc-layout",
+          "description": "鼠尾草绿几何占位图，不是真实产品图片",
+          "sourceTitle": "前端布局夹具",
+          "width": 800,
+          "height": 500,
+          "sourceMode": "local"
+        },
+        {
+          "id": "image-mock-sand",
+          "name": "前端占位图沙色.svg",
+          "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23e8dfce%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SAND%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "productId": "mock-pc-layout",
+          "description": "沙色几何占位图，不是真实产品图片",
+          "sourceTitle": "前端布局夹具",
+          "width": 800,
+          "height": 500,
+          "sourceMode": "local"
+        },
+        {
+          "id": "image-mock-slate",
+          "name": "前端占位图灰色.svg",
+          "url": "data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22800%22%20height%3D%22500%22%20viewBox%3D%220%200%20800%20500%22%3E%3Crect%20width%3D%22800%22%20height%3D%22500%22%20fill%3D%22%23dce1e4%22%2F%3E%3Crect%20x%3D%22230%22%20y%3D%2285%22%20width%3D%22340%22%20height%3D%22220%22%20rx%3D%2212%22%20fill%3D%22%23f8f7f3%22%20stroke%3D%22%23697768%22%20stroke-width%3D%228%22%2F%3E%3Cpath%20d%3D%22M190%20335h420l-40%2035H230z%22%20fill%3D%22%23697768%22%2F%3E%3Ctext%20x%3D%22400%22%20y%3D%22430%22%20text-anchor%3D%22middle%22%20font-family%3D%22sans-serif%22%20font-size%3D%2228%22%20fill%3D%22%23394939%22%3EMOCK%20SLATE%3C%2Ftext%3E%3C%2Fsvg%3E",
+          "productId": "mock-pc-layout",
+          "description": "灰色几何占位图，不是真实产品图片",
+          "sourceTitle": "前端布局夹具",
+          "width": 800,
+          "height": 500,
+          "sourceMode": "local"
+        }
+      ],
+      "sources": [
+        {
+          "id": "source-mock-layout",
+          "title": "前端布局说明",
+          "retrievedAt": "2026-10-18T06:00:00.000Z",
+          "sourceMode": "local"
+        }
+      ],
+      "retrievedAt": "2026-10-18T06:00:00.000Z",
+      "sourceMode": "local",
+      "warnings": [
+        "这是前端布局夹具，不可作为真实生成或产品依据。"
+      ]
+    },
+    "platforms": [
+      {
+        "platform": "xiaohongshu",
+        "title": "前端模拟笔记 标题与配图怎么呈现",
+        "angle": "纯模拟布局",
+        "intro": "这是供前端布局使用的占位内容。所有原文、素材和审核状态均为人工构造的界面样例。",
+        "sections": [
+          {
+            "id": "block-mock-appearance",
+            "heading": "先看外观占位图",
+            "points": [
+              "这段模拟正文用于检查标题、行距、引用按钮和长文本的排版。页面可以通过引用按钮定位右侧说明，并展示适用条件。这里不包含任何华为在售产品参数。"
+            ],
+            "factIds": [
+              "fact-mock-appearance"
+            ]
+          },
+          {
+            "id": "block-mock-scenario",
+            "heading": "再看引用与场景",
+            "points": [
+              "这段模拟正文用于验证平台卡片、正文段落和图片插入位置的关系。前端可调整视觉布局，同时保持事实与图片的 ID 关联。此内容不代表真实模型输出。"
+            ],
+            "factIds": [
+              "fact-mock-scenario"
+            ]
+          }
+        ],
+        "imageIds": [
+          "image-mock-sage",
+          "image-mock-sand",
+          "image-mock-slate"
+        ],
+        "cta": "点击依据、展开配图，检查待确认提示。"
+      }
+    ],
+    "warnings": [
+      "纯模拟结构，未生成真实大纲或核验事实。"
+    ]
+  },
+  "renderTemplates": {
+    "templates": [
+      {
+        "id": "xhs-cream",
+        "platform": "xiaohongshu",
+        "name": "小红书 · 奶油笔记",
+        "width": 1080,
+        "height": 1440
+      }
+    ]
+  },
+  "renderRequest": {
+    "runId": "run-mock-layout",
+    "revision": 1,
+    "platform": "xiaohongshu",
+    "selectedTitleIndex": 0,
+    "templateId": "xhs-cream"
+  },
+  "renderBundle": {
+    "id": "mock-render-no-real-file",
+    "runId": "run-mock-layout",
+    "revision": 1,
+    "platform": "xiaohongshu",
+    "selectedTitleIndex": 0,
+    "templateId": "xhs-cream",
+    "artifacts": [
+      {
+        "id": "mock-artifact-no-real-file",
+        "role": "cover",
+        "format": "png",
+        "name": "纯模拟封面 无真实文件.png",
+        "previewUrl": "/api/render-assets/00000000-0000-0000-0000-000000000000",
+        "width": 1080,
+        "height": 1440,
+        "sourceImageIds": [
+          "image-mock-sage"
+        ],
+        "factIds": [
+          "fact-mock-appearance"
+        ]
+      }
+    ],
+    "reviewStatus": "blocked",
+    "warnings": [
+      "模拟成品引用，服务器没有对应文件，仅用于状态映射。"
+    ],
+    "copyText": "纯模拟文案，不可发布。",
+    "expiresAt": "2026-10-18T08:30:00.000Z"
+  }
+}
