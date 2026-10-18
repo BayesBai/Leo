@@ -1,3 +1,25 @@
+---
+# 详细文档见https://modelscope.cn/docs/%E5%88%9B%E7%A9%BA%E9%97%B4%E5%8D%A1%E7%89%87
+domain: #领域：cv/nlp/audio/multi-modal/AutoML
+# - cv
+tags: #自定义标签
+-
+datasets: #关联数据集
+  evaluation:
+  #- iic/ICDAR13_HCTR_Dataset
+  test:
+  #- iic/MTWI
+  train:
+  #- iic/SIBR
+models: #关联模型
+#- iic/ofa_ocr-recognition_general_base_zh
+
+## 启动文件(若SDK为Gradio/Streamlit，默认为app.py, 若为Static HTML, 默认为index.html)
+# deployspec:
+#   entry_file: app.py
+license: apache-2.0
+---
+
 # 知序 · 华为 PC 内容工作台
 
 面向「AI+华为 PC 营销软文智能体」赛题的本地可运行 Demo。围绕产品、人群、场景和购买阶段，组织不同平台的图文内容，并展示事实依据、图片来源和核验结果。本作品是参赛演示项目，不是华为官方应用。
