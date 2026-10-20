@@ -1,0 +1,29 @@
+\PageHeading{06}{Agent策略与提示词设计}{用结构约束保证可控性，用独立审稿调用检查实际语义}
+\Sub{多角色工作流}
+同一模型服务承担不同角色，分别进行策划、按确认大纲写作和审稿。角色之间交换结构化数据；“独立审稿”指单独的一次审稿调用，不表示使用不同基础模型或获得第三方审计认证。
+\begingroup\small
+\begin{tabularx}{\linewidth}{P{29mm}Y Y}
+\rowcolor{Forest}\color{white}\bfseries 角色/环节 & \color{white}\bfseries 输入与输出 & \color{white}\bfseries 强制边界\\
+策划与大纲 & 客户任务、购买阶段、平台规则、证据；输出标题、段落要点、引用及图片。 & 不增加产品能力，事实及图片属于本次产品；海报不超过3个卖点。\\
+\rowcolor{Mist}正文写作 & 仅展开确认快照中的导语、段落正文、CTA与话题。 & 标题、段落ID/顺序/小标题、引用及配图由后端固定。\\
+事实与合规审稿 & 对照原文检查实际语义，输出问题、严重级别及定位。 & 不因存在引用ID就判通过；检查条件丢失、型号混用、虚构体验和承诺。\\
+\rowcolor{Mist}有限返修 & 仅处理审稿定位的问题，重新进行规则和语义核验。 & 正文返修最多1次；仍有问题时保留实际审核状态，不无限重写。\\
+\bottomrule
+\end{tabularx}
+\endgroup
+\Sub{覆盖手册要求的八类提示词约束}
+\begin{tabularx}{\linewidth}{P{30mm}Y}
+\toprule
+角色与任务 / 场景理解 & 华为PC营销任务；抽取客户、使用场景、购买阶段与内容目标。\\
+平台规则 / 生成要求 & 标题、篇幅、结构、语气、图片数量、位置、标签和行动引导分别约束。\\
+知识库约束 / 图片规则 & 只使用本次支持证据；保留型号/系统/配置条件；图片同型号且带来源。\\
+核验规则 / 合规规则 & 无法确认的产品断言不使用；禁止虚构价格、优惠、测试、评价、绝对化保证及贬低竞品。\\
+\bottomrule
+\end{tabularx}
+\Sub{确认门禁与审核状态}
+\begin{note}\small
+\Lead{editing $\rightarrow$ confirmed $\rightarrow$ 正文快照}\par
+保存或AI修改后\Code{version+1}，回到editing；只有\Code{outlineId+version}匹配且已确认才能生成。旧版本409，过期410。提示词负责指导生成，真正的结构门禁和引用检查由代码执行。
+\end{note}
+\Code{passed}表示相应内容检查通过；\Code{needs_attention}保留问题并允许人工复核后的下载；\Code{blocked}仅提供带标记预览，不开放正式成品下载。当前硬阻断重点覆盖事实、图片和来源错误；其他风险也可能作为待确认项，不能把“可下载”理解为“可发布”。
+\SourceNote{赛题手册 v4，第5页；outlines.ts、pipeline.ts、prompts.ts。提示词完整源文件随TeX项目交付，原文选录见第\pageref{sec:15}页。}

@@ -6,6 +6,7 @@ import { PLATFORM_POLICIES, buildDemoDrafts, buildStrategies, reviewDrafts } fro
 import { completeJson, modelConfig } from './model.js';
 import { briefSchema, draftSchema, modelReviewSchema, strategySchema } from './schemas.js';
 import { OUTLINE_WRITER_PROMPT, REVIEW_PROMPT, STRATEGY_PROMPT, WRITER_PROMPT } from './prompts.js';
+import { channelInstruction } from './channels.js';
 
 export class InputRequiredError extends Error {
   constructor(public fields: { field: string; question: string }[]) { super('请补充必要信息后再生成。'); }
@@ -16,7 +17,7 @@ export function revisionPlatforms(instructions: string): Platform[] | undefined 
   if (!change) return undefined;
   const mappings: [RegExp, Platform][] = [[/小红书/, 'xiaohongshu'], [/公众号/, 'wechat'], [/朋友圈/, 'moments'], [/海报/, 'poster']];
   const selected = mappings.filter(([pattern]) => pattern.test(change[1])).map(([, platform]) => platform);
-  return selected.length ? selected.slice(0, 2) : undefined;
+  return selected.length ? selected.slice(0, 4) : undefined;
 }
 
 export function reusableEvidence(evidence: EvidenceBundle, now = Date.now()): boolean {
@@ -61,7 +62,7 @@ function platformSetSchema<T extends { platform: Platform }>(schema: z.ZodType<T
   });
 }
 
-function mergeSemanticReview(base: ReviewReport, semantic: z.infer<typeof modelReviewSchema>): ReviewReport {
+export function mergeSemanticReview(base: ReviewReport, semantic: z.infer<typeof modelReviewSchema>): ReviewReport {
   // Literal qualifier matching is only a hint. An independent semantic pass decides whether a
   // paraphrase actually drops a condition; hard rule errors can never be cleared by the model.
   const ruleIssues = base.issues.filter(issue => {
@@ -73,7 +74,7 @@ function mergeSemanticReview(base: ReviewReport, semantic: z.infer<typeof modelR
   });
   const issues = [...ruleIssues, ...semantic.issues.map((issue, index) => ({ ...issue, id: `semantic-${index + 1}` }))];
   const errors = issues.filter(issue => issue.severity === 'error');
-  const blocked = errors.some(issue => ['fact', 'image', 'source'].includes(issue.category));
+  const blocked = errors.length > 0;
   return {
     ...base, issues, reviewedBy: 'rules+model',
     status: blocked ? 'blocked' : issues.some(issue => issue.severity !== 'info') ? 'needs_attention' : 'passed',
@@ -174,14 +175,14 @@ export async function runPipeline(
             blocks: z.array(z.object({ id: z.string().max(40), text: z.string().min(1).max(2200) })).length(approved.sections.length)
               .refine(blocks => new Set(blocks.map(b => b.id)).size === approved.sections.length && blocks.every(b => approved.sections.some(s => s.id === b.id)), '必须逐一填写已确认段落，保留原段落ID'),
             cta: z.string().min(1).max(500), tags: z.array(z.string().max(40)).max(8) });
-          const output = await completeJson(OUTLINE_WRITER_PROMPT, `${scopedContext}\n确认的大纲：${JSON.stringify(approved)}${scopedFeedback ? `\n仅修复这些审核问题：${JSON.stringify(scopedFeedback)}` : ''}`, approvedSchema, signal, 3500,
+          const output = await completeJson(`${OUTLINE_WRITER_PROMPT}\n${channelInstruction(platform)}`, `${scopedContext}\n确认的大纲：${JSON.stringify(approved)}${scopedFeedback ? `\n仅修复这些审核问题：${JSON.stringify(scopedFeedback)}` : ''}`, approvedSchema, signal, 3500,
             characters => stage(feedback ? 'repair' : 'write', feedback ? '定向修订一次' : '按确认大纲写作', `${PLATFORM_POLICIES[platform].name}：已接收 ${characters} 个字符`, 'running'));
           return { id: `${platform}-${randomUUID().slice(0, 8)}`, platform, titles: [approved.title], intro: output.intro,
             blocks: approved.sections.map(section => ({ id: section.id, heading: section.heading, text: output.blocks.find(b => b.id === section.id)!.text, factIds: [...section.factIds] })),
             cta: output.cta, tags: output.tags, images: approved.imageIds.map((imageId, i) => ({ imageId, afterBlock: i === 0 ? -1 : Math.min(i - 1, approved.sections.length - 1), caption: evidence.images.find(image => image.id === imageId)?.description || '', reason: '确认大纲中的同型号素材' })) };
         }
         const writerSchema = z.object({ drafts: platformSetSchema(draftSchema, [platform]) });
-        const output = await completeJson(WRITER_PROMPT, `${scopedContext}\n策略：${JSON.stringify(strategies.filter(strategy => strategy.platform === platform))}${previous}${scopedFeedback ? `\n需要修订的稿件与审核问题：${JSON.stringify(scopedFeedback)}` : ''}`, writerSchema, signal, 3500,
+        const output = await completeJson(`${WRITER_PROMPT}\n${channelInstruction(platform)}`, `${scopedContext}\n策略：${JSON.stringify(strategies.filter(strategy => strategy.platform === platform))}${previous}${scopedFeedback ? `\n需要修订的稿件与审核问题：${JSON.stringify(scopedFeedback)}` : ''}`, writerSchema, signal, 3500,
           characters => stage(feedback ? 'repair' : 'write', feedback ? '定向修订一次' : '编排与创作图文', `${PLATFORM_POLICIES[platform].name}：已接收 ${characters} 个字符，完成后统一核验`, 'running'));
         const draft = output.drafts[0];
         return { ...draft, id: `${platform}-${randomUUID().slice(0, 8)}` };

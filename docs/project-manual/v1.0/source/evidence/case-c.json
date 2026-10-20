@@ -1,0 +1,170 @@
+{
+  "id": "c",
+  "createdAt": "2026-10-18T08:08:30.888Z",
+  "brief": {
+    "productId": "pc-e2ef2fa0bf44cc5a",
+    "audience": "大学新生",
+    "scene": "开学季",
+    "goal": "到店体验",
+    "buyingStage": "对比选择",
+    "platforms": [
+      "moments"
+    ],
+    "instructions": "只围绕机身重量的一个段落写作，完整保留圆键盘与方键盘条件及测量差异，不扩展其他卖点。不写价格或亲测经历。",
+    "mode": "live",
+    "knowledgeSource": "local"
+  },
+  "product": "HUAWEI MateBook 14（鸿蒙版）",
+  "mode": "live",
+  "source": "local",
+  "outlineVersion": 2,
+  "title": "开学选机，先想想每天怎么带",
+  "draft": {
+    "id": "moments-dbe7c493",
+    "platform": "moments",
+    "titles": [
+      "开学选机，先想想每天怎么带"
+    ],
+    "intro": "开学季在几台笔记本之间来回比较，每天要背去教室和图书馆的重量，可以先列进到店核对清单。",
+    "blocks": [
+      {
+        "id": "b-weight",
+        "heading": "携带相关规格",
+        "text": "HUAWEI MateBook 14（鸿蒙版）现有资料里的机身重量分两种键盘口径：约 1.33 kg（圆键盘含电池）、约 1.32 kg（方键盘含电池）。资料同时说明，实际机身重量会因配置、制造工艺、测量方法不同而有差异，配置也可能因销售版本而异，需以实际销售版本为准。所以对比时先弄清自己看的是圆键盘还是方键盘的数字，再把手里那台的实际配置对上，这个重量差异才有参考意义。以上为本地资料口径，未经在线复核。",
+        "factIds": [
+          "fact-ffcdc7255f86d0d6"
+        ]
+      }
+    ],
+    "cta": "有相同使用需求，欢迎私信交流，也可以预约到店核对实际销售配置。",
+    "tags": [
+      "开学季",
+      "大学新生",
+      "笔记本选购",
+      "鸿蒙电脑",
+      "到店体验"
+    ],
+    "images": [
+      {
+        "imageId": "image-729e41cf464651a2",
+        "afterBlock": -1,
+        "caption": "HUAWEI MateBook 14 樱粉金",
+        "reason": "确认大纲中的同型号素材"
+      }
+    ]
+  },
+  "review": {
+    "status": "needs_attention",
+    "issues": [
+      {
+        "severity": "warning",
+        "category": "source",
+        "message": "本次依据来自本地知识库，尚未通过 ima 在线检索核验。",
+        "suggestion": "可用于本地演示；正式提交前切换 ima 并重新生成。",
+        "id": "review-1"
+      },
+      {
+        "severity": "warning",
+        "category": "source",
+        "message": "当前依据来自本地知识库快照，未通过 ima 在线检索或实时官网复核，不能视为当前销售配置的确认。",
+        "suggestion": "核对原始资料，补足依据后再发布。",
+        "id": "review-2"
+      },
+      {
+        "severity": "warning",
+        "category": "source",
+        "message": "配置可能因销售版本而异，请以实际销售版本为准；不得跨系统、年份、屏幕或处理器版本套用。",
+        "suggestion": "核对原始资料，补足依据后再发布。",
+        "id": "review-3"
+      },
+      {
+        "severity": "info",
+        "category": "image",
+        "message": "配图为樱粉金配色外观，与段落讨论的机身重量关联较弱，且仅用 1 张（策略默认 2 张）。",
+        "suggestion": "可保留现图并在图注中仅说明为配色外观示意，或补充一张同型号外观素材以贴近“携带”语境，数量不超过 3 张。",
+        "platform": "moments",
+        "blockId": "b-weight",
+        "id": "semantic-1"
+      }
+    ],
+    "factCount": 9,
+    "citedFactCount": 1,
+    "imageCount": 1,
+    "checks": [
+      {
+        "label": "事实与引用",
+        "status": "pass",
+        "detail": "引用编号与数值检查通过；限定条件改写已结合原文进行独立语义复核。"
+      },
+      {
+        "label": "图片与型号",
+        "status": "pass",
+        "detail": "图片存在，归属型号一致，未重复使用。"
+      },
+      {
+        "label": "营销表达",
+        "status": "pass",
+        "detail": "未发现规则涵盖的无依据销售承诺或绝对化表达。"
+      },
+      {
+        "label": "平台规则",
+        "status": "pass",
+        "detail": "图片数量、长度与结构符合本平台规则。"
+      },
+      {
+        "label": "来源状态",
+        "status": "warning",
+        "detail": "本次依据来自本地知识库，尚未通过 ima 在线检索核验。 当前依据来自本地知识库快照，未通过 ima 在线检索或实时官网复核，不能视为当前销售配置的确认。 配置可能因销售版本而异，请以实际销售版本为准；不得跨系统、年份、屏幕或处理器版本套用。"
+      },
+      {
+        "label": "独立模型审稿",
+        "status": "pass",
+        "detail": "重量事实与圆/方键盘双口径、测量差异及销售版本限定均完整保留，factIds 可被 quote 支持；未出现价格、亲测、跨型号或系统混用；图片为同型号真实素材，图注未外推；朋友圈结构、字数与咨询引导符合策略。仅配图与重量主题关联较弱。"
+      }
+    ],
+    "reviewedBy": "rules+model"
+  },
+  "verification": {
+    "checkedAt": "2026-10-18T08:08:30.891Z",
+    "source": "local",
+    "modelCalled": true,
+    "reviewedBy": "rules+model",
+    "reviewStatus": "needs_attention",
+    "outlineVersion": 2,
+    "sectionCount": 1,
+    "issues": [
+      {
+        "severity": "warning",
+        "category": "source"
+      },
+      {
+        "severity": "warning",
+        "category": "source"
+      },
+      {
+        "severity": "warning",
+        "category": "source"
+      },
+      {
+        "severity": "info",
+        "category": "image"
+      }
+    ],
+    "renderSucceeded": true,
+    "templateId": "moments-portrait",
+    "renderedAt": "2026-10-18T08:09:45.871Z"
+  },
+  "sources": [
+    {
+      "title": "HUAWEI MateBook 14（鸿蒙版） · 产品事实（本地资料）",
+      "sourceMode": "local",
+      "retrievedAt": "2026-10-18T08:06:44.356Z"
+    },
+    {
+      "title": "HUAWEI MateBook 14（鸿蒙版） · 图片索引（本地资料）",
+      "sourceMode": "local",
+      "retrievedAt": "2026-10-18T08:06:44.356Z"
+    }
+  ],
+  "modelCalled": true
+}

@@ -1,0 +1,29 @@
+\PageHeading{11}{验证结果与安全控制}{把工程测试、真实调用与内容质量分开度量}
+\Sub{已交付基线完整回归：89项通过}
+\begingroup\small
+\begin{tabularx}{\linewidth}{P{42mm}P{12mm}Y}
+\rowcolor{Forest}\color{white}\bfseries 测试范围 & \color{white}\bfseries 数量 & \color{white}\bfseries 已覆盖的关键行为\\
+既有知识、模型、策略与流程 & 66 & 型号/图片绑定、结构校验、大纲版本与确认、独立返修、实际中文PNG和阻断导出。\\
+\rowcolor{Mist}前端SSE异常回归 & 9 & 中文分片、CRLF/心跳、终态、错误、错绑结果、取消及接收上限。\\
+HTTP与配置安全 & 4 & Host/Origin、错误脱敏、启动域名策略；取消后实际清理前仍保持配置锁。\\
+\rowcolor{Mist}模型读取新增保护 & 3 & 请求凭证快照、换配置后的错误脱敏、非流响应字节上限。\\
+渲染安全与清理 & 7 & HTML注入、模板字符、受控PNG、预取消、实际小红书PNG、取消/失败清理。\\
+\bottomrule
+\end{tabularx}
+\endgroup
+2026年10月18日推送前执行\Code{npm test}及\Code{npm run build}，结果为89通过、0失败、0跳过，类型检查与构建成功。上述通过率是\textbf{软件回归结果}，不等于真实市场场景的事实准确率或平台发布成功率。
+\Sub{真实HTTP模型流程的一次观测}
+\begin{tabularx}{\linewidth}{Y P{26mm}Y}
+\toprule
+大纲生成 & 26.1秒 & 模型+本地资料；随后进行版本确认。\\
+正文、审稿及生成流程 & 114.0秒 & SSE以result事件完成。\\
+朋友圈视觉排版 & 0.33秒 & 1张1080$\times$1440 PNG及ZIP下载成功。\\
+\rowcolor{Mist}总观测时间 & 140.6秒 & 该次真实HTTP样例，审核为needs\_attention。\\
+\bottomrule
+\end{tabularx}
+\SourceNote{2026-10-18既有HTTP测试去敏记录。该样例与案例C为两次不同运行；单样本不代表P50/P95或生产SLA。}
+\Sub{安全控制与质量闭环}
+本机接口校验Host和写入Origin，配置更新与在途任务互斥；模型请求和前端事件流限制读取大小。公众号全部文字以随机占位符排版后按HTML实体插入，修复已发现的换行HTML注入；小红书模板单遍填充，保护字面文本。底层布局拒绝外链、file及SVG图片输入。
+\begin{attention}\small
+\Lead{明确保留未通过项}\quad 真实HTTP样例曾对标题“轻便本”的主观卖点化表述给出合规警告。可下载不代表无风险。依赖审计剩5项中危报告，集中在未使用的front-matter链；无高危/严重报告。当前未完成公开部署安全验收或20组成品并发压力测试。
+\end{attention}

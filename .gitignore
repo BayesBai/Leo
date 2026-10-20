@@ -9,3 +9,4 @@ output/
 ima-skill/.history/
 华为PC知识库/
 *.pdf
+!docs/project-manual/v1.0/知序-项目说明书.pdf

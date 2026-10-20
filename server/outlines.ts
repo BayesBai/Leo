@@ -7,6 +7,7 @@ import { completeJson } from './model.js';
 import { SYSTEM_BOUNDARIES } from './prompts.js';
 import { outlinePlatformSchema } from './schemas.js';
 import { evidenceForInstructions, reusableEvidence } from './pipeline.js';
+import { channelInstruction } from './channels.js';
 
 export class WorkflowError extends Error { constructor(public status: number, message: string) { super(message); } }
 const TTL = 30 * 60_000;
@@ -30,13 +31,17 @@ export function validateOutline(platforms: PlatformOutline[], brief: Brief, evid
     if (new Set(p.imageIds).size !== p.imageIds.length || p.imageIds.some(id => !evidence.images.some(i => i.id === id && i.productId === brief.productId))) throw new WorkflowError(400, '配图重复、失效或与产品型号不匹配。');
   }
 }
-const PROMPT = `${SYSTEM_BOUNDARIES}\n你现在只策划可编辑大纲，不写成品正文。严格返回 {"platforms":[{"platform":"...","title":"标题","angle":"与客户任务相关的切入点","intro":"导语意图","sections":[{"id":"b1","heading":"段落标题","points":["写作要点，包含事实必要限制"],"factIds":["..."]}],"imageIds":["..."],"cta":"行动引导"}]}。海报最多三个段落；不同平台分别组织。人群是销售员面向的客户。不要增加产品能力。`;
+const PROMPT = `${SYSTEM_BOUNDARIES}\n你现在只策划可编辑大纲，不写成品正文。严格返回 {"platforms":[{"platform":"...","title":"标题","angle":"与客户任务相关的切入点","intro":"导语意图","sections":[{"id":"b1","heading":"段落标题","points":["写作要点，包含事实必要限制"],"factIds":["..."]}],"imageIds":["..."],"cta":"行动引导"}]}。海报最多三个段落；不同平台分别组织。人群是销售员面向的客户。不要增加产品能力。标题、导语意图和CTA只写选题或邀请，不写产品参数、数字或能力断言（完整产品名称除外）；所有具体规格仅安排在引用了对应factIds的段落。结尾的建议段若要重提某参数，也必须引用支持该参数的factId；否则只写不含参数的选择步骤。段落标题要是给读者看的自然短句，不得出现“有引用的核心看点”“事实段落”等内部工作术语。`;
 async function plan(brief: Brief, evidence: EvidenceBundle, signal?: AbortSignal, prior?: PlatformOutline[], instructions?: string) {
   signal?.throwIfAborted();
   let platforms: PlatformOutline[];
   if (brief.mode === 'live') {
     const { sources: _sources, images, ...facts } = evidence;
-    platforms = (await completeJson(PROMPT, JSON.stringify({ task: brief, policies: Object.fromEntries(brief.platforms.map(p => [p, PLATFORM_POLICIES[p]])), evidence: { ...facts, images: images.map(({ url: _url, sourceUrl: _source, ...image }) => image) }, prior, modification: instructions }), z.object({ platforms: z.array(outlinePlatformSchema).min(1).max(2) }), signal, 3600)).platforms;
+    const planSchema = z.object({ platforms: z.array(outlinePlatformSchema).min(1).max(4) }).superRefine((value, ctx) => {
+      if (new Set(value.platforms.map(p => p.title.trim())).size !== value.platforms.length) ctx.addIssue({ code: 'custom', message: '不同渠道必须分别策划不同标题。' });
+      for (const p of value.platforms) if (p.platform === 'moments' && p.sections.length !== 1 || p.platform === 'wechat' && p.sections.length < 3 || p.platform === 'xiaohongshu' && p.sections.length < 2) ctx.addIssue({ code: 'custom', message: '公众号至少3段、小红书至少2个清单点、朋友圈只留1个核心看点。' });
+    });
+    platforms = (await completeJson(PROMPT, JSON.stringify({ task: brief, policies: Object.fromEntries(brief.platforms.map(p => [p, PLATFORM_POLICIES[p]])), channelBriefs: brief.platforms.map(channelInstruction), evidence: { ...facts, images: images.map(({ url: _url, sourceUrl: _source, ...image }) => image) }, prior, modification: instructions }), planSchema, signal, 6500)).platforms;
   } else {
     const strategies = buildStrategies(brief, evidence);
     platforms = buildDemoDrafts(brief, evidence, strategies).map(draft => ({ platform: draft.platform,

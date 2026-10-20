@@ -7,12 +7,13 @@ import type { Draft, RenderArtifact, RenderBundle, RenderRequest, RenderTemplate
 import { getAsset } from '../knowledge.js';
 import { WorkflowError } from '../outlines.js';
 import { reusableEvidence } from '../pipeline.js';
-import { planMoments, planXhs, renderSatori, renderXhs, type CardPage, type RenderImage } from './layouts.js';
+import { planXhs, renderXhs, type RenderImage } from './layouts.js';
 import { renderWechatArticle } from './wechat.js';
+import { renderEditorialCover, renderMomentsCard, renderStorePoster } from './compositions.js';
 
 export const renderTemplates: RenderTemplate[] = [
-  { id: 'wechat-editorial', platform: 'wechat', name: '公众号 · 清晰阅读', width: 1200, height: 630 },
-  { id: 'wechat-warm', platform: 'wechat', name: '公众号 · 暖色手记', width: 1200, height: 630 },
+  { id: 'wechat-editorial', platform: 'wechat', name: '公众号 · 清晰阅读', width: 1200, height: 900 },
+  { id: 'wechat-warm', platform: 'wechat', name: '公众号 · 暖色手记', width: 1200, height: 900 },
   { id: 'xhs-cream', platform: 'xiaohongshu', name: '小红书 · 奶油笔记', width: 1080, height: 1440 },
   { id: 'xhs-sage', platform: 'xiaohongshu', name: '小红书 · 青绿手记', width: 1080, height: 1440 },
   { id: 'moments-square', platform: 'moments', name: '朋友圈 · 方形产品卡', width: 1080, height: 1080 },
@@ -135,7 +136,7 @@ export async function renderRun(result: RunResult, input: RenderRequest, callerS
       const html = await renderWechatArticle(draft, title, images, template, marker, signal);
       await save(Buffer.from(html), '公众号-排版文章.html', 'article', 'wechat-richtext', images.map(i => i.id), allFacts);
       const coverTemplate = { ...template, width: 1200, height: 900, platform: 'moments' as const };
-      const cover = await renderSatori({ heading: title, text: '', factIds: [], images: images.slice(0, 1), role: 'cover' }, coverTemplate, marker, result.product.name, signal);
+      const cover = await renderEditorialCover(title, images.slice(0, 1), coverTemplate, marker, result.product.name, signal);
       if (process.env.RENDER_DEBUG === '1') console.log('render:wechat:cover:done');
       await save(cover, '公众号-封面.png', 'cover', 'png', images.slice(0, 1).map(i => i.id), [], 1200, 900);
       warnings.push('公众号文章中的图片为嵌入式预览，尚未上传微信素材库。粘贴到微信后请逐张上传或替换，并核对移动端显示。未自动发布。');
@@ -144,11 +145,10 @@ export async function renderRun(result: RunResult, input: RenderRequest, callerS
       const pngs = await renderXhs(pages, template, marker, result.product.name, signal);
       for (let i = 0; i < pages.length; i++) await save(pngs[i], `小红书-${String(i + 1).padStart(2, '0')}.png`, pages[i].role, 'png', pages[i].images.map(image => image.id), pages[i].factIds, 1080, 1440);
     } else {
-      const pages: CardPage[] = input.platform === 'poster' ? [{ heading: title, text: [draft.intro, ...draft.blocks.map(b => `${b.heading}\n${b.text}`), draft.cta, draft.tags.map(t => `#${t}`).join(' ')].filter(Boolean).join('\n\n'), factIds: draft.blocks.flatMap(b => b.factIds), images, role: 'poster' }] : planMoments(draft, title, images);
-      for (let i = 0; i < pages.length; i++) {
-        const png = await renderSatori(pages[i], template, marker, result.product.name, signal);
-        await save(png, `${filenames[input.platform]}-${String(i + 1).padStart(2, '0')}.png`, pages[i].role, 'png', pages[i].images.map(image => image.id), pages[i].factIds, template.width, template.height);
-      }
+      const png = input.platform === 'poster'
+        ? await renderStorePoster(draft, title, images, template, marker, result.product.name, signal)
+        : await renderMomentsCard(draft, title, images, template, marker, result.product.name, signal);
+      await save(png, `${filenames[input.platform]}-01.png`, input.platform === 'poster' ? 'poster' : 'card', 'png', images.map(image => image.id), draft.blocks.flatMap(block => block.factIds), template.width, template.height);
     }
     const copyText = readable(copyDraft(draft, title), result);
     files['文案.txt'] = strToU8(copyText);

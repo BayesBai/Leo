@@ -1,0 +1,43 @@
+% !TeX program = xelatex
+\documentclass[UTF8,a4paper,zihao=5,fontset=fandol]{ctexart}
+\usepackage{zhixu}
+\ifdefined\XeTeXgenerateactualtext\XeTeXgenerateactualtext=1\fi
+\graphicspath{{images/}}
+\input{case-macros}
+\begin{document}
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture,overlay]
+\fill[Deep] (current page.south west) rectangle (current page.north east);
+\fill[Forest] ([xshift=95mm,yshift=-56mm]current page.north west) circle (95mm);
+\draw[Sage,opacity=.25,line width=.5pt] ([xshift=171mm,yshift=-74mm]current page.north west) circle (63mm);
+\draw[Sage,opacity=.3,line width=.5pt] ([xshift=171mm,yshift=-74mm]current page.north west) circle (76mm);
+\fill[Rust] ([xshift=22mm,yshift=-61mm]current page.north west) rectangle ++(14mm,1.1mm);
+\node[anchor=north west,text=white,text width=166mm,inner sep=0pt] at ([xshift=22mm,yshift=-22mm]current page.north west) {\sffamily\small 拓浙 AI 生态 · 浙客松\hfill 华为·产业进阶赛道};
+\node[anchor=north west,text=white,inner sep=0pt] at ([xshift=21mm,yshift=-76mm]current page.north west) {\sffamily\bfseries\fontsize{69}{77}\selectfont 知序};
+\node[anchor=north west,text=white,opacity=.7,inner sep=0pt] at ([xshift=23mm,yshift=-111mm]current page.north west) {\sffamily\fontsize{12}{15}\selectfont ZHIXU / KNOWLEDGE TO CONTENT};
+\node[anchor=north west,text=white,text width=160mm,inner sep=0pt] at ([xshift=22mm,yshift=-141mm]current page.north west) {\sffamily\bfseries\fontsize{24}{35}\selectfont AI+华为PC\par 营销软文智能体};
+\node[anchor=north west,text=white,opacity=.83,text width=150mm,inner sep=0pt] at ([xshift=22mm,yshift=-181mm]current page.north west) {\sffamily\fontsize{14}{22}\selectfont 让销售表达，从产品依据走向可核验的成品。};
+\draw[white,opacity=.25] ([xshift=22mm,yshift=66mm]current page.south west) -- ([xshift=-22mm,yshift=66mm]current page.south east);
+\node[anchor=north west,text=white,text width=165mm,inner sep=0pt] at ([xshift=22mm,yshift=59mm]current page.south west) {\sffamily\small 8 类业务场景\qquad 4 个内容渠道\qquad 89 项基线回归\par\vspace{5mm}{\Large\bfseries 项目说明书}\quad V1.0 / 工程验证版\par\vspace{3mm}\footnotesize 2026 年 10 月 18 日\quad ·\quad 按赛题手册 v4 编制};
+\node[anchor=south west,text=white,opacity=.55,text width=164mm,inner sep=0pt] at ([xshift=22mm,yshift=13mm]current page.south west) {\sffamily\scriptsize 独立参赛作品，非华为官方应用。文中按实际证据区分模型调用、本地演示与待验收能力。};
+\end{tikzpicture}
+\mbox{}
+\end{titlepage}
+\pagenumbering{arabic}
+\input{sections/01-overview}
+\input{sections/02-requirements}
+\input{sections/03-product}
+\input{sections/04-architecture}
+\input{sections/05-evidence}
+\input{sections/06-agent}
+\input{sections/07-output}
+\input{sections/08-case-a}
+\input{sections/09-case-b}
+\input{sections/10-case-c}
+\input{sections/11-validation}
+\input{sections/12-deployment}
+\input{sections/13-roadmap}
+\input{sections/14-submission}
+\input{sections/15-prompts}
+\end{document}

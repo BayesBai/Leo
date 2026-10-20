@@ -1,0 +1,28 @@
+{
+  "checkedAt": "2026-10-18T08:42:24.290Z",
+  "configuration": {
+    "baseUrl": "https://api.deepseek.com/anthropic",
+    "model": "deepseek-flash",
+    "thinking": "disabled",
+    "apiKey": "not included"
+  },
+  "firstCheck": {
+    "httpStatus": 500,
+    "verified": false,
+    "reason": "Original 16-token verification exhausted its budget with default thinking"
+  },
+  "finalCheck": {
+    "httpStatus": 200,
+    "verified": true,
+    "elapsedMs": 1449
+  },
+  "tests": {
+    "passed": 91,
+    "failed": 0,
+    "skipped": 0
+  },
+  "typeCheckAndProductionBuildPassed": true,
+  "realRequestScope": "Only the minimal OK connection test; no product facts or images",
+  "realImaCalled": false,
+  "fullDeepseekMarketingWorkflowVerified": false
+}
