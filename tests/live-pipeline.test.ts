@@ -19,12 +19,10 @@ const brief: Brief = { productId: product.id, audience: '大学新生', scene: '
 
 function sse(data: unknown) {
   const events = [
-    { type: 'message_start', message: { content: [] } },
-    { type: 'content_block_delta', delta: { type: 'text_delta', text: JSON.stringify(data) } },
-    { type: 'message_delta', delta: { stop_reason: 'end_turn' } },
-    { type: 'message_stop' },
+    { choices: [{ index: 0, delta: { role: 'assistant', content: JSON.stringify(data) }, finish_reason: null }] },
+    { choices: [{ index: 0, delta: {}, finish_reason: 'stop' }] },
   ];
-  return new Response(events.map(event => `data: ${JSON.stringify(event)}\n\n`).join(''), { headers: { 'Content-Type': 'text/event-stream' } });
+  return new Response(events.map(event => `data: ${JSON.stringify(event)}\n\n`).join('') + 'data: [DONE]\n\n', { headers: { 'Content-Type': 'text/event-stream' } });
 }
 
 function setup() {
@@ -41,9 +39,9 @@ test('mock live pipeline writes each platform separately and audits their actual
   const restore = setup(); const calls: string[] = [];
   try {
     globalThis.fetch = async (_url, init) => {
-      const body = JSON.parse(String(init?.body)); const user: string = body.messages[0].content;
-      if (body.system.includes('你担任内容策划')) { calls.push('strategy'); return sse({ strategies: buildStrategies(brief, evidence) }); }
-      if (body.system.includes('你担任图文编辑')) {
+      const body = JSON.parse(String(init?.body)); const user: string = body.messages.find((message: { role: string }) => message.role === 'user').content; const system: string = body.messages.find((message: { role: string }) => message.role === 'system').content;
+      if (system.includes('你担任内容策划')) { calls.push('strategy'); return sse({ strategies: buildStrategies(brief, evidence) }); }
+      if (system.includes('你担任图文编辑')) {
         const task = JSON.parse(user.split('\n策略：')[0]).task as Brief;
         assert.equal(task.platforms.length, 1); calls.push(task.platforms[0]);
         return sse({ drafts: buildDemoDrafts(task, evidence, buildStrategies(task, evidence)) });
@@ -62,9 +60,9 @@ test('mock model repair edits the affected platform only and reruns independent 
   const restore = setup(); const writers = new Map<Platform, number>(); let reviews = 0;
   try {
     globalThis.fetch = async (_url, init) => {
-      const body = JSON.parse(String(init?.body)); const user: string = body.messages[0].content;
-      if (body.system.includes('你担任内容策划')) return sse({ strategies: buildStrategies(brief, evidence) });
-      if (body.system.includes('你担任图文编辑')) {
+      const body = JSON.parse(String(init?.body)); const user: string = body.messages.find((message: { role: string }) => message.role === 'user').content; const system: string = body.messages.find((message: { role: string }) => message.role === 'system').content;
+      if (system.includes('你担任内容策划')) return sse({ strategies: buildStrategies(brief, evidence) });
+      if (system.includes('你担任图文编辑')) {
         const task = JSON.parse(user.split('\n策略：')[0]).task as Brief;
         const platform = task.platforms[0]; const count = (writers.get(platform) || 0) + 1; writers.set(platform, count);
         const drafts = buildDemoDrafts(task, evidence, buildStrategies(task, evidence));
@@ -85,8 +83,8 @@ test('a failed mock platform request cancels the sibling writer instead of leavi
   const restore = setup(); let siblingCancelled = false;
   try {
     globalThis.fetch = async (_url, init) => {
-      const body = JSON.parse(String(init?.body)); const user: string = body.messages[0].content;
-      if (body.system.includes('你担任内容策划')) return sse({ strategies: buildStrategies(brief, evidence) });
+      const body = JSON.parse(String(init?.body)); const user: string = body.messages.find((message: { role: string }) => message.role === 'user').content; const system: string = body.messages.find((message: { role: string }) => message.role === 'system').content;
+      if (system.includes('你担任内容策划')) return sse({ strategies: buildStrategies(brief, evidence) });
       const task = JSON.parse(user.split('\n策略：')[0]).task as Brief;
       if (task.platforms[0] === 'xiaohongshu') return new Response('', { status: 401 });
       return new Promise<Response>((_resolve, reject) => {

@@ -1,0 +1,84 @@
+{
+  "createdAtBeijing": "2026-10-22T17:45:28+08:00",
+  "stage": "video-integrated-local",
+  "sources": {
+    "src/WorkflowApp.tsx": "4bda551c6d3d2ec8f09e3888adfca59189659b7ea1da1b81902954d05d54b38f",
+    "src/virgo/workbench.css": "2d80d01ddcd6ab44059376e50d5e1cb3377d400072e2e0d568a9b8b65d231ef2",
+    "src/virgo/WorkbenchBackground.tsx": "bf1fc14715c567f21281595491e808a1a308a385ede3fb1cce69d26f42965937",
+    "src/virgo/ambient-playback.ts": "d04335fe2f1840da87f2f0d0a0bceac6079ba6ccb9bb5284a8fcea8be8264145",
+    "src/virgo/workbench-focus.ts": "4920f1381e061a23641b59972ed34b1792b253c8606bd4fb6dc58407a89eae14",
+    "tests/ambient-playback.test.ts": "3975ebaeb1d7220ec69c69e65aa9324d57008e5370e1a3bcae7673b9c57431fd",
+    "tests/workbench-background.test.ts": "2a13e60372e76b516c3c46da3282b963852fd2d53ee51abd11ea856e494e8ce9",
+    "public/virgo/asset-manifest.json": "620fa1f88a8e75b7c1647badef99c989a71905581320baa85ffe2850933c8042"
+  },
+  "apiConclusion": "已核对，无接口变更；未修改后端/共享类型/HTTP或SSE行为，继承164240完整Job与publication门禁。",
+  "figmaModified": false,
+  "generation": {
+    "provider": "Kling CLI",
+    "model": "kling-video-v4_0",
+    "tasks": 1,
+    "creditsConsumed": 100,
+    "balanceBefore": 100,
+    "balanceAfter": 0,
+    "candidateCount": 1,
+    "retries": 0,
+    "recharge": false
+  },
+  "media": {
+    "durationSeconds": 9.4,
+    "bytes": 3235455,
+    "width": 1224,
+    "height": 764,
+    "fps": 30,
+    "audioStreams": 0,
+    "sourceResolutionTier": "720p; provider actually returned1224x764",
+    "upscaled": false,
+    "faststart": "moov32 before mdat4146"
+  },
+  "checks": {
+    "tests": {
+      "command": "node --import tsx --import ./tests/setup.ts --test tests/ambient-playback.test.ts tests/workbench-background.test.ts tests/frontend-api.test.ts tests/frontend-workflow-api.test.ts tests/frontend-jobs.test.ts tests/channels.test.ts",
+      "passed": 53,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 14794.340385,
+      "evidence": "final-tests.log"
+    },
+    "build": {
+      "command": "npm run build",
+      "typecheck": "passed",
+      "viteSeconds": 3.3,
+      "modules": 1609,
+      "evidence": "final-build.log"
+    },
+    "diffCheck": "passed",
+    "continuousPlaybackSeconds": 62.484,
+    "loopDurationSeconds": 9.4,
+    "keyboardPauseResume": "Actual Space pause/resume; preserved5.963943 across step/home/back. Initial fast queue Space lost focus, corrected narrow focus policy then actual active task retest paused=true/focusedBackground=true.",
+    "busyControl": "Slow Mock submission with disabled inputs: mouse pause/restore enabled; final fast active background job Space pause passed.",
+    "viewports": [
+      1910,
+      1440,
+      1280,
+      900,
+      390
+    ],
+    "horizontalOverflowObserved": false,
+    "screenshots": 10,
+    "independentVisualReview": {
+      "webImages": 8,
+      "videoKeyframes": 6,
+      "verdict": "Ship",
+      "unresolvedRequiredFixes": 0
+    },
+    "eligibility": "Actual390px no video/src; original static. Hook integration covers fine+coarse, reduced-motion runtime changes, release/recreate, shared node and user intent.",
+    "fallback": "Controller+real React/JSDOM integration cover autoplay denial/media errors and explicit retry, no automatic retry loops."
+  },
+  "verificationBoundaries": [
+    "IAB panel hiding did not change document.hidden; actual OS/tab visibility not triggered. Visibility handling verified via Hook integration only.",
+    "No physical touchscreen/tablet or OS reduced-motion hardware run, no cold-device network capture; DOM/source absence and media lifecycle tested.",
+    "Autoplay denial/404 tested through media controller/Hook, not an injected real-browser server failure.",
+    "Frame statistics and62.484s browser samples are not full frame-by-frame quality/FPS certification.",
+    "No real marketing model or ima call, complete backend recovery E2E, cloud deployment or Git commit/push."
+  ]
+}

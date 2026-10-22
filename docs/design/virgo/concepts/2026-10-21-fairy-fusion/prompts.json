@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "tool": "Built-in image_gen",
+  "model": "Not exposed by tool",
+  "calls": [
+    {
+      "id": "cinematic-redraw",
+      "target": "../2026-10-20/assets/virgo-fairy-cutout.png",
+      "reference": "../2026-10-20/assets/garden-gate-background.png",
+      "prompt": "Use case: style-transfer. Asset type: independent transparent character layer for the Virgo Garden Gate homepage. Input image 1 is the EDIT TARGET: our existing full-body adult fairy holding wheat, in ivory draped gown with dusty-rose sash and ribbons, four delicate wings, hair with small flowers, head turned gently to her left. Input image 2 is a LIGHTING, MATERIAL and ATMOSPHERE reference only: the chosen shaded botanical garden with sunset wheat field. Redraw only the fairy so she belongs naturally in that exact garden. Preserve her adult identity, gentle dignified expression, pose, wheat bundle, long gown, wing silhouette and full-body framing. Change the medium from an engraved decorative illustration to natural cinematic fantasy photography with tactile, softly resolved real-world materials. The low warm sun is BEHIND HER to camera-right: restrained amber rim light on the right edges of hair, shoulders, wing edges and gown. The face and front of the dress are in soft environmental shade, NOT evenly front-lit. Ivory fabric must have substantial soft gray-olive shadow from the garden and a little muted rose reflected light; show real, broad draping instead of hundreds of hard engraved ornamental folds. Skin has natural subtle texture and calm shadow, no beauty-retouch wax, no plastic sheen. Keep the subject crisp enough to see, but avoid cut-paper contours, excessive micro-contrast or hard gold outlines. Wings are thin gauzy translucent membranes with delicate soft veins, allowing the landscape to show through when layered: mostly semi-transparent alpha within the wing areas, not solid white plates, not glowing paper. Dress and skin stay opaque; do NOT lower opacity on the entire person or blur the figure. Her gown hem should have natural slightly uneven folds that can meet a garden path and be partially covered by separate foreground flowers later. Output ONE complete full-body fairy, with all wings, wheat and hem uncropped, portrait 3:4 composition with modest clear margins. TRUE TRANSPARENT BACKGROUND. The garden is only reference: no plants, field, sky, floor, contact-shadow rectangle, baked scenery or paper backdrop in this output. No text, UI, border, watermark or new accessories. No game-character render, no bronze statue, no etched illustration, no artificially luminous all-white clothing.",
+      "result": "assets/fairy-cinematic-source.png",
+      "selected": "Source study and reference for final body/wing separation"
+    },
+    {
+      "id": "wing-transmission-attempt",
+      "target": "assets/fairy-cinematic-source.png",
+      "reference": "../2026-10-20/assets/garden-gate-background.png",
+      "prompt": "Use case: precise-object-edit. Input 1 is the EDIT TARGET: our newest natural cinematic fairy PNG on transparent background. Input 2 is the garden lighting reference only. Make ONE targeted correction: replace ONLY the wing membranes with much more transparent, delicate gossamer wings. Preserve the exact face, hair, flower crown, wheat, body pose, opaque skin, gown, rose ribbons, light direction, framing, dimensions and transparent exterior of input 1. Do not restyle or lighten the person. The current wings read as pale opaque white plates: remove their white material. They should resemble nearly clear dragonfly wings, with sparse subtle warm-brown translucent veins and faint rosy-amber rim highlights. Wing INTERIORS must have genuine semi-transparent alpha, typically around 15–30% opacity, with large areas close to clear; not white pixels simulating transparency. This alpha applies ONLY inside the wings, never to skin, dress or wheat. The shaded garden behind must visibly show through them in compositing. Avoid thick metallic outlines, paper texture, etched linework, cloudy white wing fill, neon glow and brown solid panels. Keep the four wings' existing shape and placement, all tips uncropped. Do not draw any background, landscape, checkerboard, ground, shadow rectangle, text or UI. Return the complete fairy asset on TRUE TRANSPARENT BACKGROUND, ready to place at the same size as input 1.",
+      "result": "Not selected for delivery",
+      "reason": "Whole-image edit still made wing membranes too solid; final transmission is controlled independently in the component."
+    },
+    {
+      "id": "body-separation",
+      "target": "assets/fairy-cinematic-source.png",
+      "prompt": "Input image is our own existing natural cinematic fairy, exactly 1086 by 1448 with true transparent exterior. Preserve the original full portrait 3:4 canvas, exact scale, margins and positions. This is a precise layer separation edit, not a redraw. Remove ONLY all four wings completely. Reconstruct only any tiny previously concealed contours of hair or gown if absolutely necessary. Keep the face, entire hair and flowers, pose, wheat bundle, hands, opaque skin, complete ivory gown and rose ribbons exactly unchanged, with the same golden rim light and shaded front. Do not rescale, move, crop, retouch or beautify her. The areas where the wings were must be genuinely transparent alpha, with no golden wing outline, no glow silhouettes, no wing remnants. Return the complete body without wings, in the exact same canvas, on TRUE TRANSPARENT BACKGROUND. No background, floor, ground shadow, text or interface.",
+      "result": "assets/fairy-body.png",
+      "selected": true
+    },
+    {
+      "id": "wing-separation",
+      "target": "assets/fairy-cinematic-source.png",
+      "prompt": "Input image is our own existing natural cinematic fairy, exactly 1086 by 1448 with true transparent exterior. Preserve the original full portrait 3:4 canvas, exact scale, margins and positions. This is a precise layer separation edit, not a redraw. Extract ONLY the existing four gossamer wings and remove the woman, hair, flowers, wheat bundle, hands, gown and ribbons completely. Keep all four wing outer shapes, scale and location exactly as in the original full canvas. Do not reposition or pack them. Where the woman's torso and head cover wing roots, leave the original central torso-shaped region transparent, because the separate opaque body layer will cover the roots in the final composition. Preserve fine softly resolved veins and restrained amber rim light. No extra bright halo. The wing interiors can remain neutral pale gauze because their exact transparency will be controlled separately in the Figma component; do not bake sky or landscape into the wings. Everything outside these four wings, including the complete body-shaped central and lower regions, must be genuinely transparent. Keep the full 3:4 canvas even though its bottom half is empty. No person, skin, face, wheat, dress, ribbons, background, floor, shadow, text or UI. TRUE TRANSPARENT BACKGROUND.",
+      "result": "assets/fairy-wings.png",
+      "selected": true
+    }
+  ],
+  "nativeComposition": "Figma: separate wing opacity 0.28, body opacity 1.0, component opacity 1.0. Exported as a transparent PNG; no Python pixel editing."
+}

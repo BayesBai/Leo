@@ -1,0 +1,68 @@
+{
+  "images": [
+    {
+      "name": "garden-gate-background",
+      "before": 2980626,
+      "after": 2079950,
+      "saved": 900676,
+      "savedPercent": 30.2,
+      "width": 1586,
+      "height": 992,
+      "visiblePixelDifferences": 0,
+      "format": "lossless-webp",
+      "sourceRetained": true,
+      "sourceFile": "garden-gate-background.png",
+      "runtimeFile": "garden-gate-background.webp"
+    },
+    {
+      "name": "figure-no-wings",
+      "before": 1615403,
+      "after": 1045586,
+      "saved": 569817,
+      "savedPercent": 35.3,
+      "width": 1086,
+      "height": 1448,
+      "visiblePixelDifferences": 0,
+      "format": "lossless-webp",
+      "sourceRetained": true,
+      "sourceFile": "figure-no-wings.png",
+      "runtimeFile": "figure-no-wings.webp"
+    },
+    {
+      "name": "foreground-botanicals",
+      "before": 2830318,
+      "after": 1781166,
+      "saved": 1049152,
+      "savedPercent": 37.1,
+      "width": 1536,
+      "height": 1024,
+      "visiblePixelDifferences": 0,
+      "format": "lossless-webp",
+      "sourceRetained": true,
+      "sourceFile": "foreground-botanicals.png",
+      "runtimeFile": "foreground-botanicals.webp"
+    }
+  ],
+  "fonts": {
+    "strategy": "GB2312 + ASCII + punctuation common fragments; disjoint remaining cmap chunks of at most 2048 mapped characters; same family and weight; unicode-range lazy loading",
+    "originalFullFilesRetained": true,
+    "licensesRetained": true,
+    "weightsOptimized": [
+      400,
+      500
+    ],
+    "weightsUnchanged": [
+      600
+    ],
+    "originalCharactersPerWeight": 30890,
+    "originalVariationSequencesPerWeight": 25,
+    "commonCharactersPerWeight": 7733,
+    "initialCommonBeforeBytes": 8423856,
+    "initialCommonAfterBytes": 2262896,
+    "initialCommonSavedPercent": 73.1,
+    "fontCssBytes": 150556,
+    "remainderMaxFragmentBytes": 410832
+  },
+  "sourceManifest": "../../../../../public/virgo/asset-manifest.json",
+  "sourceDetails": "../../../../../public/virgo/performance.json"
+}

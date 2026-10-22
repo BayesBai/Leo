@@ -1,0 +1,11 @@
+{
+  "fullStagedCheckExitCode": 2,
+  "flaggedFiles": 87,
+  "scope": "Full check reports preserved historical/code snapshots, original license CRLF/trailing spaces and existing Markdown hard breaks. These bytes are intentionally retained.",
+  "sourceCheckCommand": "git diff --cached --check -- . ':!docs' ':!public/virgo/fonts/NotoSansSC-OFL.txt' ':!public/virgo/fonts/PinyonScript-OFL.txt'",
+  "sourceCheckPassed": true,
+  "categories": [
+    "new blank line at EOF.",
+    "trailing whitespace."
+  ]
+}

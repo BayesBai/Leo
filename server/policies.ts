@@ -1,16 +1,19 @@
 import type { Brief, ContentBlock, Draft, EvidenceBundle, Fact, Platform, ReviewIssue, ReviewReport, Strategy } from '../shared/types.js';
 import { channelSimilarity } from './channels.js';
+import { IMAGE_POLICIES } from './asset-policy.js';
 
 export interface PlatformPolicy {
   name: string; minImages: number; maxImages: number; defaultImages: number;
   tone: string; structure: string[]; minWords: number; maxWords: number; cta: string;
 }
 
+const imageBounds = (platform: Platform) => ({ minImages: IMAGE_POLICIES[platform].min, maxImages: IMAGE_POLICIES[platform].max });
+
 export const PLATFORM_POLICIES: Record<Platform, PlatformPolicy> = {
-  xiaohongshu: { name: '小红书', minImages: 3, maxImages: 6, defaultImages: 4, tone: '具体、轻快的场景清单；不冒充用户体验', structure: ['场景切入', '选机清单', '版本提醒', '互动讨论'], minWords: 160, maxWords: 1100, cta: '把你常用的软件和使用场景留在评论区，一起补全选机清单。' },
-  wechat: { name: '公众号', minImages: 2, maxImages: 4, defaultImages: 3, tone: '有条理、有依据的决策说明', structure: ['需求背景', '关键事实', '场景分析', '选购建议'], minWords: 260, maxWords: 2200, cta: '欢迎带着常用软件清单到店体验，并核对所选配置与销售版本。' },
-  moments: { name: '朋友圈', minImages: 1, maxImages: 3, defaultImages: 2, tone: '简洁、自然、有明确咨询入口', structure: ['一句场景', '一个核心看点', '咨询引导'], minWords: 45, maxWords: 420, cta: '有相同使用需求，欢迎私信交流，也可以预约到店核对。' },
-  poster: { name: '门店海报', minImages: 1, maxImages: 1, defaultImages: 1, tone: '短句、清晰层级，最多三个卖点', structure: ['场景主标题', '产品副标题', '最多三个卖点', '到店引导'], minWords: 15, maxWords: 500, cta: '到店体验 · 核对配置与常用软件' },
+  xiaohongshu: { name: '小红书', ...imageBounds('xiaohongshu'), defaultImages: 4, tone: '具体、轻快的场景清单；不冒充用户体验', structure: ['场景切入', '选机清单', '版本提醒', '互动讨论'], minWords: 160, maxWords: 1100, cta: '把你常用的软件和使用场景留在评论区，一起补全选机清单。' },
+  wechat: { name: '公众号', ...imageBounds('wechat'), defaultImages: 3, tone: '有条理、有依据的决策说明', structure: ['需求背景', '关键事实', '场景分析', '选购建议'], minWords: 260, maxWords: 2200, cta: '欢迎带着常用软件清单到店体验，并核对所选配置与销售版本。' },
+  moments: { name: '朋友圈', ...imageBounds('moments'), defaultImages: 2, tone: '简洁、自然、有明确咨询入口', structure: ['一句场景', '一个核心看点', '咨询引导'], minWords: 45, maxWords: 420, cta: '有相同使用需求，欢迎私信交流，也可以预约到店核对。' },
+  poster: { name: '门店海报', ...imageBounds('poster'), defaultImages: 1, tone: '短句、清晰层级，最多三个卖点', structure: ['场景主标题', '产品副标题', '最多三个卖点', '到店引导'], minWords: 15, maxWords: 500, cta: '到店体验 · 核对配置与常用软件' },
 };
 
 type AudienceKind = 'student' | 'business' | 'creator' | 'home' | 'general';
@@ -198,13 +201,13 @@ function instructionRisks(brief: Brief, evidence: EvidenceBundle): string[] {
 export function reviewDrafts(brief: Brief, evidence: EvidenceBundle, drafts: Draft[]): ReviewReport {
   const issues: ReviewIssue[] = [];
   let issueIndex = 0;
-  const add = (issue: Omit<ReviewIssue, 'id'>) => issues.push({ ...issue, id: `review-${++issueIndex}` });
+  const add = (issue: Omit<ReviewIssue, 'id'>) => issues.push({ target: issue.category === 'source' ? 'source' : issue.category === 'image' ? 'images' : issue.category === 'platform' ? 'structure' : undefined, ...issue, id: `review-${++issueIndex}` });
   const factMap = new Map(evidence.facts.map(f => [f.id, f]));
   const imageMap = new Map(evidence.images.map(i => [i.id, i]));
   const cited = new Set<string>(), usedImages = new Set<string>();
   if (evidence.sourceMode === 'local') add({ severity: 'warning', category: 'source', message: '本次依据来自本地知识库，尚未通过 ima 在线检索核验。', suggestion: '可用于本地演示；正式提交前切换 ima 并重新生成。' });
   if (brief.knowledgeSource !== evidence.sourceMode) add({ severity: 'error', category: 'source', message: '任务选择的知识来源与实际证据来源不一致。', suggestion: '按所选知识来源重新检索，不得将本地资料标记为 ima。' });
-  if (evidence.product.id !== brief.productId) add({ severity: 'error', category: 'fact', message: '检索所得产品与任务指定产品不一致。', suggestion: '重新检索指定型号与系统版本。' });
+  if (evidence.product.id !== brief.productId) add({ severity: 'error', category: 'fact', target: 'source', message: '检索所得产品与任务指定产品不一致。', suggestion: '重新检索指定型号与系统版本。' });
   for (const warning of evidence.warnings) add({ severity: 'warning', category: 'source', message: warning, suggestion: '核对原始资料，补足依据后再发布。' });
   for (const risk of instructionRisks(brief, evidence)) add({ severity: 'warning', category: 'compliance', message: `附加要求涉及${risk}，缺少可验证依据，成稿不得采纳该类要求。`, suggestion: '补充可追溯的官方依据，或保留当前有依据的表达。' });
   const taskContexts = [brief.audience, brief.scene, brief.goal].map(safeContext).filter(v => v !== '日常使用');
@@ -216,6 +219,11 @@ export function reviewDrafts(brief: Brief, evidence: EvidenceBundle, drafts: Dra
     const policy = PLATFORM_POLICIES[draft.platform];
     if (!policy) { add({ severity: 'error', category: 'platform', message: '文案包含未知平台。', suggestion: '使用支持的平台重新生成。' }); continue; }
     const text = [draft.titles.join('\n'), draft.intro, ...draft.blocks.map(b => `${b.heading}\n${b.text}`), draft.cta].join('\n');
+    const textFields: { target: NonNullable<ReviewIssue['target']>; value: string; blockId?: string }[] = [
+      ...draft.titles.map(value => ({ target: 'title' as const, value })), { target: 'intro', value: draft.intro },
+      ...draft.blocks.flatMap(block => [{ target: 'heading' as const, value: block.heading, blockId: block.id }, { target: 'body' as const, value: block.text, blockId: block.id }]),
+      { target: 'cta', value: draft.cta }, ...draft.tags.map(value => ({ target: 'tags' as const, value })),
+    ];
     const draftFactIds = [...new Set(draft.blocks.flatMap(b => b.factIds))];
     const draftFacts = draftFactIds.map(id => factMap.get(id)).filter((f): f is Fact => !!f && f.status === 'supported');
     if (!requested.has(draft.platform)) add({ severity: 'warning', category: 'platform', platform: draft.platform, message: '文案包含任务未选择的平台。', suggestion: '移除该平台或调整任务平台。' });
@@ -223,34 +231,40 @@ export function reviewDrafts(brief: Brief, evidence: EvidenceBundle, drafts: Dra
       const facts: Fact[] = [];
       for (const factId of new Set(block.factIds)) {
         const fact = factMap.get(factId);
-        if (!fact) add({ severity: 'error', category: 'fact', platform: draft.platform, blockId: block.id, factId, message: `段落引用的事实 ${factId} 不在本次证据包中。`, suggestion: '改用本次证据包中的有效事实编号。' });
+        if (!fact) add({ severity: 'error', category: 'fact', target: 'references', platform: draft.platform, blockId: block.id, factId, message: `段落引用的事实 ${factId} 不在本次证据包中。`, suggestion: '改用本次证据包中的有效事实编号。' });
         else {
           cited.add(factId);
-          if (fact.status !== 'supported') add({ severity: 'error', category: 'fact', platform: draft.platform, blockId: block.id, factId, message: '引用事实尚未获得原文支持。', suggestion: '读取原文并确认后再引用。' });
+          if (fact.status !== 'supported') add({ severity: 'error', category: 'fact', target: 'references', platform: draft.platform, blockId: block.id, factId, message: '引用事实尚未获得原文支持。', suggestion: '读取原文并确认后再引用。' });
           else facts.push(fact);
           if (fact.sourceMode !== evidence.sourceMode) add({ severity: 'error', category: 'source', platform: draft.platform, factId, message: '引用事实的来源模式与本次证据包不一致。', suggestion: '重新建立同一来源的证据包。' });
         }
       }
       const allowed = new Set(numberTokens(facts.map(f => `${f.statement} ${f.quote} ${f.qualifiers.join(' ')}`).join('\n'), evidence));
-      const unsupported = [...new Set(numberTokens(`${block.heading}\n${block.text}`, evidence, taskContexts).filter(token => !allowed.has(token)))];
-      if (unsupported.length) add({ severity: 'error', category: 'fact', platform: draft.platform, blockId: block.id, message: `段落包含引用依据未支持的数字：${unsupported.join('、')}。`, suggestion: '删除这些数字，或引用能支持相同数值与单位的事实。' });
-      if (!block.factIds.length && factualClaimWithoutCitation(block.text)) add({ severity: 'error', category: 'fact', platform: draft.platform, blockId: block.id, message: '产品功能或规格描述缺少事实引用。', suggestion: '为该段落添加对应事实，或改为不作产品承诺的核对建议。' });
+      for (const [target, value] of [['heading', block.heading], ['body', block.text]] as const) {
+        const unsupported = [...new Set(numberTokens(value, evidence, taskContexts).filter(token => !allowed.has(token)))];
+        if (unsupported.length) add({ severity: 'error', category: 'fact', target, platform: draft.platform, blockId: block.id, message: `段落包含引用依据未支持的数字：${unsupported.join('、')}。`, suggestion: '删除这些数字，或引用能支持相同数值与单位的事实。' });
+        if (!block.factIds.length && factualClaimWithoutCitation(value)) add({ severity: 'error', category: 'fact', target, platform: draft.platform, blockId: block.id, message: '产品功能或规格描述缺少事实引用。', suggestion: '为该段落添加对应事实，或改为不作产品承诺的核对建议。' });
+      }
       for (const fact of facts) {
         const claim = `${block.heading} ${block.text}`;
         // Verbatim facts remain valid; model paraphrases must preserve material limitations.
-        if (fact.qualifiers.length && !claim.includes(fact.statement) && fact.qualifiers.some(q => /仅|依|不同|为准|版本|典型|额定|实际|条件/.test(q) && !claim.includes(q))) add({ severity: 'warning', category: 'fact', platform: draft.platform, blockId: block.id, factId: fact.id, message: '改写后的段落可能缺少原始事实的适用条件。', suggestion: `保留限定条件：${fact.qualifiers.join('；')}` });
+        if (fact.qualifiers.length && !claim.includes(fact.statement) && fact.qualifiers.some(q => /仅|依|不同|为准|版本|典型|额定|实际|条件/.test(q) && !claim.includes(q))) add({ severity: 'warning', category: 'fact', target: 'body', platform: draft.platform, blockId: block.id, factId: fact.id, message: '改写后的段落可能缺少原始事实的适用条件。', suggestion: `保留限定条件：${fact.qualifiers.join('；')}` });
       }
     }
     const globalAllowed = new Set(numberTokens(draftFacts.map(f => `${f.statement} ${f.quote} ${f.qualifiers.join(' ')}`).join('\n'), evidence));
-    const uncitedNumbers = [...new Set(numberTokens(`${draft.titles.join(' ')} ${draft.intro} ${draft.cta}`, evidence, taskContexts).filter(t => !globalAllowed.has(t)))];
-    if (uncitedNumbers.length) add({ severity: 'error', category: 'fact', platform: draft.platform, message: `标题、导语或行动引导出现无依据数字：${uncitedNumbers.join('、')}。`, suggestion: '删除无依据数据，产品参数请放在引用了事实的正文段落。' });
-    if ([...draft.titles, draft.intro, draft.cta].some(value => factualClaimWithoutCitation(value))) add({ severity: 'error', category: 'fact', platform: draft.platform, message: '标题、导语或行动引导含无段落引用的产品功能断言。', suggestion: '将功能或规格描述放入引用了对应事实的正文段落；标题与导语保留场景和核对建议。' });
-    if (/(最好(?!先|亲手|到店|带上|核对|确认|询问)|最强|全球第一|行业第一|全网第一|稳赚|百分之百保证|100\s*%\s*(?:保证|安全|成功|兼容|提升)|绝对(?:领先|安全|好用)|永久(?:免费|有效))/.test(text)) add({ severity: 'error', category: 'compliance', platform: draft.platform, message: '文案含绝对化或保证性宣传。', suggestion: '改为有证据支持、带适用条件的具体描述。' });
-    if (/(?:我|我们|本人)(?:亲自|已经|已|实际)?(?:用过|使用了|体验了|实测|亲测)|亲测|亲身体验|用了.*(?:天|周|个月)|实测(?:发现|证明|提升|续航)/.test(text)) add({ severity: 'error', category: 'compliance', platform: draft.platform, message: '文案可能虚构个人体验或实测结论。', suggestion: '改为资料说明；如需使用体验，补充真实授权的测试记录。' });
+    for (const { target, value } of textFields.filter(field => ['title', 'intro', 'cta', 'tags'].includes(field.target))) {
+      const uncitedNumbers = [...new Set(numberTokens(value, evidence, taskContexts).filter(t => !globalAllowed.has(t)))];
+      if (uncitedNumbers.length) add({ severity: 'error', category: 'fact', target, platform: draft.platform, message: `标题、导语、行动引导或标签出现无依据数字：${uncitedNumbers.join('、')}。`, suggestion: '删除无依据数据，产品参数请放在引用了事实的正文段落。' });
+      if (factualClaimWithoutCitation(value)) add({ severity: 'error', category: 'fact', target, platform: draft.platform, message: '标题、导语、行动引导或标签含无段落引用的产品功能断言。', suggestion: '将功能或规格描述放入引用了对应事实的正文段落；标题与导语保留场景和核对建议。' });
+    }
     const allSupport = draftFacts.map(f => `${f.statement} ${f.quote}`).join('\n');
     const commercial = /(到手价|售价|补贴后|国补|限时(?:抢购|优惠)|仅剩|最后\s*\d+\s*台|\d+(?:\.\d+)?\s*元)/;
-    if (commercial.test(text) && !commercial.test(allSupport)) add({ severity: 'error', category: 'compliance', platform: draft.platform, message: '文案出现未获依据支持的价格、补贴或稀缺性信息。', suggestion: '删除销售承诺；仅在取得对应活动、地区和时效依据后使用。' });
-    if (evidence.product.system && /HarmonyOS|鸿蒙/i.test(evidence.product.system) && /(?:搭载|预装|采用|运行)\s*Windows/i.test(text) || evidence.product.system && /Windows/i.test(evidence.product.system) && /(?:搭载|预装|采用|运行)\s*(?:HarmonyOS|鸿蒙)/i.test(text)) add({ severity: 'error', category: 'fact', platform: draft.platform, message: '文案中的操作系统与所选产品系统冲突。', suggestion: '严格使用所选型号与系统版本的证据。' });
+    for (const { target, value, blockId } of textFields) {
+      if (/(最好(?!先|亲手|到店|带上|核对|确认|询问)|最强|全球第一|行业第一|全网第一|稳赚|百分之百保证|100\s*%\s*(?:保证|安全|成功|兼容|提升)|绝对(?:领先|安全|好用)|永久(?:免费|有效))/.test(value)) add({ severity: 'error', category: 'compliance', target, blockId, platform: draft.platform, message: '文案含绝对化或保证性宣传。', suggestion: '改为有证据支持、带适用条件的具体描述。' });
+      if (/(?:我|我们|本人)(?:亲自|已经|已|实际)?(?:用过|使用了|体验了|实测|亲测)|亲测|亲身体验|用了.*(?:天|周|个月)|实测(?:发现|证明|提升|续航)/.test(value)) add({ severity: 'error', category: 'compliance', target, blockId, platform: draft.platform, message: '文案可能虚构个人体验或实测结论。', suggestion: '改为资料说明；如需使用体验，补充真实授权的测试记录。' });
+      if (commercial.test(value) && !commercial.test(allSupport)) add({ severity: 'error', category: 'compliance', target, blockId, platform: draft.platform, message: '文案出现未获依据支持的价格、补贴或稀缺性信息。', suggestion: '删除销售承诺；仅在取得对应活动、地区和时效依据后使用。' });
+      if (evidence.product.system && /HarmonyOS|鸿蒙/i.test(evidence.product.system) && /(?:搭载|预装|采用|运行)\s*Windows/i.test(value) || evidence.product.system && /Windows/i.test(evidence.product.system) && /(?:搭载|预装|采用|运行)\s*(?:HarmonyOS|鸿蒙)/i.test(value)) add({ severity: 'error', category: 'fact', target, blockId, platform: draft.platform, message: '文案中的操作系统与所选产品系统冲突。', suggestion: '严格使用所选型号与系统版本的证据。' });
+    }
     const imageIds = new Set<string>();
     for (const placement of draft.images) {
       const asset = imageMap.get(placement.imageId);
@@ -259,17 +273,17 @@ export function reviewDrafts(brief: Brief, evidence: EvidenceBundle, drafts: Dra
         usedImages.add(asset.id);
         if (asset.productId !== evidence.product.id) add({ severity: 'error', category: 'image', platform: draft.platform, message: `图片「${asset.name}」不属于当前产品。`, suggestion: '移除跨型号图片，换为本型号素材。' });
         if (asset.sourceMode !== evidence.sourceMode) add({ severity: 'error', category: 'source', platform: draft.platform, message: `图片「${asset.name}」来源与本次证据包不一致。`, suggestion: '重新获取同一来源的图片。' });
-        if (asset.width <= 0 || asset.height <= 0) add({ severity: 'warning', category: 'image', platform: draft.platform, message: `图片「${asset.name}」缺少有效尺寸信息。`, suggestion: '确认图片可读取且适合所选平台。' });
+        if (asset.width <= 0 || asset.height <= 0) add({ severity: 'warning', category: 'image', resolution: 'refresh_evidence', platform: draft.platform, message: `图片「${asset.name}」缺少有效尺寸信息。`, suggestion: '确认图片可读取且适合所选平台。' });
       }
       if (imageIds.has(placement.imageId)) add({ severity: 'warning', category: 'image', platform: draft.platform, message: '同一文案中重复使用了相同图片。', suggestion: '改用不同的同型号图片，或减少重复位置。' });
       imageIds.add(placement.imageId);
       if (placement.afterBlock < -1 || placement.afterBlock >= draft.blocks.length) add({ severity: 'warning', category: 'image', platform: draft.platform, message: '图片插入位置超出正文段落范围。', suggestion: '将图片放到已有段落后，或使用 -1 作为封面。' });
     }
-    if (imageIds.size < policy.minImages || imageIds.size > policy.maxImages) add({ severity: 'warning', category: 'platform', platform: draft.platform, message: `${policy.name}图片数量为 ${imageIds.size} 张，要求 ${policy.minImages === policy.maxImages ? policy.minImages : `${policy.minImages}–${policy.maxImages}`} 张。`, suggestion: '补充本型号图片；素材不足时保留缺口，不跨型号补齐。' });
+    if (imageIds.size < policy.minImages || imageIds.size > policy.maxImages) add({ severity: 'warning', category: 'platform', target: 'images', platform: draft.platform, message: `${policy.name}图片数量为 ${imageIds.size} 张，要求 ${policy.minImages === policy.maxImages ? policy.minImages : `${policy.minImages}–${policy.maxImages}`} 张。`, suggestion: '补充本型号图片；素材不足时保留缺口，不跨型号补齐。' });
     if (draft.platform === 'poster' && draft.blocks.length > 3) add({ severity: 'warning', category: 'platform', platform: draft.platform, message: '海报超过三个卖点段落。', suggestion: '精选最多三个有依据的核心卖点。' });
     const wordCount = text.replace(/\s/g, '').length;
-    if (wordCount < policy.minWords || wordCount > policy.maxWords) add({ severity: 'warning', category: 'platform', platform: draft.platform, message: `${policy.name}正文长度为 ${wordCount} 字，建议 ${policy.minWords}–${policy.maxWords} 字。`, suggestion: '按平台阅读习惯精简或补充场景说明，并保留来源条件。' });
-    if (!draft.blocks.length || !draftFactIds.length) add({ severity: 'error', category: 'fact', platform: draft.platform, message: '当前文案没有可追溯的产品事实。', suggestion: '补充产品原文后重新生成。' });
+    if (wordCount < policy.minWords || wordCount > policy.maxWords) add({ severity: 'warning', category: 'platform', target: 'body', platform: draft.platform, message: `${policy.name}正文长度为 ${wordCount} 字，建议 ${policy.minWords}–${policy.maxWords} 字。`, suggestion: '按平台阅读习惯精简或补充场景说明，并保留来源条件。' });
+    if (!draft.blocks.length || !draftFactIds.length) add({ severity: 'error', category: 'fact', target: 'references', platform: draft.platform, message: '当前文案没有可追溯的产品事实。', suggestion: '补充产品原文后重新生成。' });
   }
   for (let i = 0; i < drafts.length; i++) for (let j = i + 1; j < drafts.length; j++) {
     const similarity = channelSimilarity(drafts[i], drafts[j], evidence);

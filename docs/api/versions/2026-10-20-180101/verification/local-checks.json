@@ -1,0 +1,38 @@
+{
+  "testInvocation": "LOCAL_KB_ROOT=<authorized-local-path> npm test",
+  "checks": {
+    "typeCheckPassed": true,
+    "productionBuildPassed": true,
+    "tests": {
+      "tests": 110,
+      "pass": 110,
+      "fail": 0,
+      "skipped": 0,
+      "cancelled": 0
+    },
+    "apiRegressionTestsPassed": 23,
+    "designDetectorFindings": 0,
+    "browserMockFourChannelWorkflow": true,
+    "browserEditSaveConfirmVersionGate": true,
+    "browserBlockedExportGate": true,
+    "browserWidthsWithoutHorizontalOverflow": [
+      334,
+      1265
+    ],
+    "realModelCalled": true,
+    "realImaCalled": false,
+    "realLocalSingleChannelWorkflow": true,
+    "reviewStatus": "needs_attention",
+    "wechatEditorPasteVerified": false,
+    "platformPublishingVerified": false,
+    "newFrontendChangesCommitted": false,
+    "remotePushed": false,
+    "indexStagingVerificationPerformed": false
+  },
+  "knownLimitations": [
+    "真实模型仅验收本地证据的单一朋友圈任务；其他人群/渠道未在本轮重新进行真实模型质量验收。",
+    "未完成真实ima、微信编辑器粘贴、公开发布或部署验收。",
+    "Mock支持异常交互，不证明生成质量；真实结果保留needs_attention。"
+  ],
+  "initialFailures": "初次缺Chromium；安装后macOS headless-shell发生ICU/GPU失败。切换该平台到完整Chromium的新无头模式后全量通过。"
+}

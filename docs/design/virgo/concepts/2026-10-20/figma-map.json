@@ -1,0 +1,283 @@
+{
+  "schema": 1,
+  "status": "two-static-homepage-candidates-awaiting-user-selection",
+  "fileKey": "JfR3uVD884firgx27czG8M",
+  "fileUrl": "https://www.figma.com/design/JfR3uVD884firgx27czG8M",
+  "pages": {
+    "library": "0:1",
+    "desktop": "4:4"
+  },
+  "concepts": {
+    "A": "39:2922",
+    "B": "39:2967"
+  },
+  "overlays": {
+    "品牌故事": {
+      "id": "39:2900",
+      "close": "39:2905"
+    },
+    "创作流程": {
+      "id": "39:2908",
+      "close": "39:2913",
+      "start": "39:2916"
+    }
+  },
+  "existingBrief": "6:121",
+  "assets": {
+    "garden": "77f911bbc49faeda95f43f400f8c83bbfa8a354e",
+    "fairy": "026b37c041d79c0d05b5ad733757223a8be1d0ff",
+    "meadow": "dce9830ce081ceaf3cf63a2e3ab2b5ef8912ee34",
+    "foreground": "12aef9f34316d31560d4ffb6996dff0e1b3cbd4a",
+    "nodes": [
+      "34:139",
+      "34:5281",
+      "35:5281",
+      "35:139"
+    ]
+  },
+  "foundations": {
+    "variables": {
+      "palette/conceptLight": "VariableID:37:139",
+      "color/conceptLight": "VariableID:37:143",
+      "palette/conceptInk": "VariableID:37:140",
+      "color/conceptInk": "VariableID:37:144",
+      "palette/conceptCream": "VariableID:37:141",
+      "color/conceptCream": "VariableID:37:145",
+      "palette/conceptRose": "VariableID:37:142",
+      "color/conceptRose": "VariableID:37:146"
+    },
+    "components": {
+      "Concept/Wordmark/Light": "37:151",
+      "Concept/Wordmark/Dark": "37:152",
+      "Concept/Fairy": "37:162",
+      "Concept/Botanicals": "37:163"
+    },
+    "componentSet": "37:153",
+    "styles": {
+      "Concept / Wordmark": "S:852f0f8930b63c1f4164024be38451fa06e70c94,",
+      "Concept / Hero": "S:f43cfaaf3a9fa7da42e8670366fb8e8207b2bc2b,",
+      "Concept / Body": "S:b696f439a490b9f4fd4b223e1ec468289357aff0,",
+      "Concept / Small Wordmark": "S:857fd68e2ea16a9b462ad0abf3d03b9dc87c1683,"
+    },
+    "palette": {
+      "conceptLight": "#FFF8EC",
+      "conceptInk": "#25352B",
+      "conceptCream": "#F6EBDD",
+      "conceptRose": "#D9B7C4"
+    }
+  },
+  "createdNodeIds": [
+    "37:153",
+    "37:151",
+    "37:152",
+    "37:154",
+    "I37:154;5:48",
+    "I37:154;5:49",
+    "37:157",
+    "37:158",
+    "I37:158;5:48",
+    "I37:158;5:49",
+    "37:161",
+    "37:162",
+    "37:163",
+    "39:2900",
+    "39:2901",
+    "39:2902",
+    "39:2903",
+    "39:2904",
+    "39:2905",
+    "I39:2905;5:121",
+    "39:2908",
+    "39:2909",
+    "39:2910",
+    "39:2911",
+    "39:2912",
+    "39:2913",
+    "I39:2913;5:121",
+    "39:2916",
+    "I39:2916;5:55",
+    "39:2922",
+    "39:2923",
+    "39:2924",
+    "39:2925",
+    "39:2926",
+    "39:2927",
+    "39:2928",
+    "39:2929",
+    "39:2930",
+    "39:2931",
+    "39:2932",
+    "I39:2932;37:154",
+    "I39:2932;37:154;5:48",
+    "I39:2932;37:154;5:49",
+    "I39:2932;37:157",
+    "39:2937",
+    "39:2938",
+    "I39:2938;5:121",
+    "39:2942",
+    "I39:2942;5:121",
+    "39:2946",
+    "I39:2946;5:121",
+    "39:2950",
+    "39:2951",
+    "39:2952",
+    "39:2953",
+    "39:2954",
+    "39:2955",
+    "I39:2955;5:55",
+    "39:2959",
+    "I39:2959;5:121",
+    "39:2963",
+    "39:2964",
+    "39:2965",
+    "39:2966",
+    "39:2967",
+    "39:2968",
+    "39:2969",
+    "39:2970",
+    "39:2971",
+    "39:2972",
+    "39:2973",
+    "39:2974",
+    "39:2975",
+    "39:2976",
+    "I39:2976;37:158",
+    "I39:2976;37:158;5:48",
+    "I39:2976;37:158;5:49",
+    "I39:2976;37:161",
+    "39:2981",
+    "39:2982",
+    "I39:2982;5:121",
+    "39:2986",
+    "I39:2986;5:121",
+    "39:2990",
+    "I39:2990;5:121",
+    "39:2994",
+    "39:2995",
+    "39:2996",
+    "39:2997",
+    "39:2998",
+    "39:2999",
+    "I39:2999;5:55",
+    "39:3003",
+    "I39:3003;5:121",
+    "39:3007",
+    "39:3008",
+    "39:3009",
+    "39:3010",
+    "42:2823",
+    "42:2824"
+  ],
+  "mutatedNodeIds": [
+    "34:139",
+    "34:5281",
+    "35:5281",
+    "35:139",
+    "39:2905",
+    "39:2913",
+    "39:2916",
+    "39:2938",
+    "39:2942",
+    "39:2946",
+    "39:2955",
+    "39:2959",
+    "39:2982",
+    "39:2986",
+    "39:2990",
+    "39:2999",
+    "39:3003",
+    "39:2965",
+    "39:3009",
+    "4:4"
+  ],
+  "prototype": {
+    "wired": [
+      {
+        "from": "39:2916",
+        "to": "6:121",
+        "navigation": "NAVIGATE"
+      },
+      {
+        "from": "39:2938",
+        "to": "39:2900",
+        "navigation": "OVERLAY"
+      },
+      {
+        "from": "39:2942",
+        "to": "39:2908",
+        "navigation": "OVERLAY"
+      },
+      {
+        "from": "39:2946",
+        "to": "6:121",
+        "navigation": "NAVIGATE"
+      },
+      {
+        "from": "39:2955",
+        "to": "6:121",
+        "navigation": "NAVIGATE"
+      },
+      {
+        "from": "39:2959",
+        "to": "39:2908",
+        "navigation": "OVERLAY"
+      },
+      {
+        "from": "39:2982",
+        "to": "39:2900",
+        "navigation": "OVERLAY"
+      },
+      {
+        "from": "39:2986",
+        "to": "39:2908",
+        "navigation": "OVERLAY"
+      },
+      {
+        "from": "39:2990",
+        "to": "6:121",
+        "navigation": "NAVIGATE"
+      },
+      {
+        "from": "39:2999",
+        "to": "6:121",
+        "navigation": "NAVIGATE"
+      },
+      {
+        "from": "39:3003",
+        "to": "39:2908",
+        "navigation": "OVERLAY"
+      }
+    ],
+    "flowStartingPoints": [
+      {
+        "nodeId": "6:50",
+        "name": "Virgo · 桌面主流程"
+      },
+      {
+        "nodeId": "11:2013",
+        "name": "Virgo · 状态与恢复"
+      },
+      {
+        "nodeId": "11:747",
+        "name": "Virgo · 双渠道成品示例"
+      },
+      {
+        "nodeId": "11:1069",
+        "name": "Virgo · 公众号成品示例"
+      },
+      {
+        "nodeId": "11:1225",
+        "name": "Virgo · 门店海报示例"
+      },
+      {
+        "nodeId": "39:2922",
+        "name": "Virgo · 首页候选 A 花园之门"
+      },
+      {
+        "nodeId": "39:2967",
+        "name": "Virgo · 首页候选 B 晚风麦田"
+      }
+    ]
+  },
+  "note": "Old screens are retained as first-round workflow designs. No production UI or API changed."
+}

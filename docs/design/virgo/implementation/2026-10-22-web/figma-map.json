@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "fileKey": "JfR3uVD884firgx27czG8M",
+  "stage": "v3.1 supplement for web implementation",
+  "baseline": {
+    "directory": "../../workbench/2026-10-21-palette-revision/README.md",
+    "desktop": {
+      "page": "85:146",
+      "task": "86:26122",
+      "outline": "86:26646",
+      "delivery": "86:26866"
+    },
+    "mobile": {
+      "page": "85:147",
+      "task": "87:145",
+      "outline": "87:371",
+      "visual": "87:941"
+    }
+  },
+  "desktop": {
+    "page": "85:146",
+    "size": [
+      1440,
+      1000
+    ],
+    "task": "103:3039",
+    "delivery": "103:3123",
+    "overlays": {
+      "history/ready": "103:3218",
+      "history/empty": "103:3233",
+      "history/expired": "103:3242",
+      "history/interrupted": "103:3258",
+      "review/issues": "103:3274"
+    },
+    "panels": {
+      "history/ready": "103:3219",
+      "history/empty": "103:3234",
+      "history/expired": "103:3243",
+      "history/interrupted": "103:3259",
+      "review/issues": "103:3275"
+    }
+  },
+  "mobile": {
+    "page": "85:147",
+    "size": [
+      390,
+      844
+    ],
+    "task": "104:3748",
+    "delivery": "104:3835",
+    "overlays": {
+      "history/ready": "104:3908",
+      "history/empty": "104:3923",
+      "history/expired": "104:3932",
+      "history/interrupted": "104:3948",
+      "review/issues": "104:3964",
+      "menu": "104:4010"
+    },
+    "panels": {
+      "history/ready": "104:3909",
+      "history/empty": "104:3924",
+      "history/expired": "104:3933",
+      "history/interrupted": "104:3949",
+      "review/issues": "104:3965"
+    }
+  },
+  "note": "These are editable Design frames and finite simulated prototype examples. IDs are design references, not API fixtures."
+}

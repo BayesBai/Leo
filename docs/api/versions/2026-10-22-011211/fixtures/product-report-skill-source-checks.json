@@ -1,0 +1,63 @@
+{
+  "_notice": "开源 Skill 原始说明与许可证的只读核查摘要，不包含完整外部 Skill、项目资料或凭证。",
+  "queriedAt": "2026-10-18T16:14:34+08:00",
+  "installedByThisTask": false,
+  "compatibilityRuntimeTested": false,
+  "sources": [
+    {
+      "sourceLabel": "pm-prd",
+      "sha256": "1a3e3ebccbef5ad9e875585d1e3d4d7048350a43c71a1e5bd2395851e882ecff",
+      "utf8Bytes": 7398
+    },
+    {
+      "sourceLabel": "pm-strategy",
+      "sha256": "89d79aca5083d5774f05760ce41326328f38284e47c7208c98f7f3c3dbf12ec0",
+      "utf8Bytes": 4944
+    },
+    {
+      "sourceLabel": "pm-competitors",
+      "sha256": "ef66dae4ba0fa149efe63cdbae7744b5d6f0af86079e5b086d2dfed9e503176a",
+      "utf8Bytes": 4924
+    },
+    {
+      "sourceLabel": "pm-metrics",
+      "sha256": "9933f2f8749c436d3d48129543719899b2d1da5c602ff6a5add1ee48239e33d5",
+      "utf8Bytes": 5848
+    },
+    {
+      "sourceLabel": "pm-review",
+      "sha256": "adbb7ed024df75243710823d7a2182920b8060f193500bf3fac7c24e84b34189",
+      "utf8Bytes": 4587
+    },
+    {
+      "sourceLabel": "pm-license",
+      "sha256": "591ab4c6a9e75f1f2cf517522759f96eb19f928ee72e637f32fd7d1337c533df",
+      "utf8Bytes": 1089
+    },
+    {
+      "sourceLabel": "anthropic-spec",
+      "sha256": "1b769cb244ab99f10798d60cfcbea5c550e313a56228f345ddb245fbf144383b",
+      "utf8Bytes": 12576
+    },
+    {
+      "sourceLabel": "anthropic-competitive",
+      "sha256": "e9acb36d8059ba23e48131c3555a84dc14e002a48dee181f941a7fd090f16e1f",
+      "utf8Bytes": 15076
+    },
+    {
+      "sourceLabel": "anthropic-license",
+      "sha256": "1b1689d7864727a02a2682067f9c5328c891518db0a513663ef5a949052bd40b",
+      "utf8Bytes": 11819
+    },
+    {
+      "sourceLabel": "toolkit-pm",
+      "sha256": "60095157ce30a6e166ffe704d69498961706b0a0c114116ed6ebef59fd3c5ae4",
+      "utf8Bytes": 10444
+    },
+    {
+      "sourceLabel": "toolkit-license",
+      "sha256": "a766b0f999956536273c8303de3557876e044ea27451bc5d4143be673d2ac641",
+      "utf8Bytes": 1093
+    }
+  ]
+}

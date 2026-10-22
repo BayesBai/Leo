@@ -1,0 +1,390 @@
+{
+  "startedAt": "2026-10-21T16:51:42.849Z",
+  "environment": {
+    "transport": "actual HTTP",
+    "isolatedHistory": true,
+    "port": 9756,
+    "authorizedKnowledgeRootMatched": true,
+    "nodeVersion": "v24.14.1"
+  },
+  "status": {
+    "http": 200,
+    "modelConfigured": true,
+    "modelName": "gemini-4-argon",
+    "imaConfigured": false,
+    "imaVerified": false,
+    "local": {
+      "available": true,
+      "productCount": 10,
+      "imageCount": 53
+    }
+  },
+  "live": {
+    "attempted": true,
+    "mode": "live",
+    "knowledgeSource": "local",
+    "channels": [
+      "xiaohongshu",
+      "wechat",
+      "moments",
+      "poster"
+    ],
+    "outline": {
+      "ok": false,
+      "http": 500,
+      "elapsedMs": 146091,
+      "classification": "upstream_http_503",
+      "upstreamStatus": 503
+    }
+  },
+  "demo": {
+    "attempted": true,
+    "mode": "demo",
+    "knowledgeSource": "local",
+    "channels": [
+      "xiaohongshu",
+      "wechat",
+      "moments",
+      "poster"
+    ],
+    "outline": {
+      "ok": true,
+      "http": 200,
+      "elapsedMs": 742,
+      "counts": {
+        "platforms": 4,
+        "facts": 10,
+        "images": 6,
+        "sources": 2
+      },
+      "version": 1
+    },
+    "confirm": {
+      "ok": true,
+      "http": 200,
+      "elapsedMs": 113,
+      "status": "confirmed"
+    },
+    "generate": {
+      "http": 200,
+      "elapsedMs": 197,
+      "eventCounts": {
+        "progress": 10,
+        "result": 1,
+        "error": 0,
+        "needs_input": 0
+      },
+      "ok": true,
+      "counts": {
+        "drafts": 4,
+        "facts": 10,
+        "images": 6
+      },
+      "review": {
+        "status": "needs_attention",
+        "reviewedBy": "rules",
+        "issues": 4,
+        "errors": 0
+      },
+      "revision": 1
+    },
+    "render": [
+      {
+        "platform": "xiaohongshu",
+        "ok": true,
+        "http": 200,
+        "elapsedMs": 21319,
+        "reviewStatus": "needs_attention",
+        "artifacts": [
+          {
+            "format": "png",
+            "role": "cover",
+            "width": 1080,
+            "height": 1440
+          },
+          {
+            "format": "png",
+            "role": "card",
+            "width": 1080,
+            "height": 1440
+          },
+          {
+            "format": "png",
+            "role": "card",
+            "width": 1080,
+            "height": 1440
+          },
+          {
+            "format": "png",
+            "role": "card",
+            "width": 1080,
+            "height": 1440
+          },
+          {
+            "format": "png",
+            "role": "card",
+            "width": 1080,
+            "height": 1440
+          }
+        ],
+        "zipAvailable": true,
+        "downloads": [
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 116316,
+            "attachment": true
+          },
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 159562,
+            "attachment": true
+          },
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 98407,
+            "attachment": true
+          },
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 242728,
+            "attachment": true
+          },
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 113920,
+            "attachment": true
+          }
+        ],
+        "zip": {
+          "http": 200,
+          "contentType": "application/zip",
+          "bytes": 692000,
+          "attachment": true
+        }
+      },
+      {
+        "platform": "wechat",
+        "ok": true,
+        "http": 200,
+        "elapsedMs": 1378,
+        "reviewStatus": "needs_attention",
+        "artifacts": [
+          {
+            "format": "wechat-richtext",
+            "role": "article"
+          },
+          {
+            "format": "png",
+            "role": "cover",
+            "width": 1200,
+            "height": 900
+          }
+        ],
+        "zipAvailable": true,
+        "downloads": [
+          {
+            "http": 200,
+            "contentType": "text/html; charset=utf-8",
+            "bytes": 700229,
+            "attachment": true
+          },
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 76272,
+            "attachment": true
+          }
+        ],
+        "zip": {
+          "http": 200,
+          "contentType": "application/zip",
+          "bytes": 571929,
+          "attachment": true
+        }
+      },
+      {
+        "platform": "moments",
+        "ok": true,
+        "http": 200,
+        "elapsedMs": 500,
+        "reviewStatus": "needs_attention",
+        "artifacts": [
+          {
+            "format": "png",
+            "role": "card",
+            "width": 1080,
+            "height": 1080
+          }
+        ],
+        "zipAvailable": true,
+        "downloads": [
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 154448,
+            "attachment": true
+          }
+        ],
+        "zip": {
+          "http": 200,
+          "contentType": "application/zip",
+          "bytes": 137123,
+          "attachment": true
+        }
+      },
+      {
+        "platform": "poster",
+        "ok": true,
+        "http": 200,
+        "elapsedMs": 332,
+        "reviewStatus": "needs_attention",
+        "artifacts": [
+          {
+            "format": "png",
+            "role": "poster",
+            "width": 1080,
+            "height": 1920
+          }
+        ],
+        "zipAvailable": true,
+        "downloads": [
+          {
+            "http": 200,
+            "contentType": "image/png",
+            "bytes": 182457,
+            "attachment": true
+          }
+        ],
+        "zip": {
+          "http": 200,
+          "contentType": "application/zip",
+          "bytes": 149654,
+          "attachment": true
+        }
+      }
+    ]
+  },
+  "ima": {
+    "attempted": false,
+    "reason": "not configured or verified"
+  },
+  "catalog": {
+    "http": 200,
+    "productCount": 10
+  },
+  "history": {
+    "http": 200,
+    "items": 2,
+    "ready": 2
+  },
+  "finishedAt": "2026-10-21T16:54:53.753Z",
+  "downloadVerification": [
+    {
+      "platform": "xiaohongshu",
+      "pngs": [
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1080,
+          "height": 1440,
+          "matchesManifest": true
+        },
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1080,
+          "height": 1440,
+          "matchesManifest": true
+        },
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1080,
+          "height": 1440,
+          "matchesManifest": true
+        },
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1080,
+          "height": 1440,
+          "matchesManifest": true
+        },
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1080,
+          "height": 1440,
+          "matchesManifest": true
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "signatureValid": true
+      }
+    },
+    {
+      "platform": "wechat",
+      "pngs": [
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1200,
+          "height": 900,
+          "matchesManifest": true
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "signatureValid": true
+      }
+    },
+    {
+      "platform": "moments",
+      "pngs": [
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1080,
+          "height": 1080,
+          "matchesManifest": true
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "signatureValid": true
+      }
+    },
+    {
+      "platform": "poster",
+      "pngs": [
+        {
+          "http": 200,
+          "signatureValid": true,
+          "width": 1080,
+          "height": 1920,
+          "matchesManifest": true
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "signatureValid": true
+      }
+    }
+  ],
+  "commands": [
+    "node /tmp/virgo-web/live-validation.mjs",
+    "node /tmp/virgo-web/inspect-downloads.mjs"
+  ],
+  "limits": [
+    "No browser-based live model success was established.",
+    "Live request failed at outline; confirmation, writing, model review and rendering were not reached.",
+    "The successful local four-channel chain uses deterministic demo rules, not a model or ima.",
+    "No source files, model settings, credentials or repository history were changed."
+  ]
+}

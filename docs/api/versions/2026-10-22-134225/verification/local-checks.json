@@ -1,0 +1,23 @@
+{
+  "tests": {
+    "total": 138,
+    "passed": 138,
+    "failed": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "diffCheck": "passed",
+  "fiveStageGatewayRegression": "passed: outline, AI edit, writing, review, repair, re-review all use same new gateway and model; original output budgets retained",
+  "runtimeStatus": {
+    "url": "http://127.0.0.1:9756",
+    "model": "gpt-6.1-sol",
+    "baseUrl": "https://relay.styxgate.top/v1",
+    "configured": true,
+    "restarted": true
+  },
+  "realGeneration": "failed: upstream HTTP403 Cloudflare HTML at outline creation",
+  "imaRealIntegration": "not executed",
+  "browserRefreshRestartRegression": "not repeated this task; prior version only",
+  "secrets": "existing backend key retained with explicit user authorization; no value archived"
+}

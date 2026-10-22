@@ -1,0 +1,172 @@
+{
+  "checkedAtBeijing": "2026-10-22T01:37:58.996747+08:00",
+  "status": "implemented-local-verified-with-live-model-and-device-limits",
+  "api": "已核对，无接口变更；本前端任务未修改后端、schemas 或共享类型。并行后端任务独立更新模型实现与测试，来源以接口索引为准。",
+  "figma": {
+    "fileKey": "JfR3uVD884firgx27czG8M",
+    "baseline": "v3 palette / A3 no-wing cover",
+    "supplement": "v3.1 history and audit recovery",
+    "rootFramesInspected": 15,
+    "reactionsInspected": 74,
+    "disabledExportInstances": 8,
+    "invalidTargets": 0,
+    "missingFonts": 0,
+    "fullEditorManualClickThrough": false,
+    "evidence": "figma-structure-readback.json"
+  },
+  "visual": {
+    "viewports": [
+      1440,
+      1280,
+      390
+    ],
+    "independentReview": {
+      "screenshots": 8,
+      "verdict": "ship",
+      "requiredFixes": 0
+    },
+    "browserHorizontalOverflowObserved": false,
+    "screenshots": "browser-screenshots.json",
+    "contrastMethod": "WCAG sRGB relative luminance; selected active token pairs, not full accessibility certification",
+    "contrastRatios": {
+      "ink/paper": 10.84,
+      "muted/paper": 6.6,
+      "ink/blue": 5.3,
+      "ink/sage": 5.76,
+      "ink/rose": 7.93,
+      "ink/peach": 7.66,
+      "border/paper": 4.25
+    }
+  },
+  "cli": {
+    "typecheck": "passed, including final npm run build tsc step",
+    "build": "passed after parallel GPT default changes; tsc + vite, 8.74 seconds",
+    "finalTests": {
+      "command": "TSX_DISABLE_CACHE=1 npm test",
+      "tests": 142,
+      "passed": 142,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 60785.181096,
+      "modelDefault": "gpt-6.1-sol",
+      "sourceHashesBeforeAfterUnchanged": true
+    },
+    "earlierTests": {
+      "tests": 137,
+      "passed": 137
+    },
+    "intermediateRerun": {
+      "tests": 138,
+      "passed": 135,
+      "failed": 3,
+      "reason": "shared working tree was being updated by a separate backend task; failure output referenced relay/model expectations different from current source. No backend or test assertions were edited by this frontend task. Fresh rerun after those changes passed 142 tests."
+    },
+    "diffCheck": "passed",
+    "validationSourceHashes": "validation-source-hashes.json",
+    "postValidationParallelChanges": {
+      "observedAtBeijing": "2026-10-22T01:36:02.248300+08:00",
+      "changed": {
+        "server/model.ts": {
+          "testedSha256": "81f1ce312f040dac40b44fc6a19cd833aae76c0f4ec8cdf07eb404b1fcd469d4",
+          "currentSha256": "9d98835b46ae496b9ff149ccb6e810cedcbc5767ebcec9b2fa7e80297921e926"
+        },
+        "tests/model.test.ts": {
+          "testedSha256": "aa818d48263b90059e6f550aa6ec56d891f225802a8174e8fd703b7960abc281",
+          "currentSha256": "c6a81748f9ee010b1bdb809cfffa76371d12a82dd712d8e6ec603402e307a6f6"
+        },
+        "tests/workflow.test.ts": {
+          "testedSha256": "b7040cb227177ac5d522dc520fb5819faf9650fe50e1472e323e0bb33cfae06d",
+          "currentSha256": "6726c035f5b0c78b3ae85e3698414882f5062eed7c0b7ac4a490c511015faf14"
+        },
+        "tests/setup.ts": {
+          "testedSha256": "f61b0f7e2d60b9eb656442b7d4c7eab8ec1ec657bdf9f0a7da26dce9f1345848",
+          "currentSha256": "cb16ddb8a4a6959412000a68a24dc031ead76caa065d9a94fa6454f1f0b04a00"
+        },
+        "src/WorkflowApp.tsx": {
+          "testedSha256": "c405b6d9ca46184a576b94dca888473548f0212b082e78ac82b96c2453e8faa2",
+          "currentSha256": "9383214f423deb318e720048527ce06da43efb16f550456b390126505b7bd306"
+        }
+      },
+      "currentBackendCoveredBy142Pass": true,
+      "scope": "Parallel backend task changed model defaults after the successful 142-test run; frontend validation and source hashes remain recorded. Do not treat that run as a regression result for later backend edits.",
+      "resolved": "Reran complete 142 tests and production build after the recorded parallel changes; all 16 before/after source hashes unchanged."
+    },
+    "geminiTestsBeforeSubsequentModelChange": {
+      "command": "TSX_DISABLE_CACHE=1 npm test",
+      "tests": 142,
+      "passed": 142,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 55813.838203
+    },
+    "previousGeminiSourceHashes": "validation-source-hashes-gemini.json"
+  },
+  "browser": {
+    "transport": "CUA in-app browser with explicit frontend mock",
+    "verified": [
+      "1440 / 1280 / 390 main pages, loaded fonts and images; no horizontal overflow",
+      "free customer and scene entry, scene preserves audience, 1–4 channel choices and all-select",
+      "outline edit -> dirty gate -> save v2 -> confirm v2 -> SSE result; AI edit revokes confirmation",
+      "desktop copy/visual columns and mobile tabs; actual artifact pagination and HTML/cover display",
+      "clipboard success; actual browser HTML and ZIP downloads, local ZIP entries/signature inspected",
+      "facts and same-model source images; citations open drawer without changing workbench URL",
+      "native dialog Escape, focus entry and trigger restoration; menu-to-history focus stays inside",
+      "home/return preserves task, edits, selected channel, template and artifact position; no repeated opening",
+      "saved outline and run history restore the correct confirmed version and artifact bundle",
+      "409 retains local edit, protects discard and can load latest; 410 recovers to task",
+      "cancel preserves completed data; disconnected SSE shows incomplete response; busy navigation disabled",
+      "needs-input, empty products and missing images have actionable states",
+      "blocked status survives all four channels and disables copy/single/ZIP downloads; marked preview remains",
+      "outline/delivery channel arrow-key selection",
+      "mobile expanded form actually scrolled to bottom; footer 712px above action top 763px in 844px viewport",
+      "cover intro, whole-cover exit including background, desktop 1:3:5 parallax, pause and mobile motion off"
+    ],
+    "limits": [
+      "Mock demonstrates UI and error states, not model quality or ima reliability.",
+      "No automated full end-to-end browser suite was added."
+    ],
+    "realCatalogSmoke": {
+      "url": "http://127.0.0.1:9756/",
+      "productOptions": 10,
+      "taskHeadingMatches": true,
+      "homeReturnsToCover": true,
+      "generated": false,
+      "boundary": "Actual HTTP catalog shown in real browser; no model request triggered."
+    }
+  },
+  "actualHttp": {
+    "evidence": "live-validation.json",
+    "demoLocal": "four channels outline/confirmation/SSE/rules review/render/file and ZIP download passed",
+    "review": "needs_attention, four rule warnings and no errors",
+    "artifacts": {
+      "xiaohongshu": "5 PNG 1080x1440",
+      "wechat": "HTML + cover 1200x900",
+      "moments": "1 collage 1080x1080",
+      "poster": "1 PNG 1080x1920"
+    },
+    "liveLocal": "outline failed with app HTTP500 / upstream503; downstream model generation was not reached",
+    "ima": "not configured, not attempted",
+    "timeBoundary": "This is the 16:51–16:54 UTC HTTP run. Later parallel gateway/model changes are documented separately in docs/api; no final current gateway success is inferred here."
+  },
+  "motion": {
+    "evidence": "motion/README.md",
+    "fullFpsRecording": false,
+    "systemReducedMotionPreferenceSwitched": false,
+    "mobileMotionOffObserved": true,
+    "cssAndGsapReducedMotionGatesInspected": true
+  },
+  "assetOptimization": "asset-performance.json",
+  "notVerified": [
+    "actual ima retrieval",
+    "successful complete live model flow",
+    "real system reduced-motion preference switch",
+    "real touch / soft keyboard / low-end device / throttled network performance",
+    "complete manual Figma editor prototype click-through"
+  ],
+  "delivery": {
+    "preview": "http://127.0.0.1:9756/",
+    "gitCommit": false,
+    "push": false,
+    "cloudDeployment": false
+  }
+}

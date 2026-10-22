@@ -1,0 +1,132 @@
+{
+  "revision": "v3",
+  "completedAtBeijing": "2026-10-21T23:56:43+08:00",
+  "scope": "Figma workbench palette/copy/header/prototype transition only",
+  "api": "Checked, no API change in this task. Current inherited API baseline is 2026-10-21-232930; runtime already supports seven-day outline/body history and review issue actions. This Figma revision does not add those screens.",
+  "structure": {
+    "desktop": {
+      "roots": 194,
+      "headers": 151,
+      "oldCopy": 0,
+      "textHorizontalOverflow": 0,
+      "gardenWindows": 0,
+      "blockedControls": 32,
+      "blockedBad": 0,
+      "busyHeaderFailures": 0,
+      "pageTargetActions": 1318,
+      "overlays": 347,
+      "invalidTargets": 0,
+      "foreignPageTargets": 0,
+      "transitionsOver100ms": null,
+      "homeTargets": [
+        "v3 · A4 · 已暂停 / 返回首页"
+      ]
+    },
+    "mobile": {
+      "roots": 219,
+      "headers": 187,
+      "oldCopy": 0,
+      "textHorizontalOverflow": 0,
+      "gardenWindows": 0,
+      "blockedControls": 56,
+      "blockedBad": 0,
+      "busyHeaderFailures": 0,
+      "pageTargetActions": 1676,
+      "overlays": 443,
+      "invalidTargets": 0,
+      "foreignPageTargets": 0,
+      "transitionsOver100ms": null,
+      "homeTargets": [
+        "v3 · M00 · Virgo 拾穗 · A3 mobile"
+      ]
+    },
+    "reduced": {
+      "roots": 183,
+      "headers": 150,
+      "oldCopy": 0,
+      "textHorizontalOverflow": 0,
+      "gardenWindows": 0,
+      "blockedControls": 32,
+      "blockedBad": 0,
+      "busyHeaderFailures": 0,
+      "pageTargetActions": 1265,
+      "overlays": 331,
+      "invalidTargets": 0,
+      "foreignPageTargets": 0,
+      "transitionsOver100ms": 0,
+      "homeTargets": [
+        "v3 · RM · A4 · 减少动态 · 无开场无景深"
+      ]
+    }
+  },
+  "copyExact": [
+    "Virgo-你的产品规划搭子",
+    "选好产品、客户和渠道，明确大方向",
+    "生成营销方案",
+    "确认营销方案",
+    "按你的想法调整，确认后生成内容。",
+    "营销内容与成品"
+  ],
+  "coverDesktopAppearanceComparison": {
+    "framePairs": 8,
+    "nodes": 293,
+    "differences": 0,
+    "properties": "geometry, fills, strokes, font, text, opacity, visibility; reactions/IDs excluded"
+  },
+  "staticVisual": {
+    "png": 13,
+    "independentInitialReview": 12,
+    "finalTargetedReview": "desktop-1280-outline refreshed and approved; mandatory issue resolved. Blue-card contrast concern withdrawn after resolved-paint readback.",
+    "result": "Ship; no remaining must-fix visual issues"
+  },
+  "motion": {
+    "nativeFigmaExport": "motion/enter-workbench.mp4",
+    "width": 768,
+    "height": 534,
+    "fps": 10,
+    "sampleSeconds": [
+      0,
+      0.3,
+      0.6
+    ],
+    "mediaDurationSeconds": 0.7,
+    "authoredDurationSeconds": 0.6,
+    "result": "Scene remains full size and fades by 350ms; new workbench appears 200–600ms; endpoint matches revised task layout. Encoded duration includes final sample hold."
+  },
+  "manualInteraction": {
+    "attempted": true,
+    "result": "Figma IAB open timed out at 30s; kernel reset. Full human click-through not completed.",
+    "keyboardFocusVerified": false,
+    "realClipboardVerified": false,
+    "realDownloadsVerified": false
+  },
+  "notRun": [
+    "React tests/build",
+    "live model or ima",
+    "real mouse tracking",
+    "touch/performance",
+    "end-to-end human prototype click-through",
+    "photo-background pointwise contrast"
+  ],
+  "limits": [
+    "Prototype uses fixed mock two-/four-channel branches; free input and arbitrary channel combinations belong to website validation.",
+    "Design is not deployed or implemented in React.",
+    "Native video demonstrates UI transition, not a looping background-video asset.",
+    "Runtime history capability exists but is not covered by this narrowly scoped design revision."
+  ],
+  "preserved": [
+    "v2 pages/components/variables",
+    "A3 cover and A4 visuals/1s opening",
+    "channel artwork colors and proportions",
+    "all existing archive versions"
+  ],
+  "git": "No commit or push performed",
+  "variables": {
+    "semantic": 44,
+    "primitive": 44,
+    "components": 69,
+    "componentSets": 15,
+    "allScopesRemaining": 0,
+    "missingWebSyntax": 0
+  }
+}

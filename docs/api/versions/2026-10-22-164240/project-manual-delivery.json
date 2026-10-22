@@ -1,0 +1,41 @@
+{
+  "createdAt": "2026-10-18T16:57:26+08:00",
+  "pages": 16,
+  "format": "A4",
+  "compiler": "XeLaTeX",
+  "sourceProject": "output/latex/zhixu-project-manual",
+  "artifacts": {
+    "output/pdf/知序-项目说明书.pdf": "a8dccb2adf1f2a1f0c0e292985b4aa22a8dafcf9ab4584c9198e37cd42ff40c7",
+    "output/pdf/知序-项目说明书-TeX源项目.zip": "c05ebf99098ec3a9747eacbd41fa6c3276844d29e91582d93e0217897a5cf90a",
+    "output/latex/zhixu-project-manual/main.tex": "0caadd888a7dfbd98d0114885354d36571abc2bc9ef419bcc1d36ce36ed5f24f",
+    "output/latex/zhixu-project-manual/document-manifest.json": "c279598d7ed81081368b116ea3e426cf7d19ec71b3a83b55d8c7bcc2f4c5f5f1"
+  },
+  "validation": {
+    "format": "A4",
+    "pages": 16,
+    "compiler": "XeLaTeX / TeX Live 2026",
+    "overfullBoxes": 0,
+    "missingGlyphWarnings": 0,
+    "unresolvedReferences": 0,
+    "fontsEmbedded": true,
+    "wordsOutsideMediaBox": 0,
+    "allPagesVisuallyReviewed": true,
+    "handbookPages": 9,
+    "handbookSha256": "93d42fe65d9ec9f920948b0753f04094f9d0bef432346f806069afddebad876b",
+    "applicationTestsExecutedThisDocumentTask": false,
+    "modelCalledThisDocumentTask": false,
+    "imaCalledThisDocumentTask": false,
+    "newActualLocalCases": [
+      "开学季/小红书",
+      "职场办公/公众号"
+    ],
+    "existingLiveCaseReused": true,
+    "verifiedApplicationBaseline": "8574709",
+    "laterWorkspaceChangesExcludedFromEndToEndClaims": true
+  },
+  "applicationInterfacesModifiedByThisTask": false,
+  "applicationTestsRunThisTask": false,
+  "modelCalledThisTask": false,
+  "imaCalledThisTask": false,
+  "builtinCompile": "font resolution failure then timeout; exported PDF compiled with installed XeLaTeX"
+}

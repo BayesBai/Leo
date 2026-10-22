@@ -1,0 +1,115 @@
+{
+  "schema": 1,
+  "status": "static-review-passed",
+  "checks": {
+    "frameId": "54:2841",
+    "width": 1440,
+    "height": 1000,
+    "editableTextCount": 9,
+    "expectedTextAndGeometryPreserved": true,
+    "allTextWithinFrame": true,
+    "originalA2Unchanged": true,
+    "noWingLayer": true,
+    "noRemovedSecondary": true,
+    "noRightPlate": true,
+    "noChannelText": true,
+    "footer": {
+      "text": "Virgo · 拾穗",
+      "font": {
+        "family": "Noto Sans SC",
+        "style": "Regular",
+        "variationSettings": {
+          "wght": 400
+        }
+      },
+      "x": 56,
+      "y": 924,
+      "width": 320,
+      "height": 24
+    },
+    "figure": {
+      "x": 835,
+      "y": 245,
+      "width": 540,
+      "height": 720,
+      "opacity": 1,
+      "bodyImage": "8ff8deac2e5035e0834fc2a83a923e759c5cf208"
+    },
+    "actions": [
+      {
+        "from": "54:2854",
+        "name": "品牌故事",
+        "to": "39:2900",
+        "valid": true
+      },
+      {
+        "from": "54:2855",
+        "name": "创作流程",
+        "to": "39:2908",
+        "valid": true
+      },
+      {
+        "from": "54:2856",
+        "name": "开始创作",
+        "to": "6:121",
+        "valid": true
+      },
+      {
+        "from": "54:2862",
+        "name": "开始创作",
+        "to": "6:121",
+        "valid": true
+      }
+    ],
+    "prototypeStartPresent": true,
+    "figureChildren": [
+      {
+        "id": "I54:2846;53:2843",
+        "name": "人物与衣裙 · 不透明层",
+        "imageHash": "8ff8deac2e5035e0834fc2a83a923e759c5cf208",
+        "opacity": 1
+      }
+    ],
+    "noRemovedClickOrContentNodes": true,
+    "removedNodeChecks": [
+      {
+        "id": "54:2863",
+        "absent": true
+      },
+      {
+        "id": "I54:2863;5:121",
+        "absent": true
+      },
+      {
+        "id": "54:2849",
+        "absent": true
+      },
+      {
+        "id": "54:2866",
+        "absent": true
+      }
+    ]
+  },
+  "visualReview": {
+    "independent": true,
+    "result": "Ship: all four requested visual changes complete; no required fix",
+    "image": "previews/home-a-refined.png"
+  },
+  "localAsset": {
+    "reusedFrom": "../2026-10-21-fairy-fusion/assets/fairy-body.png",
+    "copyIsByteIdentical": true,
+    "width": 1086,
+    "height": 1448,
+    "mode": "RGBA",
+    "previewWidth": 1440,
+    "previewHeight": 1000
+  },
+  "apiChange": "none",
+  "testsRun": [],
+  "notPerformed": [
+    "Complete manual prototype click-through",
+    "Production website implementation",
+    "Video, mouse parallax, new mobile design or workbench restyle",
+    "Application tests/build or marketing-model/ima integration"
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "tests": {
+    "total": 142,
+    "passed": 142,
+    "failed": 0,
+    "skipped": 0
+  },
+  "targetedModelAndWorkflowTests": {
+    "passed": 43,
+    "failed": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "diffCheck": "passed",
+  "runtime": {
+    "url": "http://127.0.0.1:9756",
+    "restarted": true,
+    "baseUrl": "https://relay.nccnxta.cn/v1",
+    "model": "gpt-6.1-sol",
+    "configured": true
+  },
+  "realWorkflow": {
+    "completed": true,
+    "elapsedMs": 442657,
+    "outlineBindingVerified": true,
+    "reviewExecuted": true,
+    "repairExecuted": true,
+    "reviewStatus": "needs_attention",
+    "remainingSourceWarnings": 3,
+    "blockedErrors": 0,
+    "exportAllowed": true,
+    "publicationPassed": false,
+    "allPreviewsDownloadsAndFourZipsHttp200AndNonEmpty": true
+  },
+  "realIma": "not called; local evidence only",
+  "browserRefreshRestart": "not repeated this task",
+  "artifactScope": "HTTP/nonempty/metadata bindings verified; no visual inspection, binary PNG/ZIP parsing or actual publication this task",
+  "blockedDownloadGate": "covered by regression tests; this real run was needs_attention and allowed downloads",
+  "credentials": "existing backend key retained; neither value nor suffix archived",
+  "apiConclusion": "已核对，无接口变更"
+}

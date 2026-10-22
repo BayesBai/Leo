@@ -1,0 +1,21 @@
+{
+  "capturedAtBeijing": "2026-10-22T01:30:09.266686+08:00",
+  "sha256": {
+    "server/index.ts": "62b62dbdc20ecfeaee7be0de10760bb4a52d6aac130206c03be68e79e5cfeb4d",
+    "server/schemas.ts": "c428f2e0956d8bedd2be547ea1ab998340dce767b1e1d4ea6cdb0f76a9aee305",
+    "shared/types.ts": "ce472706bf22f8c8eb7f9f48665e8696c5825b12edf56914d3e0d97c735357f3",
+    "server/model.ts": "81f1ce312f040dac40b44fc6a19cd833aae76c0f4ec8cdf07eb404b1fcd469d4",
+    "tests/model.test.ts": "aa818d48263b90059e6f550aa6ec56d891f225802a8174e8fd703b7960abc281",
+    "tests/workflow.test.ts": "b7040cb227177ac5d522dc520fb5819faf9650fe50e1472e323e0bb33cfae06d",
+    "tests/setup.ts": "f61b0f7e2d60b9eb656442b7d4c7eab8ec1ec657bdf9f0a7da26dce9f1345848",
+    "src/WorkflowApp.tsx": "c405b6d9ca46184a576b94dca888473548f0212b082e78ac82b96c2453e8faa2",
+    "src/TaskForm.tsx": "7b73b7aa7834c7f2401d2a36c072208f99b4356dc75556f63d3e09b597618032",
+    "src/RenderPanel.tsx": "f3110e4755a66c9f34851cdeb7410c4d8d8aa010486a44199f409eb11b975edf",
+    "src/virgo/OutlinePage.tsx": "a7e9f2fbcf90b364000c8d7240f187bb781024a880e2d1ec883b3cfac0619711",
+    "src/virgo/VirgoLanding.tsx": "69132eca46fa6028df07500a482cc75afd1eccd6e2aead480ccc816754dc4813",
+    "src/virgo/workbench.css": "9001beab8cf128481b2c8784e58c34cbed081761fc93d21814160095bf0c4a85",
+    "src/virgo/landing.css": "67f8ade8a86daac2de893f284ebc66c42ff37db4129e7dd48faeb4f9b6313e23",
+    "package.json": "aa1ee7aa528e3202d8f3f6b395cda5ab0efbc51cd271fc09874b7481d803d97c",
+    "package-lock.json": "678f6401b86d67461aeb88f3eae32e1795e3ea72eb45efff1a69d976b67c767c"
+  }
+}

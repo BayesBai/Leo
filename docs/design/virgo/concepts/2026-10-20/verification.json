@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "date": "2026-10-20",
+  "status": "static-compositions-reviewed",
+  "scope": "Two 1440x1000 homepage compositions only",
+  "finalCanvasChecks": {
+    "frames": [
+      {
+        "id": "39:2922",
+        "width": 1440,
+        "height": 1000,
+        "textCount": 11,
+        "allTextInFrame": true,
+        "nativeTextFamilies": [
+          "Pinyon Script",
+          "Noto Sans SC"
+        ],
+        "imageLayers": 3,
+        "actions": 5
+      },
+      {
+        "id": "39:2967",
+        "width": 1440,
+        "height": 1000,
+        "textCount": 11,
+        "allTextInFrame": true,
+        "nativeTextFamilies": [
+          "Pinyon Script",
+          "Noto Sans SC"
+        ],
+        "imageLayers": 3,
+        "actions": 5
+      }
+    ],
+    "muted": {
+      "4:0": {
+        "r": 0.47058823704719543,
+        "g": 0.3803921639919281,
+        "b": 0.4274509847164154,
+        "a": 1
+      }
+    },
+    "flows": [
+      {
+        "nodeId": "6:50",
+        "name": "Virgo · 桌面主流程"
+      },
+      {
+        "nodeId": "11:2013",
+        "name": "Virgo · 状态与恢复"
+      },
+      {
+        "nodeId": "11:747",
+        "name": "Virgo · 双渠道成品示例"
+      },
+      {
+        "nodeId": "11:1069",
+        "name": "Virgo · 公众号成品示例"
+      },
+      {
+        "nodeId": "11:1225",
+        "name": "Virgo · 门店海报示例"
+      },
+      {
+        "nodeId": "39:2922",
+        "name": "Virgo · 首页候选 A 花园之门"
+      },
+      {
+        "nodeId": "39:2967",
+        "name": "Virgo · 首页候选 B 晚风麦田"
+      }
+    ],
+    "check": "Geometry and reaction inspection only; no complete manual click-through."
+  },
+  "inspectedPreviews": [
+    "previews/home-a.png",
+    "previews/home-b.png"
+  ],
+  "visualReview": {
+    "independentReviewer": true,
+    "result": "ship",
+    "fixesCompleted": [
+      "A/B channel text has local deep olive reading background",
+      "B secondary flow button has warm ivory reading background"
+    ],
+    "fonts": "Pinyon Script for wordmarks; Noto Sans SC for Chinese",
+    "assets": "Separate panorama, transparent fairy and transparent foreground layers; no screenshot used as UI"
+  },
+  "preservedBoundaries": [
+    "Existing 6:121 brief and workflow remain",
+    "No backend, shared contract or production src edits",
+    "No marketing-copy model or ima business integration calls; built-in image_gen was used for brand artwork"
+  ],
+  "notVerified": [
+    "Complete manual prototype click-through",
+    "New mobile homepage compositions",
+    "All-image-background WCAG contrast in every viewport",
+    "Real video loop, mouse parallax or animation performance",
+    "Production website implementation or API/model/ima end-to-end acceptance"
+  ],
+  "testsRun": [],
+  "localChecks": {
+    "jsonFilesParsed": 4,
+    "markdownLinks": "All local Markdown targets in this concept directory resolved",
+    "generatedAssetSha256": "4/4 verified against assets/provenance.json",
+    "finalPreviewDimensions": "Both 1440x1000",
+    "independentFinalReview": "Ship after both text-readability fixes"
+  }
+}

@@ -1,0 +1,501 @@
+{
+  "checkedAt": "2026-10-22T05:34:42.732Z",
+  "model": "gpt-6.1-sol",
+  "baseUrl": "https://relay.nccnxta.cn/v1",
+  "coldState": true,
+  "success": true,
+  "imaCalled": false,
+  "firstPreviewMs": 93560,
+  "outlineMs": 47153,
+  "generateMs": 67014,
+  "jobStatus": "completed",
+  "channels": [
+    {
+      "platform": "xiaohongshu",
+      "status": "completed",
+      "stage": "render"
+    },
+    {
+      "platform": "wechat",
+      "status": "completed",
+      "stage": "render"
+    },
+    {
+      "platform": "moments",
+      "status": "completed",
+      "stage": "render"
+    },
+    {
+      "platform": "poster",
+      "status": "completed",
+      "stage": "render"
+    }
+  ],
+  "review": {
+    "status": "needs_attention",
+    "reviewedBy": "rules+model",
+    "issues": [
+      {
+        "severity": "warning",
+        "category": "source",
+        "target": "source",
+        "resolution": "manual_review"
+      },
+      {
+        "severity": "warning",
+        "category": "source",
+        "target": "source",
+        "resolution": "manual_review"
+      },
+      {
+        "severity": "warning",
+        "category": "source",
+        "target": "source",
+        "resolution": "manual_review"
+      },
+      {
+        "severity": "warning",
+        "category": "platform",
+        "platform": "poster",
+        "target": "structure",
+        "resolution": "edit_outline"
+      }
+    ]
+  },
+  "outlineBindingVerified": true,
+  "artifacts": [
+    {
+      "platform": "wechat",
+      "publication": "released",
+      "artifacts": [
+        {
+          "format": "wechat-richtext",
+          "previewHttp": 200,
+          "bytes": 2105324,
+          "downloadHttp": 200,
+          "downloadBytes": 2105324
+        },
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 241038,
+          "downloadHttp": 200,
+          "downloadBytes": 241038,
+          "actualSize": {
+            "width": 1200,
+            "height": 900
+          }
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 1842723,
+        "files": 4
+      }
+    },
+    {
+      "platform": "poster",
+      "publication": "released",
+      "artifacts": [
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 379393,
+          "downloadHttp": 200,
+          "downloadBytes": 379393,
+          "actualSize": {
+            "width": 1080,
+            "height": 1920
+          }
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 352506,
+        "files": 3
+      }
+    },
+    {
+      "platform": "moments",
+      "publication": "released",
+      "artifacts": [
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 177702,
+          "downloadHttp": 200,
+          "downloadBytes": 177702,
+          "actualSize": {
+            "width": 1080,
+            "height": 1080
+          }
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 163268,
+        "files": 3
+      }
+    },
+    {
+      "platform": "xiaohongshu",
+      "publication": "released",
+      "artifacts": [
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 253263,
+          "downloadHttp": 200,
+          "downloadBytes": 253263,
+          "actualSize": {
+            "width": 1080,
+            "height": 1440
+          }
+        },
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 154949,
+          "downloadHttp": 200,
+          "downloadBytes": 154949,
+          "actualSize": {
+            "width": 1080,
+            "height": 1440
+          }
+        },
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 174891,
+          "downloadHttp": 200,
+          "downloadBytes": 174891,
+          "actualSize": {
+            "width": 1080,
+            "height": 1440
+          }
+        },
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 117424,
+          "downloadHttp": 200,
+          "downloadBytes": 117424,
+          "actualSize": {
+            "width": 1080,
+            "height": 1440
+          }
+        },
+        {
+          "format": "png",
+          "previewHttp": 200,
+          "bytes": 96502,
+          "downloadHttp": 200,
+          "downloadBytes": 96502,
+          "actualSize": {
+            "width": 1080,
+            "height": 1440
+          }
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 757778,
+        "files": 7
+      }
+    }
+  ],
+  "elapsedMs": 114464,
+  "httpAttempts": 17,
+  "calls": [
+    {
+      "stage": "outline",
+      "platform": "xiaohongshu",
+      "attempt": 1,
+      "queueMs": 15,
+      "outcome": "succeeded",
+      "firstResponseMs": 11067,
+      "upstreamStatus": 200,
+      "firstContentMs": 11067,
+      "usage": {
+        "promptTokens": 4175,
+        "completionTokens": 946,
+        "totalTokens": 5121
+      },
+      "totalMs": 31057,
+      "maxIdleMs": 11067
+    },
+    {
+      "stage": "outline",
+      "platform": "wechat",
+      "attempt": 1,
+      "queueMs": 54,
+      "outcome": "succeeded",
+      "firstResponseMs": 6911,
+      "upstreamStatus": 200,
+      "firstContentMs": 7146,
+      "usage": {
+        "promptTokens": 8377,
+        "completionTokens": 992,
+        "totalTokens": 9369
+      },
+      "totalMs": 28330,
+      "maxIdleMs": 6911
+    },
+    {
+      "stage": "outline",
+      "platform": "moments",
+      "attempt": 1,
+      "queueMs": 88,
+      "outcome": "succeeded",
+      "firstResponseMs": 2606,
+      "upstreamStatus": 200,
+      "firstContentMs": 2608,
+      "usage": {
+        "promptTokens": 4130,
+        "completionTokens": 347,
+        "totalTokens": 4477
+      },
+      "totalMs": 11215,
+      "maxIdleMs": 2608
+    },
+    {
+      "stage": "outline",
+      "platform": "poster",
+      "attempt": 1,
+      "queueMs": 125,
+      "outcome": "succeeded",
+      "firstResponseMs": 31597,
+      "upstreamStatus": 200,
+      "firstContentMs": 31598,
+      "usage": {
+        "promptTokens": 8540,
+        "completionTokens": 511,
+        "totalTokens": 9051
+      },
+      "totalMs": 33402,
+      "maxIdleMs": 31597
+    },
+    {
+      "stage": "outline",
+      "platform": "poster",
+      "attempt": 2,
+      "queueMs": 11,
+      "outcome": "succeeded",
+      "firstResponseMs": 2835,
+      "upstreamStatus": 200,
+      "firstContentMs": 2835,
+      "usage": {
+        "promptTokens": 4183,
+        "completionTokens": 403,
+        "totalTokens": 4586
+      },
+      "totalMs": 11229,
+      "maxIdleMs": 2835
+    },
+    {
+      "stage": "write",
+      "platform": "xiaohongshu",
+      "attempt": 1,
+      "queueMs": 12,
+      "outcome": "succeeded",
+      "firstResponseMs": 6531,
+      "upstreamStatus": 200,
+      "firstContentMs": 6532,
+      "usage": {
+        "promptTokens": 7277,
+        "completionTokens": 477,
+        "totalTokens": 7754
+      },
+      "totalMs": 15564,
+      "maxIdleMs": 6531
+    },
+    {
+      "stage": "write",
+      "platform": "wechat",
+      "attempt": 1,
+      "queueMs": 50,
+      "outcome": "succeeded",
+      "firstResponseMs": 29889,
+      "upstreamStatus": 200,
+      "firstContentMs": 29889,
+      "usage": {
+        "promptTokens": 29751,
+        "completionTokens": 596,
+        "totalTokens": 30347
+      },
+      "totalMs": 38750,
+      "maxIdleMs": 29889
+    },
+    {
+      "stage": "write",
+      "platform": "moments",
+      "attempt": 1,
+      "queueMs": 87,
+      "outcome": "succeeded",
+      "firstResponseMs": 43052,
+      "upstreamStatus": 200,
+      "firstContentMs": 43053,
+      "usage": {
+        "promptTokens": 6493,
+        "completionTokens": 220,
+        "totalTokens": 6713
+      },
+      "totalMs": 43967,
+      "maxIdleMs": 43052
+    },
+    {
+      "stage": "write",
+      "platform": "poster",
+      "attempt": 1,
+      "queueMs": 127,
+      "outcome": "succeeded",
+      "firstResponseMs": 3127,
+      "upstreamStatus": 200,
+      "firstContentMs": 3128,
+      "usage": {
+        "promptTokens": 6501,
+        "completionTokens": 178,
+        "totalTokens": 6679
+      },
+      "totalMs": 6235,
+      "maxIdleMs": 3127
+    },
+    {
+      "stage": "review",
+      "platform": "poster",
+      "attempt": 1,
+      "queueMs": 9,
+      "outcome": "succeeded",
+      "firstResponseMs": 29027,
+      "upstreamStatus": 200,
+      "firstContentMs": 29027,
+      "usage": {
+        "promptTokens": 6415,
+        "completionTokens": 559,
+        "totalTokens": 6974
+      },
+      "totalMs": 30117,
+      "maxIdleMs": 29027
+    },
+    {
+      "stage": "review",
+      "platform": "xiaohongshu",
+      "attempt": 1,
+      "queueMs": 12,
+      "outcome": "succeeded",
+      "firstResponseMs": 31213,
+      "upstreamStatus": 200,
+      "firstContentMs": 31239,
+      "usage": {
+        "promptTokens": 7006,
+        "completionTokens": 304,
+        "totalTokens": 7310
+      },
+      "totalMs": 31753,
+      "maxIdleMs": 31213
+    },
+    {
+      "stage": "repair",
+      "platform": "poster",
+      "attempt": 1,
+      "queueMs": 12,
+      "outcome": "succeeded",
+      "firstResponseMs": 2877,
+      "upstreamStatus": 200,
+      "firstContentMs": 2878,
+      "usage": {
+        "promptTokens": 2946,
+        "completionTokens": 198,
+        "totalTokens": 3144
+      },
+      "totalMs": 6131,
+      "maxIdleMs": 2878
+    },
+    {
+      "stage": "review",
+      "platform": "wechat",
+      "attempt": 1,
+      "queueMs": 11,
+      "outcome": "succeeded",
+      "firstResponseMs": 3291,
+      "upstreamStatus": 200,
+      "firstContentMs": 3291,
+      "usage": {
+        "promptTokens": 2700,
+        "completionTokens": 98,
+        "totalTokens": 2798
+      },
+      "totalMs": 4517,
+      "maxIdleMs": 3291
+    },
+    {
+      "stage": "recheck",
+      "platform": "poster",
+      "attempt": 1,
+      "queueMs": 11,
+      "outcome": "succeeded",
+      "firstResponseMs": 5193,
+      "upstreamStatus": 200,
+      "firstContentMs": 5193,
+      "usage": {
+        "promptTokens": 2059,
+        "completionTokens": 202,
+        "totalTokens": 2261
+      },
+      "totalMs": 8855,
+      "maxIdleMs": 5193
+    },
+    {
+      "stage": "review",
+      "platform": "moments",
+      "attempt": 1,
+      "queueMs": 13,
+      "outcome": "succeeded",
+      "firstResponseMs": 2859,
+      "upstreamStatus": 200,
+      "firstContentMs": 2859,
+      "usage": {
+        "promptTokens": 1897,
+        "completionTokens": 53,
+        "totalTokens": 1950
+      },
+      "totalMs": 3989,
+      "maxIdleMs": 2859
+    },
+    {
+      "stage": "repair",
+      "platform": "moments",
+      "attempt": 1,
+      "queueMs": 18,
+      "outcome": "succeeded",
+      "firstResponseMs": 2936,
+      "upstreamStatus": 200,
+      "firstContentMs": 2936,
+      "usage": {
+        "promptTokens": 2525,
+        "completionTokens": 201,
+        "totalTokens": 2726
+      },
+      "totalMs": 6186,
+      "maxIdleMs": 2936
+    },
+    {
+      "stage": "recheck",
+      "platform": "moments",
+      "attempt": 1,
+      "queueMs": 19,
+      "outcome": "succeeded",
+      "firstResponseMs": 2895,
+      "upstreamStatus": 200,
+      "firstContentMs": 2895,
+      "usage": {
+        "promptTokens": 1878,
+        "completionTokens": 62,
+        "totalTokens": 1940
+      },
+      "totalMs": 4622,
+      "maxIdleMs": 2895
+    }
+  ],
+  "repairAttempts": 2
+}

@@ -1,36 +1,26 @@
-import dotenv from 'dotenv';
 import express from 'express';
 import path from 'node:path';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { z } from 'zod';
 import type { AppStatus, Brief, EvidenceBundle, OutlineResult, RunResult, StreamEvent } from '../shared/types.js';
-import { getAsset, getImaStatus, getLocalStats, listProducts, verifyIma } from './knowledge.js';
+import { getAsset, getImaStatus, getLocalStats, listProducts, verifyIma, assertEvidenceCurrent } from './knowledge.js';
 import { callModel, modelConfig } from './model.js';
 import { InputRequiredError, parseBrief, publicResult, revisionPlatforms, runPipeline } from './pipeline.js';
-import { outlineEditSchema, outlineReviseSchema, outlineVersionSchema, platformSchema, renderRequestSchema } from './schemas.js';
+import { jobSubmitSchema, outlineEditSchema, outlineReviseSchema, outlineVersionSchema, platformSchema, renderRequestSchema } from './schemas.js';
 import { confirmedOutline, confirmOutline, createOutline, getOutline, publicOutline, reviseOutline, saveOutline, WorkflowError } from './outlines.js';
 import { initializeConnectionPolicy, updateConnections } from './connections.js';
 import { taskOptions } from './task-options.js';
 import { getRenderAsset, renderRun, renderTemplates } from './render/index.js';
+import { getSavedRun, historyItems, pruneHistory, runDetail, saveRun } from './history.js';
+import { stateStore, markOperation, finishOperation } from './state-store.js';
+import { jobs, submitJob } from './jobs.js';
 
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
-dotenv.config({ path: path.join(root, '.env.local'), override: false });
-dotenv.config({ path: path.join(root, '.env'), override: false });
-initializeConnectionPolicy();
-
-const RUN_TTL = 30 * 60 * 1000;
-const runs = new Map<string, { result: RunResult; canonicalEvidence: EvidenceBundle; touched: number }>();
 let activeRuns = 0;
 let initialSample: Promise<RunResult> | undefined;
 let activeOperations = 0;
-
-function saveRun(result: RunResult, canonicalEvidence: EvidenceBundle = result.evidence) {
-  const now = Date.now();
-  for (const [id, run] of runs) if (now - run.touched > RUN_TTL) runs.delete(id);
-  while (runs.size >= 40) runs.delete(runs.keys().next().value!);
-  runs.set(result.id, { result, canonicalEvidence, touched: now });
-}
+const activeOutlineOperations = new Set<string>();
 
 async function status(): Promise<AppStatus> {
   const { configured, name, baseUrl } = modelConfig();
@@ -74,6 +64,7 @@ const operation = (handler: express.RequestHandler): express.RequestHandler => a
 };
 
 export async function createApp(options: { production?: boolean; apiOnly?: boolean } = {}) {
+  initializeConnectionPolicy(); stateStore(); pruneHistory(); const queue = jobs();
   const app = express();
   app.disable('x-powered-by');
   const allowedHosts = new Set(['localhost', '127.0.0.1', '[::1]']);
@@ -119,16 +110,31 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
     try { await verifyIma(controller.signal); res.json(await status()); } catch (error) { if (!controller.signal.aborted) next(error); }
   }));
   app.get('/api/task-options', (_req, res) => { res.json(taskOptions); });
+  app.get('/api/history', (_req, res, next) => { try { pruneHistory(); res.json({ items: historyItems() }); } catch (error) { next(error); } });
+  app.get('/api/runs/:id', (req, res, next) => { try { res.json(runDetail(String(req.params.id))); } catch (error) { next(error); } });
+  app.post('/api/jobs', (req, res, next) => { try { const input = jobSubmitSchema.parse(req.body); if ('outlineId' in input && activeOutlineOperations.has(input.outlineId)) throw new WorkflowError(409, '此大纲正在被原生成接口使用，请先完成或停止原任务。'); res.status(202).json({ job: submitJob(input) }); } catch (error) { next(error); } });
+  app.get('/api/jobs', (req, res, next) => { try { const key = req.query.idempotencyKey; if (key !== undefined && (typeof key !== 'string' || key.length > 120)) throw new WorkflowError(400, '幂等键格式无效。'); res.json({ jobs: queue.list(key, true) }); } catch (error) { next(error); } });
+  app.get('/api/jobs/events', (_req, res) => {
+    res.status(200).set({ 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-cache, no-transform', Connection: 'keep-alive', 'X-Accel-Buffering': 'no' }); res.flushHeaders();
+    let pending = false;
+    const send = () => { if (!res.destroyed && !res.writableEnded) { if (res.writableLength > 4 * 1024 * 1024) { res.end(); return; } res.write(`data: ${JSON.stringify({ type: 'snapshot', jobs: queue.list(undefined, true) })}\n\n`); } };
+    const unsubscribe = queue.subscribe(() => { if (!pending) { pending = true; queueMicrotask(() => { pending = false; send(); }); } });
+    const heartbeat = setInterval(() => { if (!res.destroyed) res.write(': heartbeat\n\n'); }, 15_000); send();
+    res.once('close', () => { clearInterval(heartbeat); unsubscribe(); });
+  });
+  app.get('/api/jobs/:id', (req, res, next) => { try { res.json({ job: queue.get(String(req.params.id)) }); } catch (error) { next(error); } });
+  app.post('/api/jobs/:id/cancel', (req, res, next) => { try { res.json({ job: queue.cancel(String(req.params.id)) }); } catch (error) { next(error); } });
+  app.post('/api/jobs/:id/retry', (req, res, next) => { try { const job = queue.get(String(req.params.id)); if ('outlineId' in job.input) unlockedOutline(job.input.outlineId); res.json({ job: queue.retry(job.id) }); } catch (error) { next(error); } });
   app.post('/api/connections/settings', async (req, res, next) => {
     try {
-      if (activeOperations) throw new WorkflowError(409, '请等待正在进行的任务结束后再修改接入配置。');
+      if (activeOperations || queue.hasPending()) throw new WorkflowError(409, '请等待运行与排队任务完成，或显式停止后再修改接入配置。');
       updateConnections(req.body); res.json(await status());
     } catch (error) { next(error); }
   });
   app.post('/api/connections/model/verify', operation(async (req, res, next) => {
     const controller = new AbortController(); req.on('close', () => { if (!req.complete) controller.abort(); });
     res.on('close', () => { if (!res.writableEnded) controller.abort(); });
-    try { await callModel('仅返回 OK。', '连接测试', { signal: controller.signal, maxTokens: 16 }); res.json({ verified: true, message: '模型接口已返回有效文本。' }); }
+    try { await callModel('仅返回 OK。', '连接测试', { signal: controller.signal, maxTokens: 256 }); res.json({ verified: true, message: '模型接口已返回有效文本。' }); }
     catch (error) { if (!controller.signal.aborted) next(error); }
   }));
   const outlineAction = (action: (req: express.Request, signal: AbortSignal) => Promise<OutlineResult> | OutlineResult): express.RequestHandler => async (req, res, next) => {
@@ -137,17 +143,17 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
   };
   app.post('/api/outlines', operation(outlineAction((req, signal) => createOutline(parseBrief(req.body), signal))));
   app.get('/api/outlines/:id', outlineAction(req => getOutline(String(req.params.id))));
-  app.put('/api/outlines/:id', operation(outlineAction(req => { const input = outlineEditSchema.parse(req.body); return saveOutline(String(req.params.id), input.version, input.platforms); })));
-  app.post('/api/outlines/:id/revise', operation(outlineAction((req, signal) => { const input = outlineReviseSchema.parse(req.body); return reviseOutline(String(req.params.id), input.version, input.instructions, signal); })));
-  app.post('/api/outlines/:id/confirm', operation(outlineAction(req => { const input = outlineVersionSchema.parse(req.body); return confirmOutline(String(req.params.id), input.version); })));
+  const unlockedOutline = (id: string) => { if (queue.hasOutlineUse(id) || activeOutlineOperations.has(id)) throw new WorkflowError(409, '此方案正在生成或队列中使用，请等待该任务及取消清理完成，再修改、确认或重试。'); return id; };
+  app.put('/api/outlines/:id', operation(outlineAction(req => { const input = outlineEditSchema.parse(req.body); return saveOutline(unlockedOutline(String(req.params.id)), input.version, input.platforms); })));
+  app.post('/api/outlines/:id/revise', operation(outlineAction((req, signal) => { const input = outlineReviseSchema.parse(req.body); return reviseOutline(unlockedOutline(String(req.params.id)), input.version, input.instructions, signal); })));
+  app.post('/api/outlines/:id/confirm', operation(outlineAction(req => { const input = outlineVersionSchema.parse(req.body); return confirmOutline(unlockedOutline(String(req.params.id)), input.version); })));
   app.get('/api/render-templates', (_req, res) => { res.json({ templates: renderTemplates }); });
   app.post('/api/render', operation(async (req, res, next) => {
     const controller = new AbortController(); res.once('close', () => { if (!res.writableEnded) controller.abort(); });
     try {
-      const input = renderRequestSchema.parse(req.body); const saved = runs.get(input.runId);
-      if (!saved || Date.now() - saved.touched >= RUN_TTL) throw new WorkflowError(410, '正文任务已过期，请重新生成。');
+      const input = renderRequestSchema.parse(req.body); const saved = getSavedRun(input.runId);
       if (saved.result.revision !== input.revision) throw new WorkflowError(409, '正文版本不一致，请使用当前结果。');
-      saved.touched = Date.now();
+      assertEvidenceCurrent(saved.canonicalEvidence);
       res.json(await renderRun(saved.result, input, controller.signal));
     } catch (error) { if (!controller.signal.aborted) next(error); }
   }));
@@ -190,6 +196,8 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
     const controller = new AbortController();
     let heartbeat: ReturnType<typeof setInterval> | undefined;
     let started = false;
+    let operationId: string | undefined;
+    let lockedOutlineId: string | undefined;
     const send = (event: StreamEvent) => {
       if (!res.writableEnded && !res.destroyed) res.write(`data: ${JSON.stringify(event)}\n\n`);
     };
@@ -200,12 +208,12 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
       let outline: OutlineResult | undefined;
       if (revise === 'outline') {
         const input = z.object({ outlineId: z.string().min(1).max(100), version: z.number().int().min(1) }).strict().parse(req.body);
-        outline = confirmedOutline(input.outlineId, input.version); brief = outline.brief; canonicalEvidence = outline.evidence;
+        if (queue.hasOutlineUse(input.outlineId) || activeOutlineOperations.has(input.outlineId)) throw new WorkflowError(409, '此大纲已有运行或排队任务，请先查看或显式停止该任务。');
+        outline = confirmedOutline(input.outlineId, input.version); brief = outline.brief; canonicalEvidence = outline.evidence; operationId = outline.id;
+        lockedOutlineId = outline.id; activeOutlineOperations.add(outline.id);
       } else if (revise) {
         const input = z.object({ runId: z.string().min(1).max(100), instructions: z.string().trim().min(1, '请填写修改要求。').max(2000), platforms: z.array(platformSchema).min(1).max(4).optional() }).parse(req.body);
-        const saved = runs.get(input.runId);
-        if (!saved || Date.now() - saved.touched > RUN_TTL) { res.status(410).json({ message: '上次任务已过期，请重新生成。' }); return; }
-        prior = saved.result; saved.touched = Date.now();
+        const saved = getSavedRun(input.runId, true); prior = saved.result; operationId = input.runId;
         canonicalEvidence = saved.canonicalEvidence;
         const inferredPlatforms = revisionPlatforms(input.instructions);
         if (!input.platforms && !inferredPlatforms && /(?:换|切换)平台/.test(input.instructions)) {
@@ -213,6 +221,7 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
         }
         brief = parseBrief({ ...prior.brief, instructions: input.instructions, platforms: input.platforms || inferredPlatforms || prior.brief.platforms });
       } else brief = parseBrief(req.body);
+      if (operationId) operationId = markOperation(operationId, 'generate');
       res.status(200).set({ 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-cache, no-transform', Connection: 'keep-alive', 'X-Accel-Buffering': 'no' });
       res.flushHeaders();
       started = true; activeRuns++;
@@ -227,17 +236,19 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
         outline,
       });
       controller.signal.throwIfAborted();
-      saveRun(result, canonicalEvidence); send({ type: 'result', result: publicResult(result) });
+      saveRun(result, canonicalEvidence, outline); send({ type: 'result', result: publicResult(result) });
     } catch (error) {
       if (error instanceof InputRequiredError) {
         if (started) send({ type: 'needs_input', message: error.message, fields: error.fields });
         else res.status(422).json({ type: 'needs_input', message: error.message, fields: error.fields });
       } else if (!controller.signal.aborted) {
         if (started) send({ type: 'error', message: safeError(error) });
-        else res.status(error instanceof z.ZodError ? 400 : error instanceof WorkflowError ? error.status : 500).json({ message: safeError(error) });
+        else res.status(error instanceof z.ZodError ? 400 : error && typeof error === 'object' && 'status' in error ? Number(error.status) : 500).json({ message: safeError(error) });
       }
     } finally {
       if (heartbeat) clearInterval(heartbeat);
+      if (operationId) { try { finishOperation(operationId); } catch { /* preserve concurrency cleanup even when storage is unavailable */ } }
+      if (lockedOutlineId) activeOutlineOperations.delete(lockedOutlineId);
       if (started) activeRuns--;
       if (!res.writableEnded) res.end();
     }
@@ -266,19 +277,4 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
     res.status(error instanceof z.ZodError ? 400 : Number.isInteger(suppliedStatus) && suppliedStatus >= 400 && suppliedStatus <= 599 ? suppliedStatus : 500).json({ message: safeError(error) });
   });
   return app;
-}
-
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  const production = process.argv.includes('--production') || process.env.NODE_ENV === 'production';
-  const port = Number(process.env.PORT) || 3000;
-  const host = process.env.HOST || '127.0.0.1';
-  const app = await createApp({ production });
-  const server = app.listen(port, host);
-  server.once('listening', () => {
-    console.log(`\n  知序 · PC 内容工作台\n  Local: http://${host === '0.0.0.0' ? 'localhost' : host}:${port}\n  本地演示可用；真实模型与 ima 状态请查看工作台。\n`);
-  });
-  server.on('error', (error: NodeJS.ErrnoException) => {
-    console.error(error.code === 'EADDRINUSE' ? `端口 ${port} 已占用。请在 .env.local 设置其他 PORT 后重启。` : safeError(error));
-    process.exitCode = 1;
-  });
 }

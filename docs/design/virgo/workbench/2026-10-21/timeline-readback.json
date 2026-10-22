@@ -1,0 +1,250 @@
+{
+  "A3": {
+    "id": "54:2841",
+    "texts": [
+      "Virgo",
+      "把好产品，\n讲得恰如其分。",
+      "为门店日常推广，整理思路、推敲文案，\n准备各个渠道的内容。",
+      "Virgo · 拾穗"
+    ],
+    "figure": "54:2846"
+  },
+  "timelines": {
+    "intro": [
+      {
+        "id": "64:2451",
+        "duration": 1
+      }
+    ],
+    "bridge": [
+      {
+        "id": "64:2833",
+        "duration": 0.6
+      }
+    ],
+    "ambient": [
+      {
+        "id": "64:2526",
+        "duration": 8
+      }
+    ]
+  },
+  "bridgeWindow": {
+    "CORNER_RADIUS": {
+      "id": "KeyframeTrackId:67:4388",
+      "baseValue": {
+        "type": "FLOAT",
+        "value": 0
+      },
+      "keyframes": [
+        {
+          "id": "67:4389",
+          "easing": {
+            "type": "CUSTOM_CUBIC_BEZIER",
+            "easingFunctionCubicBezier": {
+              "x1": 0.5,
+              "y1": 0,
+              "x2": 0.5,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 0
+          },
+          "timelinePosition": 0
+        },
+        {
+          "id": "67:4390",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 40
+          },
+          "timelinePosition": 0.6
+        }
+      ]
+    },
+    "WIDTH": {
+      "id": "KeyframeTrackId:64:2872",
+      "baseValue": {
+        "type": "FLOAT",
+        "value": 1440
+      },
+      "keyframes": [
+        {
+          "id": "64:2873",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 1440
+          },
+          "timelinePosition": 0
+        },
+        {
+          "id": "64:2874",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 220
+          },
+          "timelinePosition": 0.6
+        }
+      ]
+    },
+    "HEIGHT": {
+      "id": "KeyframeTrackId:64:2875",
+      "baseValue": {
+        "type": "FLOAT",
+        "value": 1000
+      },
+      "keyframes": [
+        {
+          "id": "64:2876",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 1000
+          },
+          "timelinePosition": 0
+        },
+        {
+          "id": "64:2877",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 64
+          },
+          "timelinePosition": 0.6
+        }
+      ]
+    },
+    "TRANSLATION_X": {
+      "id": "KeyframeTrackId:64:2878",
+      "baseValue": {
+        "type": "FLOAT",
+        "value": 0
+      },
+      "keyframes": [
+        {
+          "id": "64:2879",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 0
+          },
+          "timelinePosition": 0
+        },
+        {
+          "id": "64:2880",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 498
+          },
+          "timelinePosition": 0.6
+        }
+      ]
+    },
+    "TRANSLATION_Y": {
+      "id": "KeyframeTrackId:64:2881",
+      "baseValue": {
+        "type": "FLOAT",
+        "value": 0
+      },
+      "keyframes": [
+        {
+          "id": "64:2882",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 0
+          },
+          "timelinePosition": 0
+        },
+        {
+          "id": "64:2883",
+          "easing": {
+            "type": "EASE_OUT",
+            "easingFunctionCubicBezier": {
+              "x1": 0,
+              "y1": 0,
+              "x2": 0.58,
+              "y2": 1
+            }
+          },
+          "value": {
+            "type": "FLOAT",
+            "value": 64
+          },
+          "timelinePosition": 0.6
+        }
+      ]
+    }
+  },
+  "selected": "61:145"
+}

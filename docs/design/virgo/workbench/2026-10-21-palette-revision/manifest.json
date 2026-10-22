@@ -1,0 +1,117 @@
+{
+  "description": "Virgo v3 palette revision delivery; API archive is separate",
+  "files": {
+    "timeline-readback.json": {
+      "sha256": "720198bee84013a0413f61dbefb23619722ad153bd39f06d48da52a032328ab0",
+      "bytes": 13756
+    },
+    "contrast.json": {
+      "sha256": "3e92df41efb7dc7a20ca424e5b7c0ba8e2e105a837ff7b3d2aa6cefb00b30266",
+      "bytes": 5373
+    },
+    "README.md": {
+      "sha256": "dfbde6a8d97abdf3251748cf6be5332afdbbdcc36a96c2e31a2d9999b20bb24f",
+      "bytes": 6325
+    },
+    "node-ledger.json": {
+      "sha256": "6cb2e6253e3984b61ea4ff726e8bfa4e4d8b481642814c51901cbeba5ba8a0a3",
+      "bytes": 39921
+    },
+    "figma-map.json": {
+      "sha256": "a1a54da15f79eda43e7ea4c0c30263f2ef8be6938ca19774fc1acde2ede63df4",
+      "bytes": 36535
+    },
+    "structure-readback.json": {
+      "sha256": "a7ff7a36b091979c1d117c6b82b12aea9aff2b2f198fe730703792f0f9715fa7",
+      "bytes": 279205
+    },
+    "verification.json": {
+      "sha256": "d0a3d07b0dd5de97c8b92d288bcaaeff226b1af6ecc124cd1948e9c0a8593ae1",
+      "bytes": 4249
+    },
+    "tokens.json": {
+      "sha256": "0f41cf4f9814b21a407314ddea0b3420ca478543e809e0365dd6e25ddeb3ae3c",
+      "bytes": 4316
+    },
+    "motion-spec.md": {
+      "sha256": "c58d2ffb78bedcea608e750cd62b4b8d40e3296dfa5d6591828d4c4a311af7e8",
+      "bytes": 2250
+    },
+    "motion/frame-0.3.png": {
+      "sha256": "e2b04b17089b06df84131188b5fd48b117ed8529638e1dcc705a4fbb1de29ce6",
+      "bytes": 257522
+    },
+    "motion/frame-0.6.png": {
+      "sha256": "b6f444cde754bb2da3dec174dca64d41e6bd05c4da092ce64733f8fa46543c84",
+      "bytes": 94422
+    },
+    "motion/frame-0.png": {
+      "sha256": "e3134505c7b9ebc4c462976846dd2cf17b456e2b16d4909e62ed4d03efea0b81",
+      "bytes": 682171
+    },
+    "motion/exports.json": {
+      "sha256": "dd44492dc72a07c5ea6952544408518293099d1f9783ddee96e889de1a5f8087",
+      "bytes": 410
+    },
+    "motion/frames.png": {
+      "sha256": "6d57b9627800549fa89ff5d74b00cc18610cfd71664cec73de9a6ca9a246cc5d",
+      "bytes": 1113424
+    },
+    "motion/enter-workbench.mp4": {
+      "sha256": "a4d637d7573c3bd041aa8c24e05a3676cfcdea219b491899c729c66cabb4a13b",
+      "bytes": 524509
+    },
+    "previews/desktop-delivery.png": {
+      "sha256": "12901b18d79dbb173264c64cf2ad1a0ef27b35fb421e6c41b1f06f65c1777350",
+      "bytes": 150695
+    },
+    "previews/mobile-copy.png": {
+      "sha256": "fd8db4e88b5fbad0f2d24b97d5a7255d8fcdcbbb4aa427e8e320c0a4184045d1",
+      "bytes": 97926
+    },
+    "previews/mobile-visual.png": {
+      "sha256": "0f53430e2c5e98f00af19e18f1873249f13c22fe1650773045346e5e4aa5e7ee",
+      "bytes": 88489
+    },
+    "previews/components.png": {
+      "sha256": "99d886aee3b0cbb5d854a42f098f29ea40f16d8747700d71d87cae52aa4ceee1",
+      "bytes": 46294
+    },
+    "previews/desktop-task.png": {
+      "sha256": "65fef004a673d520449c08e6ae2c3ac51df03f325b05701b84c9af12e0017a12",
+      "bytes": 111324
+    },
+    "previews/desktop-outline.png": {
+      "sha256": "a9779429de5cfb79a9481a1e22162506f5fadcc16b19c6b87efb32b127546df9",
+      "bytes": 125680
+    },
+    "previews/desktop-blocked.png": {
+      "sha256": "ad9c2d834ccecd02e722fe300cfed56ff0668e9ffac66700a870c28910608762",
+      "bytes": 154429
+    },
+    "previews/mobile-task.png": {
+      "sha256": "de12b76ebdbec220069c82fd03f0f1f43786a95b2ffa783c964c0ffa1a258c7b",
+      "bytes": 98083
+    },
+    "previews/reduced-task.png": {
+      "sha256": "dfa6a1839fce40aa407c99d7fd911f28421fd37eec44e3d74b2b4696ee3449be",
+      "bytes": 111328
+    },
+    "previews/desktop-1280-task.png": {
+      "sha256": "ebab96991f3f8d806f4c12aeb7ce5cfcb1e57f01270dde9c95f06ada2a09f0e1",
+      "bytes": 106181
+    },
+    "previews/desktop-1280-delivery.png": {
+      "sha256": "242848659f7e3440900cb89f694263f4d1e24380937496e6d929832bad8c0b6a",
+      "bytes": 148451
+    },
+    "previews/mobile-outline.png": {
+      "sha256": "a16ee58eda245fc20594b22186fef0dcbd6b2a55440feca3b9b114035be7aa5c",
+      "bytes": 111914
+    },
+    "previews/desktop-1280-outline.png": {
+      "sha256": "946ecdb3e0f06076ef68b6bd8e11ab902aa96b2613dffaaef9385ac31784f70d",
+      "bytes": 123428
+    }
+  }
+}

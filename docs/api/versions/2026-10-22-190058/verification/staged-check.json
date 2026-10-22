@@ -1,0 +1,8 @@
+{
+  "allVersionManifests": 44,
+  "versionFileHashesInIndex": 3387,
+  "currentSourceHashesInIndex": 118,
+  "passed": true,
+  "extraDesignLogCopies": "2 source copies equal the already reviewed immutable archive logs",
+  "phase": "Initial complete stage verification before adding this report and whitespace explanation"
+}

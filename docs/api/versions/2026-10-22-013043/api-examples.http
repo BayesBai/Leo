@@ -1,0 +1,218 @@
+# 2026-10-22-013043 当前协议（本轮接口结构不变；容量错误说明及重试有兼容改进）：全部ID、句柄、文案与引用均为纯模拟，无真实产品资料或凭证。
+# 不要运行全部：verify/live/replan会产生真实调用，settings会修改后端内存。
+# 先GET目录并执行真实任务，再从实际响应复制ID与完整platforms；不要将模拟ID提交到真实接口。
+@baseUrl = http://127.0.0.1:3000
+@productId = REPLACE_WITH_CATALOG_PRODUCT_ID
+@outlineId = REPLACE_WITH_OUTLINE_ID
+@outlineVersion = 1
+@runId = REPLACE_WITH_RUN_ID
+@revision = 1
+@assetHandle = 00000000-0000-0000-0000-000000000000
+@renderHandle = 00000000-0000-0000-0000-000000000000
+
+### 状态：配置存在不代表真实连接/生成已经验证
+GET {{baseUrl}}/api/status
+
+### 产品目录：必须使用返回的product.id，不能直接提交名称
+GET {{baseUrl}}/api/products
+
+### 销售员场景、客户建议、目标、购买阶段与各渠道源图上下限
+GET {{baseUrl}}/api/task-options
+
+### 安全空配置样例：不包含密钥；已有配置原值保留
+# 新relay默认base为https://relay.nccnxta.cn/v1，模型gemini-4-argon。
+# 更换服务origin必须同时提供该服务新密钥；实际密钥由操作者在本机终端配置，不写本文件。
+POST {{baseUrl}}/api/connections/settings
+Content-Type: application/json
+
+{}
+
+### 模型连接验证：真实调用，有用量；返回有效文本不等于完整业务成功
+POST {{baseUrl}}/api/connections/model/verify
+Content-Type: application/json
+
+{}
+
+### ima连接验证：真实请求；不代表后续读取额度足够
+POST {{baseUrl}}/api/connections/verify
+Content-Type: application/json
+
+{}
+
+### 四渠道大纲：本地规则演示不调用模型，仍需足够的授权本地素材
+# 公众号2–4图、小红书3–6图、朋友圈1–3图、海报1图。
+# 取证缺少渠道最低图片数会422，尚未调用大纲模型；请调整渠道或补素材。
+# live+local使用新relay；live+ima还会真实取证；demo+ima拒绝。
+POST {{baseUrl}}/api/outlines
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "audience": "纯模拟客户",
+  "scene": "纯模拟到店选购咨询",
+  "goal": "到店体验",
+  "buyingStage": "对比选择",
+  "platforms": ["wechat", "xiaohongshu", "moments", "poster"],
+  "instructions": "纯模拟任务说明：不虚构价格、促销、排名或亲测经历。",
+  "mode": "demo",
+  "knowledgeSource": "local"
+}
+
+### 当前最新版大纲：含history.expiresAt/evidenceStatus及可选interrupted
+GET {{baseUrl}}/api/outlines/{{outlineId}}
+
+### 完整保存形状：仅展示四渠道结构，必须以GET中的完整platforms及有效引用替换
+# 下方mock-fact/mock-image均为模拟引用，直接提交会400，不是有效运行数据。
+# 平台集合与原Brief必须一一对应；保存成功后version+1，重新editing，撤销确认。
+PUT {{baseUrl}}/api/outlines/{{outlineId}}
+Content-Type: application/json
+
+{
+  "version": {{outlineVersion}},
+  "platforms": [
+    {
+      "platform": "wechat", "title": "纯模拟：把日常任务整理成到店问题", "angle": "纯模拟解释型角度", "intro": "纯模拟导语意图，不含产品事实。",
+      "sections": [
+        {"id": "mock-w1", "heading": "先说需求", "points": ["纯模拟写作要点"], "factIds": []},
+        {"id": "mock-w2", "heading": "再核对依据", "points": ["请替换为真实大纲已有事实"], "factIds": ["mock-fact-1"]},
+        {"id": "mock-w3", "heading": "带着问题去确认", "points": ["纯模拟行动建议"], "factIds": []}
+      ],
+      "imageIds": ["mock-image-1", "mock-image-2"], "cta": "纯模拟：带上自己的任务清单。"
+    },
+    {
+      "platform": "xiaohongshu", "title": "纯模拟：收藏一份提问清单", "angle": "纯模拟清单型角度", "intro": "纯模拟收藏导语。",
+      "sections": [
+        {"id": "mock-x1", "heading": "清单第一项", "points": ["请替换为实际依据"], "factIds": ["mock-fact-1"]},
+        {"id": "mock-x2", "heading": "补齐自己的问题", "points": ["纯模拟到店提问"], "factIds": []}
+      ],
+      "imageIds": ["mock-image-1", "mock-image-2", "mock-image-3"], "cta": "纯模拟：补充你的任务。"
+    },
+    {
+      "platform": "moments", "title": "纯模拟：聊聊日常的安排", "angle": "纯模拟自然聊天", "intro": "纯模拟开场，不虚构已发生咨询。",
+      "sections": [{"id": "mock-m1", "heading": "今天聊这一点", "points": ["请替换为有效大纲要点"], "factIds": ["mock-fact-1"]}],
+      "imageIds": ["mock-image-1"], "cta": "纯模拟：欢迎交流。"
+    },
+    {
+      "platform": "poster", "title": "纯模拟：把任务带到现场", "angle": "纯模拟短主张", "intro": "纯模拟副标题。",
+      "sections": [{"id": "mock-p1", "heading": "核对要点", "points": ["请替换为可支持的事实与完整条件"], "factIds": ["mock-fact-1"]}],
+      "imageIds": ["mock-image-1"], "cta": "纯模拟：到店核对。"
+    }
+  ]
+}
+
+### AI修改：version必须当前；demo仅支持精简，live会真实调用统一模型
+POST {{baseUrl}}/api/outlines/{{outlineId}}/revise
+Content-Type: application/json
+
+{"version": {{outlineVersion}}, "instructions": "精简"}
+
+### 确认已保存当前版：不增加version；图片越界422、旧版本409、来源失效410
+POST {{baseUrl}}/api/outlines/{{outlineId}}/confirm
+Content-Type: application/json
+
+{"version": {{outlineVersion}}}
+
+### 已确认当前版写正文：SSE progress/result/error/needs_input；应用HTTP200不等于生成成功
+POST {{baseUrl}}/api/generate-from-outline
+Content-Type: application/json
+Accept: text/event-stream
+
+{"outlineId": "{{outlineId}}", "version": {{outlineVersion}}}
+
+### 最近七天历史：{items:[HistoryItem]}，只含摘要；读取不续期或调用模型
+GET {{baseUrl}}/api/history
+
+### 历史正文详情：{result,outlineSnapshot?,history,renderBundles}
+# history.evidenceStatus=refresh_required时原文可读，但不能继续生成或新排版。
+# outlineSnapshot可能是旧版，只读；不能把后续最新版大纲当作该作品使用的版本。
+GET {{baseUrl}}/api/runs/{{runId}}
+
+### 八个受控模板
+GET {{baseUrl}}/api/render-templates
+
+### 同一run/revision分别排版：公众号HTML与1200×900封面
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "wechat", "selectedTitleIndex": 0, "templateId": "wechat-editorial"}
+
+### 小红书：同一run必须包含该渠道，3–6张1080×1440成品
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "xiaohongshu", "selectedTitleIndex": 0, "templateId": "xhs-cream"}
+
+### 朋友圈：一张1080×1080拼图，源图1–3张；不需要另建任务
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "moments", "selectedTitleIndex": 0, "templateId": "moments-square"}
+
+### 朋友圈竖版：模板切换应取消旧请求并清空旧预览
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "moments", "selectedTitleIndex": 0, "templateId": "moments-portrait"}
+
+### 海报：一张1080×1920，最多三个卖点、一张源图
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "poster", "selectedTitleIndex": 0, "templateId": "poster-paper"}
+
+### 原图：使用实际响应URL，此处保留全零模拟句柄，通常404
+GET {{baseUrl}}/api/assets/{{assetHandle}}
+
+### 成品预览：实际URL来自RenderBundle；全零模拟句柄返回410
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}
+
+### 成品下载：blocked真实成品为409；本模拟句柄因不存在而410
+# ZIP也走相同路由；成品固定30分钟，正文保存7天不延长成品期限。
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}?download=1
+
+### 兼容：旧规则示例RunResult，非新大纲，不自动代表确认过
+GET {{baseUrl}}/api/sample
+
+### 兼容：旧直接生成SSE；新前端不能借此绕过大纲确认
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+Accept: text/event-stream
+
+{"productId": "{{productId}}", "audience": "纯模拟客户", "scene": "纯模拟咨询", "platforms": ["moments"], "mode": "demo", "knowledgeSource": "local"}
+
+### 兼容：旧正文修订SSE，需历史仍在7天且来源当前有效
+POST {{baseUrl}}/api/revise
+Content-Type: application/json
+Accept: text/event-stream
+
+{"runId": "{{runId}}", "instructions": "精简文案", "platforms": ["moments"]}
+
+### 负向：缺必要任务字段422 needs_input，不触发模型
+POST {{baseUrl}}/api/outlines
+Content-Type: application/json
+
+{"platforms": ["moments"]}
+
+### 负向：任意HTML输入拒绝400，不生成占位成品
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "moments", "selectedTitleIndex": 0, "templateId": "moments-square", "html": "纯模拟不支持字段"}
+
+### 负向：跨站来源403，配置不会改变
+POST {{baseUrl}}/api/connections/settings
+Origin: https://untrusted.invalid
+Content-Type: application/json
+
+{}
+
+### 负向：非允许Host的只读请求也403
+GET {{baseUrl}}/api/history
+Host: untrusted.invalid
+
+# 浏览器正常请求使用相对/api和同源代理，不复制上面的负向Origin/Host。
+# 取消用AbortController；取消后配置仍可能短暂409，等后端异步清理结束。
+# history.interrupted只提示上次中断，不自动再次调用模型。
+
+# 上游明确报告模型账号池耗尽时，模型验证/大纲仍沿用现有500与{message}错误外壳，
+# message明确说明服务商容量问题，本次不会立即重试；勿将已配置或目录200当作生成成功。

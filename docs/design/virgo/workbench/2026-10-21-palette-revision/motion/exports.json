@@ -1,0 +1,24 @@
+{
+  "file": "enter-workbench.mp4",
+  "sourceNodeId": "86:31384",
+  "authoredDuration": 0.6,
+  "encodedDuration": 0.7,
+  "fps": 10,
+  "constraintWidth": 768,
+  "quality": "low",
+  "samples": [
+    {
+      "time": 0,
+      "file": "frame-0.png"
+    },
+    {
+      "time": 0.3,
+      "file": "frame-0.3.png"
+    },
+    {
+      "time": 0.6,
+      "file": "frame-0.6.png"
+    }
+  ],
+  "signedUrlPersisted": false
+}

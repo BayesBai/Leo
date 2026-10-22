@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+.cache/
+.local-state/
+output/
+*.log
+ima-skill/.history/
+华为PC知识库/
+*.pdf
+!docs/project-manual/v1.0/知序-项目说明书.pdf
+/华为PC全板块深度知识库_v7/
+.DS_Store

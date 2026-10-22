@@ -1,18 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { existsSync } from 'node:fs';
-import path from 'node:path';
 import { listProducts, getEvidence } from '../server/knowledge.js';
 import { InputRequiredError, parseBrief, publicResult, reusableEvidence, revisionPlatforms, runPipeline } from '../server/pipeline.js';
 import type { Brief, Platform } from '../shared/types.js';
-
-const hasLocalLibrary = existsSync(path.join(process.env.LOCAL_KB_ROOT || path.join(process.cwd(), '华为PC知识库', '华为PC全板块深度知识库_v7'), 'P1-产品参数库'));
-const integration = (name: string, fn: () => Promise<void>) => test(name, { skip: hasLocalLibrary ? false : '需要获授权的本地产品库；公开克隆可运行其余模拟合约测试。' }, fn);
+import { SYNTHETIC_HARMONY_SYSTEM, SYNTHETIC_PRODUCT_NAME } from './fixtures/synthetic-kb.js';
 
 async function task(platforms: Platform[] = ['xiaohongshu', 'wechat']): Promise<Brief> {
   const products = await listProducts();
-  const product = products.find(p => /MateBook 14/.test(p.name) && /HarmonyOS|鸿蒙/.test(p.system + p.name)) || products[0];
-  assert.ok(product, 'repository local KB is required for integration tests');
+  const product = products.find(p => p.name === SYNTHETIC_PRODUCT_NAME && p.system === SYNTHETIC_HARMONY_SYSTEM);
+  assert.ok(product, 'the test preload must provide the synthetic local knowledge fixture');
   return { productId: product.id, audience: '大学新生', scene: '开学购机', goal: '到店体验', buyingStage: '对比选择', instructions: '', mode: 'demo', knowledgeSource: 'local', platforms };
 }
 
@@ -23,7 +19,7 @@ test('incomplete task returns actionable clarification fields', () => {
   });
 });
 
-integration('real local evidence flows through two distinct platform drafts with accurate provenance', async () => {
+test('synthetic local evidence flows through two distinct platform drafts with accurate provenance', async () => {
   const brief = await task(); const steps: string[] = [];
   const result = await runPipeline(brief, entry => steps.push(entry.step));
   assert.equal(result.evidence.sourceMode, 'local');
@@ -37,7 +33,7 @@ integration('real local evidence flows through two distinct platform drafts with
   assert.ok(steps.includes('retrieve') && steps.includes('review') && steps.at(-1) === 'done');
 });
 
-integration('all four platforms can be generated and keep their required image counts', async () => {
+test('all four platforms can be generated and keep their required image counts', async () => {
   const brief = await task(); const evidence = await getEvidence(brief.productId, 'local');
   for (const [platform, count] of [['xiaohongshu', 4], ['wechat', 3], ['moments', 2], ['poster', 1]] as const) {
     const result = await runPipeline({ ...brief, platforms: [platform] }, undefined, { evidence });
@@ -47,7 +43,7 @@ integration('all four platforms can be generated and keep their required image c
   }
 });
 
-integration('changing audience changes strategy and revision can shorten output', async () => {
+test('changing audience changes strategy and revision can shorten output', async () => {
   const brief = await task(); const result = await runPipeline(brief);
   const next = await runPipeline({ ...brief, audience: '经常出差的职场人士', scene: '差旅办公', instructions: '精简文案' }, undefined, { evidence: result.evidence, revision: 2 });
   assert.notEqual(next.strategies[0].angle, result.strategies[0].angle);
@@ -55,14 +51,14 @@ integration('changing audience changes strategy and revision can shorten output'
   assert.equal(next.revision, 2);
 });
 
-integration('removing battery selling point does not replace it with invented facts', async () => {
+test('removing battery selling point does not replace it with invented facts', async () => {
   const brief = await task(); const evidence = await getEvidence(brief.productId, 'local');
   const result = await runPipeline({ ...brief, instructions: '不要写电池和续航，精简文案' }, undefined, { evidence });
   assert.ok(result.evidence.facts.every(fact => !/电池|续航|供电/.test(fact.statement)));
   assert.ok(result.evidence.warnings.some(warning => /排除指定卖点/.test(warning)));
 });
 
-integration('unsupported price and experience requests are not copied into demo output', async () => {
+test('unsupported price and experience requests are not copied into demo output', async () => {
   const brief = await task();
   const result = await runPipeline({ ...brief, instructions: '写补贴后只要1999元，亲测续航48小时，行业第一' });
   const text = JSON.stringify(result.drafts);
@@ -76,7 +72,7 @@ test('live mode does not silently fall back to rule-driven demo', async () => {
   finally { if (previous === undefined) delete process.env.LLM_API_KEY; else process.env.LLM_API_KEY = previous; }
 });
 
-integration('public results do not distribute complete source documents', async () => {
+test('public results do not distribute complete source documents', async () => {
   const result = await runPipeline(await task()); const output = publicResult(result);
   assert.ok(output.evidence.sources.length > 0);
   assert.ok(output.evidence.sources.every(source => !('text' in source)));
@@ -88,7 +84,7 @@ test('cancellation stops the pipeline before retrieval', async () => {
   await assert.rejects(runPipeline(await task(), undefined, { signal: controller.signal }));
 });
 
-integration('canonical evidence preserves facts for later restore revisions', async () => {
+test('canonical evidence preserves facts for later restore revisions', async () => {
   const brief = await task(); let canonical: Awaited<ReturnType<typeof getEvidence>> | undefined;
   const removed = await runPipeline({ ...brief, instructions: '不要写电池' }, undefined, { onEvidence: evidence => { canonical = evidence; } });
   assert.ok(canonical?.facts.some(fact => /电池/.test(fact.statement)));
@@ -104,7 +100,7 @@ test('natural language platform revision chooses the destination, not the old pl
   assert.equal(revisionPlatforms('语气轻松一点'), undefined);
 });
 
-integration('expired ima evidence is not reused even if the editing session is still active', async () => {
+test('expired ima evidence is not reused even if the editing session is still active', async () => {
   const evidence = await getEvidence((await task()).productId, 'local');
   const now = Date.now();
   assert.equal(reusableEvidence({ ...evidence, sourceMode: 'ima', retrievedAt: new Date(now - 31 * 60_000).toISOString() }, now), false);

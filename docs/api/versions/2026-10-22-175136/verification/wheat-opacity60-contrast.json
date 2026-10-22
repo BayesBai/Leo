@@ -1,0 +1,28 @@
+{
+  "method": "sRGB alpha-composite bounds over hypothetical black and white photo backgrounds; 24% canvas wash, specified paper, then 94% reading layer. Not full WCAG certification.",
+  "minimumRatios": {
+    "desktop": {
+      "body": 5.003,
+      "secondary": 4.69,
+      "placeholder": 4.637,
+      "borderOuter": 3.112,
+      "borderInner": 6.476
+    },
+    "mobile": {
+      "body": 9.783,
+      "secondary": 5.954,
+      "placeholder": 4.593,
+      "borderOuter": 4.056,
+      "borderInner": 4.468
+    }
+  },
+  "thresholds": {
+    "ordinaryText": 4.5,
+    "necessaryControlBoundary": 3
+  },
+  "excluded": [
+    "disabled controls",
+    "decorative dividers"
+  ],
+  "independentReview": "7 key images Ship; corrected one mobile delivery capture and re-reviewed it; zero unresolved required fixes"
+}

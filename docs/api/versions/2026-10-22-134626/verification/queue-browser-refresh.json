@@ -1,0 +1,11 @@
+{
+  "source": "real-local-api-with-synthetic-kb",
+  "paidModelCalls": 0,
+  "statusBeforeSecondRefresh": "running",
+  "statusAfterSecondRefresh": "running",
+  "finalStatus": "completed",
+  "selectedIdRestored": true,
+  "completedDraftDisplayed": true,
+  "channelCount": 4,
+  "pageErrors": []
+}

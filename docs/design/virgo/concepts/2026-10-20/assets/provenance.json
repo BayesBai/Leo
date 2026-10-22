@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "generator": "Built-in image_gen",
+  "model": "Not exposed by tool",
+  "role": "Brand landscape and character illustrations; not product evidence",
+  "original_fairy_preserved": "../../../assets/virgo-fairy-hero.png",
+  "source_reference": "User-provided references informed composition only; private source files are not included",
+  "prompts": "../prompts.json",
+  "assets": [
+    {
+      "file": "evening-wheat-background.png",
+      "width": 1586,
+      "height": 992,
+      "mode": "RGB",
+      "alpha_range": null,
+      "bytes": 2503555,
+      "sha256": "7d6af0608cb80eaf543306c674955c2da11b86fea6b1b2c098d90c7061d57f0a"
+    },
+    {
+      "file": "foreground-botanicals.png",
+      "width": 1536,
+      "height": 1024,
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        254
+      ],
+      "bytes": 2830318,
+      "sha256": "df7ce879265b936d7f2bf06b029e93ee4abbd319512a1067a59d2b69e44d1b65"
+    },
+    {
+      "file": "garden-gate-background.png",
+      "width": 1586,
+      "height": 992,
+      "mode": "RGB",
+      "alpha_range": null,
+      "bytes": 2980626,
+      "sha256": "17996b9257105f284cf6793700291ed50730cba2645eb87c4d56a47cac42de29"
+    },
+    {
+      "file": "virgo-fairy-cutout.png",
+      "width": 1086,
+      "height": 1448,
+      "mode": "RGBA",
+      "alpha_range": [
+        0,
+        255
+      ],
+      "bytes": 2022417,
+      "sha256": "fa0ff9a865072d432b0132bb32a93c7ad69df7b46b70151441d0234e52f533f0"
+    }
+  ],
+  "limitations": [
+    "Static raster assets, not motion clips",
+    "Figma words and controls are editable native layers, not flattened into the exported panorama",
+    "No real product parameters or product imagery were generated"
+  ]
+}

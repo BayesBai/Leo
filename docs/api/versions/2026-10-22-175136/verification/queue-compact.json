@@ -1,0 +1,8 @@
+{
+  "checks": [
+    "selected compact terminal event fetched complete run and released bundle, enabled formal copy/export",
+    "all-channel released bundles retained when navigating between channels",
+    "reopening the same selected completed job revalidates metadata without leaving snapshot read-only"
+  ],
+  "errors": []
+}

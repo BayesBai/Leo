@@ -1,0 +1,87 @@
+{
+  "adapterProbeBeforeCapacityHandling": {
+    "checkedAt": "2026-10-21T17:21:27.460Z",
+    "endpoint": "https://relay.nccnxta.cn/v1/chat/completions",
+    "model": "gemini-4-argon",
+    "success": false,
+    "attempts": [
+      {
+        "http": 503,
+        "contentType": "text/event-stream",
+        "headerElapsedMs": 52986
+      },
+      {
+        "http": 503,
+        "contentType": "text/event-stream",
+        "headerElapsedMs": 60844
+      }
+    ],
+    "error": {
+      "code": "MODEL_HTTP",
+      "message": "模型接口返回 HTTP 503。请检查模型服务状态与协议配置。"
+    },
+    "elapsedMs": 114840
+  },
+  "providerExactExample": {
+    "checkedAt": "2026-10-21T17:24:13.406Z",
+    "model": "gemini-4-argon",
+    "endpoint": "https://relay.nccnxta.cn/v1/chat/completions",
+    "payload": "provider sample: one user message, stream:true; no system or max_tokens",
+    "success": false,
+    "catalogHttp": 200,
+    "catalogContainsModel": true,
+    "http": 503,
+    "contentType": "text/event-stream",
+    "headerElapsedMs": 46765,
+    "providerErrors": [
+      {
+        "type": "server_error",
+        "code": null,
+        "message": "All available accounts exhausted"
+      }
+    ],
+    "elapsedMs": 46766
+  },
+  "fourChannelAttemptBeforeCapacityHandling": {
+    "checkedAt": "2026-10-21T17:25:24.137Z",
+    "endpoint": "https://relay.nccnxta.cn/v1/chat/completions",
+    "model": "gemini-4-argon",
+    "source": "local",
+    "success": false,
+    "imaCalled": false,
+    "stages": [
+      {
+        "phase": "status",
+        "elapsedMs": 1352
+      }
+    ],
+    "local": {
+      "available": true,
+      "productCount": 10,
+      "imageCount": 53
+    },
+    "failure": {
+      "phase": "outline",
+      "http": 500,
+      "kind": "http",
+      "upstreamHttp": "503",
+      "reason": "request_failed"
+    },
+    "elapsedMs": 99232
+  },
+  "runtimeAfterCapacityHandling": {
+    "checkedAt": "2026-10-21T17:28:17.363Z",
+    "model": {
+      "configured": true,
+      "name": "gemini-4-argon",
+      "baseUrl": "https://relay.nccnxta.cn/v1"
+    },
+    "success": false,
+    "http": 500,
+    "message": "模型接口返回 HTTP 503：服务商报告当前模型的可用账号池已耗尽，请联系网关服务商恢复该模型线路。",
+    "capacityExplained": true,
+    "elapsedMs": 46763
+  },
+  "credentialsChanged": false,
+  "imaCalled": false
+}

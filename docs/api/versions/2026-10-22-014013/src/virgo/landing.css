@@ -1,0 +1,145 @@
+@import url('/virgo/fonts/fonts.css');
+
+.virgo-landing {
+  --virgo-cover-light: #fff8ec;
+  --virgo-cover-cream: #f6ebdd;
+  --virgo-cover-ink: #25352b;
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  height: 100svh;
+  min-height: 760px;
+  overflow: clip;
+  color: var(--virgo-cover-light);
+  background: var(--virgo-cover-ink);
+  font-family: 'Noto Sans SC', sans-serif;
+  font-synthesis: none;
+  font-weight: 400;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+.virgo-landing *, .virgo-landing *::before, .virgo-landing *::after { box-sizing: border-box; }
+.virgo-landing ::selection { color: var(--virgo-cover-ink); background: var(--virgo-cover-cream); }
+.virgo-landing h1, .virgo-landing h2, .virgo-landing h3, .virgo-landing p { margin: 0; letter-spacing: 0; }
+.virgo-landing button { font-family: inherit; font-weight: 500; cursor: pointer; touch-action: manipulation; }
+.virgo-landing button:disabled { cursor: not-allowed; opacity: 0.55; }
+.virgo-landing button:focus-visible { outline: 2px solid var(--virgo-cover-light); outline-offset: 4px; }
+.virgo-landing button { transition: background-color 140ms ease-out, border-color 140ms ease-out, transform 140ms ease-out; }
+.virgo-landing button:not(:disabled):active { transform: scale(0.98); }
+
+.virgo-landing__scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1440px;
+  height: 1000px;
+  transform: translate(-50%, -50%) scale(var(--virgo-scene-scale, 1));
+  pointer-events: none;
+}
+
+.virgo-landing__background-depth,
+.virgo-landing__background-enter,
+.virgo-landing__figure-depth,
+.virgo-landing__figure-enter,
+.virgo-landing__foreground-depth,
+.virgo-landing__foreground-enter { position: absolute; inset: 0; }
+.virgo-landing__background { display: block; width: 100%; height: 100%; object-fit: cover; }
+.virgo-landing__reading-shade { position: absolute; left: 0; top: 0; width: 63.888889%; height: 100%; background: linear-gradient(90deg, rgb(16 27 21 / 54%), rgb(16 27 21 / 0%)); }
+.virgo-landing__top-shade { position: absolute; inset: 0 0 auto; height: 19%; background: linear-gradient(180deg, rgb(16 27 21 / 54%), rgb(16 27 21 / 0%)); }
+.virgo-landing__figure { position: absolute; left: 57.986111%; top: 24.5%; width: 37.5%; height: 72%; object-fit: contain; }
+.virgo-landing__contact-shadow { position: absolute; left: 65.763889%; top: 92.5%; width: 25.416667%; height: 5.4%; }
+.virgo-landing__contact-shadow img { display: block; }
+.virgo-landing__botanicals { position: absolute; left: 55.555556%; top: 69%; width: 44.444444%; height: 42.6667%; transform-origin: 50% 100%; }
+.virgo-landing__botanicals img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.virgo-landing__bottom-shade { position: absolute; left: 0; right: 0; bottom: 0; height: 13.6%; background: linear-gradient(180deg, rgb(16 27 21 / 0%), rgb(16 27 21 / 75%)); }
+.virgo-landing__interface { position: absolute; inset: 0; }
+
+.virgo-landing__header { position: absolute; top: 28px; left: 3.888889%; right: 3.888889%; display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 64px; }
+.virgo-landing__brand { display: flex; align-items: center; justify-content: center; gap: 10px; width: 168px; height: 64px; padding: 0 8px; }
+.virgo-landing__brand img { flex: 0 0 24px; }
+.virgo-landing__brand span { width: 112px; font-family: 'Pinyon Script', cursive; font-size: 44px; font-weight: 400; line-height: 60px; white-space: nowrap; }
+.virgo-landing__navigation { display: flex; align-items: center; gap: 8px; }
+.virgo-landing__navigation button { width: 116px; height: 56px; padding: 0 16px; border: 0; border-radius: 12px; color: var(--virgo-cover-light); background: transparent; font-size: 16px; line-height: 26px; white-space: nowrap; }
+.virgo-landing__navigation button:hover { background: rgb(255 248 236 / 12%); }
+.virgo-landing__menu-button { display: none; }
+.virgo-landing__hero { position: absolute; left: 6.666667%; top: 16%; display: flex; flex-direction: column; align-items: flex-start; gap: 24px; width: 620px; }
+.virgo-landing__wordmark { width: 600px; font-family: 'Pinyon Script', cursive; font-size: 196px; font-weight: 400; line-height: 232px; white-space: nowrap; }
+.virgo-landing__slogan { width: 600px; font-size: 36px; font-weight: 500; line-height: 54px; }
+.virgo-landing__slogan span, .virgo-landing__description span { display: block; }
+.virgo-landing__description { width: 560px; max-width: 100%; font-size: 18px; font-weight: 400; line-height: 32px; }
+.virgo-landing__start { display: inline-flex; align-items: center; justify-content: center; width: 200px; height: 56px; padding: 0 16px; border: 0; border-radius: 12px; color: var(--virgo-cover-ink); background: var(--virgo-cover-cream); font-size: 16px; line-height: 26px; }
+.virgo-landing__start:hover { background: #fff8ec; }
+.virgo-landing__motion-toggle { position: absolute; top: 112px; right: 5.277778%; display: flex; align-items: center; justify-content: center; width: 144px; min-height: 48px; padding: 8px 16px; border: 1px solid #87917f; border-radius: 12px; color: var(--virgo-cover-ink); background: #fffdf6; font-size: 14px; line-height: 24px; }
+.virgo-landing__motion-toggle:hover { background: var(--virgo-cover-cream); }
+.virgo-landing__motion-toggle:disabled { opacity: 1; }
+.virgo-landing__footer { position: absolute; left: 3.888889%; bottom: 52px; font-size: 14px; line-height: 24px; }
+
+.virgo-landing__dialog { width: min(640px, calc(100vw - 40px)); max-height: calc(100svh - 48px); margin: auto; padding: 0; overflow: auto; border: 0; border-radius: 24px; color: var(--virgo-cover-ink); background: var(--virgo-cover-cream); font-family: 'Noto Sans SC', sans-serif; box-shadow: 0 12px 48px rgb(16 27 21 / 18%); overscroll-behavior: contain; }
+.virgo-landing__dialog::backdrop { background: rgb(37 53 43 / 48%); }
+.virgo-landing__dialog-body { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; padding: 40px; }
+.virgo-landing__dialog h2 { font-size: 22px; font-weight: 500; line-height: 34px; }
+.virgo-landing__dialog h3 { font-size: 18px; font-weight: 400; line-height: 32px; }
+.virgo-landing__dialog p { font-size: 18px; font-weight: 400; line-height: 32px; }
+.virgo-landing__story, .virgo-landing__flow { display: grid; gap: 24px; }
+.virgo-landing__dialog-actions { display: flex; flex-wrap: wrap; gap: 16px; width: 100%; }
+.virgo-landing__dialog button { display: flex; align-items: center; justify-content: center; min-width: 160px; min-height: 56px; padding: 12px 16px; border: 0; border-radius: 12px; color: var(--virgo-cover-ink); background: transparent; font-size: 16px; line-height: 26px; }
+.virgo-landing__dialog button:hover { background: rgb(37 53 43 / 8%); }
+.virgo-landing__dialog button:focus-visible { outline-color: var(--virgo-cover-ink); }
+.virgo-landing__dialog button.virgo-landing__dialog-start { width: 200px; color: var(--virgo-cover-light); background: var(--virgo-cover-ink); }
+.virgo-landing__menu-links { display: grid; gap: 8px; width: 100%; }
+.virgo-landing__menu-links button { justify-content: flex-start; width: 100%; }
+
+@media (min-width: 761px) and (max-width: 1100px) {
+  .virgo-landing__hero { width: 55%; }
+  .virgo-landing__wordmark { width: 100%; font-size: 160px; line-height: 196px; }
+  .virgo-landing__slogan { width: 100%; font-size: 32px; line-height: 48px; }
+  .virgo-landing__description { font-size: 16px; line-height: 28px; }
+  .virgo-landing__description span { display: inline; }
+}
+
+@media (max-width: 760px) {
+  .virgo-landing { min-height: 844px; }
+  .virgo-landing__scene { inset: 0; width: 100%; height: 100%; transform: none; }
+  .virgo-landing__background-depth { margin: 0; }
+  .virgo-landing__background { object-position: 50% 50%; }
+  .virgo-landing__reading-shade { width: 100%; height: 600px; background: linear-gradient(180deg, rgb(20 39 31 / 76%) 0%, rgb(20 39 31 / 66%) 60%, rgb(20 39 31 / 0%) 100%); }
+  .virgo-landing__top-shade { display: none; }
+  .virgo-landing__figure { left: 28.205128%; top: 54.50237%; width: 69.230769%; height: 42.654028%; }
+  .virgo-landing__contact-shadow { display: none; }
+  .virgo-landing__botanicals { left: 0; top: 75.829384%; width: 100%; height: 30.805687%; }
+  .virgo-landing__bottom-shade { height: 96px; background: linear-gradient(180deg, rgb(20 39 31 / 0%), rgb(20 39 31 / 60%)); }
+  .virgo-landing__header { top: 20px; left: 24px; right: 24px; height: 64px; align-items: flex-start; justify-content: flex-start; gap: 12px; }
+  .virgo-landing__brand { display: block; width: 200px; max-width: calc(100% - 120px); height: 64px; padding: 0; }
+  .virgo-landing__brand img { display: none; }
+  .virgo-landing__brand span { width: auto; font-size: 48px; line-height: 64px; }
+  .virgo-landing__navigation { display: none; }
+  .virgo-landing__menu-button { display: flex; flex: 0 0 108px; align-items: center; justify-content: center; min-height: 48px; padding: 8px 16px; border: 1px solid #87917f; border-radius: 12px; color: var(--virgo-cover-ink); background: #fffdf6; font-size: 14px; line-height: 24px; }
+  .virgo-landing__hero { left: 24px; right: 24px; top: 104px; width: auto; gap: 20px; }
+  .virgo-landing__wordmark { display: none; }
+  .virgo-landing__slogan { width: 100%; font-size: 32px; line-height: 48px; }
+  .virgo-landing__description { width: 100%; font-size: 16px; line-height: 28px; }
+  .virgo-landing__description span { display: inline; }
+  .virgo-landing__start { width: 220px; height: 48px; color: var(--virgo-cover-light); background: #385543; font-size: 14px; line-height: 24px; }
+  .virgo-landing__start:hover { background: #2c4637; }
+  .virgo-landing__motion-toggle { display: none; }
+  .virgo-landing__footer { left: 24px; bottom: max(24px, env(safe-area-inset-bottom)); }
+  .virgo-landing__dialog { width: calc(100vw - 32px); border-radius: 20px; }
+  .virgo-landing__dialog-body { padding: 28px 24px; }
+  .virgo-landing__dialog h2 { font-size: 20px; line-height: 30px; }
+  .virgo-landing__dialog p, .virgo-landing__dialog h3 { font-size: 16px; line-height: 28px; }
+  .virgo-landing__dialog-actions { gap: 8px; }
+  .virgo-landing__dialog-actions button { min-width: 120px; }
+}
+
+@media (max-width: 359px) {
+  .virgo-landing__header, .virgo-landing__hero { left: 20px; right: 20px; }
+  .virgo-landing__slogan { font-size: 28px; line-height: 44px; }
+  .virgo-landing__reading-shade { height: 650px; }
+  .virgo-landing__footer { left: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .virgo-landing button { transition-duration: 0.01ms; }
+  .virgo-landing button:not(:disabled):active { transform: none; }
+}

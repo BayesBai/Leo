@@ -8,7 +8,7 @@ const channels: Record<Platform, [string, string]> = {
 
 export function ChannelComparison({ result, onSelect }: { result: RunResult; onSelect: (platform: Platform) => void }) {
   if (result.drafts.length < 2) return null;
-  return <details className="channel-comparison" open>
+  return <details className="channel-comparison">
     <summary>同一任务 · {result.drafts.length} 个渠道对照</summary>
     <p>产品、客户和目标相同，各渠道分别组织表达。点击渠道可查看完整文案并生成对应版式。</p>
     <div className="channel-compare-grid">{result.drafts.map(draft => {

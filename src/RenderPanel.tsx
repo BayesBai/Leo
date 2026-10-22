@@ -1,88 +1,222 @@
-import { useEffect, useRef, useState } from 'react';
-import { Download, Copy, Image as ImageIcon, LoaderCircle, X } from 'lucide-react';
-import type { Draft, RenderBundle, RenderTemplate, RunResult } from '../shared/types';
-import { api } from './api';
+import { useEffect, useId, useRef, useState } from 'react';
+import { ArrowLeft, ArrowRight, Check, Copy, Download, Image as ImageIcon, LoaderCircle, Maximize2, RefreshCw, X } from 'lucide-react';
+import type { BackgroundJob, RenderRequest, Draft, RenderArtifact, RenderBundle, RenderTemplate, RunResult } from '../shared/types';
+import { apiFetch, ApiError, mockLabel } from './api';
+import './virgo/render-panel.css';
 
-export function RenderPanel({ result, draft, titleIndex, templates }: { result: RunResult; draft: Draft; titleIndex: number; templates: RenderTemplate[] }) {
-  const available = templates.filter(t => t.platform === draft.platform);
-  const [template, setTemplate] = useState(available[0]?.id || '');
+const emptyBundles: RenderBundle[] = [];
+type RenderPanelProps = {
+  result: RunResult;
+  draft: Draft;
+  titleIndex: number;
+  templates: RenderTemplate[];
+  restoredBundles?: RenderBundle[];
+  allowRender?: boolean;
+  parentBusy?: boolean;
+  onBundle?: (bundle: RenderBundle) => void;
+  jobs: BackgroundJob[];
+  onEnqueue: (request: RenderRequest) => Promise<BackgroundJob | undefined>;
+  onCancel: (job: BackgroundJob) => void;
+};
+
+export function RenderPanel({ result, draft, titleIndex, templates, restoredBundles = emptyBundles, allowRender = true, parentBusy = false, onBundle, jobs, onEnqueue, onCancel }: RenderPanelProps) {
+  const available = templates.filter(item => item.platform === draft.platform);
+  const orderedBundles = [...restoredBundles].sort((a, b) => Number(a.publication === 'preview') - Number(b.publication === 'preview') || Date.parse(b.expiresAt) - Date.parse(a.expiresAt));
+  const restored = orderedBundles.find(item => item.runId === result.id && item.revision === result.revision && item.platform === draft.platform && item.selectedTitleIndex === titleIndex && item.reviewStatus === result.review.status && Date.parse(item.expiresAt) > Date.now());
+  const [template, setTemplate] = useState(restored?.templateId || available[0]?.id || '');
   const [bundle, setBundle] = useState<RenderBundle | null>(null);
-  const [busy, setBusy] = useState(false); const [error, setError] = useState(''); const [message, setMessage] = useState('');
-  const [zoom, setZoom] = useState<string | null>(null);
-  const controller = useRef<AbortController | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [artifactIndex, setArtifactIndex] = useState(0);
+  const [zoom, setZoom] = useState<RenderArtifact | null>(null);
   const assetRequests = useRef(new Set<AbortController>());
-  const identity = `${result.id}:${result.revision}:${titleIndex}:${template}`;
-  const currentIdentity = useRef(identity); currentIdentity.current = identity;
-  useEffect(() => { setTemplate(current => templates.some(t => t.platform === draft.platform && t.id === current) ? current : templates.find(t => t.platform === draft.platform)?.id || ''); }, [draft.platform, templates]);
-  useEffect(() => { setBundle(null); setError(''); setMessage(''); setZoom(null); return () => { controller.current?.abort(); for (const request of assetRequests.current) request.abort(); assetRequests.current.clear(); }; }, [identity]);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const dialogClose = useRef<HTMLButtonElement>(null);
+  const zoomTrigger = useRef<HTMLElement | null>(null);
+  const heading = useRef<HTMLHeadingElement>(null);
+  const headingId = useId();
+  const dialogHeadingId = useId();
+  const dialogDescriptionId = useId();
+  const identity = `${result.id}:${result.revision}:${draft.platform}:${titleIndex}:${template}:${result.review.status}`;
+  const currentIdentity = useRef(identity);
+  currentIdentity.current = identity;
+
+  const matches = (item: RenderBundle) => item.runId === result.id && item.revision === result.revision && item.platform === draft.platform && item.selectedTitleIndex === titleIndex && item.templateId === template && item.reviewStatus === result.review.status && Date.parse(item.expiresAt) > Date.now();
+  const visibleBundle = bundle && matches(bundle) ? bundle : null;
+  const artifacts = visibleBundle?.artifacts || [];
+  const activeArtifact = artifacts[Math.min(artifactIndex, Math.max(0, artifacts.length - 1))];
+  const renderingJob = jobs.find(job => (job.status === 'queued' || job.status === 'running') && job.input.kind === 'render' && job.input.request.runId === result.id && job.input.request.revision === result.revision && job.input.request.platform === draft.platform && job.input.request.selectedTitleIndex === titleIndex && job.input.request.templateId === template);
+  const busy = submitting || !!renderingJob;
+  const blocked = result.review.status === 'blocked' || visibleBundle?.reviewStatus === 'blocked' || visibleBundle?.publication === 'preview' || visibleBundle?.publication === 'blocked';
+  const exportDisabled = blocked || busy || parentBusy || !visibleBundle;
+
+  useEffect(() => {
+    setTemplate(current => templates.some(item => item.platform === draft.platform && item.id === current) ? current : templates.find(item => item.platform === draft.platform)?.id || '');
+  }, [draft.platform, templates]);
+  useEffect(() => {
+    setError(''); setMessage(''); setArtifactIndex(0); setZoom(null);
+    return () => {
+      for (const request of assetRequests.current) request.abort();
+      assetRequests.current.clear();
+    };
+  }, [identity]);
+  useEffect(() => {
+    setBundle(current => orderedBundles.find(matches) || (current && matches(current) ? current : null));
+  }, [identity, restoredBundles]);
   useEffect(() => {
     if (!bundle) return;
     const remaining = Date.parse(bundle.expiresAt) - Date.now();
-    const expire = () => { setBundle(null); setZoom(null); setMessage('成品已过期，正文仍保留，请重新生成成品。'); };
+    const expire = () => { setBundle(null); setZoom(null); setMessage('成品已过期，正文仍保留。请重新生成成品。'); };
     if (!Number.isFinite(remaining) || remaining <= 0) { expire(); return; }
-    const timer = window.setTimeout(expire, Math.min(remaining, 2_147_483_647)); return () => window.clearTimeout(timer);
+    const timer = window.setTimeout(expire, Math.min(remaining, 2_147_483_647));
+    return () => window.clearTimeout(timer);
   }, [bundle]);
-  useEffect(() => { if (!zoom) return; const escape = (event: KeyboardEvent) => { if (event.key === 'Escape') setZoom(null); }; window.addEventListener('keydown', escape); return () => window.removeEventListener('keydown', escape); }, [zoom]);
-  async function render() {
-    if (controller.current && !controller.current.signal.aborted) return;
-    const request = new AbortController(); controller.current = request;
-    setBusy(true); setError(''); setMessage(''); setBundle(null);
-    try {
-      const response = await api<RenderBundle>('/api/render', 'POST', { runId: result.id, revision: result.revision, platform: draft.platform, selectedTitleIndex: titleIndex, templateId: template }, request.signal);
-      if (response.runId !== result.id || response.revision !== result.revision || response.platform !== draft.platform || response.selectedTitleIndex !== titleIndex || response.templateId !== template) throw new Error('成品与当前正文或模板不一致，请重新排版。');
-      if (!request.signal.aborted && currentIdentity.current === identity) setBundle(response);
-    } catch (reason) { if (!request.signal.aborted && currentIdentity.current === identity) setError(reason instanceof Error ? reason.message : '排版未完成。'); }
-    finally { if (controller.current === request) { controller.current = null; setBusy(false); } }
+  useEffect(() => {
+    if (!zoom || !dialog.current) return;
+    const element = dialog.current;
+    const previousOverflow = document.body.style.overflow;
+    element.showModal();
+    document.body.style.overflow = 'hidden';
+    dialogClose.current?.focus();
+    return () => {
+      if (element.open) element.close();
+      document.body.style.overflow = previousOverflow;
+      const target = zoomTrigger.current?.isConnected ? zoomTrigger.current : heading.current;
+      target?.focus({ preventScroll: true });
+    };
+  }, [zoom]);
+
+  function openZoom(artifact: RenderArtifact, trigger: HTMLElement) {
+    zoomTrigger.current = trigger;
+    setZoom(artifact);
   }
+
+  function stopRender() { if (renderingJob) onCancel(renderingJob); }
+
+  async function render() {
+    if (parentBusy || !allowRender || !template || busy) return;
+    const submittedIdentity = identity; setSubmitting(true); setError(''); setMessage('');
+    try {
+      await onEnqueue({ runId: result.id, revision: result.revision, platform: draft.platform, selectedTitleIndex: titleIndex, templateId: template });
+      if (currentIdentity.current === submittedIdentity) setMessage('已加入后台排版队列，可以切换渠道或离开此页。');
+    } catch (reason) {
+      if (currentIdentity.current === submittedIdentity) setError(reason instanceof ApiError && reason.status === 410 ? '当前来源或正文已过期。正文仍可阅读，请返回任务重新策划后再生成成品。' : reason instanceof Error ? reason.message : '排版任务未提交，请重试。');
+    } finally { setSubmitting(false); }
+  }
+
+  function expireAssets() {
+    setBundle(null); setZoom(null); setError('');
+    setMessage('成品已过期，正文仍保留。请重新生成成品。');
+  }
+
   async function copy(rich: boolean) {
-    if (!bundle || bundle.reviewStatus === 'blocked') return;
+    if (!visibleBundle || exportDisabled) return;
     const request = new AbortController(); assetRequests.current.add(request); setError(''); setMessage('');
     try {
       if (!navigator.clipboard || rich && typeof ClipboardItem === 'undefined') throw new Error('当前浏览器不支持此剪贴板格式，请下载文章或整组成品。');
       if (rich) {
-        const article = bundle.artifacts.find(a => a.format === 'wechat-richtext'); if (!article) return;
-        // Start the write in the user gesture; resolve the HTML asynchronously for browser clipboard policies.
-        const html = fetch(article.previewUrl, { signal: request.signal }).then(async response => {
-          if (!response.ok) throw new Error('文章已过期，请重新排版。');
+        const article = visibleBundle.artifacts.find(item => item.format === 'wechat-richtext'); if (!article) return;
+        // Begin the write in the user gesture, resolving the HTML through the shared transport.
+        const html = apiFetch(article.previewUrl, { signal: request.signal }).then(async response => {
+          if (response.status === 410) throw new ApiError('文章已过期，请重新生成成品。', 'expired', 410);
+          if (!response.ok) throw new Error('文章读取失败，请重试或下载成品。');
           const document = new DOMParser().parseFromString(await response.text(), 'text/html');
           return new Blob([document.body.innerHTML], { type: 'text/html' });
         });
-        // A permission failure can reject write before it observes the promised HTML blob.
+        // Permission rejection can happen before the browser observes the promised HTML blob.
         void html.catch(() => {});
-        await navigator.clipboard.write([new ClipboardItem({ 'text/html': html, 'text/plain': new Blob([bundle.copyText], { type: 'text/plain' }) })]);
-        if (!request.signal.aborted && currentIdentity.current === identity) setMessage('排版已复制；微信图片仍需逐张上传或替换，请粘贴后检查。');
-      } else { await navigator.clipboard.writeText(bundle.copyText); if (!request.signal.aborted && currentIdentity.current === identity) setMessage('标题、正文和话题已复制。'); }
-    } catch (reason) { if (!request.signal.aborted && currentIdentity.current === identity) setError(reason instanceof Error ? reason.message : '剪贴板不可用，请下载成品包。'); }
-    finally { request.abort(); assetRequests.current.delete(request); }
+        await navigator.clipboard.write([new ClipboardItem({ 'text/html': html, 'text/plain': new Blob([visibleBundle.copyText], { type: 'text/plain' }) })]);
+        if (!request.signal.aborted && currentIdentity.current === identity) setMessage('排版已复制。微信图片仍需逐张上传或替换，请粘贴后检查。');
+      } else {
+        await navigator.clipboard.writeText(visibleBundle.copyText);
+        if (!request.signal.aborted && currentIdentity.current === identity) setMessage('标题、正文和话题已复制。');
+      }
+    } catch (reason) {
+      if (!request.signal.aborted && currentIdentity.current === identity) {
+        if (reason instanceof ApiError && reason.status === 410) expireAssets();
+        else setError(reason instanceof Error ? reason.message : '剪贴板不可用，请下载成品包。');
+      }
+    } finally { request.abort(); assetRequests.current.delete(request); }
   }
-  async function download(event: React.MouseEvent<HTMLAnchorElement>, url: string, name: string) {
-    event.preventDefault(); if (!bundle || bundle.reviewStatus === 'blocked') return;
-    const request = new AbortController(); assetRequests.current.add(request); setError('');
+
+  async function download(url: string, name: string) {
+    if (!visibleBundle || exportDisabled) return;
+    const request = new AbortController(); assetRequests.current.add(request); setError(''); setMessage('');
     try {
-      const response = await fetch(url, { signal: request.signal });
-      if (!response.ok) { const detail = await response.json().catch(() => ({})); throw new Error(detail.message || '文件下载失败，请重新排版。'); }
+      const response = await apiFetch(url, { signal: request.signal });
+      if (response.status === 410) throw new ApiError('成品已过期。', 'expired', 410);
+      if (!response.ok) { const detail = await response.json().catch(() => ({})); throw new Error(typeof detail.message === 'string' ? detail.message : '文件下载失败，请重试。'); }
       const blob = await response.blob(); if (request.signal.aborted || currentIdentity.current !== identity) return;
-      const objectUrl = URL.createObjectURL(blob); const anchor = document.createElement('a'); anchor.href = objectUrl; anchor.download = name; anchor.click();
+      const objectUrl = URL.createObjectURL(blob);
+      const anchor = document.createElement('a'); anchor.href = objectUrl; anchor.download = name;
+      document.body.append(anchor); anchor.click(); anchor.remove();
       window.setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-    } catch (reason) { if (!request.signal.aborted && currentIdentity.current === identity) setError(reason instanceof Error ? reason.message : '下载失败。'); }
-    finally { assetRequests.current.delete(request); }
+      setMessage('已开始下载，请在浏览器下载列表中查看。');
+    } catch (reason) {
+      if (!request.signal.aborted && currentIdentity.current === identity) {
+        if (reason instanceof ApiError && reason.status === 410) expireAssets();
+        else setError(reason instanceof Error ? reason.message : '下载失败，请重试。');
+      }
+    } finally { assetRequests.current.delete(request); }
   }
-  return <section className="render-panel">
-    <div className="section-line"><div><span className="eyebrow">VISUAL OUTPUT</span><h3>把文案变成成品</h3></div><ImageIcon size={22} /></div>
-    <div className="render-actions"><select aria-label="成品模板" value={template} disabled={busy} onChange={e => setTemplate(e.target.value)}>{available.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}</select>
-      <button className="primary" onClick={() => void render()} disabled={busy || !template}>{busy ? <LoaderCircle className="spin" size={16} /> : <ImageIcon size={16} />}{busy ? '正在排版' : bundle ? '重新生成成品' : '生成成品'}</button>
-      {busy && <button onClick={() => { controller.current?.abort(); setBusy(false); }}>停止排版</button>}</div>
-    {error && <p className="error" role="alert">{error}</p>}{message && <p className="success" role="status">{message}</p>}
-    {bundle && <><div className="output-note"><span>正文 v{bundle.revision} · 所选标题 {bundle.selectedTitleIndex + 1}</span><span>文件保存 30 分钟</span></div>
-      <div className="artifact-grid">{bundle.artifacts.map(a => <figure key={a.id}>
-        {a.format === 'wechat-richtext' ? <iframe title="公众号排版预览" src={a.previewUrl} sandbox="" /> : <button className="artifact-image" aria-label={`放大${a.name}`} onClick={() => setZoom(a.previewUrl)}><img src={a.previewUrl} alt={a.name} /></button>}
-        <figcaption><span>{a.name}{a.width ? ` · ${a.width}×${a.height}` : ''}</span>{bundle.reviewStatus !== 'blocked' && a.downloadUrl && <a href={a.downloadUrl} onClick={event => void download(event, a.downloadUrl!, a.name)}><Download size={14} />下载</a>}</figcaption>
-      </figure>)}</div>
-      <div className="row wrap">{bundle.reviewStatus !== 'blocked' && bundle.zipUrl && <a className="primary button" href={bundle.zipUrl} onClick={event => void download(event, bundle.zipUrl!, '知序-成品与来源.zip')}><Download size={16} />整组下载（含来源与审核）</a>}
-        <button disabled={bundle.reviewStatus === 'blocked'} onClick={() => void copy(false)}><Copy size={15} />复制文案</button>
-        {draft.platform === 'wechat' && <button disabled={bundle.reviewStatus === 'blocked'} onClick={() => void copy(true)}><Copy size={15} />复制公众号排版</button>}</div>
-      <details className="render-warnings"><summary>素材、审核与发布提示（{bundle.warnings.length}）</summary>{bundle.warnings.map((w, i) => <p key={i}>{w}</p>)}</details>
-      {bundle.reviewStatus === 'blocked' && <p className="error">当前审核阻断，仅提供带标记预览；请返回大纲修改后重新生成。</p>}</>}
-    {zoom && <div className="lightbox" role="dialog" aria-modal="true" aria-label="成品大图" onClick={() => setZoom(null)}><button className="close" autoFocus onClick={() => setZoom(null)} aria-label="关闭大图"><X /></button><img src={zoom} alt="成品完整预览" /></div>}
+
+  const downloadUrl = visibleBundle?.zipUrl || activeArtifact?.downloadUrl;
+  const downloadName = visibleBundle?.zipUrl ? 'Virgo-成品与来源.zip' : activeArtifact?.name || 'Virgo-成品';
+
+  return <section className="virgo-render-panel" aria-labelledby={headingId} aria-busy={busy}>
+    <div className="vr-heading"><h3 id={headingId} ref={heading} tabIndex={-1}>视觉成品</h3>{visibleBundle && <span className="vr-version">正文 v{visibleBundle.revision}</span>}</div>
+    <fieldset className="vr-templates" disabled={busy || parentBusy}>
+      <legend className="vr-sr-only">选择成品模板</legend>
+      {available.map(item => <label className={`vr-template${template === item.id ? ' vr-template-selected' : ''}`} key={item.id}>
+        <input type="radio" name={`${headingId}-template`} value={item.id} checked={template === item.id} onChange={() => setTemplate(item.id)} />
+        <span><strong>{item.name}</strong><small>{item.width} × {item.height}</small></span>
+        {template === item.id && <Check size={18} aria-hidden="true" />}
+      </label>)}
+    </fieldset>
+    {!available.length && <p className="vr-notice">此渠道暂无可用模板，请检查服务连接后重试。</p>}
+    {!allowRender && <p className="vr-notice vr-notice-warning" role="status">历史来源需要重新获取，暂时不能生成新成品。未到期的已有成品仍可查看与使用。</p>}
+    {blocked && <p className="vr-notice vr-notice-error" role="status">审核阻断：仅提供带标记预览，复制和下载已关闭。请返回大纲修改后重新生成。</p>}
+    {result.review.status === 'needs_attention' && <p className="vr-notice vr-notice-warning">有待确认项。请核实审核提示，再决定是否使用成品。</p>}
+    {error && <p className="vr-notice vr-notice-error" role="alert">{error}</p>}
+    {message && <p className="vr-notice vr-notice-success" role="status">{message}</p>}
+
+    {activeArtifact ? <div className="vr-output">
+      <figure className={`vr-artifact${activeArtifact.format === 'wechat-richtext' ? ' vr-artifact-article' : ''}`}>
+        {activeArtifact.format === 'wechat-richtext'
+          ? <iframe title={`${activeArtifact.name}排版预览`} src={activeArtifact.previewUrl} sandbox="" />
+          : <button className="vr-preview" type="button" aria-label={`放大查看${activeArtifact.name}`} onClick={event => openZoom(activeArtifact, event.currentTarget)}><img src={activeArtifact.previewUrl} alt={activeArtifact.name} width={activeArtifact.width} height={activeArtifact.height} onError={() => setError('成品预览未能加载。如果成品已到期，请重新生成。')} /></button>}
+        <figcaption className="vr-artifact-caption"><strong>{activeArtifact.name}</strong><span>{artifacts.length > 1 ? `${artifactIndex + 1} / ${artifacts.length} 份成品` : '1 份成品'}{activeArtifact.width && activeArtifact.height ? ` · ${activeArtifact.width} × ${activeArtifact.height}` : ' · 公众号排版'}</span></figcaption>
+      </figure>
+      {artifacts.length > 1 && <nav className="vr-pagination" aria-label="浏览成品">
+        <button className="vr-button vr-button-secondary" type="button" disabled={parentBusy || artifactIndex === 0} onClick={() => setArtifactIndex(current => Math.max(0, current - 1))}><ArrowLeft size={18} aria-hidden="true" />上一份</button>
+        <button className="vr-button vr-button-primary" type="button" disabled={parentBusy || artifactIndex >= artifacts.length - 1} onClick={() => setArtifactIndex(current => Math.min(artifacts.length - 1, current + 1))}>下一份<ArrowRight size={18} aria-hidden="true" /></button>
+      </nav>}
+      <div className="vr-main-actions">
+        <button className="vr-button vr-button-secondary" type="button" disabled={parentBusy} onClick={event => openZoom(activeArtifact, event.currentTarget)}><Maximize2 size={18} aria-hidden="true" />放大查看</button>
+        <button className="vr-button vr-button-primary" type="button" disabled={exportDisabled || !downloadUrl} onClick={() => downloadUrl && void download(downloadUrl, downloadName)}><Download size={18} aria-hidden="true" />下载成品{visibleBundle?.zipUrl && <span className="vr-sr-only">整组 ZIP，含来源与审核</span>}</button>
+      </div>
+      <div className="vr-secondary-actions">
+        <button className="vr-text-button" type="button" disabled={exportDisabled} onClick={() => void copy(false)}><Copy size={16} aria-hidden="true" />复制文案</button>
+        {draft.platform === 'wechat' && <button className="vr-text-button" type="button" disabled={exportDisabled || !artifacts.some(item => item.format === 'wechat-richtext')} onClick={() => void copy(true)}><Copy size={16} aria-hidden="true" />复制公众号排版</button>}
+        {visibleBundle?.zipUrl && <button className="vr-text-button" type="button" disabled={exportDisabled || !activeArtifact.downloadUrl} onClick={() => activeArtifact.downloadUrl && void download(activeArtifact.downloadUrl, activeArtifact.name)}><Download size={16} aria-hidden="true" />下载此文件</button>}
+      </div>
+      <p className="vr-caption">所选标题 {visibleBundle!.selectedTitleIndex + 1} · 成品保留至 {new Date(visibleBundle!.expiresAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}。{mockLabel ? '纯模拟预览，不调用模型或 ima，不能用于真实发布。' : '请在发布前核对产品信息、图片与审核提示。'}</p>
+      <details className="vr-warnings"><summary>素材、审核与发布提示（{visibleBundle!.warnings.length}）</summary>{visibleBundle!.warnings.length ? visibleBundle!.warnings.map((warning, index) => <p key={index}>{warning}</p>) : <p>当前成品没有额外提示，发布前仍需核对内容。</p>}</details>
+    </div> : <div className="vr-empty"><ImageIcon size={32} strokeWidth={1.3} aria-hidden="true" /><p>{busy ? '正在把文案排成成品' : visibleBundle ? '本次没有返回可预览的文件' : '文案准备好了，选一个排版吧'}</p><span>{busy ? '后台继续处理，可以切换渠道或查看其他任务。' : '成品将使用当前标题与已审核的正文。'}</span></div>}
+
+    <div className="vr-render-actions">
+      <button className={`vr-button ${visibleBundle ? 'vr-button-secondary' : 'vr-button-primary'}`} type="button" onClick={() => void render()} disabled={parentBusy || busy || !template || !allowRender}>{busy ? <LoaderCircle className="vr-spin" size={18} aria-hidden="true" /> : visibleBundle ? <RefreshCw size={18} aria-hidden="true" /> : <ImageIcon size={18} aria-hidden="true" />}{busy ? '后台排版中' : visibleBundle ? '重新加入排版队列' : blocked ? '加入预览队列' : '加入排版队列'}</button>
+      {renderingJob && <button className="vr-button vr-button-secondary" type="button" onClick={stopRender}>停止排版</button>}
+    </div>
+
+    <dialog ref={dialog} className="vr-dialog" aria-labelledby={dialogHeadingId} aria-describedby={dialogDescriptionId} onCancel={event => { event.preventDefault(); setZoom(null); }} onClose={() => setZoom(null)} onClick={event => {
+      if (event.target !== event.currentTarget) return;
+      const bounds = event.currentTarget.getBoundingClientRect();
+      if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setZoom(null);
+    }}>
+      <header className="vr-dialog-header"><div><h3 id={dialogHeadingId}>{zoom?.name || '成品完整预览'}</h3><p id={dialogDescriptionId}>{blocked ? '审核阻断，仅供查看带标记预览。' : '查看成品细节，按 Escape 或关闭按钮返回。'}</p></div><button ref={dialogClose} className="vr-dialog-close" type="button" aria-label="关闭大图" onClick={() => setZoom(null)}><X size={22} /></button></header>
+      <div className="vr-dialog-content">{zoom && (zoom.format === 'wechat-richtext' ? <iframe title={`${zoom.name}完整排版预览`} src={zoom.previewUrl} sandbox="" /> : <img src={zoom.previewUrl} alt={zoom.name} />)}</div>
+    </dialog>
   </section>;
 }

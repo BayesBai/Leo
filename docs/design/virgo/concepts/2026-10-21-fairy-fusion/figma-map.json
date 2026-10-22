@@ -1,0 +1,343 @@
+{
+  "schema": 1,
+  "status": "selected-A-static-fairy-fusion-completed-awaiting-user-review",
+  "fileKey": "JfR3uVD884firgx27czG8M",
+  "pageId": "4:4",
+  "frameId": "47:2823",
+  "figmaUrl": "https://www.figma.com/design/JfR3uVD884firgx27czG8M?node-id=47-2823",
+  "prototypeUrl": "https://www.figma.com/proto/JfR3uVD884firgx27czG8M?page-id=4%3A4&node-id=47-2823&starting-point-node-id=47%3A2823",
+  "originals": {
+    "A": "39:2922",
+    "B": "39:2967",
+    "oldFairyComponent": "37:162",
+    "preserved": true
+  },
+  "revision": {
+    "width": 1440,
+    "height": 1000,
+    "fairyInstance": "47:2828",
+    "contactShadow": "47:2827",
+    "label": "47:2863",
+    "allNodeIds": [
+      "47:2823",
+      "47:2824",
+      "47:2825",
+      "47:2826",
+      "47:2827",
+      "47:2828",
+      "I47:2828;49:143",
+      "I47:2828;49:144",
+      "47:2829",
+      "47:2830",
+      "47:2831",
+      "47:2832",
+      "47:2833",
+      "47:2834",
+      "I47:2834;37:154",
+      "I47:2834;37:154;5:48",
+      "I47:2834;37:154;5:49",
+      "I47:2834;37:157",
+      "47:2835",
+      "47:2836",
+      "I47:2836;5:121",
+      "47:2837",
+      "I47:2837;5:121",
+      "47:2838",
+      "I47:2838;5:121",
+      "47:2839",
+      "47:2840",
+      "47:2841",
+      "47:2842",
+      "47:2843",
+      "47:2844",
+      "I47:2844;5:55",
+      "47:2845",
+      "I47:2845;5:121",
+      "47:2846",
+      "47:2847",
+      "47:2848"
+    ],
+    "createdNodeIds": [
+      "46:143",
+      "47:2823",
+      "47:2824",
+      "47:2825",
+      "47:2826",
+      "47:2827",
+      "47:2828",
+      "47:2829",
+      "47:2830",
+      "47:2831",
+      "47:2832",
+      "47:2833",
+      "47:2834",
+      "47:2835",
+      "47:2836",
+      "47:2837",
+      "47:2838",
+      "47:2839",
+      "47:2840",
+      "47:2841",
+      "47:2842",
+      "47:2843",
+      "47:2844",
+      "47:2845",
+      "47:2846",
+      "47:2847",
+      "47:2848",
+      "47:2863",
+      "49:143",
+      "49:144",
+      "49:145",
+      "I49:145;49:143",
+      "I49:145;49:144",
+      "48:143",
+      "48:5333",
+      "45:143"
+    ],
+    "editableTexts": 11,
+    "uiGeometryAndTypographyIdenticalToOriginalA": true
+  },
+  "component": {
+    "id": "46:143",
+    "width": 480,
+    "height": 640,
+    "opacity": 1,
+    "body": {
+      "id": "49:144",
+      "imageHash": "8ff8deac2e5035e0834fc2a83a923e759c5cf208",
+      "asset": "assets/fairy-body.png",
+      "opacity": 1,
+      "x": 0,
+      "y": 0,
+      "width": 480,
+      "height": 640
+    },
+    "wings": {
+      "id": "49:143",
+      "imageHash": "736b0392c4debd58d33ec3d47d39ea96471e413a",
+      "asset": "assets/fairy-wings.png",
+      "opacity": 0.28,
+      "x": 54,
+      "y": 6,
+      "width": 391.2,
+      "height": 521.6
+    },
+    "exportInstance": "49:145",
+    "exportAsset": "assets/fairy-fusion.png",
+    "exportWidth": 1086,
+    "exportHeight": 1448
+  },
+  "references": {
+    "background": "../2026-10-20/assets/garden-gate-background.png",
+    "oldFairy": "../2026-10-20/assets/virgo-fairy-cutout.png",
+    "cinematicStudy": "assets/fairy-cinematic-source.png",
+    "foreground": "../2026-10-20/assets/foreground-botanicals.png"
+  },
+  "actions": [
+    {
+      "id": "47:2836",
+      "name": "品牌故事",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "39:2900",
+            "navigation": "OVERLAY",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.20000000298023224
+            },
+            "resetVideoPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "39:2900",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "47:2837",
+      "name": "创作流程",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "39:2908",
+            "navigation": "OVERLAY",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.20000000298023224
+            },
+            "resetVideoPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "39:2908",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "47:2838",
+      "name": "开始创作",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "6:121",
+            "navigation": "NAVIGATE",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.20000000298023224
+            },
+            "resetVideoPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "6:121",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "47:2844",
+      "name": "开始创作",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "6:121",
+            "navigation": "NAVIGATE",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.20000000298023224
+            },
+            "resetVideoPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "6:121",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "47:2845",
+      "name": "看看创作流程",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "39:2908",
+            "navigation": "OVERLAY",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.20000000298023224
+            },
+            "resetVideoPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "39:2908",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    }
+  ],
+  "mutatedExistingNodes": [
+    "45:143",
+    "46:143",
+    "48:143",
+    "48:5333",
+    "4:4",
+    "47:2828"
+  ],
+  "note": "New component only affects A2. Original A/B and their shared component remain unchanged. No application code or API modification."
+}

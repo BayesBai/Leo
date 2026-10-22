@@ -1,0 +1,4441 @@
+{
+  "schemaVersion": 1,
+  "kind": "figma-structure-readback",
+  "recordedAt": "2026-10-22T01:02:54+08:00",
+  "fileKey": "JfR3uVD884firgx27czG8M",
+  "scope": "v3.1 history and review supplement only",
+  "method": "Read-only Figma Plugin API inspection; no prototype clicks.",
+  "mutationsByReviewer": [],
+  "desktop": {
+    "page": {
+      "id": "85:146",
+      "name": "10 · Virgo / Desktop v3"
+    },
+    "roots": [
+      {
+        "key": "task",
+        "id": "103:3039",
+        "name": "v3.1 · 历史与审核补齐 · 需求",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 1000,
+        "locked": false,
+        "nodeCount": 77,
+        "textCount": 36,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "I103:3042;85:413",
+            "text": "Virgo",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3044;85:272",
+            "text": "接入设置",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3045;85:272",
+            "text": "首页",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3047;85:337",
+            "text": "填写需求",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3048;85:341",
+            "text": "确认方案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3049;85:341",
+            "text": "成品交付",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3051",
+            "text": "Virgo-你的产品规划搭子",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3052",
+            "text": "选好产品、客户和渠道，明确大方向",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3056",
+            "text": "选择产品",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3057;85:289",
+            "text": "演示笔记本 A · 模拟型号",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3058",
+            "text": "纯模拟任务 · 不含真实产品参数或活动信息",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3060",
+            "text": "这次是什么场景？",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3062;85:319",
+            "text": "开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3063;85:311",
+            "text": "移动办公",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3064;85:311",
+            "text": "日常换机",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3066",
+            "text": "主要讲给谁听？",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3067;85:289",
+            "text": "大学生与家长",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3068",
+            "text": "可以写你熟悉的客户。切换场景不会清空这里。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3070",
+            "text": "准备发到哪里？",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3072;85:319",
+            "text": "小红书",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3073;85:311",
+            "text": "微信公众号",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3074;85:319",
+            "text": "朋友圈",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3075;85:311",
+            "text": "门店海报",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3076",
+            "text": "选择 1–4 个渠道，每个渠道各有表达。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3077;85:272",
+            "text": "全选四个渠道",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3078;85:344",
+            "text": "补充要求 · 可选",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3080;85:242",
+            "text": "生成营销方案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3081",
+            "text": "资料就绪后即可开始。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3083",
+            "text": "本次创作",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3085",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3086",
+            "text": "开学选购\n大学生与家长",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3088",
+            "text": "小红书 / 朋友圈",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3089",
+            "text": "先整理方向，再确认内容。\n参数、图片与适用条件会保留来源。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3090",
+            "text": "接入设置在独立入口中。\n日常创作无需反复配置。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3320;85:272",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3092",
+            "text": "Virgo · 拾穗     AI 辅助创作 · 发布前请人工复核",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "103:3042",
+            "nodeName": "Virgo v3 / Brand",
+            "label": "Virgo",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:31173",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3044",
+            "nodeName": "接入设置",
+            "label": "接入设置",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:33283",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          },
+          {
+            "nodeId": "103:3045",
+            "nodeName": "首页",
+            "label": "首页",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:31173",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3057",
+            "nodeName": "选择产品",
+            "label": "演示笔记本 A · 模拟型号",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:33368",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          },
+          {
+            "nodeId": "103:3063",
+            "nodeName": "移动办公",
+            "label": "移动办公",
+            "trigger": {
+              "type": "ON_HOVER"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "85:312",
+              "navigation": "CHANGE_TO",
+              "transition": {
+                "type": "SMART_ANIMATE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.14000000059604645
+              },
+              "resetVideoPosition": false
+            }
+          },
+          {
+            "nodeId": "103:3064",
+            "nodeName": "日常换机",
+            "label": "日常换机",
+            "trigger": {
+              "type": "ON_HOVER"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "85:312",
+              "navigation": "CHANGE_TO",
+              "transition": {
+                "type": "SMART_ANIMATE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.14000000059604645
+              },
+              "resetVideoPosition": false
+            }
+          },
+          {
+            "nodeId": "103:3077",
+            "nodeName": "全选四个渠道",
+            "label": "全选四个渠道",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:26195",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3078",
+            "nodeName": "补充要求",
+            "label": "补充要求 · 可选",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:26268",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3080",
+            "nodeName": "生成营销方案",
+            "label": "生成营销方案",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:33405",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3320",
+            "nodeName": "最近七天记录",
+            "label": "最近七天记录",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3218",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": [
+          {
+            "type": "FRAME",
+            "name": "品牌栏",
+            "x": 40,
+            "y": 32,
+            "width": 1296,
+            "height": 64
+          },
+          {
+            "type": "INSTANCE",
+            "name": "Virgo v3 / Brand",
+            "x": 0,
+            "y": 0,
+            "width": 156,
+            "height": 64
+          },
+          {
+            "type": "TEXT",
+            "name": "Virgo",
+            "x": 16,
+            "y": 0,
+            "width": 124,
+            "height": 64,
+            "characters": "Virgo"
+          },
+          {
+            "type": "FRAME",
+            "name": "导航",
+            "x": 1068,
+            "y": 8,
+            "width": 228,
+            "height": 48
+          },
+          {
+            "type": "INSTANCE",
+            "name": "接入设置",
+            "x": 0,
+            "y": 0,
+            "width": 132,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 100,
+            "height": 24,
+            "characters": "接入设置"
+          },
+          {
+            "type": "INSTANCE",
+            "name": "首页",
+            "x": 140,
+            "y": 0,
+            "width": 88,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 56,
+            "height": 24,
+            "characters": "首页"
+          }
+        ]
+      },
+      {
+        "key": "delivery",
+        "id": "103:3123",
+        "name": "v3.1 · 审核问题与恢复 · 受阻作品",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 1000,
+        "locked": false,
+        "nodeCount": 84,
+        "textCount": 39,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "I103:3126;85:413",
+            "text": "Virgo",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3128;85:272",
+            "text": "接入设置",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3129;85:272",
+            "text": "首页",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3131;85:339",
+            "text": "填写需求",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3132;85:339",
+            "text": "确认方案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3133;85:337",
+            "text": "成品交付",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3135",
+            "text": "营销内容与成品",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3136",
+            "text": "演示笔记本 A · 开学选购 · 大学生与家长",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3137;85:375",
+            "text": "审核阻断",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3137;85:376",
+            "text": "存在无依据的承诺。全部渠道的复制与下载已停用，仅供带标记预览。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3139",
+            "text": "大纲 v2 · 正文 v1 · 纯模拟流程",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3140;85:272",
+            "text": "新建任务",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3142;85:330",
+            "text": "小红书",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3143;85:328",
+            "text": "朋友圈",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3146",
+            "text": "文案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3147",
+            "text": "开学选电脑，先把这 3 个问题问清楚",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3149;85:330",
+            "text": "标题 1 · 已选",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3150;85:328",
+            "text": "标题 2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3151",
+            "text": "选电脑之前，先聊聊你的大学日常。\n\n① 课程需要用哪些软件？\n② 电脑会经常随身带吗？\n③ 自己和家长最在意什么？\n\n先把答案记下来，再带着清单了解演示笔记本 A。适不适合，结合核实的资料与实际体验判断。\n\n#开学选电脑  #大学新生  #选购清单",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3152",
+            "text": "纯模拟示例 · 非真实产品参数、图片或生成结果",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3154;85:250",
+            "text": "复制正文",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3155;85:257",
+            "text": "返回方案调整",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3157",
+            "text": "视觉成品",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3159;85:411",
+            "text": "清晰图卡",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3160;85:409",
+            "text": "换一种排版",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3163",
+            "text": "开学选电脑\n先问清楚",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3165",
+            "text": "演示笔记本 A\n非产品图片",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3166",
+            "text": "课程需求 / 携带安排 / 使用习惯",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3167",
+            "text": "纯模拟版式 · 1/3",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3169;85:280",
+            "text": "上一张",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3170;85:257",
+            "text": "下一张 · 2/3",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3171",
+            "text": "3 张图卡 · 1080 × 1440",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3172",
+            "text": "受阻预览 · 禁止导出",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3174;85:257",
+            "text": "放大查看",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3175;85:250",
+            "text": "下载成品",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3176",
+            "text": "纯模拟示例 · 非真实产品参数、图片或生成结果",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3177;85:344",
+            "text": "核验与来源 · 事实原文 / 适用条件 / 来源图片",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3178",
+            "text": "请返回方案调整后，重新保存、确认与生成。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3180",
+            "text": "Virgo · 拾穗     AI 辅助创作 · 发布前请人工复核",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "103:3126",
+            "nodeName": "Virgo v3 / Brand",
+            "label": "Virgo",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:31173",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3128",
+            "nodeName": "接入设置",
+            "label": "接入设置",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:33283",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          },
+          {
+            "nodeId": "103:3129",
+            "nodeName": "首页",
+            "label": "首页",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:31173",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3140",
+            "nodeName": "新建任务",
+            "label": "新建任务",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:26122",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3143",
+            "nodeName": "朋友圈",
+            "label": "朋友圈",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:27682",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3150",
+            "nodeName": "标题 2",
+            "label": "标题 2",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:32146",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3155",
+            "nodeName": "返回方案调整",
+            "label": "返回方案调整",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:26502",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3160",
+            "nodeName": "模板/替换",
+            "label": "换一种排版",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:32146",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3170",
+            "nodeName": "下一张 · 2/3",
+            "label": "下一张 · 2/3",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:34902",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          },
+          {
+            "nodeId": "103:3174",
+            "nodeName": "放大查看",
+            "label": "放大查看",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:34890",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.2199999988079071
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          },
+          {
+            "nodeId": "103:3177",
+            "nodeName": "核验与来源",
+            "label": "核验与来源 · 事实原文 / 适用条件 / 来源图片",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3274",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [
+          {
+            "id": "103:3137",
+            "name": "全局审核/Blocked",
+            "text": "审核阻断 / 存在无依据的承诺。全部渠道的复制与下载已停用，仅供带标记预览。",
+            "componentProperties": {
+              "Detail#60:70": {
+                "type": "TEXT",
+                "value": "存在无依据的承诺。全部渠道的复制与下载已停用，仅供带标记预览。"
+              },
+              "State": {
+                "value": "Blocked",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          },
+          {
+            "id": "103:3154",
+            "name": "复制正文",
+            "text": "复制正文",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "复制正文"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          },
+          {
+            "id": "103:3175",
+            "name": "下载成品",
+            "text": "下载成品",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "下载成品"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          }
+        ],
+        "header": [
+          {
+            "type": "FRAME",
+            "name": "品牌栏",
+            "x": 40,
+            "y": 32,
+            "width": 1296,
+            "height": 64
+          },
+          {
+            "type": "INSTANCE",
+            "name": "Virgo v3 / Brand",
+            "x": 0,
+            "y": 0,
+            "width": 156,
+            "height": 64
+          },
+          {
+            "type": "TEXT",
+            "name": "Virgo",
+            "x": 16,
+            "y": 0,
+            "width": 124,
+            "height": 64,
+            "characters": "Virgo"
+          },
+          {
+            "type": "FRAME",
+            "name": "导航",
+            "x": 1068,
+            "y": 8,
+            "width": 228,
+            "height": 48
+          },
+          {
+            "type": "INSTANCE",
+            "name": "接入设置",
+            "x": 0,
+            "y": 0,
+            "width": 132,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 100,
+            "height": 24,
+            "characters": "接入设置"
+          },
+          {
+            "type": "INSTANCE",
+            "name": "首页",
+            "x": 140,
+            "y": 0,
+            "width": 88,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 56,
+            "height": 24,
+            "characters": "首页"
+          }
+        ]
+      },
+      {
+        "key": "history/ready",
+        "id": "103:3218",
+        "name": "v3.1 · history/ready",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 1000,
+        "locked": false,
+        "nodeCount": 17,
+        "textCount": 11,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "103:3220",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3221;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3223",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3224",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3226",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3227",
+            "text": "大学生与家长 · 开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3228",
+            "text": "小红书 / 朋友圈 · 正文 v1 · 大纲 v2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3229",
+            "text": "2026-10-21 20:30 · 模拟时间",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3230",
+            "text": "审核阻断 · 复制与下载停用",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3231;85:257",
+            "text": "打开记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3308;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "103:3221",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "103:3231",
+            "nodeName": "打开记录",
+            "label": "打开记录",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3123",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3308",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3274",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "history/empty",
+        "id": "103:3233",
+        "name": "v3.1 · history/empty",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 1000,
+        "locked": false,
+        "nodeCount": 11,
+        "textCount": 7,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "103:3235",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3236;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3238",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3239",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3240",
+            "text": "还没有创作记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3241",
+            "text": "完成一次营销方案后，可以在这里继续查看。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3311;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "103:3236",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "103:3311",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3274",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "history/expired",
+        "id": "103:3242",
+        "name": "v3.1 · history/expired",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 1000,
+        "locked": false,
+        "nodeCount": 18,
+        "textCount": 12,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "103:3244",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3245;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3247",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3248",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3250",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3251",
+            "text": "大学生与家长 · 开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3252",
+            "text": "小红书 / 朋友圈 · 正文 v1 · 大纲 v2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3253",
+            "text": "2026-10-21 20:30 · 模拟时间",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3254",
+            "text": "审核阻断 · 复制与下载停用",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3255",
+            "text": "来源需重新获取。历史正文仍可阅读，已过期的成品不能继续下载。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3256;85:257",
+            "text": "查看历史正文",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3314;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "103:3245",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "103:3256",
+            "nodeName": "查看历史正文",
+            "label": "查看历史正文",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3123",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3314",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3274",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "history/interrupted",
+        "id": "103:3258",
+        "name": "v3.1 · history/interrupted",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 1000,
+        "locked": false,
+        "nodeCount": 18,
+        "textCount": 12,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "103:3260",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3261;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3263",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3264",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3266",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3267",
+            "text": "大学生与家长 · 开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3268",
+            "text": "小红书 / 朋友圈 · 正文 v1 · 大纲 v2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3269",
+            "text": "2026-10-21 20:30 · 模拟时间",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3270",
+            "text": "审核阻断 · 复制与下载停用",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3271",
+            "text": "上次操作已中断，已保存内容仍保留。不会自动重新调用模型。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3272;85:257",
+            "text": "打开记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3317;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "103:3261",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "103:3272",
+            "nodeName": "打开记录",
+            "label": "打开记录",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3123",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3317",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3274",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "review/issues",
+        "id": "103:3274",
+        "name": "v3.1 · review/issues",
+        "type": "FRAME",
+        "width": 1440,
+        "height": 1000,
+        "locked": false,
+        "nodeCount": 24,
+        "textCount": 14,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "103:3276",
+            "text": "核验与来源",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3277;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3279",
+            "text": "审核阻断",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3280",
+            "text": "存在问题时，按对应路径处理。人工核实不会自动解除阻断。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3282",
+            "text": "返回方案修改",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3283",
+            "text": "模拟问题：段落中的产品表述缺少原文依据。请回到方案调整，再保存、确认并重新生成。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3284;85:257",
+            "text": "返回方案修改",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3293",
+            "text": "重新获取资料",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3294",
+            "text": "模拟问题：来源已过期或图片资料不足。带回原任务条件，核对后再开始。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3295;85:257",
+            "text": "重新获取资料",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3299",
+            "text": "人工核实",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "103:3300",
+            "text": "模拟提示：请核实适用版本和实际来源。确认方案不会消除此提示。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3301;85:250",
+            "text": "复制正文",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I103:3303;85:250",
+            "text": "下载成品",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "103:3277",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "103:3284",
+            "nodeName": "返回方案修改",
+            "label": "返回方案修改",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "86:26351",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "103:3295",
+            "nodeName": "重新获取资料",
+            "label": "重新获取资料",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "103:3039",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [
+          {
+            "id": "103:3301",
+            "name": "复制正文",
+            "text": "复制正文",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "复制正文"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          },
+          {
+            "id": "103:3303",
+            "name": "下载成品",
+            "text": "下载成品",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "下载成品"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          }
+        ],
+        "header": null
+      }
+    ],
+    "destinations": [
+      {
+        "id": "86:31173",
+        "exists": true,
+        "name": "v3 · A4 · 已暂停 / 返回首页",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:33283",
+        "exists": true,
+        "name": "v3 · OverlayViewport · settings",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:33368",
+        "exists": true,
+        "name": "v3 · OverlayViewport · products",
+        "pageId": "85:146"
+      },
+      {
+        "id": "85:312",
+        "exists": true,
+        "name": "State=Hover",
+        "pageId": "85:145"
+      },
+      {
+        "id": "86:26195",
+        "exists": true,
+        "name": "v3 · W01A · 填写需求 · 四渠道",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:26268",
+        "exists": true,
+        "name": "v3 · W01M · 补充要求",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:33405",
+        "exists": true,
+        "name": "v3 · 生成阶段 · outline/dual/xhs/1/Passed",
+        "pageId": "85:146"
+      },
+      {
+        "id": "103:3218",
+        "exists": true,
+        "name": "v3.1 · history/ready",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:26122",
+        "exists": true,
+        "name": "v3 · W01 · 填写需求 · 双渠道",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:27682",
+        "exists": true,
+        "name": "v3 · W03 · moments · Blocked",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:32146",
+        "exists": true,
+        "name": "v3 · 成品待生成 · dual · xhs · Blocked",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:26502",
+        "exists": true,
+        "name": "v3 · W02 · 方案 · saved",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:34902",
+        "exists": true,
+        "name": "v3 · W03 · xhs · Blocked · 图卡 2",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:34890",
+        "exists": true,
+        "name": "v3 · Preview · xhs/Blocked",
+        "pageId": "85:146"
+      },
+      {
+        "id": "103:3274",
+        "exists": true,
+        "name": "v3.1 · review/issues",
+        "pageId": "85:146"
+      },
+      {
+        "id": "103:3123",
+        "exists": true,
+        "name": "v3.1 · 审核问题与恢复 · 受阻作品",
+        "pageId": "85:146"
+      },
+      {
+        "id": "86:26351",
+        "exists": true,
+        "name": "v3 · W02 · 方案 · pending",
+        "pageId": "85:146"
+      },
+      {
+        "id": "103:3039",
+        "exists": true,
+        "name": "v3.1 · 历史与审核补齐 · 需求",
+        "pageId": "85:146"
+      }
+    ],
+    "invalidDestinations": [],
+    "originalHeader": [
+      {
+        "type": "FRAME",
+        "name": "品牌栏",
+        "x": 40,
+        "y": 32,
+        "width": 1296,
+        "height": 64
+      },
+      {
+        "type": "INSTANCE",
+        "name": "Virgo v3 / Brand",
+        "x": 0,
+        "y": 0,
+        "width": 156,
+        "height": 64
+      },
+      {
+        "type": "TEXT",
+        "name": "Virgo",
+        "x": 16,
+        "y": 0,
+        "width": 124,
+        "height": 64,
+        "characters": "Virgo"
+      },
+      {
+        "type": "FRAME",
+        "name": "导航",
+        "x": 1068,
+        "y": 8,
+        "width": 228,
+        "height": 48
+      },
+      {
+        "type": "INSTANCE",
+        "name": "接入设置",
+        "x": 0,
+        "y": 0,
+        "width": 132,
+        "height": 48
+      },
+      {
+        "type": "TEXT",
+        "name": "Label",
+        "x": 16,
+        "y": 12,
+        "width": 100,
+        "height": 24,
+        "characters": "接入设置"
+      },
+      {
+        "type": "INSTANCE",
+        "name": "首页",
+        "x": 140,
+        "y": 0,
+        "width": 88,
+        "height": 48
+      },
+      {
+        "type": "TEXT",
+        "name": "Label",
+        "x": 16,
+        "y": 12,
+        "width": 56,
+        "height": 24,
+        "characters": "首页"
+      }
+    ],
+    "mutatedNodeIds": [],
+    "lockAudit": [
+      {
+        "id": "103:3039",
+        "nodeCount": 77,
+        "lockedNodes": []
+      },
+      {
+        "id": "103:3123",
+        "nodeCount": 84,
+        "lockedNodes": []
+      },
+      {
+        "id": "103:3218",
+        "nodeCount": 17,
+        "lockedNodes": []
+      },
+      {
+        "id": "103:3233",
+        "nodeCount": 11,
+        "lockedNodes": []
+      },
+      {
+        "id": "103:3242",
+        "nodeCount": 18,
+        "lockedNodes": []
+      },
+      {
+        "id": "103:3258",
+        "nodeCount": 18,
+        "lockedNodes": []
+      },
+      {
+        "id": "103:3274",
+        "nodeCount": 24,
+        "lockedNodes": []
+      }
+    ]
+  },
+  "mobile": {
+    "page": {
+      "id": "85:147",
+      "name": "11 · Virgo / Mobile v3"
+    },
+    "roots": [
+      {
+        "key": "task",
+        "id": "104:3748",
+        "name": "v3.1 · 历史与审核补齐 · 需求",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 77,
+        "textCount": 36,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "I104:3751;85:413",
+            "text": "Virgo",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3752;85:272",
+            "text": "菜单",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3753;85:272",
+            "text": "首页",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3755;85:337",
+            "text": "填写需求",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3756;85:341",
+            "text": "确认方案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3757;85:341",
+            "text": "成品交付",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3759",
+            "text": "Virgo-你的产品规划搭子",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3760",
+            "text": "选好产品、客户和渠道，明确大方向",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3764",
+            "text": "选择产品",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3765;85:289",
+            "text": "演示笔记本 A · 模拟型号",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3766",
+            "text": "纯模拟任务 · 不含真实产品参数或活动信息",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3768",
+            "text": "这次是什么场景？",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3770;85:319",
+            "text": "开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3771;85:311",
+            "text": "移动办公",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3772;85:311",
+            "text": "日常换机",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3774",
+            "text": "主要讲给谁听？",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3775;85:289",
+            "text": "大学生与家长",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3776",
+            "text": "可以写你熟悉的客户。切换场景不会清空这里。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3778",
+            "text": "准备发到哪里？",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3780;85:319",
+            "text": "小红书",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3781;85:311",
+            "text": "微信公众号",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3782;85:319",
+            "text": "朋友圈",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3783;85:311",
+            "text": "门店海报",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3784",
+            "text": "选择 1–4 个渠道，每个渠道各有表达。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3785;85:272",
+            "text": "全选四个渠道",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3786;85:344",
+            "text": "补充要求 · 可选",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3788;85:242",
+            "text": "生成营销方案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3789",
+            "text": "资料就绪后即可开始。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3791",
+            "text": "本次创作",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3793",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3794",
+            "text": "开学选购\n大学生与家长",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3796",
+            "text": "小红书 / 朋友圈",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3797",
+            "text": "先整理方向，再确认内容。\n参数、图片与适用条件会保留来源。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3798",
+            "text": "接入设置在独立入口中。\n日常创作无需反复配置。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3800",
+            "text": "Virgo · 拾穗     AI 辅助创作 · 发布前请人工复核",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3802;85:242",
+            "text": "生成营销方案",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:3751",
+            "nodeName": "Virgo v3 / Brand",
+            "label": "Virgo",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:2827",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3752",
+            "nodeName": "菜单",
+            "label": "菜单",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:4010",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3753",
+            "nodeName": "首页",
+            "label": "首页",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:2827",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3765",
+            "nodeName": "选择产品",
+            "label": "演示笔记本 A · 模拟型号",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:7636",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          },
+          {
+            "nodeId": "104:3771",
+            "nodeName": "移动办公",
+            "label": "移动办公",
+            "trigger": {
+              "type": "ON_HOVER"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "85:312",
+              "navigation": "CHANGE_TO",
+              "transition": {
+                "type": "SMART_ANIMATE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.14000000059604645
+              },
+              "resetVideoPosition": false
+            }
+          },
+          {
+            "nodeId": "104:3772",
+            "nodeName": "日常换机",
+            "label": "日常换机",
+            "trigger": {
+              "type": "ON_HOVER"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "85:312",
+              "navigation": "CHANGE_TO",
+              "transition": {
+                "type": "SMART_ANIMATE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.14000000059604645
+              },
+              "resetVideoPosition": false
+            }
+          },
+          {
+            "nodeId": "104:3785",
+            "nodeName": "全选四个渠道",
+            "label": "全选四个渠道",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:217",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3786",
+            "nodeName": "补充要求",
+            "label": "补充要求 · 可选",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:289",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3788",
+            "nodeName": "生成营销方案",
+            "label": "生成营销方案",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:7673",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3802",
+            "nodeName": "生成营销方案",
+            "label": "生成营销方案",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:7673",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": [
+          {
+            "type": "FRAME",
+            "name": "品牌栏",
+            "x": 20,
+            "y": 20,
+            "width": 318,
+            "height": 56
+          },
+          {
+            "type": "INSTANCE",
+            "name": "Virgo v3 / Brand",
+            "x": 0,
+            "y": 0,
+            "width": 112,
+            "height": 56
+          },
+          {
+            "type": "TEXT",
+            "name": "Virgo",
+            "x": 0,
+            "y": 0,
+            "width": 112,
+            "height": 56,
+            "characters": "Virgo"
+          },
+          {
+            "type": "INSTANCE",
+            "name": "菜单",
+            "x": 151,
+            "y": 4,
+            "width": 64,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 32,
+            "height": 24,
+            "characters": "菜单"
+          },
+          {
+            "type": "INSTANCE",
+            "name": "首页",
+            "x": 254,
+            "y": 4,
+            "width": 64,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 32,
+            "height": 24,
+            "characters": "首页"
+          }
+        ]
+      },
+      {
+        "key": "delivery",
+        "id": "104:3835",
+        "name": "v3.1 · 审核问题与恢复 · 受阻作品",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 64,
+        "textCount": 28,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "I104:3838;85:413",
+            "text": "Virgo",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3839;85:272",
+            "text": "菜单",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3840;85:272",
+            "text": "首页",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3842;85:339",
+            "text": "填写需求",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3843;85:339",
+            "text": "确认方案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3844;85:337",
+            "text": "成品交付",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3846",
+            "text": "营销内容与成品",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3847",
+            "text": "演示笔记本 A · 开学选购 · 大学生与家长",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3848;85:375",
+            "text": "审核阻断",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3848;85:376",
+            "text": "存在无依据的承诺。全部渠道的复制与下载已停用，仅供带标记预览。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3850",
+            "text": "大纲 v2 · 正文 v1 · 纯模拟流程",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3851;85:272",
+            "text": "新建任务",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3853;85:330",
+            "text": "小红书",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3854;85:328",
+            "text": "朋友圈",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3856;85:330",
+            "text": "文案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3857;85:328",
+            "text": "视觉成品",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3860",
+            "text": "文案",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3861",
+            "text": "开学选电脑，先把这 3 个问题问清楚",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3863;85:330",
+            "text": "标题 1 · 已选",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3864;85:328",
+            "text": "标题 2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3865",
+            "text": "选电脑之前，先聊聊你的大学日常。\n\n① 课程需要用哪些软件？\n② 电脑会经常随身带吗？\n③ 自己和家长最在意什么？\n\n先把答案记下来，再带着清单了解演示笔记本 A。适不适合，结合核实的资料与实际体验判断。\n\n#开学选电脑  #大学新生  #选购清单",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3866",
+            "text": "纯模拟示例 · 非真实产品参数、图片或生成结果",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3868;85:250",
+            "text": "复制正文",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3869;85:257",
+            "text": "返回方案调整",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3870;85:344",
+            "text": "核验与来源 · 查看原文与配图",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3871",
+            "text": "请返回方案调整后，重新保存、确认与生成。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3873",
+            "text": "Virgo · 拾穗     AI 辅助创作 · 发布前请人工复核",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3875;85:250",
+            "text": "复制正文",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:3838",
+            "nodeName": "Virgo v3 / Brand",
+            "label": "Virgo",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:2827",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3839",
+            "nodeName": "菜单",
+            "label": "菜单",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:4010",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3840",
+            "nodeName": "首页",
+            "label": "首页",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:2827",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3851",
+            "nodeName": "新建任务",
+            "label": "新建任务",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:145",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3854",
+            "nodeName": "朋友圈",
+            "label": "朋友圈",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:2221",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3857",
+            "nodeName": "视觉成品",
+            "label": "视觉成品",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:2007",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3864",
+            "nodeName": "标题 2",
+            "label": "标题 2",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:6545",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3869",
+            "nodeName": "返回方案调整",
+            "label": "返回方案调整",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:520",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3870",
+            "nodeName": "核验与来源",
+            "label": "核验与来源 · 查看原文与配图",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3964",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [
+          {
+            "id": "104:3848",
+            "name": "全局审核/Blocked",
+            "text": "审核阻断 / 存在无依据的承诺。全部渠道的复制与下载已停用，仅供带标记预览。",
+            "componentProperties": {
+              "Detail#60:70": {
+                "type": "TEXT",
+                "value": "存在无依据的承诺。全部渠道的复制与下载已停用，仅供带标记预览。"
+              },
+              "State": {
+                "value": "Blocked",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          },
+          {
+            "id": "104:3868",
+            "name": "复制正文",
+            "text": "复制正文",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "复制正文"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          },
+          {
+            "id": "104:3875",
+            "name": "复制正文",
+            "text": "复制正文",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "复制正文"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          }
+        ],
+        "header": [
+          {
+            "type": "FRAME",
+            "name": "品牌栏",
+            "x": 20,
+            "y": 20,
+            "width": 318,
+            "height": 56
+          },
+          {
+            "type": "INSTANCE",
+            "name": "Virgo v3 / Brand",
+            "x": 0,
+            "y": 0,
+            "width": 112,
+            "height": 56
+          },
+          {
+            "type": "TEXT",
+            "name": "Virgo",
+            "x": 0,
+            "y": 0,
+            "width": 112,
+            "height": 56,
+            "characters": "Virgo"
+          },
+          {
+            "type": "INSTANCE",
+            "name": "菜单",
+            "x": 151,
+            "y": 4,
+            "width": 64,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 32,
+            "height": 24,
+            "characters": "菜单"
+          },
+          {
+            "type": "INSTANCE",
+            "name": "首页",
+            "x": 254,
+            "y": 4,
+            "width": 64,
+            "height": 48
+          },
+          {
+            "type": "TEXT",
+            "name": "Label",
+            "x": 16,
+            "y": 12,
+            "width": 32,
+            "height": 24,
+            "characters": "首页"
+          }
+        ]
+      },
+      {
+        "key": "history/ready",
+        "id": "104:3908",
+        "name": "v3.1 · history/ready",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 17,
+        "textCount": 11,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "104:3910",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3911;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3913",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3914",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3916",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3917",
+            "text": "大学生与家长 · 开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3918",
+            "text": "小红书 / 朋友圈 · 正文 v1 · 大纲 v2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3919",
+            "text": "2026-10-21 20:30 · 模拟时间",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3920",
+            "text": "审核阻断 · 复制与下载停用",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3921;85:257",
+            "text": "打开记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3998;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:3911",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:3921",
+            "nodeName": "打开记录",
+            "label": "打开记录",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3835",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3998",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3964",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "history/empty",
+        "id": "104:3923",
+        "name": "v3.1 · history/empty",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 11,
+        "textCount": 7,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "104:3925",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3926;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3928",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3929",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3930",
+            "text": "还没有创作记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3931",
+            "text": "完成一次营销方案后，可以在这里继续查看。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:4001;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:3926",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:4001",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3964",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "history/expired",
+        "id": "104:3932",
+        "name": "v3.1 · history/expired",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 18,
+        "textCount": 12,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "104:3934",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3935;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3937",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3938",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3940",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3941",
+            "text": "大学生与家长 · 开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3942",
+            "text": "小红书 / 朋友圈 · 正文 v1 · 大纲 v2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3943",
+            "text": "2026-10-21 20:30 · 模拟时间",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3944",
+            "text": "审核阻断 · 复制与下载停用",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3945",
+            "text": "来源需重新获取。历史正文仍可阅读，已过期的成品不能继续下载。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3946;85:257",
+            "text": "查看历史正文",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:4004;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:3935",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:3946",
+            "nodeName": "查看历史正文",
+            "label": "查看历史正文",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3835",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:4004",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3964",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "history/interrupted",
+        "id": "104:3948",
+        "name": "v3.1 · history/interrupted",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 18,
+        "textCount": 12,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "104:3950",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3951;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3953",
+            "text": "方案与正文保留七天。来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3954",
+            "text": "以下为界面演示记录，不是真实生成结果。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3956",
+            "text": "演示笔记本 A",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3957",
+            "text": "大学生与家长 · 开学选购",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3958",
+            "text": "小红书 / 朋友圈 · 正文 v1 · 大纲 v2",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3959",
+            "text": "2026-10-21 20:30 · 模拟时间",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3960",
+            "text": "审核阻断 · 复制与下载停用",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3961",
+            "text": "上次操作已中断，已保存内容仍保留。不会自动重新调用模型。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3962;85:257",
+            "text": "打开记录",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:4007;85:272",
+            "text": "查看审核处理示例",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:3951",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:3962",
+            "nodeName": "打开记录",
+            "label": "打开记录",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3835",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:4007",
+            "nodeName": "查看审核处理示例",
+            "label": "查看审核处理示例",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3964",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      },
+      {
+        "key": "review/issues",
+        "id": "104:3964",
+        "name": "v3.1 · review/issues",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 24,
+        "textCount": 14,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "104:3966",
+            "text": "核验与来源",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3967;85:272",
+            "text": "关闭",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3969",
+            "text": "审核阻断",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3970",
+            "text": "存在问题时，按对应路径处理。人工核实不会自动解除阻断。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3972",
+            "text": "返回方案修改",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3973",
+            "text": "模拟问题：段落中的产品表述缺少原文依据。请回到方案调整，再保存、确认并重新生成。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3974;85:257",
+            "text": "返回方案修改",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3983",
+            "text": "重新获取资料",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3984",
+            "text": "模拟问题：来源已过期或图片资料不足。带回原任务条件，核对后再开始。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3985;85:257",
+            "text": "重新获取资料",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3989",
+            "text": "人工核实",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:3990",
+            "text": "模拟提示：请核实适用版本和实际来源。确认方案不会消除此提示。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3991;85:250",
+            "text": "复制正文",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:3993;85:250",
+            "text": "下载成品",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:3967",
+            "nodeName": "关闭",
+            "label": "关闭",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:3974",
+            "nodeName": "返回方案修改",
+            "label": "返回方案修改",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:371",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:3985",
+            "nodeName": "重新获取资料",
+            "label": "重新获取资料",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3748",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [
+          {
+            "id": "104:3991",
+            "name": "复制正文",
+            "text": "复制正文",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "复制正文"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          },
+          {
+            "id": "104:3993",
+            "name": "下载成品",
+            "text": "下载成品",
+            "componentProperties": {
+              "Label#60:7": {
+                "type": "TEXT",
+                "value": "下载成品"
+              },
+              "State": {
+                "value": "Disabled",
+                "type": "VARIANT",
+                "boundVariables": {}
+              }
+            },
+            "reactionCount": 0
+          }
+        ],
+        "header": null
+      },
+      {
+        "key": "menu",
+        "id": "104:4010",
+        "name": "v3.1 · 手机菜单与历史入口",
+        "type": "FRAME",
+        "width": 390,
+        "height": 844,
+        "locked": false,
+        "nodeCount": 13,
+        "textCount": 6,
+        "lockedTextCount": 0,
+        "missingFontCount": 0,
+        "texts": [
+          {
+            "id": "104:4013",
+            "text": "Virgo · 拾穗",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:4014;85:272",
+            "text": "返回首页",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:4015;85:272",
+            "text": "接入设置",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:4016;85:272",
+            "text": "关闭菜单",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "104:4017",
+            "text": "方案与正文保留七天；来源与成品按各自有效期使用。",
+            "locked": false,
+            "missingFont": false
+          },
+          {
+            "id": "I104:4026;85:272",
+            "text": "最近七天记录",
+            "locked": false,
+            "missingFont": false
+          }
+        ],
+        "actions": [
+          {
+            "nodeId": "104:4010",
+            "nodeName": "v3.1 · 手机菜单与历史入口",
+            "label": "Virgo · 拾穗 / 返回首页 / 接入设置 / 关闭菜单 / 作品仅保留在本次会话中，请及时下载。 / 最近七天记录",
+            "trigger": {
+              "type": "ON_KEY_DOWN",
+              "device": "KEYBOARD",
+              "keyCodes": [
+                27
+              ]
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:4011",
+            "nodeName": "关闭浮层",
+            "label": "",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:4014",
+            "nodeName": "返回首页",
+            "label": "返回首页",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:2827",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          },
+          {
+            "nodeId": "104:4015",
+            "nodeName": "接入设置",
+            "label": "接入设置",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "87:7551",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          },
+          {
+            "nodeId": "104:4016",
+            "nodeName": "关闭菜单",
+            "label": "关闭菜单",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "CLOSE"
+            }
+          },
+          {
+            "nodeId": "104:4026",
+            "nodeName": "最近七天记录",
+            "label": "最近七天记录",
+            "trigger": {
+              "type": "ON_CLICK"
+            },
+            "action": {
+              "type": "NODE",
+              "destinationId": "104:3908",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          }
+        ],
+        "exports": [],
+        "header": null
+      }
+    ],
+    "destinations": [
+      {
+        "id": "87:2827",
+        "exists": true,
+        "name": "v3 · M00 · Virgo 拾穗 · A3 mobile",
+        "pageId": "85:147"
+      },
+      {
+        "id": "104:4010",
+        "exists": true,
+        "name": "v3.1 · 手机菜单与历史入口",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:7636",
+        "exists": true,
+        "name": "v3 · OverlayViewport · products",
+        "pageId": "85:147"
+      },
+      {
+        "id": "85:312",
+        "exists": true,
+        "name": "State=Hover",
+        "pageId": "85:145"
+      },
+      {
+        "id": "87:217",
+        "exists": true,
+        "name": "v3 · M01A · 四渠道",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:289",
+        "exists": true,
+        "name": "v3 · M01M · 补充要求",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:7673",
+        "exists": true,
+        "name": "v3 · 生成阶段 · outline/dual/xhs/1/Passed",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:145",
+        "exists": true,
+        "name": "v3 · M01 · 填写需求",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:2221",
+        "exists": true,
+        "name": "v3 · M03 · moments · Blocked · copy",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:2007",
+        "exists": true,
+        "name": "v3 · M03 · xhs · Blocked · visual",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:6545",
+        "exists": true,
+        "name": "v3 · 成品待生成 · dual · xhs · Blocked",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:520",
+        "exists": true,
+        "name": "v3 · M02 · 方案 · saved",
+        "pageId": "85:147"
+      },
+      {
+        "id": "104:3964",
+        "exists": true,
+        "name": "v3.1 · review/issues",
+        "pageId": "85:147"
+      },
+      {
+        "id": "104:3835",
+        "exists": true,
+        "name": "v3.1 · 审核问题与恢复 · 受阻作品",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:371",
+        "exists": true,
+        "name": "v3 · M02 · 方案 · pending",
+        "pageId": "85:147"
+      },
+      {
+        "id": "104:3748",
+        "exists": true,
+        "name": "v3.1 · 历史与审核补齐 · 需求",
+        "pageId": "85:147"
+      },
+      {
+        "id": "87:7551",
+        "exists": true,
+        "name": "v3 · OverlayViewport · settings",
+        "pageId": "85:147"
+      },
+      {
+        "id": "104:3908",
+        "exists": true,
+        "name": "v3.1 · history/ready",
+        "pageId": "85:147"
+      }
+    ],
+    "invalidDestinations": [],
+    "originalHeader": [
+      {
+        "type": "FRAME",
+        "name": "品牌栏",
+        "x": 20,
+        "y": 20,
+        "width": 318,
+        "height": 56
+      },
+      {
+        "type": "INSTANCE",
+        "name": "Virgo v3 / Brand",
+        "x": 0,
+        "y": 0,
+        "width": 112,
+        "height": 56
+      },
+      {
+        "type": "TEXT",
+        "name": "Virgo",
+        "x": 0,
+        "y": 0,
+        "width": 112,
+        "height": 56,
+        "characters": "Virgo"
+      },
+      {
+        "type": "INSTANCE",
+        "name": "菜单",
+        "x": 151,
+        "y": 4,
+        "width": 64,
+        "height": 48
+      },
+      {
+        "type": "TEXT",
+        "name": "Label",
+        "x": 16,
+        "y": 12,
+        "width": 32,
+        "height": 24,
+        "characters": "菜单"
+      },
+      {
+        "type": "INSTANCE",
+        "name": "首页",
+        "x": 254,
+        "y": 4,
+        "width": 64,
+        "height": 48
+      },
+      {
+        "type": "TEXT",
+        "name": "Label",
+        "x": 16,
+        "y": 12,
+        "width": 32,
+        "height": 24,
+        "characters": "首页"
+      }
+    ],
+    "mutatedNodeIds": [],
+    "lockAudit": [
+      {
+        "id": "104:3748",
+        "nodeCount": 77,
+        "lockedNodes": []
+      },
+      {
+        "id": "104:3835",
+        "nodeCount": 64,
+        "lockedNodes": []
+      },
+      {
+        "id": "104:3908",
+        "nodeCount": 17,
+        "lockedNodes": []
+      },
+      {
+        "id": "104:3923",
+        "nodeCount": 11,
+        "lockedNodes": []
+      },
+      {
+        "id": "104:3932",
+        "nodeCount": 18,
+        "lockedNodes": []
+      },
+      {
+        "id": "104:3948",
+        "nodeCount": 18,
+        "lockedNodes": []
+      },
+      {
+        "id": "104:3964",
+        "nodeCount": 24,
+        "lockedNodes": []
+      },
+      {
+        "id": "104:4010",
+        "nodeCount": 13,
+        "lockedNodes": []
+      }
+    ]
+  },
+  "manualPrototypeClickTest": "not_performed",
+  "webValidation": "to_be_recorded_by_integration_owner",
+  "knownFindings": [
+    {
+      "id": "menu-retention-copy",
+      "status": "resolved_and_read_back",
+      "nodeId": "104:4017",
+      "previous": "作品仅保留在本次会话中，请及时下载。",
+      "current": "方案与正文保留七天；来源与成品按各自有效期使用。",
+      "changedBy": "design_owner",
+      "reviewerWroteFigma": false
+    }
+  ],
+  "finalRetentionReadback": {
+    "id": "104:4017",
+    "text": "方案与正文保留七天；来源与成品按各自有效期使用。",
+    "width": 310,
+    "height": 48,
+    "fontName": {
+      "family": "Noto Sans SC",
+      "style": "Regular",
+      "variationSettings": {
+        "wght": 400
+      }
+    },
+    "fontSize": 14,
+    "missingFont": false
+  },
+  "finalMenuActionReadback": [
+    {
+      "id": "104:4010",
+      "name": "v3.1 · 手机菜单与历史入口",
+      "reactions": [
+        {
+          "action": {
+            "type": "CLOSE"
+          },
+          "actions": [
+            {
+              "type": "CLOSE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_KEY_DOWN",
+            "device": "KEYBOARD",
+            "keyCodes": [
+              27
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "104:4011",
+      "name": "关闭浮层",
+      "reactions": [
+        {
+          "action": {
+            "type": "CLOSE"
+          },
+          "actions": [
+            {
+              "type": "CLOSE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "104:4014",
+      "name": "返回首页",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "87:2827",
+            "navigation": "NAVIGATE",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.20000000298023224
+            },
+            "resetVideoPosition": false,
+            "resetScrollPosition": true
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "87:2827",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "104:4015",
+      "name": "接入设置",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "87:7551",
+            "navigation": "OVERLAY",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.20000000298023224
+            },
+            "resetVideoPosition": false,
+            "resetScrollPosition": false
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "87:7551",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": false
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "104:4016",
+      "name": "关闭菜单",
+      "reactions": [
+        {
+          "action": {
+            "type": "CLOSE"
+          },
+          "actions": [
+            {
+              "type": "CLOSE"
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    },
+    {
+      "id": "104:4026",
+      "name": "最近七天记录",
+      "reactions": [
+        {
+          "action": {
+            "type": "NODE",
+            "destinationId": "104:3908",
+            "navigation": "OVERLAY",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.18000000715255737
+            },
+            "resetVideoPosition": false,
+            "resetScrollPosition": true
+          },
+          "actions": [
+            {
+              "type": "NODE",
+              "destinationId": "104:3908",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.18000000715255737
+              },
+              "resetVideoPosition": false,
+              "resetScrollPosition": true
+            }
+          ],
+          "trigger": {
+            "type": "ON_CLICK"
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "desktop": {
+      "roots": 7,
+      "textNodes": 131,
+      "actions": 35,
+      "uniqueDestinations": 18,
+      "invalidDestinations": 0,
+      "lockedNodes": 0,
+      "missingFonts": 0,
+      "disabledExportControls": 4,
+      "headerMatchesBaseline": true
+    },
+    "mobile": {
+      "roots": 8,
+      "textNodes": 126,
+      "actions": 39,
+      "uniqueDestinations": 18,
+      "invalidDestinations": 0,
+      "lockedNodes": 0,
+      "missingFonts": 0,
+      "disabledExportControls": 4,
+      "headerMatchesBaseline": true
+    },
+    "finalFindingsRequiringDesignChange": 0,
+    "noUnblockReviewAction": true,
+    "testedBy": "Structure readback and two static PNG inspections only"
+  }
+}

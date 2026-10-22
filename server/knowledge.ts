@@ -1,4 +1,4 @@
-import { promises as fs, existsSync, readFileSync, realpath as fsRealpath } from 'node:fs';
+import { promises as fs, existsSync, readFileSync, realpathSync, lstatSync, realpath as fsRealpath } from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { createHash, randomUUID } from 'node:crypto';
@@ -6,6 +6,7 @@ import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import type { EvidenceBundle, Fact, ImageAsset, Product, KnowledgeSource } from '../shared/types';
 import catalogSeed from './catalog-seed.json';
+import { stateStore, stateDirectory } from './state-store.js';
 
 const execFileAsync = promisify(execFile);
 // The callback implementation resolves junctions safely and also works in Windows app sandboxes
@@ -16,10 +17,55 @@ const MAX_ASSET = 15 * 1024 * 1024;
 const SKU_NOTE = '配置可能因销售版本而异，请以实际销售版本为准；不得跨系统、年份、屏幕或处理器版本套用。';
 const DEFAULT_KB = '任德耀新建华为PC知识库';
 type JsonRecord = Record<string, any>;
-interface CatalogEntry { product: Product; directory: string; root: string; text: string; folderName: string; images: ImageAsset[]; hasLocal: boolean }
-type AssetEntry = { file: string; directory: string; root: string; contentType: string } | { data: Buffer; contentType: string; expiresAt: number };
+interface CatalogEntry { product: Product; directory: string; root: string; text: string; folderName: string; images: ImageAsset[]; hasLocal: boolean; sourceFiles?: { relative: string; sha256: string }[] }
+type AssetEntry = { file: string; directory: string; root: string; contentType: string; sha256: string } | { data: Buffer; contentType: string; expiresAt: number; configuration: string };
+type SavedAsset = { kind: 'local'; relativeFile: string; relativeDirectory: string; root: string; contentType: string; sha256: string } | { kind: 'ima'; contentType: string; expiresAt: number; configuration: string };
+export interface EvidenceBinding { source: KnowledgeSource; root?: string; files?: { relative: string; sha256: string }[]; configuration?: string }
+const bindings = new Map<string, EvidenceBinding>();
+const bindingKey = (e: EvidenceBundle) => `${e.sourceMode}:${e.product.id}:${e.retrievedAt}`;
+const sha256 = (data: Buffer | string) => createHash('sha256').update(data).digest('hex');
+let assetsRestored = false;
+async function restoreAssets() {
+  if (assetsRestored) return;
+  for (const [handle, saved] of stateStore().entries<SavedAsset>('knowledgeAssets')) {
+    if (!/^[0-9a-f-]{36}$/i.test(handle)) continue;
+    if (saved.kind === 'local' && saved.root === localRoot()) {
+      const file = path.resolve(saved.root, saved.relativeFile); const directory = path.resolve(saved.root, saved.relativeDirectory);
+      if (!within(saved.root, file) || !within(saved.root, directory)) continue;
+      assetStore.set(handle, { file, directory, root: saved.root, contentType: saved.contentType, sha256: saved.sha256 }); fileHandles.set(file, handle);
+    } else if (saved.kind === 'ima' && saved.expiresAt > Date.now() && saved.configuration === imaConfiguration()) {
+      const data = await fs.readFile(path.join(stateDirectory(), 'media', handle)).catch(() => undefined);
+      if (data && detectImageType(data) === saved.contentType) assetStore.set(handle, { ...saved, data });
+    }
+  }
+  assetsRestored = true;
+}
+export function captureEvidenceBinding(e: EvidenceBundle) { return structuredClone(bindings.get(bindingKey(e))); }
+export function rememberEvidenceBinding(e: EvidenceBundle, binding?: EvidenceBinding) { if (binding) bindings.set(bindingKey(e), structuredClone(binding)); }
+export function restoreEvidenceBinding(e: EvidenceBundle, binding?: EvidenceBinding) {
+  const valid = binding?.source === e.sourceMode && (binding.source === 'ima' ? /^[a-f0-9]{64}$/.test(binding.configuration || '') : !!binding.root && !!binding.files?.length && binding.files.every(f => /^[a-f0-9]{64}$/.test(f.sha256)));
+  rememberEvidenceBinding(e, valid ? binding : { source: e.sourceMode, root: '', files: [], configuration: 'invalid' });
+}
+export function assertEvidenceCurrent(e: EvidenceBundle) {
+  const b = bindings.get(bindingKey(e));
+  if (e.sourceMode === 'ima') {
+    const age = Date.now() - Date.parse(e.retrievedAt);
+    if (!Number.isFinite(age) || age < 0 || age >= TTL || b?.configuration && b.configuration !== imaConfiguration()) throw new KnowledgeError('ima 资料已过期或接入配置已改变，请按原任务重新取证策划。', 'EVIDENCE_EXPIRED', 410);
+  } else if (b) {
+    try {
+      if (b.root !== localRoot()) throw new Error('root');
+      for (const file of b.files || []) {
+        const target = path.resolve(b.root!, file.relative); const real = realpathSync(target);
+        if (!within(realpathSync(b.root!), real) || lstatSync(target).isSymbolicLink() || sha256(readFileSync(real)) !== file.sha256) throw new Error('changed');
+      }
+    } catch { catalogCache = undefined; throw new KnowledgeError('本地产品资料或原图已变化、缺失，请按原任务重新取证策划；历史正文仍可阅读。', 'EVIDENCE_CHANGED', 410); }
+  }
+}
+export function evidenceStatus(e: EvidenceBundle): 'ready' | 'refresh_required' { try { assertEvidenceCurrent(e); return 'ready'; } catch { return 'refresh_required'; } }
+export function releaseExpiredMedia() { for (const [id, asset] of assetStore) if ('expiresAt' in asset && (asset.expiresAt <= Date.now() || asset.configuration !== imaConfiguration())) assetStore.delete(id); }
 const assetStore = new Map<string, AssetEntry>();
 const fileHandles = new Map<string, string>();
+const indexDigests = new Map<string, { relative: string; sha256: string }>();
 let catalogCache: { root: string; expiresAt: number; entries: CatalogEntry[] } | undefined;
 let imaVerification: { kbId: string; kbName: string; verifiedAt: string; configuration: string } | undefined;
 let imaMessage = '尚未验证 ima 连接。';
@@ -29,7 +75,7 @@ export class KnowledgeError extends Error {
   constructor(message: string, public code = 'KNOWLEDGE_ERROR', public status = 422) { super(message); this.name = 'KnowledgeError'; }
 }
 const hash = (text: string) => createHash('sha256').update(text).digest('hex').slice(0, 16);
-const localRoot = () => path.resolve(process.env.LOCAL_KB_ROOT || path.join(process.cwd(), '华为PC知识库', '华为PC全板块深度知识库_v7'));
+const localRoot = () => { const root = path.resolve(process.env.LOCAL_KB_ROOT || path.join(process.cwd(), '华为PC知识库', '华为PC全板块深度知识库_v7')); try { return realpathSync(root); } catch { return root; } };
 const normalized = (s: string) => s.normalize('NFKC').replace(/\s+/g, ' ').trim().toLowerCase();
 const within = (base: string, file: string) => { const relative = path.relative(base, file); return relative === '' || (!relative.startsWith('..') && !path.isAbsolute(relative)); };
 
@@ -136,6 +182,7 @@ async function localImages(root: string, directory: string, product: Product, si
   signal?.throwIfAborted();
   let csv: string;
   try { csv = await fs.readFile(await safeFile(root, directory, path.join(directory, '图片索引.csv')), 'utf8'); } catch { return []; }
+  indexDigests.set(directory, { relative: path.relative(root, path.join(directory, '图片索引.csv')), sha256: sha256(csv) });
   const images: ImageAsset[] = [];
   const seen = new Set<string>();
   for (const row of parseCsv(csv).slice(0, 100)) {
@@ -151,8 +198,13 @@ async function localImages(root: string, directory: string, product: Product, si
       signal?.throwIfAborted();
       if (!contentType) continue;
       seen.add(filename);
-      let handle = fileHandles.get(file);
-      if (!handle) { handle = randomUUID(); fileHandles.set(file, handle); assetStore.set(handle, { file, directory, root, contentType }); }
+      const digest = sha256(data); let handle = fileHandles.get(file);
+      const old = handle ? assetStore.get(handle) : undefined;
+      if (!old || !('file' in old) || old.sha256 !== digest) {
+        handle = randomUUID();
+        stateStore().set<SavedAsset>('knowledgeAssets', handle, { kind: 'local', root, relativeFile: path.relative(root, file), relativeDirectory: path.relative(root, directory), contentType, sha256: digest });
+        fileHandles.set(file, handle); assetStore.set(handle, { file, directory, root, contentType, sha256: digest });
+      }
       images.push({ id: `image-${hash(product.id + filename)}`, name: filename, url: `/api/assets/${handle}`, productId: product.id,
         description: row['官网图片说明'] || filename.replace(/\.[^.]+$/, '').split('_').slice(2, 3).join('') || '产品图片，请按画面选择用途',
         sourceTitle: `${product.name} · 图片索引`, sourceUrl: publicHuaweiUrl(row['来源页面']),
@@ -163,6 +215,7 @@ async function localImages(root: string, directory: string, product: Product, si
 }
 
 async function catalog(signal?: AbortSignal): Promise<CatalogEntry[]> {
+  await restoreAssets();
   signal?.throwIfAborted();
   const root = localRoot();
   if (catalogCache?.root === root && catalogCache.expiresAt > Date.now()) return catalogCache.entries;
@@ -182,7 +235,10 @@ async function catalog(signal?: AbortSignal): Promise<CatalogEntry[]> {
         const product: Product = { id: `pc-${hash(`${category}/${dirent.name}`)}`, name, system,
           category: category.includes('鸿蒙') ? '鸿蒙电脑' : 'MateBook 电脑', description: category.includes('鸿蒙') ? '鸿蒙生态 · 智慧协同' : '专业效率 · 多场景办公', imageCount: 0 };
         const images = await localImages(root, directory, product, signal); product.imageCount = images.length; product.coverUrl = images[0]?.url;
-        entries.push({ product, directory, root, text, folderName: dirent.name, images, hasLocal: true });
+        const sourceFiles = [{ relative: path.relative(root, path.join(directory, '产品事实.md')), sha256: sha256(text) }];
+        const index = indexDigests.get(directory); if (index) sourceFiles.push(index);
+        for (const image of images) { const asset = assetStore.get(image.url.split('/').pop()!); if (asset && 'file' in asset) sourceFiles.push({ relative: path.relative(root, asset.file), sha256: asset.sha256 }); }
+        entries.push({ product, directory, root, text, folderName: dirent.name, images, hasLocal: true, sourceFiles });
       } catch { signal?.throwIfAborted(); /* Missing model files do not take down the complete catalog. */ }
     }
   }
@@ -207,16 +263,17 @@ export async function getLocalStats() {
 }
 
 export async function getAsset(handle: string): Promise<{ data: Buffer; contentType: string }> {
+  await restoreAssets();
   if (!/^[0-9a-f-]{36}$/i.test(handle)) throw new KnowledgeError('图片不存在或已过期。', 'ASSET_NOT_FOUND', 404);
   const asset = assetStore.get(handle);
   if (!asset) throw new KnowledgeError('图片不存在或已过期。', 'ASSET_NOT_FOUND', 404);
   if ('data' in asset) {
-    if (asset.expiresAt < Date.now()) { assetStore.delete(handle); throw new KnowledgeError('图片已过期，请重新生成。', 'ASSET_NOT_FOUND', 404); }
+    if (asset.expiresAt < Date.now() || asset.configuration !== imaConfiguration()) { assetStore.delete(handle); throw new KnowledgeError('图片已过期或知识库接入已变化，请重新生成。', 'ASSET_NOT_FOUND', 404); }
     return { data: asset.data, contentType: asset.contentType };
   }
   try {
     const data = await fs.readFile(await safeFile(asset.root, asset.directory, asset.file));
-    const contentType = detectImageType(data); if (!contentType) throw new Error('signature');
+    const contentType = detectImageType(data); if (!contentType || asset.root !== localRoot() || sha256(data) !== asset.sha256) throw new Error('signature');
     return { data, contentType };
   } catch { throw new KnowledgeError('图片不存在或未通过文件校验。', 'ASSET_NOT_FOUND', 404); }
 }
@@ -227,7 +284,10 @@ function credentialsConfigured() {
 }
 const kbName = () => process.env.IMA_KB_NAME?.trim() || DEFAULT_KB;
 // A digest invalidates validation and evidence when credentials change; the credentials themselves never leave the server.
-const imaConfiguration = () => hash([kbName(), process.env.IMA_CLIENT_ID, process.env.IMA_OPENAPI_CLIENTID, process.env.IMA_API_KEY, process.env.IMA_OPENAPI_APIKEY].join('|'));
+const imaConfiguration = () => {
+  const read = (name: string) => { try { return readFileSync(path.join(os.homedir(), '.config', 'ima', name), 'utf8').trim(); } catch { return ''; } };
+  return sha256([kbName(), process.env.IMA_CLIENT_ID || process.env.IMA_OPENAPI_CLIENTID || read('client_id'), process.env.IMA_API_KEY || process.env.IMA_OPENAPI_APIKEY || read('api_key')].join('|'));
+};
 export function getImaStatus() {
   const configured = credentialsConfigured();
   const verified = Boolean(configured && imaVerification?.configuration === imaConfiguration() && Date.now() - Date.parse(imaVerification.verifiedAt) < TTL);
@@ -415,7 +475,14 @@ async function imaEvidence(entry: CatalogEntry, signal?: AbortSignal): Promise<E
   const evidence: EvidenceBundle = { product: { ...entry.product, ...(originalSystem ? { system: originalSystem } : {}), imageCount: images.length, coverUrl: images[0]?.url }, facts, images,
     sources: [{ id: `source-${hash(sourceTitle)}`, title: sourceTitle, text: facts.map(fact => fact.quote).join('\n\n'), retrievedAt, sourceMode: 'ima' }], retrievedAt, sourceMode: 'ima', warnings };
   signal?.throwIfAborted();
-  for (const asset of stagedAssets) assetStore.set(asset.handle, { data: asset.data, contentType: asset.contentType, expiresAt: Date.now() + TTL });
+  await fs.mkdir(path.join(stateDirectory(), 'media'), { recursive: true, mode: 0o700 });
+  const configuration = imaConfiguration(); const expiresAt = Date.parse(retrievedAt) + TTL;
+  for (const asset of stagedAssets) {
+    await fs.writeFile(path.join(stateDirectory(), 'media', asset.handle), asset.data, { mode: 0o600 });
+    stateStore().set<SavedAsset>('knowledgeAssets', asset.handle, { kind: 'ima', contentType: asset.contentType, expiresAt, configuration });
+    assetStore.set(asset.handle, { data: asset.data, contentType: asset.contentType, expiresAt, configuration });
+  }
+  rememberEvidenceBinding(evidence, { source: 'ima', configuration });
   for (const [cacheKey, value] of imaCache) if (value.expiresAt < Date.now()) imaCache.delete(cacheKey);
   for (const [handle, value] of assetStore) if ('expiresAt' in value && value.expiresAt < Date.now()) assetStore.delete(handle);
   imaCache.set(key, { expiresAt: Date.now() + TTL, evidence }); return structuredClone(evidence);
@@ -423,6 +490,7 @@ async function imaEvidence(entry: CatalogEntry, signal?: AbortSignal): Promise<E
 
 export async function getEvidence(productId: string, source: KnowledgeSource, signal?: AbortSignal): Promise<EvidenceBundle> {
   signal?.throwIfAborted();
+  if (source === 'local') catalogCache = undefined;
   const entry = (await catalog(signal)).find(item => item.product.id === productId);
   signal?.throwIfAborted();
   if (!entry) throw new KnowledgeError('未找到该产品，请从产品列表重新选择。', 'PRODUCT_NOT_FOUND', 404);
@@ -433,8 +501,11 @@ export async function getEvidence(productId: string, source: KnowledgeSource, si
   const facts = extractFacts(entry.text, entry.product, 'local', retrievedAt, title);
   signal?.throwIfAborted();
   if (facts.length < 3) throw new KnowledgeError('本地产品事实不足，无法生成有依据的内容。', 'FACTS_INSUFFICIENT');
-  return { product: { ...entry.product }, facts, images: entry.images.map(image => ({ ...image })),
+  const evidence: EvidenceBundle = { product: { ...entry.product }, facts, images: entry.images.map(image => ({ ...image })),
     sources: [{ id: `source-${hash(entry.product.id)}`, title, text: facts.map(fact => fact.quote).join('\n\n'), retrievedAt, sourceMode: 'local' },
       { id: `source-${hash(entry.product.id + 'images')}`, title: `${entry.product.name} · 图片索引（本地资料）`, retrievedAt, sourceMode: 'local' }],
     retrievedAt, sourceMode: 'local', warnings: ['当前依据来自本地知识库快照，未通过 ima 在线检索或实时官网复核，不能视为当前销售配置的确认。', SKU_NOTE] };
+  rememberEvidenceBinding(evidence, { source: 'local', root: entry.root, files: entry.sourceFiles });
+  assertEvidenceCurrent(evidence);
+  return evidence;
 }

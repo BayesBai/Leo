@@ -1,0 +1,495 @@
+{
+  "bridge": {
+    "bridge": "86:31384",
+    "parts": {
+      "paper": "88:9437",
+      "scene": "86:31440"
+    },
+    "createdNodeIds": "88:9437,88:9438,88:9439,I88:9439;85:413,88:9440,88:9441,I88:9441;85:272,88:9442,I88:9442;85:272,88:9443,88:9444,I88:9444;85:337,88:9445,I88:9445;85:341,88:9446,I88:9446;85:341,88:9447,88:9448,88:9449,88:9450,88:9451,88:9452,88:9453,88:9454,I88:9454;85:289,88:9455,88:9456,88:9457,88:9458,88:9459,I88:9459;85:319,88:9460,I88:9460;85:311,88:9461,I88:9461;85:311,88:9462,88:9463,88:9464,I88:9464;85:289,88:9465,88:9466,88:9467,88:9468,88:9469,I88:9469;85:319,88:9470,I88:9470;85:311,88:9471,I88:9471;85:319,88:9472,I88:9472;85:311,88:9473,88:9474,I88:9474;85:272,88:9475,I88:9475;85:344,88:9476,88:9477,I88:9477;85:242,88:9478,88:9479,88:9480,88:9481,88:9482,88:9483,88:9484,88:9485,88:9486,88:9487,88:9488,88:9489",
+    "mutatedNodeIds": [
+      "86:31440",
+      "86:31441",
+      "86:31442",
+      "86:31443",
+      "86:31444",
+      "86:31445",
+      "86:31446",
+      "86:31447",
+      "88:9437",
+      "86:31573"
+    ],
+    "timeline": [
+      {
+        "id": "86:31384",
+        "duration": 0.6
+      }
+    ],
+    "tracks": [
+      {
+        "id": "86:31385",
+        "name": "奶油纸面展开",
+        "tracks": {}
+      },
+      {
+        "id": "88:9437",
+        "name": "v3真实工作台 · 过渡终帧",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9532",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9533",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9534",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.2
+              },
+              {
+                "id": "88:9535",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0.6
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31440",
+        "name": "远景 · 独立风景原图",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9508",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9509",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9510",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31441",
+        "name": "文字区阅读遮罩",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9511",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9512",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9513",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31442",
+        "name": "顶部导航阅读遮罩",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9514",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9515",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9516",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31443",
+        "name": "仙女脚下 · 接触阴影",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9517",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9518",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9519",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31444",
+        "name": "中景 · 无翼持麦人物",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9520",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9521",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9522",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31445",
+        "name": "近景 · 独立透明花草",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9523",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9524",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9525",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31446",
+        "name": "底部文字阅读遮罩",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9526",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9527",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9528",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "86:31447",
+        "name": "可编辑界面层",
+        "tracks": {
+          "OPACITY": {
+            "id": "KeyframeTrackId:88:9529",
+            "baseValue": {
+              "type": "FLOAT",
+              "value": 1
+            },
+            "keyframes": [
+              {
+                "id": "88:9530",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 1
+                },
+                "timelinePosition": 0
+              },
+              {
+                "id": "88:9531",
+                "easing": {
+                  "type": "EASE_OUT",
+                  "easingFunctionCubicBezier": {
+                    "x1": 0,
+                    "y1": 0,
+                    "x2": 0.58,
+                    "y2": 1
+                  }
+                },
+                "value": {
+                  "type": "FLOAT",
+                  "value": 0
+                },
+                "timelinePosition": 0.35
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "opening": "Existing 1s opening cloned without visual edits. No new opening media needed.",
+  "reduced": "Independent reduced flow, all returned reaction transitions <=0.10001s."
+}

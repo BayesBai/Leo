@@ -1,0 +1,47 @@
+{
+  "version": "2026-10-18-164425",
+  "createdAt": "2026-10-18T16:44:25+08:00",
+  "timeZone": "Asia/Shanghai",
+  "previousVersion": "2026-10-18-150507",
+  "sourceCommit": "bd179010c1175eb362cdecf990e804f6805211e1",
+  "target": {
+    "note": "未提交，未推送"
+  },
+  "apiChange": "unchanged",
+  "frontendAction": "none-required",
+  "task": "前端第一阶段：API 客户端层与纯模拟数据模式",
+  "checks": {
+    "typecheck": true,
+    "build": true,
+    "tests": "47 passed, 0 failed, 9 skipped",
+    "mockFlowsChecked": true,
+    "narrowViewportNoOverflow": true,
+    "realApiIntegration": false,
+    "scope": "frontend-and-mock-checks"
+  },
+  "files": {
+    "frontend-handoff.md": "383de0817e88aa71913ae8d17a30772632bcefbd63855eab01410f25c0340eb1",
+    "api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "src/App.tsx": "f209bd248918fa43ec3c0a40004cf5eda4286fb1984aa0d51309b4a9074d54af",
+    "src/api/client.ts": "373d0cae4383e7b26d61bfeb235331d90ecb781591e8c20a5367b6896a4f8ce0",
+    "src/api/mock.ts": "ace0d5012e393d117e5205c556db16fd4ee0ee05a2c2e67f1f105e24b013fbb6",
+    "README.md": "acc50c55c634141ed8581eb58a21e2f3e4848973772cb8103a742c3ccb8b4338"
+  },
+  "legacyOriginals": {
+    "docs/frontend-handoff.md": "945d42dfd0758e5d823069764e660a47318757d0819ca6b1380640e83d9196e4",
+    "docs/api-examples.http": "88095fb5187535cdf940370ff768df9a96c8b6faf5560dd10f9e8c0f832bfc5a",
+    "docs/fixtures/frontend.mock.json": "7bfcf0a7960572dac05ad9ee6807dbfc26883be12fa86f23c461181198ebafea"
+  },
+  "reviewedSourceFiles": {
+    "server/index.ts": "d2ae263d0fd5056cda2a4fd210f5abe23e662b5ee1ef034d344cbca404b17499",
+    "server/schemas.ts": "bea2bb6948acb89b9260e9a4af186a241cb27beb2bd8c5afdb685184ceebafae",
+    "shared/types.ts": "14c36ffe241fd5aaf3cac2a53cbc488ce4b66d2ac8c999fd0822a81ee24a659a",
+    "server/pipeline.ts": "0d2bcde0b9feca820cc781c155a64e6233bcaf434bd2b6e28c9a02e8cb16c269",
+    "server/knowledge.ts": "63ac6309890a13a75eb19ddf99b8736f8a842fa1c594cf1c59631802eaf4136f",
+    "server/model.ts": "b34a346b7c0d33b0a6884cdc751951d8da197e18b8d2cf1fcb19d64499adf47a",
+    "server/policies.ts": "cea3a7077d7c7c7daa4fc8427111d7cde8e92504b6eebba2c7ac5586bebd848c"
+  }
+}

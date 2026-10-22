@@ -1,0 +1,190 @@
+{
+  "checkedAt": "2026-10-20T04:25:32.466Z",
+  "scope": "isolated HTTP live local single-channel workflow",
+  "realModelCalled": true,
+  "imaCalled": false,
+  "knowledgeSource": "local",
+  "platform": "moments",
+  "steps": [
+    {
+      "name": "status",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "name": "products",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "name": "task-options",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "name": "render-templates",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "name": "outline",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "name": "confirm",
+      "method": "POST",
+      "status": 200
+    },
+    {
+      "name": "generate-from-outline",
+      "method": "POST",
+      "status": 200,
+      "contentType": "text/event-stream; charset=utf-8"
+    },
+    {
+      "name": "render",
+      "method": "POST",
+      "status": 200
+    }
+  ],
+  "limitations": [
+    "本次仅真实模型+授权本地资料、单一朋友圈任务；未调用ima或重新验收其余渠道及发布平台。",
+    "生成导语含未证实的顾客咨询情境，发布前仍需人工核实，needs_attention不能视为正式发布通过。"
+  ],
+  "artifacts": [
+    {
+      "role": "card",
+      "format": "png",
+      "previewStatus": 200,
+      "previewMime": "image/png",
+      "byteLength": 184551,
+      "width": 1080,
+      "height": 1080,
+      "declaredWidth": 1080,
+      "declaredHeight": 1080,
+      "dimensionsMatch": true,
+      "sourceImageCount": 1,
+      "downloadUrlPresent": true,
+      "downloadStatus": 200,
+      "downloadMime": "image/png",
+      "downloadDispositionPresent": true,
+      "downloadMatchesPreview": true
+    }
+  ],
+  "modelConfigured": true,
+  "imaConfigured": false,
+  "localKnowledgeAvailable": true,
+  "localProductCount": 10,
+  "localImageCount": 53,
+  "catalogProductCount": 10,
+  "platformCount": 4,
+  "templateCount": 8,
+  "pipelineAttempted": true,
+  "outlineVersion": 1,
+  "outlineFactCount": 9,
+  "outlineImageCount": 4,
+  "outlineSectionCount": 1,
+  "confirmed": true,
+  "progress": [
+    {
+      "step": "understand",
+      "status": "done"
+    },
+    {
+      "step": "retrieve",
+      "status": "running"
+    },
+    {
+      "step": "retrieve",
+      "status": "done"
+    },
+    {
+      "step": "strategy",
+      "status": "running"
+    },
+    {
+      "step": "strategy",
+      "status": "done"
+    },
+    {
+      "step": "write",
+      "status": "running"
+    },
+    {
+      "step": "write",
+      "status": "running"
+    },
+    {
+      "step": "write",
+      "status": "running"
+    },
+    {
+      "step": "write",
+      "status": "done"
+    },
+    {
+      "step": "review",
+      "status": "running"
+    },
+    {
+      "step": "review",
+      "status": "running"
+    },
+    {
+      "step": "review",
+      "status": "running"
+    },
+    {
+      "step": "review",
+      "status": "done"
+    },
+    {
+      "step": "done",
+      "status": "done"
+    }
+  ],
+  "outlineBindingMatches": true,
+  "reviewedBy": "rules+model",
+  "reviewStatus": "needs_attention",
+  "reviewIssues": [
+    {
+      "severity": "warning",
+      "category": "source"
+    },
+    {
+      "severity": "warning",
+      "category": "source"
+    },
+    {
+      "severity": "warning",
+      "category": "source"
+    },
+    {
+      "severity": "info",
+      "category": "compliance"
+    }
+  ],
+  "revision": 1,
+  "renderSucceeded": true,
+  "renderReviewStatus": "needs_attention",
+  "renderBindingMatches": true,
+  "copyTextPresent": true,
+  "zipUrlPresent": true,
+  "zip": {
+    "status": 200,
+    "mime": "application/zip",
+    "byteLength": 170394,
+    "signatureMatches": true
+  },
+  "pipelineCompleted": true,
+  "isolatedServerClosed": true,
+  "finishedAt": "2026-10-20T04:26:30.785Z",
+  "visualInspection": {
+    "performed": true,
+    "chineseTextReadable": true,
+    "visibleTextClipping": false,
+    "productAspectRatioPreserved": true,
+    "localSourceAndNeedsAttentionMarksVisible": true
+  }
+}

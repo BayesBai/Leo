@@ -1,0 +1,30 @@
+{
+  "tests": {
+    "total": 142,
+    "passed": 142,
+    "failed": 0,
+    "skipped": 0
+  },
+  "modelTargetedTests": {
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0
+  },
+  "typecheck": "passed",
+  "productionBuild": "passed",
+  "diffCheck": "passed",
+  "fiveStageDefaultGatewayRegression": "passed using isolated mocks",
+  "modelCapacityRegression": "503 JSON/SSE exact known message stops retry, unknown503 finite retry,200 text not misclassified,upstream private details not echoed",
+  "runtimeRestarted": true,
+  "runtimeModel": {
+    "configured": true,
+    "name": "gemini-4-argon",
+    "baseUrl": "https://relay.nccnxta.cn/v1"
+  },
+  "realFourChannelWorkflow": "failed at outline; application500 upstream503; no writing/review/rendering reached",
+  "realConnectionAfterFix": "application500 clearly explains upstream account-pool exhaustion in46763ms",
+  "realIma": "not called",
+  "browserHistoryRegression": "not repeated this task",
+  "credentials": "existing key retained only on backend; neither full value nor suffix archived",
+  "apiCompatibility": "routes,fields,HTTP/SSE shapes unchanged; capacity explanation and retry behavior changed compatibly"
+}

@@ -1,0 +1,84 @@
+{
+  "说明": "只读审计报告；未修改仓库文件、暂存、提交或推送。未运行应用测试，以下不是应用功能测试结论。",
+  "范围": {
+    "根目录": "/Users/maxchen/Documents/hackson",
+    "排除未完成版本": "2026-10-22-190058",
+    "候选来源": "git ls-files 与 git ls-files --others --exclude-standard 合并；另行检查两份被忽略的归档验证日志。",
+    "不读取": "node_modules、真实.env内容和私密环境变量值"
+  },
+  "归档校验": {
+    "历史版本数": 43,
+    "manifest_files条数": 3188,
+    "SHA256不一致": 0,
+    "清单文件缺失": 0,
+    "必需文件缺失": 0,
+    "必需文件": [
+      "frontend-handoff.md",
+      "api-examples.http",
+      "fixtures/frontend.mock.json",
+      "shared/types.ts",
+      "server/schemas.ts",
+      "src/App.tsx",
+      "README.md",
+      "manifest.json"
+    ],
+    "首次原件与HEAD逐字节一致": true,
+    "已跟踪历史目录相对HEAD改动文件数": 0,
+    "结论": "43个既有归档的清单字节一致；三个首次原件保持不变。"
+  },
+  "相对链接": {
+    "旧版正文破链": 0,
+    "旧reference导航失效项": 165,
+    "按文件统计": {
+      "docs/api/versions/2026-10-22-134626/reference/root-README.md": 8,
+      "docs/api/versions/2026-10-22-134626/reference/api-index.md": 46,
+      "docs/api/versions/2026-10-22-164240/reference/root-README.md": 8,
+      "docs/api/versions/2026-10-22-164240/reference/api-index.md": 47,
+      "docs/api/versions/2026-10-22-175136/reference/root-README.md": 8,
+      "docs/api/versions/2026-10-22-175136/reference/api-index.md": 48
+    },
+    "说明": "失效项仅为134626、164240、175136三版中reference/root-README.md和reference/api-index.md的原位置相对导航。保持历史归档原字节，在新版本记录并修正新版本导航。"
+  },
+  "忽略日志": [
+    {
+      "path": "docs/api/versions/2026-10-22-175136/verification/wheat-video-final-build.log",
+      "bytes": 471,
+      "sha256": "edc8c9944be202e1094994c782375c765b7aeaeee541017d52b7ae98ddce36c7",
+      "说明": "此前由*.log忽略，文件本地存在且符合175136清单；额外检查无URL、凭证行、私钥或token格式，可显式加入Git。"
+    },
+    {
+      "path": "docs/api/versions/2026-10-22-175136/verification/wheat-video-final-tests.log",
+      "bytes": 5665,
+      "sha256": "2beac1f813309d5b7b5a1a25d1acb9d07f19bd94e051ff6e1e2e0053e36462ed",
+      "说明": "此前由*.log忽略，文件本地存在且符合175136清单；额外检查无URL、凭证行、私钥或token格式，可显式加入Git。"
+    }
+  ],
+  "文件体积": {
+    "候选总字节": 186436833,
+    "最大文件字节": 10595948,
+    "最大文件": "server/render/fonts/NotoSansSC.ttf",
+    "大于等于50MiB文件数": 0,
+    "结论": "未发现超大单文件推送阻塞项。候选总字节为初次审计快照，不含后来新增的190058版本和显式纳入的日志。"
+  },
+  "敏感检查": {
+    "私钥格式命中": 0,
+    "真实token格式命中": 0,
+    "非空凭证字段的.env.example数量": 0,
+    "供应商临时或签名URL发现": 0,
+    "真实.env或.local-state或.credentials进入Git候选": false,
+    "原始知识库或真实私有资料进入Git候选": "未发现",
+    "正则命中分类": "发现的凭证字面量和签名/用户名密码URL均是测试占位值、拒绝测试用URL或字段标签；没有输出真实值。",
+    "ZIP检查": {
+      "文件": "docs/project-manual/v1.0/知序-项目说明书-TeX源项目.zip",
+      "内部条数": 35,
+      "敏感路径命中": 0
+    },
+    "限制": "采用候选文本格式、URL和路径检查及归档结构检查；不声称是对所有二进制视觉内容的完整隐私证明。",
+    "结论": "没有发现需要排除的敏感文件。"
+  },
+  "推送阻塞项": [],
+  "后续要求": [
+    "将两份经审查日志显式纳入Git，使已归档manifest可由远端恢复完整。",
+    "主代理完成190058后校验新归档清单和暂存区字节；保持旧版及首次原件只读。"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "taskType": "read-only diagnosis; no source/environment/runtime configuration changes",
+  "actualRequests": "same locally configured key; same gpt-6.1-sol; same Bearer/system-user/stream/max_tokens256 request on both authorized gateways",
+  "styxgate": "models and Chat Completions return HTTP403 Cloudflare HTML",
+  "nccnxta": "models HTTP200 contains target alias; Chat Completions HTTP200 SSE parsed OK in10789ms",
+  "fullWorkflow": "not run; minimal probe does not prove outline/schema/four-channel/repair/review quality",
+  "unitTests": "not run this task; previous138 tests are historical",
+  "build": "not run this task",
+  "ima": "not called",
+  "secretHandling": "only requested suffix shown to operator; no key or suffix archived",
+  "configurationChanged": false
+}

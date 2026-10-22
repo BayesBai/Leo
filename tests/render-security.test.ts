@@ -89,7 +89,8 @@ test('cancellation after an article file is written and rendering failure remove
     import { mkdir, writeFile, readdir } from 'node:fs/promises';
     import { watch } from 'node:fs';
     import path from 'node:path';
-    const root = path.resolve('.cache/render'); await mkdir(root, {recursive:true});
+    process.env.AGENT_RENDER_DIR = path.resolve('.cache/render');
+    const root = process.env.AGENT_RENDER_DIR; await mkdir(root, {recursive:true});
     process.env.LOCAL_KB_ROOT = path.resolve('mock-kb');
     const productDirectory = path.join(process.env.LOCAL_KB_ROOT,'P1-产品参数库','01-鸿蒙电脑','模拟机型');
     await mkdir(path.join(productDirectory,'images'), {recursive:true});

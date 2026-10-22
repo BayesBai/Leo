@@ -9,6 +9,7 @@ import { reviewDrafts } from '../server/policies.js';
 import { mergeSemanticReview } from '../server/pipeline.js';
 import { renderEditorialCover, renderMomentsCard, renderStorePoster } from '../server/render/compositions.js';
 import { planXhs, renderXhs, type RenderImage } from '../server/render/layouts.js';
+import { assertChannelImageCount, IMAGE_POLICIES } from '../server/asset-policy.js';
 
 const mock = JSON.parse(await readFile(new URL('../docs/api/versions/2026-10-18-165045/fixtures/frontend.mock.json', import.meta.url), 'utf8'));
 const evidence = mock.result.evidence as EvidenceBundle;
@@ -25,6 +26,22 @@ test('one task accepts all four channels and keeps duplicate/oversized input rej
   assert.equal(briefSchema.safeParse({ ...brief, platforms: ['wechat', 'wechat'] }).success, false);
   const platformOutlines = brief.platforms.map(platform => ({ platform, title: '模拟大纲', angle: '', intro: '', sections: [{ id: 'b1', heading: '模拟', points: ['模拟内容'], factIds: [] }], imageIds: [], cta: '模拟交流' }));
   assert.equal(outlineEditSchema.parse({ version: 1, platforms: platformOutlines }).platforms.length, 4);
+});
+
+test('all channels share explicit source-image bounds and review locates immutable versus editable claims', () => {
+  for (const platform of brief.platforms) {
+    const bounds = IMAGE_POLICIES[platform];
+    assert.doesNotThrow(() => assertChannelImageCount(platform, bounds.min));
+    assert.doesNotThrow(() => assertChannelImageCount(platform, bounds.max));
+    assert.throws(() => assertChannelImageCount(platform, bounds.min - 1), (error: any) => error.status === 422);
+    assert.throws(() => assertChannelImageCount(platform, bounds.max + 1), (error: any) => error.status === 422);
+  }
+  const d = draft('moments'); d.titles = ['全球第一的模拟电脑']; d.blocks[0].heading = '重量999 kg'; d.blocks[0].text = '未经依据支持的价格为9999元。';
+  const report = reviewDrafts(brief, evidence, [d]);
+  assert.ok(report.issues.some(issue => issue.category === 'compliance' && issue.target === 'title'));
+  assert.ok(report.issues.some(issue => issue.category === 'fact' && issue.target === 'heading'));
+  assert.ok(report.issues.some(issue => issue.category === 'compliance' && issue.target === 'body'));
+  assert.ok(report.issues.some(issue => issue.category === 'platform' && issue.target === 'images'));
 });
 
 test('review warns about copied framing while shared product body facts alone are not similar framing', () => {

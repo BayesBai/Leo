@@ -1,0 +1,58 @@
+{
+  "checkedAt": "2026-10-18T08:49:43.581Z",
+  "scope": "offline rule-demo comparison with existing pure mock fixture; no real model, KB or image generation",
+  "comparisons": [
+    {
+      "platform": "wechat",
+      "selectedFactIds": [
+        "fact-mock-appearance",
+        "fact-mock-scenario"
+      ],
+      "headings": [
+        "产品资料看点",
+        "产品资料看点",
+        "把参数放回使用流程"
+      ],
+      "imageCount": 3,
+      "characterCount": 556
+    },
+    {
+      "platform": "xiaohongshu",
+      "selectedFactIds": [
+        "fact-mock-appearance",
+        "fact-mock-scenario"
+      ],
+      "headings": [
+        "产品资料看点",
+        "产品资料看点",
+        "带着自己的任务核对"
+      ],
+      "imageCount": 3,
+      "characterCount": 462
+    },
+    {
+      "platform": "moments",
+      "selectedFactIds": [
+        "fact-mock-appearance"
+      ],
+      "headings": [
+        "产品资料看点"
+      ],
+      "imageCount": 2,
+      "characterCount": 200
+    },
+    {
+      "platform": "poster",
+      "selectedFactIds": [
+        "fact-mock-appearance",
+        "fact-mock-scenario"
+      ],
+      "headings": [
+        "产品资料看点",
+        "产品资料看点"
+      ],
+      "imageCount": 1,
+      "characterCount": 133
+    }
+  ]
+}

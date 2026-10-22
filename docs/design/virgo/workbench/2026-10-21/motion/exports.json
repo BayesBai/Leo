@@ -1,0 +1,26 @@
+{
+  "garden-breeze.mp4": {
+    "duration": "8.200000",
+    "width": 768,
+    "height": 534,
+    "sha256": "1d3995ea5c4340ac37e3ca9e7f9e87c53ce3873d88a243206c5deeedc2cf2c6b"
+  },
+  "components.mp4": {
+    "duration": "2.100000",
+    "width": 768,
+    "height": 534,
+    "sha256": "90fa9ccb4253faf2b294870311c0372cff8bfd2b176e68ae45705becfcda4a00"
+  },
+  "opening.mp4": {
+    "duration": "1.100000",
+    "width": 768,
+    "height": 534,
+    "sha256": "0b435c2a551a611af049d94f18eda7195ec05e4978a33ad5b3a46000dcc17c7d"
+  },
+  "enter-workbench.mp4": {
+    "duration": "0.700000",
+    "width": 768,
+    "height": 534,
+    "sha256": "cf4d11680efdeab6abc86619c6f892d9b9cb305dda897b39ab93a86dfa4d2ade"
+  }
+}

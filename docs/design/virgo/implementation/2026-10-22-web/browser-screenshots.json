@@ -1,0 +1,202 @@
+{
+  "capturedAtBeijing": "2026-10-22T01:24:39+08:00",
+  "source": "CUA in-app browser screenshots",
+  "viewportChecks": [
+    1440,
+    1280,
+    390
+  ],
+  "boundary": "Full-page image width can exclude the desktop scrollbar. Non-full-page drawer and motion screenshots are cropped to the IAB visible surface; captured pixel size is separate from CSS viewport. Mock data is intentionally not Figma static sample wording.",
+  "screenshots": [
+    {
+      "file": "previews/web-blocked.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1265,
+        2236
+      ],
+      "sha256": "17cf247f1dfa5f95ff9e4279b05814787b0658f0e6174b91df5c4a4e2aada3eb",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-conflict.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1265,
+        1576
+      ],
+      "sha256": "4de84801fea82e49dfc1f846504f9930d715107508c2d676e97ca56db501279a",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-cover-1440.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1440,
+        1000
+      ],
+      "sha256": "7a569ac2b84e815e9dbaa8930d230a80fcee8818b67792408d256a5fa86e2adf",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-cover-390.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        390,
+        844
+      ],
+      "sha256": "9e4a607087ad5ba4676fabacb98fe2f9a5a8376c2c933ccc3d2f18510ef33682",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-delivery-1280.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1265,
+        2986
+      ],
+      "sha256": "e43838d354d6eaa6c360f47c2f75ce704848a0a0e55c9ddc75fc65edcf17118d",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-delivery-1440.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1425,
+        3136
+      ],
+      "sha256": "928f71e5785c0a72017a81991e306849036cc3c5717dd4b74b9fb13b2425b2f4",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-delivery-390.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        375,
+        2852
+      ],
+      "sha256": "d7e95b019105ee1e6f3937b8f3d77ee4b565edfc308415440ec1108508e67c6f",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-evidence-1440.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1193,
+        1000
+      ],
+      "sha256": "02175cd03a472868233de65e56287850929742959a07b49f0a181671d1c65c92",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-history-desktop.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1193,
+        1000
+      ],
+      "sha256": "a9c26ae99d445bbe4919b3c8fe1f4aeac835819b84f36bede6a9bfd1c1ef5ffb",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-history-390.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        390,
+        844
+      ],
+      "sha256": "c42b7d5b159ddd295f8863d46f84dccb8c000b1670c5373ba7c90d129ec0bce1",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-mobile-bottom.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        375,
+        812
+      ],
+      "sha256": "4cba17b9f400703a9c5eb430f43ee4c70983b671471d76520b9055a06fbaaf94",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-outline-1280.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1265,
+        1320
+      ],
+      "sha256": "7672727c73622d9ac4d13ee9d9c5af143e9a429ae647664bd9d1542aeb97f114",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-outline-1440.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1425,
+        1320
+      ],
+      "sha256": "80ded2368513d638472e70f82385831d9e2da18d40bdd8a2685d8feb953356de",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-outline-390.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        375,
+        2095
+      ],
+      "sha256": "aeb40accfb949487e7db4a64fd7996e44c85370a9eb4b3dec64f329d8296382b",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-review.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1193,
+        720
+      ],
+      "sha256": "6409cd03c20d203ee9fdeefbf3c6300b27fe643859b597f10496977f9cdd7581",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-task-1280.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1265,
+        1197
+      ],
+      "sha256": "2708d3eb9cd1a811ee18fbaac03f3f428fe85fd58c6b23469c6f82e7ddfa044f",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-task-1440.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        1425,
+        1275
+      ],
+      "sha256": "49243499322c30aec8af645cf0d3d7c5484e6616c3694db6e74da71215e68a71",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-task-390.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        375,
+        1726
+      ],
+      "sha256": "df1cb147c395e471671ca52fa57b44937e65316fd11d9465fc216d76f368000c",
+      "dataset": "explicit frontend mock, no real product facts"
+    },
+    {
+      "file": "previews/web-visual-390.jpg",
+      "mimeType": "image/jpeg",
+      "captureSize": [
+        375,
+        2228
+      ],
+      "sha256": "2a06f363ac2a872cd9dbc894992bae5939366f478ae56b8766006c25666a07cb",
+      "dataset": "explicit frontend mock, no real product facts"
+    }
+  ]
+}

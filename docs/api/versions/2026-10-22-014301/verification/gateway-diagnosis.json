@@ -1,0 +1,61 @@
+{
+  "checkedAt": "2026-10-21T17:17:08.153Z",
+  "model": "gpt-6.1-sol",
+  "catalog": [
+    {
+      "origin": "https://relay.styxgate.top",
+      "path": "/v1/models",
+      "http": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "htmlTitle": "Attention Required! | Cloudflare",
+      "elapsedMs": 721
+    },
+    {
+      "origin": "https://relay.nccnxta.cn",
+      "path": "/v1/models",
+      "http": 200,
+      "contentType": "application/json; charset=utf-8",
+      "targetModelPresent": true,
+      "elapsedMs": 349
+    }
+  ],
+  "generations": [
+    {
+      "origin": "https://relay.styxgate.top",
+      "model": "gpt-6.1-sol",
+      "payload": "Bearer; stream:true; system/user; max_tokens:256",
+      "success": false,
+      "http": 403,
+      "contentType": "text/html; charset=UTF-8",
+      "htmlTitle": "Attention Required! | Cloudflare",
+      "error": {
+        "code": "MODEL_HTTP",
+        "message": "模型接口返回 HTTP 403。请检查密钥和该模型的调用权限。"
+      },
+      "elapsedMs": 110
+    },
+    {
+      "origin": "https://relay.nccnxta.cn",
+      "model": "gpt-6.1-sol",
+      "payload": "Bearer; stream:true; system/user; max_tokens:256",
+      "success": true,
+      "http": 200,
+      "contentType": "text/event-stream",
+      "exactOk": true,
+      "characters": 3,
+      "elapsedMs": 10789
+    }
+  ],
+  "configurationChanged": false,
+  "keyValueArchived": false,
+  "configuration": {
+    "keyPresent": true,
+    "fileBaseUrl": "https://relay.styxgate.top/v1",
+    "fileModel": "gpt-6.1-sol",
+    "runtimeModel": {
+      "configured": true,
+      "name": "gpt-6.1-sol",
+      "baseUrl": "https://relay.styxgate.top/v1"
+    }
+  }
+}

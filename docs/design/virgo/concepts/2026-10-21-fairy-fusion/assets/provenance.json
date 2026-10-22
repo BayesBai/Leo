@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "purpose": "Virgo brand illustration only; not product evidence",
+  "generator": "Built-in image_gen; model not exposed",
+  "generationCalls": 4,
+  "prompts": "../prompts.json",
+  "finalComposite": "fairy-fusion.png",
+  "bodyOpacity": 1,
+  "wingOpacity": 0.28,
+  "componentOpacity": 1,
+  "originalsPreserved": true,
+  "files": [
+    {
+      "file": "fairy-body.png",
+      "width": 1086,
+      "height": 1448,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "16f3083e50a7a629f236bc798dd968c41ed5e80f1d1d1971433f2224e08d6023",
+      "bytes": 1615403,
+      "method": "Built-in image_gen"
+    },
+    {
+      "file": "fairy-cinematic-source.png",
+      "width": 1086,
+      "height": 1448,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "873628f91f4f3d604939f65325e0f74cca1d7cf57ac978ff55c7c9a72203b4cb",
+      "bytes": 2028222,
+      "method": "Built-in image_gen"
+    },
+    {
+      "file": "fairy-fusion.png",
+      "width": 1086,
+      "height": 1448,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "e8fac086d77102c174cf158f9c342787139fdeaa6382b7b6eb7686271de33976",
+      "bytes": 1926788,
+      "method": "Figma native transparent composite export"
+    },
+    {
+      "file": "fairy-wings.png",
+      "width": 1086,
+      "height": 1448,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "f5e2e85cd23317111bf175f883ed059f9d80b89ab0427fd7bcf41ef27711c447",
+      "bytes": 905335,
+      "method": "Built-in image_gen"
+    }
+  ],
+  "note": "The rejected single-image wing attempt is not a delivered asset. Original generated files retained; Python used only for copying and metadata/hash inspection."
+}

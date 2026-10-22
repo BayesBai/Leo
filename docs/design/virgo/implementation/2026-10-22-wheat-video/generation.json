@@ -1,0 +1,67 @@
+{
+  "createdAtBeijing": "2026-10-22T17:06:37+08:00",
+  "budgetCredits": 100,
+  "balanceBefore": 100,
+  "creditsConsumed": 100,
+  "generationTasks": [
+    {
+      "generationId": "Afuy1T0rt5KB8W6DuRQByPwLr1vYDdM2E62XC7F438yaA2ENTA75UpOIJdYH3DP1uOvVrieg",
+      "model": "kling-video-v4_0",
+      "durationSeconds": 10,
+      "resolution": "720p",
+      "imageCount": 1,
+      "statusAtSubmission": "QUEUING",
+      "creditsConsumed": 100
+    }
+  ],
+  "additionalCandidates": "None: first submission consumed entire100-credit budget",
+  "source": "public/virgo/garden-gate-background.png",
+  "aspectRatio": "Follow approved first frame; no aspect_ratio argument",
+  "taskTraceId": "01a162dc-0602-7e8e-a98f-6670a7dacc10",
+  "currentStatus": "COMPLETED",
+  "generatedVideoDownloaded": true,
+  "balanceAfterSubmission": 0,
+  "downloadedVariant": "url",
+  "originalVideoProbe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1224,
+        "height": 764,
+        "r_frame_rate": "24/1"
+      },
+      {
+        "index": 1,
+        "codec_name": "aac",
+        "codec_type": "audio",
+        "r_frame_rate": "0/0"
+      }
+    ],
+    "format": {
+      "duration": "10.041667",
+      "size": "8044147"
+    }
+  },
+  "deliveredAtBeijing": "2026-10-22T17:45:28+08:00",
+  "assets": {
+    "wheat-workbench-loop.mp4": {
+      "bytes": 3235455,
+      "sha256": "1a0ae52acca5e1cda524b0f0fa17e0bb6a117d46ebb949c277689fcd90510a40"
+    },
+    "wheat-workbench-poster.webp": {
+      "bytes": 265892,
+      "sha256": "dcc958a643efe494ed0a0e864b67a829afc05f0e70bb06014bc7a5353c2135e6"
+    }
+  },
+  "watermark": "Provider export includes Kling4.0 mark. No removal or intentional crop; normal object-fit cover may clip edges. Static-only devices keep original approved unmarked garden.",
+  "sourceSha256": "17996b9257105f284cf6793700291ed50730cba2645eb87c4d56a47cac42de29",
+  "sourceDimensions": [
+    1586,
+    992
+  ],
+  "originalVideoSha256": "6452ef5df220cbebe7b633b9841811cab6591bc44b5e963c882af17ed30954c8"
+}

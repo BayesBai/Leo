@@ -1,0 +1,16 @@
+{
+  "realHttp": true,
+  "syntheticKnowledgeOnly": true,
+  "modelCalled": false,
+  "imaCalled": false,
+  "pageErrors": [],
+  "externalRequests": [],
+  "reloadRestored": true,
+  "restartRestored": true,
+  "sameRun": true,
+  "sameBundle": true,
+  "expiryUnchanged": true,
+  "outlineVersion": 2,
+  "reviewStatus": "needs_attention",
+  "bundleExpiresAt": "2026-10-21T15:51:36.358Z"
+}

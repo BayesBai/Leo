@@ -1,0 +1,137 @@
+{
+  "scope": "solid color UI tokens; photographs and inactive controls excluded",
+  "checks": [
+    {
+      "foreground": "ink",
+      "background": "canvas",
+      "ratio": 11.0,
+      "passed": true
+    },
+    {
+      "foreground": "body",
+      "background": "canvas",
+      "ratio": 7.01,
+      "passed": true
+    },
+    {
+      "foreground": "muted",
+      "background": "canvas",
+      "ratio": 5.43,
+      "passed": true
+    },
+    {
+      "foreground": "ink",
+      "background": "paper",
+      "ratio": 12.26,
+      "passed": true
+    },
+    {
+      "foreground": "body",
+      "background": "paper",
+      "ratio": 7.81,
+      "passed": true
+    },
+    {
+      "foreground": "muted",
+      "background": "paper",
+      "ratio": 6.05,
+      "passed": true
+    },
+    {
+      "foreground": "ink",
+      "background": "white",
+      "ratio": 12.71,
+      "passed": true
+    },
+    {
+      "foreground": "body",
+      "background": "white",
+      "ratio": 8.1,
+      "passed": true
+    },
+    {
+      "foreground": "muted",
+      "background": "white",
+      "ratio": 6.28,
+      "passed": true
+    },
+    {
+      "foreground": "ink",
+      "background": "sage",
+      "ratio": 10.64,
+      "passed": true
+    },
+    {
+      "foreground": "body",
+      "background": "sage",
+      "ratio": 6.78,
+      "passed": true
+    },
+    {
+      "foreground": "muted",
+      "background": "sage",
+      "ratio": 5.25,
+      "passed": true
+    },
+    {
+      "foreground": "ink",
+      "background": "rose",
+      "ratio": 9.41,
+      "passed": true
+    },
+    {
+      "foreground": "body",
+      "background": "rose",
+      "ratio": 6.0,
+      "passed": true
+    },
+    {
+      "foreground": "muted",
+      "background": "rose",
+      "ratio": 4.64,
+      "passed": true
+    },
+    {
+      "foreground": "ink",
+      "background": "blue",
+      "ratio": 10.53,
+      "passed": true
+    },
+    {
+      "foreground": "body",
+      "background": "blue",
+      "ratio": 6.71,
+      "passed": true
+    },
+    {
+      "foreground": "muted",
+      "background": "blue",
+      "ratio": 5.2,
+      "passed": true
+    },
+    {
+      "foreground": "paper",
+      "background": "green",
+      "ratio": 7.8,
+      "passed": true
+    },
+    {
+      "foreground": "success",
+      "background": "successSoft",
+      "ratio": 5.68,
+      "passed": true
+    },
+    {
+      "foreground": "warning",
+      "background": "warningSoft",
+      "ratio": 5.16,
+      "passed": true
+    },
+    {
+      "foreground": "error",
+      "background": "errorSoft",
+      "ratio": 5.49,
+      "passed": true
+    }
+  ]
+}

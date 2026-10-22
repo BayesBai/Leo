@@ -1,0 +1,309 @@
+{
+  "schema": 1,
+  "status": "A3-static-cover-refinement-completed",
+  "fileKey": "JfR3uVD884firgx27czG8M",
+  "pageId": "4:4",
+  "frameId": "54:2841",
+  "figmaUrl": "https://www.figma.com/design/JfR3uVD884firgx27czG8M?node-id=54-2841",
+  "prototypeUrl": "https://www.figma.com/proto/JfR3uVD884firgx27czG8M?page-id=4%3A4&node-id=54-2841&starting-point-node-id=54%3A2841",
+  "source": {
+    "frameId": "47:2823",
+    "componentId": "46:143",
+    "preserved": true,
+    "body": "../2026-10-21-fairy-fusion/assets/fairy-body.png"
+  },
+  "component": {
+    "createdNodeIds": [
+      "53:2841",
+      "53:2843"
+    ],
+    "mutatedNodeIds": [],
+    "removedCreatedNodeIds": [
+      "53:2842"
+    ],
+    "componentId": "53:2841",
+    "bodyId": "53:2843",
+    "bodyHash": "8ff8deac2e5035e0834fc2a83a923e759c5cf208",
+    "bodyOpacity": 1,
+    "width": 480,
+    "height": 640,
+    "x": 12746,
+    "y": 80
+  },
+  "composition": {
+    "createdNodeIds": [
+      "54:2841",
+      "54:2842",
+      "54:2843",
+      "54:2844",
+      "54:2845",
+      "54:2846",
+      "I54:2846;53:2843",
+      "54:2847",
+      "54:2848",
+      "54:2850",
+      "54:2851",
+      "54:2852",
+      "I54:2852;37:154",
+      "I54:2852;37:154;5:48",
+      "I54:2852;37:154;5:49",
+      "I54:2852;37:157",
+      "54:2853",
+      "54:2854",
+      "I54:2854;5:121",
+      "54:2855",
+      "I54:2855;5:121",
+      "54:2856",
+      "I54:2856;5:121",
+      "54:2857",
+      "54:2858",
+      "54:2859",
+      "54:2860",
+      "54:2861",
+      "54:2862",
+      "I54:2862;5:55",
+      "54:2864",
+      "54:2865",
+      "54:2884"
+    ],
+    "mutatedNodeIds": [
+      "4:4"
+    ],
+    "removedCreatedNodeIds": [
+      "54:2863",
+      "I54:2863;5:121",
+      "54:2849",
+      "54:2866"
+    ],
+    "frameId": "54:2841",
+    "figureId": "54:2846",
+    "footerId": "54:2865",
+    "labelId": "54:2884",
+    "width": 1440,
+    "height": 1000,
+    "x": 80,
+    "y": 25200,
+    "texts": [
+      {
+        "id": "I54:2852;37:157",
+        "text": "Virgo"
+      },
+      {
+        "id": "I54:2854;5:121",
+        "text": "品牌故事"
+      },
+      {
+        "id": "I54:2855;5:121",
+        "text": "创作流程"
+      },
+      {
+        "id": "I54:2856;5:121",
+        "text": "开始创作"
+      },
+      {
+        "id": "54:2858",
+        "text": "Virgo"
+      },
+      {
+        "id": "54:2859",
+        "text": "把好产品，\n讲得恰如其分。"
+      },
+      {
+        "id": "54:2860",
+        "text": "为门店日常推广，整理思路、推敲文案，\n准备各个渠道的内容。"
+      },
+      {
+        "id": "I54:2862;5:55",
+        "text": "开始创作"
+      },
+      {
+        "id": "54:2865",
+        "text": "Virgo · 拾穗"
+      }
+    ],
+    "actions": [
+      {
+        "id": "54:2854",
+        "name": "品牌故事",
+        "reactions": [
+          {
+            "action": {
+              "type": "NODE",
+              "destinationId": "39:2900",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            },
+            "actions": [
+              {
+                "type": "NODE",
+                "destinationId": "39:2900",
+                "navigation": "OVERLAY",
+                "transition": {
+                  "type": "DISSOLVE",
+                  "easing": {
+                    "type": "EASE_OUT"
+                  },
+                  "duration": 0.20000000298023224
+                },
+                "resetVideoPosition": false
+              }
+            ],
+            "trigger": {
+              "type": "ON_CLICK"
+            }
+          }
+        ]
+      },
+      {
+        "id": "54:2855",
+        "name": "创作流程",
+        "reactions": [
+          {
+            "action": {
+              "type": "NODE",
+              "destinationId": "39:2908",
+              "navigation": "OVERLAY",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            },
+            "actions": [
+              {
+                "type": "NODE",
+                "destinationId": "39:2908",
+                "navigation": "OVERLAY",
+                "transition": {
+                  "type": "DISSOLVE",
+                  "easing": {
+                    "type": "EASE_OUT"
+                  },
+                  "duration": 0.20000000298023224
+                },
+                "resetVideoPosition": false
+              }
+            ],
+            "trigger": {
+              "type": "ON_CLICK"
+            }
+          }
+        ]
+      },
+      {
+        "id": "54:2856",
+        "name": "开始创作",
+        "reactions": [
+          {
+            "action": {
+              "type": "NODE",
+              "destinationId": "6:121",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            },
+            "actions": [
+              {
+                "type": "NODE",
+                "destinationId": "6:121",
+                "navigation": "NAVIGATE",
+                "transition": {
+                  "type": "DISSOLVE",
+                  "easing": {
+                    "type": "EASE_OUT"
+                  },
+                  "duration": 0.20000000298023224
+                },
+                "resetVideoPosition": false
+              }
+            ],
+            "trigger": {
+              "type": "ON_CLICK"
+            }
+          }
+        ]
+      },
+      {
+        "id": "54:2862",
+        "name": "开始创作",
+        "reactions": [
+          {
+            "action": {
+              "type": "NODE",
+              "destinationId": "6:121",
+              "navigation": "NAVIGATE",
+              "transition": {
+                "type": "DISSOLVE",
+                "easing": {
+                  "type": "EASE_OUT"
+                },
+                "duration": 0.20000000298023224
+              },
+              "resetVideoPosition": false
+            },
+            "actions": [
+              {
+                "type": "NODE",
+                "destinationId": "6:121",
+                "navigation": "NAVIGATE",
+                "transition": {
+                  "type": "DISSOLVE",
+                  "easing": {
+                    "type": "EASE_OUT"
+                  },
+                  "duration": 0.20000000298023224
+                },
+                "resetVideoPosition": false
+              }
+            ],
+            "trigger": {
+              "type": "ON_CLICK"
+            }
+          }
+        ]
+      }
+    ],
+    "figure": {
+      "id": "54:2846",
+      "x": 835,
+      "y": 245,
+      "width": 540,
+      "height": 720,
+      "children": [
+        {
+          "id": "I54:2846;53:2843",
+          "name": "人物与衣裙 · 不透明层",
+          "opacity": 1
+        }
+      ]
+    }
+  },
+  "changes": {
+    "wingsRemoved": true,
+    "footer": "Virgo · 拾穗",
+    "secondaryFlowEntryRemoved": true,
+    "rightChannelPlateAndTextRemoved": true,
+    "topFlowNavigationRetained": true
+  },
+  "assets": {
+    "figure": "assets/figure-no-wings.png",
+    "preview": "previews/home-a-refined.png"
+  },
+  "newGenerationCalls": 0
+}

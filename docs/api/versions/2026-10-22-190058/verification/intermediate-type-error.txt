@@ -1,0 +1,6 @@
+
+> huawei-pc-marketing-agent-demo@0.1.0 build
+> tsc --noEmit && vite build
+
+tests/jobs.test.ts(201,76): error TS2345: Argument of type '{ version: number; kind: "outline"; brief: Brief; } | { version: number; kind: "outline-revise"; outlineId: string; instructions: string; platforms?: ("xiaohongshu" | "wechat" | "moments" | "poster")[] | undefined; } | { ...; } | { ...; }' is not assignable to parameter of type 'JobInput'.
+  Object literal may only specify known properties, and 'version' does not exist in type '{ kind: "outline"; brief: Brief; }'.

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "method": "Byte-identical reuse; no image generation or pixel editing this task",
+  "source": "../../2026-10-21-fairy-fusion/assets/fairy-body.png",
+  "role": "Virgo brand character, not product evidence",
+  "files": [
+    {
+      "file": "figure-no-wings.png",
+      "width": 1086,
+      "height": 1448,
+      "mode": "RGBA",
+      "alphaRange": [
+        0,
+        255
+      ],
+      "sha256": "16f3083e50a7a629f236bc798dd968c41ed5e80f1d1d1971433f2224e08d6023",
+      "bytes": 1615403
+    }
+  ]
+}

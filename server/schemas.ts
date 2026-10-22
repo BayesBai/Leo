@@ -32,6 +32,13 @@ export const briefSchema = z.object({
   message: 'ima 正式接入需要选择模型创作模式。', path: ['mode'],
 });
 
+export const jobSubmitSchema = z.intersection(z.object({ idempotencyKey: z.string().trim().min(8).max(120).regex(/^[A-Za-z0-9._:-]+$/) }), z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('outline'), brief: briefSchema, idempotencyKey: z.string() }).strict(),
+  z.object({ kind: z.literal('outline-revise'), outlineId: z.string().min(1).max(100), version: z.number().int().min(1), instructions: z.string().trim().min(1).max(2000), platforms: z.array(platformSchema).min(1).max(4).optional(), idempotencyKey: z.string() }).strict(),
+  z.object({ kind: z.literal('generate'), outlineId: z.string().min(1).max(100), version: z.number().int().min(1), renders: z.array(z.object({ platform: platformSchema, templateId: z.string().min(1).max(80), selectedTitleIndex: z.number().int().min(0).max(2).default(0) }).strict()).min(1).max(4).optional(), idempotencyKey: z.string() }).strict(),
+  z.object({ kind: z.literal('render'), request: renderRequestSchema, idempotencyKey: z.string() }).strict(),
+]));
+
 export const strategySchema = z.object({
   platform: platformSchema, angle: z.string().min(1).max(300), painPoint: z.string().min(1).max(400),
   sellingPoints: z.array(z.object({ factId: z.string().min(1), benefit: z.string().min(1).max(300) })).min(1).max(5),
@@ -60,5 +67,6 @@ export const modelReviewSchema = z.object({
     platform: platformSchema.nullish().transform(value => value ?? undefined),
     factId: z.string().nullish().transform(value => value ?? undefined),
     blockId: z.string().nullish().transform(value => value ?? undefined),
+    target: z.enum(['title', 'intro', 'heading', 'body', 'cta', 'tags', 'images', 'references', 'structure', 'source']).nullish().transform(value => value ?? undefined),
   })).max(30),
 });

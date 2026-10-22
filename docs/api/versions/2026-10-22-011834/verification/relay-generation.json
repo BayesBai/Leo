@@ -1,0 +1,46 @@
+{
+  "checkedAt": "2026-10-21T17:08:30.338Z",
+  "endpoint": "https://relay.styxgate.top/v1/chat/completions",
+  "model": "gpt-6.1-sol",
+  "source": "local",
+  "success": false,
+  "imaCalled": false,
+  "local": {
+    "available": true,
+    "productCount": 10,
+    "imageCount": 53
+  },
+  "failure": {
+    "phase": "outline",
+    "http": 500,
+    "kind": "http",
+    "message": "模型接口返回 HTTP 403。请检查密钥和该模型的调用权限。"
+  },
+  "elapsedMs": 3363,
+  "minimalGeneration": {
+    "checkedAt": "2026-10-21T17:07:49.123Z",
+    "endpoint": "https://relay.styxgate.top/v1/chat/completions",
+    "model": "gpt-6.1-sol",
+    "configured": true,
+    "success": false,
+    "error": {
+      "code": "MODEL_HTTP",
+      "message": "模型接口返回 HTTP 403。请检查密钥和该模型的调用权限。"
+    },
+    "elapsedMs": 1151
+  },
+  "postResponse": {
+    "checkedAt": "2026-10-21T17:08:49.005Z",
+    "http": 403,
+    "contentType": "text/html; charset=UTF-8",
+    "htmlTitle": "Attention Required! | Cloudflare",
+    "errorCode": "MODEL_HTTP"
+  },
+  "modelCatalog": {
+    "checkedAt": "2026-10-21T17:08:27.704Z",
+    "http": 403,
+    "contentType": "text/html; charset=UTF-8",
+    "requestedModelPresent": false,
+    "htmlTitle": "Attention Required! | Cloudflare"
+  }
+}

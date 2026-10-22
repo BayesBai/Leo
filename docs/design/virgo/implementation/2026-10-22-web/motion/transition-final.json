@@ -1,0 +1,34 @@
+{
+  "viewport": {
+    "width": 1440,
+    "height": 1000
+  },
+  "boundary": "IAB screenshot captures its visible surface; layout viewport is wider than the image crop. These are sampled stills, not an FPS recording.",
+  "fix": "Complete cover including its background fades linearly over 350ms; workbench appears during 200–600ms.",
+  "samples": [
+    {
+      "file": "transition-final-1.jpg",
+      "requestedAtMs": 60,
+      "sampledAtMs": 145,
+      "captureCompleteAtMs": 391,
+      "coverOpacity": "1",
+      "workbenchOpacity": "1"
+    },
+    {
+      "file": "transition-final-2.jpg",
+      "requestedAtMs": 260,
+      "sampledAtMs": 390,
+      "captureCompleteAtMs": 631,
+      "coverOpacity": "0.42",
+      "workbenchOpacity": "0.00137999"
+    },
+    {
+      "file": "transition-final-3.jpg",
+      "requestedAtMs": 750,
+      "sampledAtMs": 812,
+      "captureCompleteAtMs": 875,
+      "coverOpacity": null,
+      "workbenchOpacity": "1"
+    }
+  ]
+}

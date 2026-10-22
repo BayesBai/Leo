@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "generator": "Built-in image_gen tool",
+  "model": "Not exposed by tool",
+  "note": "Meadow and foreground prompts are preserved from calls. Garden/fairy are faithful reproducibility briefs reconstructed from the retained creation constraints, not claimed as verbatim tool logs.",
+  "items": [
+    {
+      "asset": "assets/garden-gate-background.png",
+      "method": "text-to-image",
+      "transparent_background": false,
+      "promptStatus": "reconstructed-reproducibility-brief",
+      "prompt": "Wide 16:10 background-only landscape for Virgo, an elegant mature romantic website. View from inside a slightly dark botanical garden toward a distant golden wheat field and a mist-blue, blush-pink evening sky. Soft golden-hour light, dusty pink cosmos, ivory daisies, restrained pale lavender flowers and natural dark olive foliage. Dark quiet left side for editable headline and buttons later, luminous opening toward the right third with space for a separately composed fairy. Build real foreground, middle ground and hazy distance with tactile painterly cinematic botanical detail. No people or fairy, no text, logo, UI, border, frame, architecture or sci-fi object. Avoid candy saturation, plastic surfaces and a flat uniform pink gradient."
+    },
+    {
+      "asset": "assets/virgo-fairy-cutout.png",
+      "method": "image-edit",
+      "source": "../../assets/virgo-fairy-hero.png",
+      "transparent_background": true,
+      "promptStatus": "reconstructed-reproducibility-brief",
+      "prompt": "Edit the provided original Virgo fairy illustration into an independent true transparent-alpha cutout. Preserve the identity of the adult, dignified woman, complete wings, ivory draped long gown, rose ribbons and the small wheat bundle in her hands. Preserve the vintage hand-tinted engraving / delicate linework aesthetic and her full uncropped pose. Remove all paper and scenic backdrop. Add restrained warm golden rim lighting from the right so she can enter a golden-hour wheat garden; retain ivory, dusty rose and muted gold. Keep clean translucent wing and garment edges. No text, UI or new background."
+    },
+    {
+      "asset": "assets/evening-wheat-background.png",
+      "method": "image-edit",
+      "source": "assets/garden-gate-background.png",
+      "transparent_background": false,
+      "promptStatus": "preserved-call-text",
+      "prompt": "Use case: lighting-weather / compositional transformation. Input image is our existing original Virgo garden landscape, used as the stylistic and lighting reference. Create a companion wide 16:10 background artwork for an elegant website, an alternative composition called Evening Wind in the Wheat. Keep the same world: golden-hour wheat, dusty-rose and ivory cosmos, restrained pale lavender flowers, warm evening light, mist-blue and blush-pink sky, tactile painterly cinematic botanical detail. Change the camera to a more OPEN and EXPANSIVE view across a gently moving golden wheat field. No enclosing dark canopy overhead: the upper half is spacious luminous evening sky with soft clouds, and the horizon lies just below the middle. A few delicate foreground flowers and dark olive leaves frame only the bottom edge and lower corners, leaving a broad quiet sky band across the center for editable logo lettering later. The warm sun is low off-screen left so the sky remains readable and not dominated by a sun disc. Very subtle hints of distant rose-pink clouds and hazy blue hills. The right-of-center lower area is open, ready for a separate fairy illustration to be composited later. No people or fairy in this background. Softer and airier than the companion shaded-garden composition, while still having real shadow-to-light depth and the same mature, rarefied mood. No text, no logo, no interface, no borders, no architecture, no sci-fi objects, no sparkle particles, no candy-colored saturation, no plastic 3D surfaces. A warm, elegant landscape to linger in."
+    },
+    {
+      "asset": "assets/foreground-botanicals.png",
+      "method": "text-to-image",
+      "transparent_background": true,
+      "promptStatus": "preserved-call-text",
+      "prompt": "Use case: stylized-concept. Create a standalone foreground botanical cutout on a genuinely transparent alpha background for a sophisticated golden-hour garden website. A low asymmetrical cluster of dusty pale pink cosmos blossoms, a few ivory daisies, fine soft-gold wheat heads and natural dark olive leaves, growing from the lower edge. Hand-tinted botanical realism with softly painterly fine detail, warm backlight from the right, natural imperfect petals and delicate stems. Most of the cluster sits in the lower third, with a few tall fine stems rising irregularly toward the sides, leaving the upper center empty and transparent. This is an independent near-camera layer that can overlap the hem of an illustrated fairy's dress. Do not make a wreath, bouquet, border, vase or pot. No ground rectangle, no soil block, no sky, no paper texture backdrop, no shadow rectangle, no text or UI, no people. Delicate mature muted color rather than candy saturation. Keep every visible petal and leaf with clean transparent edges. Wide horizontal composition, suited to a bottom corner foreground layer."
+    }
+  ]
+}

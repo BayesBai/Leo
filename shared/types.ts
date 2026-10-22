@@ -58,6 +58,8 @@ export interface ReviewIssue {
   category: 'fact' | 'image' | 'compliance' | 'platform' | 'source';
   message: string; suggestion: string; platform?: Platform;
   factId?: string; blockId?: string;
+  target?: 'title' | 'intro' | 'heading' | 'body' | 'cta' | 'tags' | 'images' | 'references' | 'structure' | 'source';
+  resolution?: 'auto_text' | 'edit_outline' | 'refresh_evidence' | 'manual_review';
 }
 export interface ReviewReport {
   status: 'passed' | 'needs_attention' | 'blocked';
@@ -85,7 +87,15 @@ export interface OutlineResult {
   id: string; version: number; status: 'editing' | 'confirmed'; createdAt: string;
   confirmedAt?: string; brief: Brief; product: Product; evidence: EvidenceBundle;
   platforms: PlatformOutline[]; warnings: string[];
+  history?: HistoryMetadata;
 }
+export interface HistoryMetadata { expiresAt: string; evidenceStatus: 'ready' | 'refresh_required'; interrupted?: boolean }
+export interface HistoryItem extends HistoryMetadata {
+  kind: 'outline' | 'run'; id: string; productName: string; audience: string; scene: string;
+  platforms: Platform[]; createdAt: string; updatedAt: string; version?: number; revision?: number;
+  reviewStatus?: ReviewReport['status'];
+}
+export interface RunDetail { result: RunResult; outlineSnapshot?: OutlineResult; history: HistoryMetadata; renderBundles: RenderBundle[] }
 export interface TaskOptions {
   operatorRole: 'salesperson'; operatorLabel: string;
   scenarios: { id: string; label: string; audienceSuggestions: string[]; focusSuggestions: string[] }[];
@@ -103,7 +113,42 @@ export interface RenderBundle {
   id: string; runId: string; revision: number; selectedTitleIndex: number; platform: Platform;
   templateId: string; artifacts: RenderArtifact[]; reviewStatus: ReviewReport['status'];
   warnings: string[]; copyText: string; zipUrl?: string; expiresAt: string;
+  publication?: 'preview' | 'released' | 'blocked';
 }
+
+export type JobStatus = 'queued' | 'running' | 'failed' | 'interrupted' | 'cancelled' | 'completed';
+export type JobStage = 'retrieve' | 'outline' | 'write' | 'review' | 'repair' | 'recheck' | 'render' | 'publish';
+export interface JobError {
+  message: string; code: string; stage: JobStage; platform?: Platform;
+  upstreamStatus?: number; retryable: boolean; outcomeUnknown: boolean;
+}
+export interface ModelCallRecord {
+  id: string; stage: string; platform?: Platform; attempt: number;
+  queuedAt: string; startedAt?: string; endedAt?: string; queueMs?: number;
+  firstResponseMs?: number; firstContentMs?: number; maxIdleMs?: number; totalMs?: number;
+  upstreamStatus?: number; requestId?: string; usage?: { promptTokens?: number; completionTokens?: number; totalTokens?: number };
+  outcome: 'dispatched' | 'succeeded' | 'failed' | 'unknown'; code?: string;
+}
+export type JobInput =
+  | { kind: 'outline'; brief: Brief }
+  | { kind: 'outline-revise'; outlineId: string; version: number; instructions: string; platforms?: Platform[] }
+  | { kind: 'generate'; outlineId: string; version: number; renders?: { platform: Platform; templateId: string; selectedTitleIndex: number }[] }
+  | { kind: 'render'; request: RenderRequest };
+export type JobSubmit = JobInput & { idempotencyKey: string };
+export interface JobChannel {
+  platform: Platform; status: JobStatus; stage: JobStage; error?: JobError;
+  preview?: { draft: Draft; review: ReviewReport; bundle?: RenderBundle };
+}
+export interface BackgroundJob {
+  id: string; idempotencyKey: string; kind: JobInput['kind']; status: JobStatus;
+  createdAt: string; updatedAt: string; expiresAt: string;
+  input: JobInput; model: { name: string; baseUrl: string };
+  channels: JobChannel[]; calls: ModelCallRecord[]; error?: JobError;
+  outline?: OutlineResult; result?: RunResult; renderBundles: RenderBundle[];
+  /** List/event summaries omit bulky terminal/queued outputs; GET by id always returns full detail. */
+  detailOmitted?: boolean; summary?: { productName: string; scene: string; audience: string };
+}
+export interface JobEvent { type: 'snapshot'; jobs: BackgroundJob[] }
 export interface AppStatus {
   model: { configured: boolean; name: string; baseUrl: string };
   ima: { configured: boolean; verified: boolean; kbName: string; accountLabel: string; message: string; verifiedAt?: string };

@@ -1,0 +1,323 @@
+{
+  "capturedAtBeijing": "2026-10-22T13:39:53.909626+08:00",
+  "captures": [
+    {
+      "file": "previews/cover-1910.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1910,
+        1000
+      ],
+      "sha256": "9ad2a3e627f93165a0cb6482631fa0d98de0ecb47f3d23acda8f5513392c000d",
+      "environment": "root9756",
+      "data": "explicit frontend mock"
+    },
+    {
+      "file": "previews/cover-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "2c446443b81845a62f9270cad43f0c02e0efcc6b92802ae85f8bf6f0d4e37e62",
+      "environment": "root9756",
+      "data": "explicit frontend mock"
+    },
+    {
+      "file": "previews/cover-1280.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1280,
+        1000
+      ],
+      "sha256": "de95ae38fec0f5f053dba6f7663dc10b74e352ef79495c6be84662e0397f2118",
+      "environment": "root9756",
+      "data": "explicit frontend mock"
+    },
+    {
+      "file": "previews/cover-390.jpg",
+      "format": "JPEG",
+      "pixels": [
+        390,
+        844
+      ],
+      "sha256": "d8daa0ae71f8f1073965a517f9942ac3dbd850cf7f09d9a0da4d933fc492622d",
+      "environment": "root9756",
+      "data": "explicit frontend mock"
+    },
+    {
+      "file": "previews/story-1910.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1910,
+        1000
+      ],
+      "sha256": "449f1972048b810f834782d7b8d093765e4f14151c4ed7eaf26389ca6215435e",
+      "environment": "root9756",
+      "data": "explicit frontend mock"
+    },
+    {
+      "file": "previews/task-1910.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1910,
+        1000
+      ],
+      "sha256": "2c572b0e6206f9577e77d7f5875baf987230e419741307de7a46c8284657f0e2",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 1277,
+        "fonts": "loaded",
+        "height": 1000,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 1910
+      }
+    },
+    {
+      "file": "previews/task-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "79f48ac0e926cad271fcd26d95f9d4c072a21c56932e3f80a998f8af008c20f9",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 1277,
+        "fonts": "loaded",
+        "height": 1000,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 1440
+      }
+    },
+    {
+      "file": "previews/task-1280.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1280,
+        1000
+      ],
+      "sha256": "90b6d77bbd77dbfa7a95ccb233f9916c3d9ac7c4e19c957ae1d74f59f6b6f87a",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 1277,
+        "fonts": "loaded",
+        "height": 1000,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 1280
+      }
+    },
+    {
+      "file": "previews/task-390.jpg",
+      "format": "JPEG",
+      "pixels": [
+        390,
+        844
+      ],
+      "sha256": "ba1cf6bd8b22cc6ff36bf21e6a220babcecf1935d4572253cf44953d3a310617",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 1799,
+        "fonts": "loaded",
+        "height": 844,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 390
+      }
+    },
+    {
+      "file": "previews/outline-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "719f3c1d2b442688fd726bdb1498b227a1660545fb8fce00247fa7a44ff543da",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 1392,
+        "fonts": "loaded",
+        "height": 1000,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 1440
+      }
+    },
+    {
+      "file": "previews/outline-390.jpg",
+      "format": "JPEG",
+      "pixels": [
+        390,
+        844
+      ],
+      "sha256": "bac9b57b33cfd749c5b8266c43552a1217b6e76a7e236e6f6727ddd3f53f541c",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 2135,
+        "fonts": "loaded",
+        "height": 844,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 390
+      }
+    },
+    {
+      "file": "previews/editor-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "180ca88204bcc11a19de528af12aed624115ed0c734eb08060cec19cf8d4391d",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 3226,
+        "fonts": "loaded",
+        "height": 1000,
+        "overflow": false,
+        "scrollY": 711,
+        "width": 1440
+      }
+    },
+    {
+      "file": "previews/delivery-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "4842d6a92a7aeae9cc58a0c28e13eb558f1d03c147912f6908a07b9cde2193d8",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock"
+    },
+    {
+      "file": "previews/delivery-1280.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1280,
+        1000
+      ],
+      "sha256": "75f2e632774638934d8a080df297f489d562993e4c85f3d52fe7454292aac661",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 3070,
+        "fonts": "loaded",
+        "height": 1000,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 1280
+      }
+    },
+    {
+      "file": "previews/delivery-390.jpg",
+      "format": "JPEG",
+      "pixels": [
+        390,
+        844
+      ],
+      "sha256": "797f56495e02a1708b0792113aa096f7231022bec7f158881deb6409663e6eae",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 3128,
+        "fonts": "loaded",
+        "height": 844,
+        "overflow": false,
+        "scrollY": 0,
+        "width": 390
+      }
+    },
+    {
+      "file": "previews/review-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "63276ba07854b1434b230e900b649b2dfe86c507c1329760e101cc69f4d90345",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 3220,
+        "fonts": "loaded",
+        "height": 1000,
+        "overflow": false,
+        "scrollY": 2220,
+        "width": 1440
+      }
+    },
+    {
+      "file": "previews/sources-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "ca7f013bff90a3b77db5e2943f3b6bca150dd37e40f776b75ef945f728005b71",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "dialogTitle": "核验与来源",
+        "focusInside": true,
+        "height": 1000,
+        "scrollY": 2220,
+        "tab": "依据",
+        "width": 1440
+      }
+    },
+    {
+      "file": "previews/task-bottom-390.jpg",
+      "format": "JPEG",
+      "pixels": [
+        390,
+        844
+      ],
+      "sha256": "b800ab64a968752b51e66856cb988cd502c51e132e91d56f1c42f30af4ec56e4",
+      "environment": "isolated9757",
+      "data": "explicit frontend mock",
+      "viewport": {
+        "documentHeight": 2141,
+        "fonts": "loaded",
+        "height": 844,
+        "overflow": false,
+        "scrollY": 1297,
+        "width": 390
+      }
+    },
+    {
+      "file": "previews/project-task-1440.jpg",
+      "format": "JPEG",
+      "pixels": [
+        1440,
+        1000
+      ],
+      "sha256": "eb284adb9dd23f221c4466bf51d7cdbd3d3d0700edc5e9055b5f6c3070404186",
+      "environment": "root9756",
+      "data": "explicit frontend mock"
+    },
+    {
+      "file": "previews/project-task-390.jpg",
+      "format": "JPEG",
+      "pixels": [
+        390,
+        844
+      ],
+      "sha256": "0710ffbae34b5a570e3b0d67b82e37d98d940d90f68b2c8f8355815f89bcd252",
+      "environment": "root9756",
+      "data": "explicit frontend mock"
+    }
+  ],
+  "method": "Browser screenshot clip is in document coordinates; viewport captures use clip.y=scrollY. Cover captures use full-page at fixed-height cover. Earlier wrong offscreen/modal captures were replaced, not delivered.",
+  "limits": "These are still frames, not video/FPS or live model evidence."
+}

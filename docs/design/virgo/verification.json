@@ -1,0 +1,11 @@
+{
+  "current": "implementation/2026-10-22-wheat-video/verification.json",
+  "stage": "video-integrated-local",
+  "relatedTestsPassed": 53,
+  "buildPassed": true,
+  "videoGenerated": true,
+  "creditsConsumed": 100,
+  "balanceAfter": 0,
+  "previousStatic": "implementation/2026-10-22-wheat-opacity60/verification.json",
+  "previousFullWebsite": "implementation/2026-10-22-web/verification.json"
+}

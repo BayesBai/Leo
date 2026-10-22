@@ -5,6 +5,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { parseCsv, detectImageType, listProducts, getEvidence, getAsset, getLocalStats, extractFacts, verifyIma, getImaStatus } from '../server/knowledge';
 import type { Product } from '../shared/types';
+import { SYNTHETIC_HARMONY_SYSTEM, SYNTHETIC_PRODUCT_NAME, SYNTHETIC_WINDOWS_SYSTEM } from './fixtures/synthetic-kb.js';
 
 test('CSV preserves quoted commas, escaped quotes, multiline Chinese descriptions and BOM', () => {
   assert.deepEqual(parseCsv('\uFEFF文件名,官网图片说明\r\n"a.jpg","外观,机身"\r\n"b.png","第一行\n第二行 ""绿色"""'), [
@@ -31,20 +32,24 @@ test('facts preserve system and SKU restrictions next to the corresponding CPU',
   assert(facts.every(fact => !fact.statement.includes('1999')));
 });
 
-test('real catalog keeps each image and product fact bound to its exact model', async context => {
-  if (!(await getLocalStats()).available) { context.skip('本地知识库未随公开仓库分发；公开目录与 ima 连接由模拟合约测试覆盖。'); return; }
+test('synthetic catalog keeps same-name models, images and product facts bound to their exact system', async () => {
+  assert.deepEqual(await getLocalStats(), { available: true, productCount: 2, imageCount: 8 });
   const products = await listProducts();
-  assert(products.length >= 10, 'expected the supplied ten core product directories');
-  const proS = products.find(product => product.name === 'HUAWEI MateBook Pro S');
-  assert(proS); assert(proS.imageCount > 0);
-  const evidence = await getEvidence(proS.id, 'local');
+  const harmony = products.find(product => product.name === SYNTHETIC_PRODUCT_NAME && product.system === SYNTHETIC_HARMONY_SYSTEM);
+  const windows = products.find(product => product.name === SYNTHETIC_PRODUCT_NAME && product.system === SYNTHETIC_WINDOWS_SYSTEM);
+  assert(harmony); assert(windows); assert.notEqual(harmony.id, windows.id); assert.equal(harmony.imageCount, 4);
+  const evidence = await getEvidence(harmony.id, 'local');
   assert.equal(evidence.sourceMode, 'local');
   assert(evidence.facts.length >= 5 && evidence.facts.length <= 10);
-  assert(evidence.facts.every(fact => fact.sourceMode === 'local' && fact.sourceTitle.includes(proS.name)));
-  assert(evidence.facts.some(fact => fact.statement.includes('798 g')));
+  assert(evidence.facts.every(fact => fact.sourceMode === 'local' && fact.sourceTitle.includes(harmony.name)));
+  assert(evidence.facts.some(fact => fact.statement.includes('1.2 kg')));
   assert(evidence.facts.every(fact => !fact.statement.includes('Windows')));
   assert(evidence.warnings.some(warning => warning.includes('未通过 ima')));
-  assert(evidence.images.every(image => image.productId === proS.id && image.sourceMode === 'local'));
+  assert(evidence.images.every(image => image.productId === harmony.id && image.sourceMode === 'local'));
+  const otherEvidence = await getEvidence(windows.id, 'local');
+  assert(otherEvidence.facts.some(fact => fact.statement.includes('1.6 kg')));
+  assert(otherEvidence.facts.every(fact => !fact.statement.includes('HarmonyOS')));
+  assert(evidence.images.every(image => !otherEvidence.images.some(other => other.id === image.id)));
   const first = evidence.images[0];
   assert.match(first.url, /^\/api\/assets\/[0-9a-f-]{36}$/);
   const asset = await getAsset(first.url.split('/').pop()!);
@@ -152,7 +157,7 @@ test('ima stops on official skill updates and business errors, without reporting
 
 test('cancellation terminates an in-flight ima subprocess and never caches its unfinished evidence', async () => {
   const temp = await fs.mkdtemp(path.join(os.tmpdir(), 'ima-cancel-test-'));
-  const keys = ['IMA_SKILL_PATH', 'IMA_CLIENT_ID', 'IMA_API_KEY', 'IMA_KB_NAME'] as const;
+  const keys = ['IMA_SKILL_PATH', 'IMA_CLIENT_ID', 'IMA_API_KEY', 'IMA_KB_NAME', 'LOCAL_KB_ROOT'] as const;
   const previous = Object.fromEntries(keys.map(key => [key, process.env[key]]));
   try {
     const script = path.join(temp, 'mock-ima.cjs'); const marker = path.join(temp, 'note-started');
@@ -167,6 +172,7 @@ test('cancellation terminates an in-flight ima subprocess and never caches its u
       const send=()=>process.stdout.write(JSON.stringify({code:0,data}));
       if(route.endsWith('/get_doc_content')&&!fs.existsSync(${JSON.stringify(marker)})){fs.writeFileSync(${JSON.stringify(marker)},'started');setTimeout(send,15000);}else send();`);
     process.env.IMA_SKILL_PATH = script; process.env.IMA_CLIENT_ID = 'cancel-client'; process.env.IMA_API_KEY = 'cancel-key'; process.env.IMA_KB_NAME = 'cancel-test-library';
+    process.env.LOCAL_KB_ROOT = path.join(temp, 'missing-local-library');
     const product = (await listProducts()).find(product => product.name === 'HUAWEI MateBook Pro S')!;
     const controller = new AbortController();
     const operation = getEvidence(product.id, 'ima', controller.signal);

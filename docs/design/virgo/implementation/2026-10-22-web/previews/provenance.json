@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "kind": "Figma static preview evidence, not website screenshots",
+  "files": [
+    {
+      "file": "figma-history.png",
+      "source": "Existing Figma PNG exported by the design owner and visually inspected by the reviewer.",
+      "description": "Desktop history ready state",
+      "width": 1440,
+      "height": 1000,
+      "sha256": "f8314769d6402f23eba9620261d8cc3b450f55da5640d06cf34086ef62cd95da",
+      "signedUrlStored": false
+    },
+    {
+      "file": "figma-review.png",
+      "source": "Existing Figma PNG exported by the design owner and visually inspected by the reviewer.",
+      "description": "Mobile review issues state",
+      "width": 390,
+      "height": 844,
+      "sha256": "85ee1eb8af0c9262e37af4571ffe685d9d78471c4c5a7ed5e142f91dcdf092af",
+      "signedUrlStored": false
+    }
+  ]
+}

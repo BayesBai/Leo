@@ -1,0 +1,31 @@
+{
+  "filter": "[0:v]fps=30,trim=duration=10,setpts=PTS-STARTPTS,format=yuv420p,split=2[body][head];[body]trim=start=0.6:end=10,setpts=PTS-STARTPTS[b];[head]trim=start=0:end=0.6,setpts=PTS-STARTPTS[h];[b][h]xfade=transition=fade:duration=0.6:offset=8.8,format=yuv420p[out]",
+  "videoCodec": "libx264",
+  "crf": 20,
+  "preset": "medium",
+  "outputProbe": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "index": 0,
+        "codec_name": "h264",
+        "codec_type": "video",
+        "width": 1224,
+        "height": 764,
+        "r_frame_rate": "30/1",
+        "nb_frames": "282"
+      }
+    ],
+    "format": {
+      "duration": "9.400000",
+      "size": "3235455"
+    }
+  },
+  "upscaled": false,
+  "audioRemoved": true,
+  "sourceFps": 24,
+  "outputFps": 30,
+  "frameNormalization": "repeat frames only; no synthesized motion/interpolation",
+  "watermark": "Kling supplied only a watermarked url; platform mark preserved, not cropped or removed"
+}

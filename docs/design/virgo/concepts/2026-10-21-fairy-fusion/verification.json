@@ -1,0 +1,365 @@
+{
+  "schema": 1,
+  "status": "final-static-review-passed",
+  "scope": "A2 fairy integration only",
+  "structural": {
+    "oldCandidatesPreserved": {
+      "39:2922": true,
+      "39:2967": true
+    },
+    "revision": {
+      "id": "47:2823",
+      "width": 1440,
+      "height": 1000,
+      "editableTexts": 11,
+      "allTextWithinFrame": true,
+      "actions": [
+        {
+          "from": "47:2836",
+          "to": "39:2900",
+          "exists": true
+        },
+        {
+          "from": "47:2837",
+          "to": "39:2908",
+          "exists": true
+        },
+        {
+          "from": "47:2838",
+          "to": "6:121",
+          "exists": true
+        },
+        {
+          "from": "47:2844",
+          "to": "6:121",
+          "exists": true
+        },
+        {
+          "from": "47:2845",
+          "to": "39:2908",
+          "exists": true
+        }
+      ]
+    },
+    "flowStartPresent": true,
+    "oldFairyComponent": {
+      "id": "37:162",
+      "fills": [
+        {
+          "type": "IMAGE",
+          "visible": true,
+          "opacity": 1,
+          "blendMode": "NORMAL",
+          "scaleMode": "FIT",
+          "scalingFactor": 1,
+          "rotation": 0,
+          "filters": {
+            "exposure": 0,
+            "contrast": 0,
+            "saturation": 0,
+            "temperature": 0,
+            "tint": 0,
+            "highlights": 0,
+            "shadows": 0
+          },
+          "imageTransform": [
+            [
+              1,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              0
+            ]
+          ],
+          "imageHash": "026b37c041d79c0d05b5ad733757223a8be1d0ff"
+        }
+      ]
+    },
+    "scope": "Structural checks and screenshot review; no complete manual prototype click-through."
+  },
+  "layoutComparison": {
+    "createdNodeIds": [],
+    "mutatedNodeIds": [
+      "47:2828"
+    ],
+    "allRevisionNodeIds": [
+      "47:2823",
+      "47:2824",
+      "47:2825",
+      "47:2826",
+      "47:2827",
+      "47:2828",
+      "I47:2828;49:143",
+      "I47:2828;49:144",
+      "47:2829",
+      "47:2830",
+      "47:2831",
+      "47:2832",
+      "47:2833",
+      "47:2834",
+      "I47:2834;37:154",
+      "I47:2834;37:154;5:48",
+      "I47:2834;37:154;5:49",
+      "I47:2834;37:157",
+      "47:2835",
+      "47:2836",
+      "I47:2836;5:121",
+      "47:2837",
+      "I47:2837;5:121",
+      "47:2838",
+      "I47:2838;5:121",
+      "47:2839",
+      "47:2840",
+      "47:2841",
+      "47:2842",
+      "47:2843",
+      "47:2844",
+      "I47:2844;5:55",
+      "47:2845",
+      "I47:2845;5:121",
+      "47:2846",
+      "47:2847",
+      "47:2848"
+    ],
+    "textAndLayoutUnchanged": true,
+    "texts": [
+      {
+        "text": "Virgo",
+        "font": {
+          "family": "Pinyon Script",
+          "style": "Regular"
+        },
+        "x": 99,
+        "y": 30,
+        "width": 112,
+        "height": 60
+      },
+      {
+        "text": "品牌故事",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Medium",
+          "variationSettings": {
+            "wght": 500
+          }
+        },
+        "x": 1046,
+        "y": 47,
+        "width": 64,
+        "height": 26
+      },
+      {
+        "text": "创作流程",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Medium",
+          "variationSettings": {
+            "wght": 500
+          }
+        },
+        "x": 1170,
+        "y": 47,
+        "width": 64,
+        "height": 26
+      },
+      {
+        "text": "开始创作",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Medium",
+          "variationSettings": {
+            "wght": 500
+          }
+        },
+        "x": 1294,
+        "y": 47,
+        "width": 64,
+        "height": 26
+      },
+      {
+        "text": "Virgo",
+        "font": {
+          "family": "Pinyon Script",
+          "style": "Regular"
+        },
+        "x": 96,
+        "y": 160,
+        "width": 600,
+        "height": 232
+      },
+      {
+        "text": "把好产品，\n讲得恰如其分。",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Medium",
+          "variationSettings": {
+            "wght": 500
+          }
+        },
+        "x": 96,
+        "y": 416,
+        "width": 600,
+        "height": 108
+      },
+      {
+        "text": "为门店日常推广，整理思路、推敲文案，\n准备各个渠道的内容。",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Regular",
+          "variationSettings": {
+            "wght": 400
+          }
+        },
+        "x": 96,
+        "y": 548,
+        "width": 560,
+        "height": 64
+      },
+      {
+        "text": "开始创作",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Medium",
+          "variationSettings": {
+            "wght": 500
+          }
+        },
+        "x": 164,
+        "y": 651,
+        "width": 64,
+        "height": 26
+      },
+      {
+        "text": "看看创作流程",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Medium",
+          "variationSettings": {
+            "wght": 500
+          }
+        },
+        "x": 362,
+        "y": 651,
+        "width": 96,
+        "height": 26
+      },
+      {
+        "text": "Virgo · 温柔的秩序",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Regular",
+          "variationSettings": {
+            "wght": 400
+          }
+        },
+        "x": 56,
+        "y": 924,
+        "width": 320,
+        "height": 24
+      },
+      {
+        "text": "小红书  /  公众号  /  朋友圈  /  门店海报",
+        "font": {
+          "family": "Noto Sans SC",
+          "style": "Regular",
+          "variationSettings": {
+            "wght": 400
+          }
+        },
+        "x": 1064,
+        "y": 924,
+        "width": 320,
+        "height": 24
+      }
+    ],
+    "figure": {
+      "id": "47:2828",
+      "x": 835,
+      "y": 245,
+      "width": 540,
+      "height": 720,
+      "opacity": 1,
+      "children": [
+        {
+          "id": "I47:2828;49:143",
+          "name": "薄纱翼膜 · 独立透光层",
+          "x": 60.75,
+          "y": 6.75,
+          "width": 440.1000061035156,
+          "height": 586.7999877929688,
+          "opacity": 0.2800000011920929
+        },
+        {
+          "id": "I47:2828;49:144",
+          "name": "人物与衣裙 · 不透明层",
+          "x": 0,
+          "y": 0,
+          "width": 540,
+          "height": 720,
+          "opacity": 1
+        }
+      ]
+    },
+    "frame": {
+      "id": "47:2823",
+      "width": 1440,
+      "height": 1000
+    }
+  },
+  "visualReview": {
+    "normalSize": "Final 1440x1000 screenshot inspected",
+    "independentReviewer": "Ship: light direction, wing transmission and ground contact improved; no obvious cutout edge at page scale",
+    "assetInspection": "Transparent 1086x1448 composite inspected; exterior transparent and wing-only alpha attenuated"
+  },
+  "testsRun": [],
+  "notVerified": [
+    "Complete manual prototype click-through",
+    "New mobile composition",
+    "Video loop, mouse parallax and production animation performance",
+    "Production website or marketing-model/ima integration"
+  ],
+  "apiChange": "none",
+  "localChecks": { "jsonFilesValid": 4, "localMarkdownLinks": 12, "assetHashesVerified": 4, "errors": [] },
+  "alphaEvidence": {
+    "mode": "RGBA",
+    "width": 1086,
+    "height": 1448,
+    "range": [
+      0,
+      255
+    ],
+    "samples": {
+      "wingLeft": {
+        "point": [
+          260,
+          180
+        ],
+        "alpha": 71
+      },
+      "wingRight": {
+        "point": [
+          800,
+          160
+        ],
+        "alpha": 71
+      },
+      "dress": {
+        "point": [
+          540,
+          900
+        ],
+        "alpha": 253
+      },
+      "empty": {
+        "point": [
+          20,
+          1000
+        ],
+        "alpha": 0
+      }
+    }
+  }
+}

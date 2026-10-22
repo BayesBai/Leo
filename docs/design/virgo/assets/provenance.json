@@ -1,0 +1,15 @@
+{
+  "asset": "virgo-fairy-hero.png",
+  "kind": "independent brand illustration, not product evidence",
+  "size": [
+    960,
+    1280
+  ],
+  "sha256": "49cb95e46275daf27b52c836204c3e13cc7dd4017aa7dfff33d2855123828285",
+  "creationTool": "Figma generate_image",
+  "model": "gpt-image-2.5-sunburst",
+  "figmaNode": "2:2",
+  "artDirectionSummary": "Adult fairy holding wheat, calm elongated pose, ivory draped dress, dusty rose sash, delicate wings, vintage fine engraving and hand-tinted pastel illustration on ivory. This is a summary, not a verbatim generation prompt.",
+  "stateVariants": "Waiting/Complete reuse this image with distinct component framing/caption and a wheat completion mark. They are not two newly generated character poses.",
+  "vectorAssets": "The three SVG files are editable vector/text recreations of the Figma identity. Wordmark and V need Cormorant Garamond installed; these SVGs were not converted to outlines."
+}

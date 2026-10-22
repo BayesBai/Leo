@@ -1,0 +1,11 @@
+{
+  "checks": [
+    "desktop: switched to WeChat while all-channel job running",
+    "mobile: switched to WeChat while all-channel job running",
+    "desktop: nonmodal task panel allows new-task navigation",
+    "mobile: opened history and new task during background generation",
+    "desktop: earlier generation completion did not replace selected second outline",
+    "mobile: earlier generation completion did not replace selected second outline"
+  ],
+  "errors": []
+}

@@ -1,0 +1,1630 @@
+{
+  "desktop": {
+    "errors": [],
+    "counts": {
+      "rootFrames": 194,
+      "textCount": 4559,
+      "instanceCount": 2649,
+      "actions": 1419,
+      "blockedExports": 26,
+      "outlineTabs": 72
+    },
+    "blocked": [
+      {
+        "root": "61:1501",
+        "id": "61:1546",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "61:1501",
+        "id": "61:1574",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "61:1582",
+        "id": "61:1631",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "61:1582",
+        "id": "61:1654",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "61:1663",
+        "id": "61:1703",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "61:1663",
+        "id": "61:1731",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "61:1739",
+        "id": "61:1783",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "61:1739",
+        "id": "61:1806",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "63:2617",
+        "id": "63:2666",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "63:2617",
+        "id": "63:2694",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "63:2702",
+        "id": "63:2746",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "63:2702",
+        "id": "63:2774",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "65:9686",
+        "id": "65:9731",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "65:9877",
+        "id": "65:9917",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "65:10081",
+        "id": "65:10130",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "65:10296",
+        "id": "65:10345",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "65:10500",
+        "id": "65:10544",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "65:10698",
+        "id": "65:10742",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "67:2995",
+        "id": "67:3027",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "67:2995",
+        "id": "67:3048",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:3080",
+        "id": "67:3112",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "67:3080",
+        "id": "67:3133",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:3764",
+        "id": "67:3798",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "67:3764",
+        "id": "67:3819",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:3853",
+        "id": "67:3887",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "67:3853",
+        "id": "67:3908",
+        "name": "下载成品",
+        "ok": true
+      }
+    ],
+    "outlineTabs": [
+      {
+        "from": "61:368",
+        "to": "61:735",
+        "ok": true
+      },
+      {
+        "from": "61:440",
+        "to": "63:687",
+        "ok": true
+      },
+      {
+        "from": "61:519",
+        "to": "63:766",
+        "ok": true
+      },
+      {
+        "from": "61:591",
+        "to": "63:838",
+        "ok": true
+      },
+      {
+        "from": "61:663",
+        "to": "63:910",
+        "ok": true
+      },
+      {
+        "from": "61:735",
+        "to": "61:368",
+        "ok": true
+      },
+      {
+        "from": "61:807",
+        "to": "63:1293",
+        "ok": true
+      },
+      {
+        "from": "61:807",
+        "to": "63:1680",
+        "ok": true
+      },
+      {
+        "from": "61:807",
+        "to": "63:2067",
+        "ok": true
+      },
+      {
+        "from": "61:2115",
+        "to": "61:368",
+        "ok": true
+      },
+      {
+        "from": "61:2115",
+        "to": "61:735",
+        "ok": true
+      },
+      {
+        "from": "63:687",
+        "to": "61:440",
+        "ok": true
+      },
+      {
+        "from": "63:766",
+        "to": "61:519",
+        "ok": true
+      },
+      {
+        "from": "63:838",
+        "to": "61:591",
+        "ok": true
+      },
+      {
+        "from": "63:910",
+        "to": "61:663",
+        "ok": true
+      },
+      {
+        "from": "63:982",
+        "to": "63:1369",
+        "ok": true
+      },
+      {
+        "from": "63:982",
+        "to": "63:1756",
+        "ok": true
+      },
+      {
+        "from": "63:982",
+        "to": "63:2143",
+        "ok": true
+      },
+      {
+        "from": "63:1065",
+        "to": "63:1452",
+        "ok": true
+      },
+      {
+        "from": "63:1065",
+        "to": "63:1839",
+        "ok": true
+      },
+      {
+        "from": "63:1065",
+        "to": "63:2226",
+        "ok": true
+      },
+      {
+        "from": "63:1141",
+        "to": "63:1528",
+        "ok": true
+      },
+      {
+        "from": "63:1141",
+        "to": "63:1915",
+        "ok": true
+      },
+      {
+        "from": "63:1141",
+        "to": "63:2302",
+        "ok": true
+      },
+      {
+        "from": "63:1217",
+        "to": "63:1604",
+        "ok": true
+      },
+      {
+        "from": "63:1217",
+        "to": "63:1991",
+        "ok": true
+      },
+      {
+        "from": "63:1217",
+        "to": "63:2378",
+        "ok": true
+      },
+      {
+        "from": "63:1293",
+        "to": "61:807",
+        "ok": true
+      },
+      {
+        "from": "63:1293",
+        "to": "63:1680",
+        "ok": true
+      },
+      {
+        "from": "63:1293",
+        "to": "63:2067",
+        "ok": true
+      },
+      {
+        "from": "63:1369",
+        "to": "63:982",
+        "ok": true
+      },
+      {
+        "from": "63:1369",
+        "to": "63:1756",
+        "ok": true
+      },
+      {
+        "from": "63:1369",
+        "to": "63:2143",
+        "ok": true
+      },
+      {
+        "from": "63:1452",
+        "to": "63:1065",
+        "ok": true
+      },
+      {
+        "from": "63:1452",
+        "to": "63:1839",
+        "ok": true
+      },
+      {
+        "from": "63:1452",
+        "to": "63:2226",
+        "ok": true
+      },
+      {
+        "from": "63:1528",
+        "to": "63:1141",
+        "ok": true
+      },
+      {
+        "from": "63:1528",
+        "to": "63:1915",
+        "ok": true
+      },
+      {
+        "from": "63:1528",
+        "to": "63:2302",
+        "ok": true
+      },
+      {
+        "from": "63:1604",
+        "to": "63:1217",
+        "ok": true
+      },
+      {
+        "from": "63:1604",
+        "to": "63:1991",
+        "ok": true
+      },
+      {
+        "from": "63:1604",
+        "to": "63:2378",
+        "ok": true
+      },
+      {
+        "from": "63:1680",
+        "to": "61:807",
+        "ok": true
+      },
+      {
+        "from": "63:1680",
+        "to": "63:1293",
+        "ok": true
+      },
+      {
+        "from": "63:1680",
+        "to": "63:2067",
+        "ok": true
+      },
+      {
+        "from": "63:1756",
+        "to": "63:982",
+        "ok": true
+      },
+      {
+        "from": "63:1756",
+        "to": "63:1369",
+        "ok": true
+      },
+      {
+        "from": "63:1756",
+        "to": "63:2143",
+        "ok": true
+      },
+      {
+        "from": "63:1839",
+        "to": "63:1065",
+        "ok": true
+      },
+      {
+        "from": "63:1839",
+        "to": "63:1452",
+        "ok": true
+      },
+      {
+        "from": "63:1839",
+        "to": "63:2226",
+        "ok": true
+      },
+      {
+        "from": "63:1915",
+        "to": "63:1141",
+        "ok": true
+      },
+      {
+        "from": "63:1915",
+        "to": "63:1528",
+        "ok": true
+      },
+      {
+        "from": "63:1915",
+        "to": "63:2302",
+        "ok": true
+      },
+      {
+        "from": "63:1991",
+        "to": "63:1217",
+        "ok": true
+      },
+      {
+        "from": "63:1991",
+        "to": "63:1604",
+        "ok": true
+      },
+      {
+        "from": "63:1991",
+        "to": "63:2378",
+        "ok": true
+      },
+      {
+        "from": "63:2067",
+        "to": "61:807",
+        "ok": true
+      },
+      {
+        "from": "63:2067",
+        "to": "63:1293",
+        "ok": true
+      },
+      {
+        "from": "63:2067",
+        "to": "63:1680",
+        "ok": true
+      },
+      {
+        "from": "63:2143",
+        "to": "63:982",
+        "ok": true
+      },
+      {
+        "from": "63:2143",
+        "to": "63:1369",
+        "ok": true
+      },
+      {
+        "from": "63:2143",
+        "to": "63:1756",
+        "ok": true
+      },
+      {
+        "from": "63:2226",
+        "to": "63:1065",
+        "ok": true
+      },
+      {
+        "from": "63:2226",
+        "to": "63:1452",
+        "ok": true
+      },
+      {
+        "from": "63:2226",
+        "to": "63:1839",
+        "ok": true
+      },
+      {
+        "from": "63:2302",
+        "to": "63:1141",
+        "ok": true
+      },
+      {
+        "from": "63:2302",
+        "to": "63:1528",
+        "ok": true
+      },
+      {
+        "from": "63:2302",
+        "to": "63:1915",
+        "ok": true
+      },
+      {
+        "from": "63:2378",
+        "to": "63:1217",
+        "ok": true
+      },
+      {
+        "from": "63:2378",
+        "to": "63:1604",
+        "ok": true
+      },
+      {
+        "from": "63:2378",
+        "to": "63:1991",
+        "ok": true
+      }
+    ],
+    "checks": [
+      {
+        "id": "61:440",
+        "buttons": [
+          {
+            "id": "61:502",
+            "name": "保存修改",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "61:519"
+            ]
+          },
+          {
+            "id": "61:504",
+            "name": "确认本版方案",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "61:506",
+            "name": "生成内容",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          }
+        ]
+      },
+      {
+        "id": "61:519",
+        "buttons": [
+          {
+            "id": "61:574",
+            "name": "保存修改",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "61:576",
+            "name": "确认本版方案",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "61:663"
+            ]
+          },
+          {
+            "id": "61:578",
+            "name": "生成内容",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          }
+        ]
+      },
+      {
+        "id": "61:663",
+        "buttons": [
+          {
+            "id": "61:718",
+            "name": "保存修改",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "61:720",
+            "name": "确认本版方案",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "61:722",
+            "name": "生成内容",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "65:11103"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "mobile": {
+    "errors": [],
+    "counts": {
+      "rootFrames": 219,
+      "textCount": 5011,
+      "instanceCount": 2889,
+      "actions": 1619,
+      "blockedExports": 44,
+      "outlineTabs": 70
+    },
+    "blocked": [
+      {
+        "root": "62:1805",
+        "id": "62:1851",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:1805",
+        "id": "67:12589",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:1860",
+        "id": "62:1919",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "62:1860",
+        "id": "67:12755",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "62:1927",
+        "id": "62:1977",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:1927",
+        "id": "67:12758",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:1986",
+        "id": "62:2044",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "62:1986",
+        "id": "67:12775",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "62:2053",
+        "id": "62:2094",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:2053",
+        "id": "67:12778",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:2103",
+        "id": "62:2162",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "62:2103",
+        "id": "67:12800",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "62:2170",
+        "id": "62:2215",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:2170",
+        "id": "67:12803",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "62:2224",
+        "id": "62:2282",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "62:2224",
+        "id": "67:12820",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "63:11187",
+        "id": "63:11237",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "63:11187",
+        "id": "67:13231",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "63:11246",
+        "id": "63:11309",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "63:11246",
+        "id": "67:13392",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "63:11317",
+        "id": "63:11362",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "63:11317",
+        "id": "67:13395",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "63:11371",
+        "id": "63:11434",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "63:11371",
+        "id": "67:13399",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:12605",
+        "id": "67:12647",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:12605",
+        "id": "70:6238",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:12676",
+        "id": "67:12718",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:12676",
+        "id": "70:6241",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:13234",
+        "id": "67:13278",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:13234",
+        "id": "70:6260",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:13309",
+        "id": "67:13353",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "67:13309",
+        "id": "70:6263",
+        "name": "下载成品",
+        "ok": true
+      },
+      {
+        "root": "72:10416",
+        "id": "72:10448",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:10416",
+        "id": "72:10455",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:10623",
+        "id": "72:10652",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:10623",
+        "id": "72:10659",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:10848",
+        "id": "72:10882",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:10848",
+        "id": "72:10889",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:11085",
+        "id": "72:11119",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:11085",
+        "id": "72:11126",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:11310",
+        "id": "72:11341",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:11310",
+        "id": "72:11348",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:11529",
+        "id": "72:11560",
+        "name": "复制正文",
+        "ok": true
+      },
+      {
+        "root": "72:11529",
+        "id": "72:11567",
+        "name": "复制正文",
+        "ok": true
+      }
+    ],
+    "outlineTabs": [
+      {
+        "from": "62:356",
+        "to": "62:703",
+        "ok": true
+      },
+      {
+        "from": "62:424",
+        "to": "63:9259",
+        "ok": true
+      },
+      {
+        "from": "62:499",
+        "to": "63:9334",
+        "ok": true
+      },
+      {
+        "from": "62:567",
+        "to": "63:9402",
+        "ok": true
+      },
+      {
+        "from": "62:635",
+        "to": "63:9470",
+        "ok": true
+      },
+      {
+        "from": "62:703",
+        "to": "62:356",
+        "ok": true
+      },
+      {
+        "from": "62:771",
+        "to": "63:9833",
+        "ok": true
+      },
+      {
+        "from": "62:771",
+        "to": "63:10200",
+        "ok": true
+      },
+      {
+        "from": "62:771",
+        "to": "63:10567",
+        "ok": true
+      },
+      {
+        "from": "63:9259",
+        "to": "62:424",
+        "ok": true
+      },
+      {
+        "from": "63:9334",
+        "to": "62:499",
+        "ok": true
+      },
+      {
+        "from": "63:9402",
+        "to": "62:567",
+        "ok": true
+      },
+      {
+        "from": "63:9470",
+        "to": "62:635",
+        "ok": true
+      },
+      {
+        "from": "63:9538",
+        "to": "63:9905",
+        "ok": true
+      },
+      {
+        "from": "63:9538",
+        "to": "63:10272",
+        "ok": true
+      },
+      {
+        "from": "63:9538",
+        "to": "63:10639",
+        "ok": true
+      },
+      {
+        "from": "63:9617",
+        "to": "63:9984",
+        "ok": true
+      },
+      {
+        "from": "63:9617",
+        "to": "63:10351",
+        "ok": true
+      },
+      {
+        "from": "63:9617",
+        "to": "63:10718",
+        "ok": true
+      },
+      {
+        "from": "63:9689",
+        "to": "63:10056",
+        "ok": true
+      },
+      {
+        "from": "63:9689",
+        "to": "63:10423",
+        "ok": true
+      },
+      {
+        "from": "63:9689",
+        "to": "63:10790",
+        "ok": true
+      },
+      {
+        "from": "63:9761",
+        "to": "63:10128",
+        "ok": true
+      },
+      {
+        "from": "63:9761",
+        "to": "63:10495",
+        "ok": true
+      },
+      {
+        "from": "63:9761",
+        "to": "63:10862",
+        "ok": true
+      },
+      {
+        "from": "63:9833",
+        "to": "62:771",
+        "ok": true
+      },
+      {
+        "from": "63:9833",
+        "to": "63:10200",
+        "ok": true
+      },
+      {
+        "from": "63:9833",
+        "to": "63:10567",
+        "ok": true
+      },
+      {
+        "from": "63:9905",
+        "to": "63:9538",
+        "ok": true
+      },
+      {
+        "from": "63:9905",
+        "to": "63:10272",
+        "ok": true
+      },
+      {
+        "from": "63:9905",
+        "to": "63:10639",
+        "ok": true
+      },
+      {
+        "from": "63:9984",
+        "to": "63:9617",
+        "ok": true
+      },
+      {
+        "from": "63:9984",
+        "to": "63:10351",
+        "ok": true
+      },
+      {
+        "from": "63:9984",
+        "to": "63:10718",
+        "ok": true
+      },
+      {
+        "from": "63:10056",
+        "to": "63:9689",
+        "ok": true
+      },
+      {
+        "from": "63:10056",
+        "to": "63:10423",
+        "ok": true
+      },
+      {
+        "from": "63:10056",
+        "to": "63:10790",
+        "ok": true
+      },
+      {
+        "from": "63:10128",
+        "to": "63:9761",
+        "ok": true
+      },
+      {
+        "from": "63:10128",
+        "to": "63:10495",
+        "ok": true
+      },
+      {
+        "from": "63:10128",
+        "to": "63:10862",
+        "ok": true
+      },
+      {
+        "from": "63:10200",
+        "to": "62:771",
+        "ok": true
+      },
+      {
+        "from": "63:10200",
+        "to": "63:9833",
+        "ok": true
+      },
+      {
+        "from": "63:10200",
+        "to": "63:10567",
+        "ok": true
+      },
+      {
+        "from": "63:10272",
+        "to": "63:9538",
+        "ok": true
+      },
+      {
+        "from": "63:10272",
+        "to": "63:9905",
+        "ok": true
+      },
+      {
+        "from": "63:10272",
+        "to": "63:10639",
+        "ok": true
+      },
+      {
+        "from": "63:10351",
+        "to": "63:9617",
+        "ok": true
+      },
+      {
+        "from": "63:10351",
+        "to": "63:9984",
+        "ok": true
+      },
+      {
+        "from": "63:10351",
+        "to": "63:10718",
+        "ok": true
+      },
+      {
+        "from": "63:10423",
+        "to": "63:9689",
+        "ok": true
+      },
+      {
+        "from": "63:10423",
+        "to": "63:10056",
+        "ok": true
+      },
+      {
+        "from": "63:10423",
+        "to": "63:10790",
+        "ok": true
+      },
+      {
+        "from": "63:10495",
+        "to": "63:9761",
+        "ok": true
+      },
+      {
+        "from": "63:10495",
+        "to": "63:10128",
+        "ok": true
+      },
+      {
+        "from": "63:10495",
+        "to": "63:10862",
+        "ok": true
+      },
+      {
+        "from": "63:10567",
+        "to": "62:771",
+        "ok": true
+      },
+      {
+        "from": "63:10567",
+        "to": "63:9833",
+        "ok": true
+      },
+      {
+        "from": "63:10567",
+        "to": "63:10200",
+        "ok": true
+      },
+      {
+        "from": "63:10639",
+        "to": "63:9538",
+        "ok": true
+      },
+      {
+        "from": "63:10639",
+        "to": "63:9905",
+        "ok": true
+      },
+      {
+        "from": "63:10639",
+        "to": "63:10272",
+        "ok": true
+      },
+      {
+        "from": "63:10718",
+        "to": "63:9617",
+        "ok": true
+      },
+      {
+        "from": "63:10718",
+        "to": "63:9984",
+        "ok": true
+      },
+      {
+        "from": "63:10718",
+        "to": "63:10351",
+        "ok": true
+      },
+      {
+        "from": "63:10790",
+        "to": "63:9689",
+        "ok": true
+      },
+      {
+        "from": "63:10790",
+        "to": "63:10056",
+        "ok": true
+      },
+      {
+        "from": "63:10790",
+        "to": "63:10423",
+        "ok": true
+      },
+      {
+        "from": "63:10862",
+        "to": "63:9761",
+        "ok": true
+      },
+      {
+        "from": "63:10862",
+        "to": "63:10128",
+        "ok": true
+      },
+      {
+        "from": "63:10862",
+        "to": "63:10495",
+        "ok": true
+      }
+    ],
+    "checks": [
+      {
+        "id": "62:424",
+        "buttons": [
+          {
+            "id": "62:482",
+            "name": "保存修改",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "62:499"
+            ]
+          },
+          {
+            "id": "62:484",
+            "name": "确认本版方案",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "62:486",
+            "name": "生成内容",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "67:12109",
+            "name": "保存修改",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "62:499"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "62:499",
+        "buttons": [
+          {
+            "id": "62:550",
+            "name": "保存修改",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "62:552",
+            "name": "确认本版方案",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "62:635"
+            ]
+          },
+          {
+            "id": "62:554",
+            "name": "生成内容",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "67:12112",
+            "name": "确认本版方案",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "62:635"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "62:635",
+        "buttons": [
+          {
+            "id": "62:686",
+            "name": "保存修改",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "62:688",
+            "name": "确认本版方案",
+            "states": [
+              "Disabled"
+            ],
+            "click": []
+          },
+          {
+            "id": "62:690",
+            "name": "生成内容",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "65:16365"
+            ]
+          },
+          {
+            "id": "67:12118",
+            "name": "生成内容",
+            "states": [
+              "Default"
+            ],
+            "click": [
+              "65:16365"
+            ]
+          }
+        ]
+      }
+    ],
+    "edgeCount": 1580
+  },
+  "reduced": {
+    "counts": {
+      "click": 1278,
+      "timeout": 42
+    },
+    "durations": [],
+    "missing": [],
+    "external": [],
+    "task": [
+      {
+        "action": {
+          "type": "NODE",
+          "destinationId": "68:9757",
+          "navigation": "NAVIGATE",
+          "transition": {
+            "type": "DISSOLVE",
+            "easing": {
+              "type": "EASE_OUT"
+            },
+            "duration": 0.10000000149011612
+          },
+          "resetVideoPosition": false,
+          "resetScrollPosition": true
+        },
+        "actions": [
+          {
+            "type": "NODE",
+            "destinationId": "68:9757",
+            "navigation": "NAVIGATE",
+            "transition": {
+              "type": "DISSOLVE",
+              "easing": {
+                "type": "EASE_OUT"
+              },
+              "duration": 0.10000000149011612
+            },
+            "resetVideoPosition": false,
+            "resetScrollPosition": true
+          }
+        ],
+        "trigger": {
+          "type": "ON_CLICK"
+        }
+      }
+    ]
+  },
+  "previews": [
+    {
+      "key": "desktop-task",
+      "nodeId": "71:3018",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/desktop-task.png",
+      "width": 1440,
+      "height": 1129
+    },
+    {
+      "key": "desktop-outline",
+      "nodeId": "71:3091",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/desktop-outline.png",
+      "width": 1440,
+      "height": 1276
+    },
+    {
+      "key": "desktop-delivery",
+      "nodeId": "71:3163",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/desktop-delivery.png",
+      "width": 1440,
+      "height": 1659
+    },
+    {
+      "key": "desktop-blocked",
+      "nodeId": "71:3247",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/desktop-blocked.png",
+      "width": 1440,
+      "height": 1591
+    },
+    {
+      "key": "desktop-1280",
+      "nodeId": "71:3332",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/desktop-1280.png",
+      "width": 1280,
+      "height": 1659
+    },
+    {
+      "key": "mobile-task",
+      "nodeId": "71:3416",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/mobile-task.png",
+      "width": 390,
+      "height": 1714
+    },
+    {
+      "key": "mobile-outline",
+      "nodeId": "71:3488",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/mobile-outline.png",
+      "width": 390,
+      "height": 1905
+    },
+    {
+      "key": "mobile-copy",
+      "nodeId": "71:3559",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/mobile-copy.png",
+      "width": 390,
+      "height": 1585
+    },
+    {
+      "key": "mobile-visual",
+      "nodeId": "71:3621",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/mobile-visual.png",
+      "width": 390,
+      "height": 1897
+    },
+    {
+      "key": "mobile-cover",
+      "nodeId": "71:3694",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/mobile-cover.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "key": "desktop-viewport",
+      "nodeId": "61:145",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/desktop-viewport.png",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "key": "mobile-viewport",
+      "nodeId": "62:145",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/mobile-viewport.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "key": "mobile-blocked",
+      "nodeId": "62:1860",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/mobile-blocked.png",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "key": "reduced-cover",
+      "nodeId": "68:3016",
+      "path": "/Users/maxchen/Documents/hackson/docs/design/virgo/workbench/2026-10-21/previews/reduced-cover.png",
+      "width": 1440,
+      "height": 1000
+    }
+  ],
+  "browser": {
+    "attempted": true,
+    "result": "Figma prototype in-app browser creation timed out after 30 seconds; no manual click-through completed"
+  },
+  "notTested": [
+    "website implementation",
+    "real pointer-follow",
+    "keyboard focus trap and restore in browser",
+    "touch/performance",
+    "real model/ima API",
+    "clipboard/download"
+  ],
+  "motion": {
+    "exports": [
+      "opening.mp4",
+      "enter-workbench.mp4",
+      "garden-breeze.mp4",
+      "components.mp4"
+    ],
+    "sampling": "opening 0/0.5/0.9; final transition 0/0.3/0.6; garden 0/2/6/7.8; components 0/0.2/0.8/1.5",
+    "nativeTimeline": true
+  },
+  "semanticReadback": [
+    {
+      "id": "61:1192",
+      "name": "W03 · xhs · Attention",
+      "semantic": [
+        "有待确认项"
+      ],
+      "next": []
+    },
+    {
+      "id": "61:1501",
+      "name": "W03 · xhs · Blocked",
+      "semantic": [
+        "审核阻断"
+      ],
+      "next": []
+    },
+    {
+      "id": "65:11103",
+      "name": "生成阶段 · writing/dual/xhs/2/Passed",
+      "semantic": [
+        "正在生成并核验内容。",
+        "正在撰写渠道内容"
+      ],
+      "next": [
+        {
+          "trigger": "AFTER_TIMEOUT",
+          "to": "65:11132"
+        }
+      ]
+    },
+    {
+      "id": "65:11132",
+      "name": "生成阶段 · audit/dual/xhs/2/Passed",
+      "semantic": [
+        "正在生成并核验内容。",
+        "正在独立核验内容"
+      ],
+      "next": [
+        {
+          "trigger": "AFTER_TIMEOUT",
+          "to": "61:1814"
+        }
+      ]
+    },
+    {
+      "id": "61:1814",
+      "name": "W03 · 等待生成视觉",
+      "semantic": [
+        "内容检查通过"
+      ],
+      "next": []
+    },
+    {
+      "id": "65:11334",
+      "name": "生成阶段 · render/dual/xhs/2/Passed",
+      "semantic": [
+        "正在准备视觉成品。",
+        "正在排版视觉成品"
+      ],
+      "next": [
+        {
+          "trigger": "AFTER_TIMEOUT",
+          "to": "61:883"
+        }
+      ]
+    }
+  ],
+  "contrast": {
+    "checks": 22,
+    "passed": 22,
+    "muted": "#586253",
+    "scope": "solid UI surfaces only"
+  },
+  "visualReview": {
+    "result": "Ship",
+    "method": "14 PNGs + sampled native motion frames; reviewer is not manual browser click-through"
+  },
+  "prototypeScope": "Mock examples show dual and four-channel workflows; individual channel variants, free typing, keyboard focus, actual pointer motion and real network operations require website implementation. Click-through not manually completed."
+}

@@ -1,0 +1,14 @@
+
+> huawei-pc-marketing-agent-demo@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v6.4.4 building for production...
+transforming...
+✓ 1609 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.64 kB │ gzip:   0.45 kB
+dist/assets/index-DnDT2dTh.css  205.06 kB │ gzip:  73.40 kB
+dist/assets/index-DvngY2Ek.js   410.93 kB │ gzip: 135.16 kB
+dist/assets/mock-BEmGOEnO.js    425.03 kB │ gzip: 176.80 kB
+✓ built in 4.04s

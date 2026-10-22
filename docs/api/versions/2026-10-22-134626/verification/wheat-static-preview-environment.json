@@ -1,0 +1,11 @@
+{
+  "purpose": "isolated static visual review while main workspace receives parallel job API changes",
+  "base": "docs/api/versions/2026-10-22-014301/src + shared",
+  "visualSources": {
+    "src/virgo/workbench.css": "c0e6ba77a0fd3b553db7bf99ae1836f1b0e727a2a119ccba5517767476d1797c",
+    "src/virgo/landing.css": "d3c7b6457d1c633a843e86fbe6a3e5e6d5ecaa215149a1148661910478bd8d5f",
+    "src/virgo/VirgoLanding.tsx": "e4caed48e2c42c1efdd452ddb91e0494074c98c5c25de9180316c73cb0fa28c8"
+  },
+  "mockOnly": true,
+  "realApiOrGeneration": false
+}

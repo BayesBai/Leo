@@ -1,0 +1,57 @@
+{
+  "count": 10,
+  "environment": "Current9756 project, mock=ok; no real product facts or marketing generation",
+  "capture": "Raw browser JPEGs. clip.y=document scrollY. Mobile delivery was separately recaptured after343px paper/303px heading readback; failed first capture is not delivered.",
+  "files": [
+    {
+      "path": "previews/delivery-1440.jpg",
+      "bytes": 89941,
+      "sha256": "7d60d6403d496b49cac1a6803e25b8c3ce1fd92f070134941243c2000a36e622"
+    },
+    {
+      "path": "previews/delivery-390.jpg",
+      "bytes": 44065,
+      "sha256": "afc7a8176666ae6d7483f24bbc7133433acc5ecfde54b55e2dc8929001a41716"
+    },
+    {
+      "path": "previews/outline-1440.jpg",
+      "bytes": 109411,
+      "sha256": "e18402ed893e638de1467d09b67da1d46d5ef42e33862e5e18fe21e2927d7e88"
+    },
+    {
+      "path": "previews/review-1440.jpg",
+      "bytes": 110966,
+      "sha256": "5749960868fe9b1287a99d69494a26efb8df07be01db57d1b43d7011d7cc9deb"
+    },
+    {
+      "path": "previews/sources-1440.jpg",
+      "bytes": 105256,
+      "sha256": "ec5bba5846cd667f9135190ccd552e7f31b72aaf976a4ea34cf293dcd0fb124a"
+    },
+    {
+      "path": "previews/task-1280.jpg",
+      "bytes": 93051,
+      "sha256": "4df7d61e639a4d99281483c37fa12a91f2f574118279a7b9be4f785957d6a779"
+    },
+    {
+      "path": "previews/task-1440.jpg",
+      "bytes": 98783,
+      "sha256": "d66e28f63c5599e46153c1b9c0d62a8888c0afe4d41c3246293436767f7ecb48"
+    },
+    {
+      "path": "previews/task-1910.jpg",
+      "bytes": 140079,
+      "sha256": "736c9c881480bde113abd26fdf2cff2dfd42c19e23376b03e8080adb6d3cac74"
+    },
+    {
+      "path": "previews/task-390.jpg",
+      "bytes": 48799,
+      "sha256": "4d47431adcce1be2b16e65ce61d8f31cbcc88a3f3d66d4087333e0adca2295c7"
+    },
+    {
+      "path": "previews/task-900.jpg",
+      "bytes": 81355,
+      "sha256": "4fa6e40ee3aa39131e9d9a0b035c2854289014b897812873d5232f507d86b9b2"
+    }
+  ]
+}

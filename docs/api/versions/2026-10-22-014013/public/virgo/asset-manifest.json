@@ -1,0 +1,201 @@
+{
+  "schema": 1,
+  "figmaNode": "86:31173",
+  "mobileFigmaNode": "87:2827",
+  "artwork": {
+    "garden-gate-background.png": "docs/design/virgo/concepts/2026-10-20/assets/garden-gate-background.png",
+    "figure-no-wings.png": "docs/design/virgo/concepts/2026-10-21-cover-refinement/assets/figure-no-wings.png",
+    "foreground-botanicals.png": "docs/design/virgo/concepts/2026-10-20/assets/foreground-botanicals.png",
+    "wheat-light.svg": "Figma exact wheat asset, intrinsic 24 x 24",
+    "contact-shadow.svg": "Figma exact shadow asset, intrinsic 366 x 54"
+  },
+  "fonts": {
+    "NotoSansSC-Medium.common.woff2": {
+      "bytes": 1137492,
+      "sha256": "8edfc181b10ee6b202e1e85851f3d91dd9adba1bad4161bc851b59cb76c3428d"
+    },
+    "NotoSansSC-Medium.rest-01.woff2": {
+      "bytes": 197564,
+      "sha256": "9c47d607a6a0e24e7254b1dc4977544d381baedc91be138e993fbf1ee9998b92"
+    },
+    "NotoSansSC-Medium.rest-02.woff2": {
+      "bytes": 358708,
+      "sha256": "fa6bb068b62c40423c2cd5ae0bcbca0aaaeda32a9fc3ef5d4cc72dd208e8e896"
+    },
+    "NotoSansSC-Medium.rest-03.woff2": {
+      "bytes": 383504,
+      "sha256": "b828d2dd8f34417610447295b041be00f1929738ed6d52b7ac3f8cb13773a98e"
+    },
+    "NotoSansSC-Medium.rest-04.woff2": {
+      "bytes": 410832,
+      "sha256": "06c3b0daf6acfe07852a68a94df5faac502c4db1d83551f71fb9a1e117f3f61a"
+    },
+    "NotoSansSC-Medium.rest-05.woff2": {
+      "bytes": 323668,
+      "sha256": "148f180e7d7e817f8d46ce46e88557d31c06c34e800bfd6506fa5cb0a4050171"
+    },
+    "NotoSansSC-Medium.rest-06.woff2": {
+      "bytes": 354972,
+      "sha256": "1d6efa4b087aa2810ccc86d96b8a7ceff5da726fc5c6eba25cb2c51573161e8f"
+    },
+    "NotoSansSC-Medium.rest-07.woff2": {
+      "bytes": 371700,
+      "sha256": "9e5853d132c87055d7447bff988a59248fb82704685f7da5cfc6e05a58fc8d89"
+    },
+    "NotoSansSC-Medium.rest-08.woff2": {
+      "bytes": 374416,
+      "sha256": "8adb5aea067deb119cb42636a1d07c31740cc26dccfeddc772f47fa3fb16f720"
+    },
+    "NotoSansSC-Medium.rest-09.woff2": {
+      "bytes": 389336,
+      "sha256": "1a5ff05de1bee6ef49a81981159c6b46a3620d2083d8427fa24811c7d5c7ae39"
+    },
+    "NotoSansSC-Medium.rest-10.woff2": {
+      "bytes": 352804,
+      "sha256": "2875d9d8c483baa1876a4e85dc256e80c1d42b77637a09ed4cc605f2d4b30161"
+    },
+    "NotoSansSC-Medium.rest-11.woff2": {
+      "bytes": 410332,
+      "sha256": "4807de0ff9db562d42210192c7b791246cae6671e4e451fd8d03ff9ba2fd2e52"
+    },
+    "NotoSansSC-Medium.rest-12.woff2": {
+      "bytes": 85616,
+      "sha256": "6251feebef112d12aa314221d48d0080883c6cf01267159ec4753401b0bdcc7d"
+    },
+    "NotoSansSC-Medium.woff2": {
+      "bytes": 4248872,
+      "sha256": "9475cba3054d89a4a9d619eec67a02c3058f58b5fafee9e2a905476cd07271e1"
+    },
+    "NotoSansSC-OFL.txt": {
+      "bytes": 4388,
+      "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
+    },
+    "NotoSansSC-Regular.common.woff2": {
+      "bytes": 1125404,
+      "sha256": "775a5752fe743fbda5d4706220492112745fa08b443919951472f06bf8b064a6"
+    },
+    "NotoSansSC-Regular.rest-01.woff2": {
+      "bytes": 196160,
+      "sha256": "4ed6b8b24df0ba919b78c4e0e15463ee741fe5c9f3aef37d97bfb70be5e8739e"
+    },
+    "NotoSansSC-Regular.rest-02.woff2": {
+      "bytes": 353452,
+      "sha256": "a807bea3165a5c94cf328346be0c67465a5384f378a4b8b771e4e40b6ce881e7"
+    },
+    "NotoSansSC-Regular.rest-03.woff2": {
+      "bytes": 375536,
+      "sha256": "652bc8df91480edc947348d7a3982e87e6b0a958617a0368b8a3692fdac48062"
+    },
+    "NotoSansSC-Regular.rest-04.woff2": {
+      "bytes": 404256,
+      "sha256": "f2c987844aec59b02db510c021d904be2219ed5103fac2023e0ef70d8702d494"
+    },
+    "NotoSansSC-Regular.rest-05.woff2": {
+      "bytes": 320328,
+      "sha256": "f71f8e59b77a133b73035805f6a431075b3bf61bbb3136a0ca1d9d4b31bdccd6"
+    },
+    "NotoSansSC-Regular.rest-06.woff2": {
+      "bytes": 348532,
+      "sha256": "d0814eadef77e825bf701f2755fae1cc05b31a418d8a65789bf3c75bb8f52410"
+    },
+    "NotoSansSC-Regular.rest-07.woff2": {
+      "bytes": 365124,
+      "sha256": "ff7f8655e5de6d2105fc04946c438f9ec98442753d617f4e70fee15e493a693d"
+    },
+    "NotoSansSC-Regular.rest-08.woff2": {
+      "bytes": 367916,
+      "sha256": "7a7005fa2a71e49d918edf5e59ced6c2d1072df8122f1f028b8a403b33078b9e"
+    },
+    "NotoSansSC-Regular.rest-09.woff2": {
+      "bytes": 383304,
+      "sha256": "dceb53944a0b22bf92c164967fec24db0fbe57756602c89eccb3048105b5359b"
+    },
+    "NotoSansSC-Regular.rest-10.woff2": {
+      "bytes": 347732,
+      "sha256": "617bb749ba113746308f40b0d5d391d93be4388f2625a766e13e53e345658186"
+    },
+    "NotoSansSC-Regular.rest-11.woff2": {
+      "bytes": 404304,
+      "sha256": "be698cb5c6232a124989d4a6106f7fd5ca654e08e59a6651b6b58cea6e2e582f"
+    },
+    "NotoSansSC-Regular.rest-12.woff2": {
+      "bytes": 85180,
+      "sha256": "0034214f5775757375ccdbb0961cf0581279247cc925254ffbaf78ff2068daae"
+    },
+    "NotoSansSC-Regular.woff2": {
+      "bytes": 4174984,
+      "sha256": "533ab31b5de49360924f8b66b172c75b9558b1653faff26427adb5724edcc55e"
+    },
+    "NotoSansSC-SemiBold.woff2": {
+      "bytes": 4260156,
+      "sha256": "9a9326068c95d0b9de6783a66999e0cb63bc76f7d71565b7181cb54c422871e3"
+    },
+    "PinyonScript-OFL.txt": {
+      "bytes": 4384,
+      "sha256": "61d07cb0eaa943943648df2b11d0c2210e772053c192871e13f680b53fe0b77e"
+    },
+    "PinyonScript-Regular.woff2": {
+      "bytes": 56132,
+      "sha256": "f510376b6bd08407c60f80fade3bfc1a6ec484a9d8f6144c8ffe9ecfa8e4b8fe"
+    },
+    "README.txt": {
+      "bytes": 1136,
+      "sha256": "a92b5cf3f08fd0fcb59eab3cd14fc4aa3710252b2ba434b7ab53cad87f873114"
+    },
+    "fonts.css": {
+      "bytes": 150556,
+      "sha256": "58b1382bb5ffef82c0436cc77dd062f7740670153586d7738e8d1cf4580d5d55"
+    }
+  },
+  "assetChecksums": {
+    "contact-shadow.svg": {
+      "bytes": 827,
+      "sha256": "99055cf39475086de9457cb15a95d6edee72ea83df1bed88f027460b759aead3"
+    },
+    "figure-no-wings.webp": {
+      "bytes": 1045586,
+      "sha256": "e9301d556b0d4d7fc5ea2ed05ff21e9e7a5979e6da2f9d0b17db1eed82c56b8e"
+    },
+    "foreground-botanicals.png": {
+      "bytes": 2830318,
+      "sha256": "df7ce879265b936d7f2bf06b029e93ee4abbd319512a1067a59d2b69e44d1b65"
+    },
+    "wheat-light.svg": {
+      "bytes": 498,
+      "sha256": "582b92043825f913a2f7d6761e3246b48fec66e43b8eb976b3e9903d05718fb6"
+    },
+    "figure-no-wings.png": {
+      "bytes": 1615403,
+      "sha256": "16f3083e50a7a629f236bc798dd968c41ed5e80f1d1d1971433f2224e08d6023"
+    },
+    "foreground-botanicals.webp": {
+      "bytes": 1781166,
+      "sha256": "577a5c7d22c6a501f2c6fe53de3637119852f6d93068879f4a0c81d302f96e0a"
+    },
+    "garden-gate-background.png": {
+      "bytes": 2980626,
+      "sha256": "17996b9257105f284cf6793700291ed50730cba2645eb87c4d56a47cac42de29"
+    },
+    "garden-gate-background.webp": {
+      "bytes": 2079950,
+      "sha256": "8f3a2afaee6cf38545ffba214dbfc6dae384f54cffedc5acb447d1dfed1c18d4"
+    }
+  },
+  "runtimeArtwork": {
+    "garden-gate-background.png": "garden-gate-background.webp",
+    "figure-no-wings.png": "figure-no-wings.webp",
+    "foreground-botanicals.png": "foreground-botanicals.webp"
+  },
+  "performance": {
+    "imagesBeforeBytes": 7426347,
+    "imagesAfterBytes": 4906702,
+    "imagesSavedPercent": 33.9,
+    "fontInitialCommonBeforeBytes": 8423856,
+    "fontInitialCommonAfterBytes": 2262896,
+    "fullCmapCoverage": true,
+    "fullVariationSequenceCoverage": true,
+    "metricDifferences": 0,
+    "details": "performance.json",
+    "fontCss": "fonts/fonts.css"
+  }
+}

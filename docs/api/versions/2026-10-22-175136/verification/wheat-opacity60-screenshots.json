@@ -1,0 +1,51 @@
+{
+  "environment": "Current project http://127.0.0.1:9756/?mock=ok#workbench, pure simulation only",
+  "capture": "Unmodified browser JPEGs. Clip y matches document scrollY. Mobile delivery was separately recaptured after geometry readback; first narrow transient capture is not delivered.",
+  "count": 11,
+  "files": [
+    {
+      "path": "previews/delivery-1280.jpg",
+      "sha256": "13fb866795c8143d28673ac617e7b84d24cc3f088b4f1c9da1514d78eb5ef35e"
+    },
+    {
+      "path": "previews/delivery-1440.jpg",
+      "sha256": "0e77e6a07c51e7da85ccac6d776c1f79fb373235df1ad3245d6fd92dfcb94297"
+    },
+    {
+      "path": "previews/delivery-390.jpg",
+      "sha256": "c74467382aa778f27ef15839e89eccf24aba4d4d56ed0a7a063d4cdfc23bae24"
+    },
+    {
+      "path": "previews/editor-1440.jpg",
+      "sha256": "1ee52c2f4b17aa4191ea17541ae04dd2a42d2a3f474e1f354b760440336e16e3"
+    },
+    {
+      "path": "previews/outline-1440.jpg",
+      "sha256": "69e5730e91791bd04fc6402b60eb259f7277b908756d2c12e5b328bf64e31aa4"
+    },
+    {
+      "path": "previews/review-1440.jpg",
+      "sha256": "dd602a93b28acc0ed9c410a5a5b1e97fe229fda4b6887725679d83d2cacba632"
+    },
+    {
+      "path": "previews/sources-1440.jpg",
+      "sha256": "db4e0754dc42f7a47e0a03c3c6d3efe0a54e06f5398c1afcd1d4b8b93c10cb91"
+    },
+    {
+      "path": "previews/task-1280.jpg",
+      "sha256": "baa73fd017843ee318280674440517c338ca7ffe773fe142076c588cb7e4720b"
+    },
+    {
+      "path": "previews/task-1440.jpg",
+      "sha256": "1de299463e7dc37183e60f9574783b40925a1203a7ee8119a8d9065671c80bfc"
+    },
+    {
+      "path": "previews/task-1910.jpg",
+      "sha256": "5dfc63e2379aef9ee73c79a79683e12f88deddd96be3a67f1f0526a3368ca1a4"
+    },
+    {
+      "path": "previews/task-390.jpg",
+      "sha256": "ace00f0fe44afc6731ea8e6c437e3e8c790b25d07be76f98e46f07ab91fa45f4"
+    }
+  ]
+}
