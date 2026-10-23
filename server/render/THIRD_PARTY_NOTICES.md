@@ -6,7 +6,7 @@
 | --- | --- | --- | --- |
 | [文颜 Core](https://github.com/caol64/wenyan-core) | @wenyan-md/core 3.0.12 | public core + 无脚本 JSDOM，将受控文本排为公众号内联样式 HTML | [Apache-2.0](licenses/WENYAN-APACHE-2.0.txt) |
 | [小红书卡片模板](https://github.com/BboTTM/xiaohongshu-card-skill/tree/106e3dcb33df3d88f99d4498cb9986bc6d035db8) | 106e3dcb33df3d88f99d4498cb9986bc6d035db8 | 派生多卡框架 | [MIT](vendor/XHS-LICENSE) |
-| [Satori](https://github.com/vercel/satori) | 0.62.0 | 朋友圈、海报、公众号封面 SVG 排版 | [MPL-2.0](licenses/SATORI-MPL-2.0.txt) |
+| [Satori](https://github.com/vercel/satori) | 0.62.0 | 兼容本地海报、公众号封面 SVG 排版 | [MPL-2.0](licenses/SATORI-MPL-2.0.txt) |
 | [Sharp](https://github.com/lovell/sharp) | 0.35.5 | 原图等比缩放及 SVG 到 PNG | [Apache-2.0](licenses/SHARP-APACHE-2.0.txt) |
 | [Playwright](https://github.com/microsoft/playwright) | 1.64.1 | Chromium 小红书截图 | [Apache-2.0](licenses/PLAYWRIGHT-APACHE-2.0.txt)、[NOTICE](licenses/PLAYWRIGHT-NOTICE.txt) |
 | [fflate](https://github.com/101arrowz/fflate) | 0.8.3 | 本地生成 ZIP，不接受外部压缩包 | [MIT](licenses/FFLATE-MIT.txt) |
@@ -16,9 +16,11 @@ Sharp 的 Windows 原生包另包含 LGPL-3.0-or-later 组件，包括 libvips�
 
 ## 模板改动
 
-vendor/xhs-poster.html 保存上游原样模板；layouts.ts 使用其多卡页框架，去除上游作者头像与署名，加入同型号产品原图、中文字体、封面/正文/总结区别与溢出检测。未采用 Skill 中的自动重写文案、论文摘要或作者品牌素材。产品事实和限定条件由既有审核稿件传入，分页与缩放不重写正文。已实际通过该派生模板生成六页 1080×1440 PNG。
+vendor/xhs-poster.html 保存上游原样模板；layouts.ts 使用其页框架，去除作者头像、署名和审核状态文字。当前小红书按真实信息分组形成封面及 2–5 页正文卡，不再附加泛化结束页；CTA 合并最后信息页。产品事实、中文与必要条件原样保留，排版容纳不下时明确返回 422。
 
-compositions.ts 分别构造公众号杂志式横向封面、朋友圈头像/照片拼图/对话便签、海报主标题/产品舞台/卖点槽/行动条三套布局；共用字体、Satori 与 Sharp，不共用同一构图树。小红书封面、清单内页和互动尾页分别设置背景、标题层次和图文次序；保留上游原样模板与 MIT 许可。设备主体仅等比合成，不生成或重绘。
+compositions.ts 的本地海报与公众号横向封面保留产品图、精确文字和独立排版；所有审核 marker 参数仅兼容旧调用签名，不写入画面。wechat.ts 用随机占位符处理受控文本，在文颜内联样式处理后插入实体编码原文与图片，正文无审核引用块或固定品牌页头。朋友圈现交付文案和 1–3 张原始产品图片，不强制调用旧拼图卡。
+
+结构化设计简报、固定版本规则、上游 Skill 原件及许可证见 [server/design](../design/README.md)。当前公众号、小红书使用本地 HTML 制作源；新版海报由 `poster-image` 流程编译单页详细 Prompt，再通过指定图片 API 生成整张图片，完成三项人工核对后才正式开放下载。海报适配器不发送参考图，不保证产品外观精确复刻；原图用于并列核对，生成图片不作为产品事实证据。旧分层 PPTX 与外部设计集成仅保留历史兼容代码，执行入口已搁置，不再由新任务调用。
 
 ## 中文字体
 

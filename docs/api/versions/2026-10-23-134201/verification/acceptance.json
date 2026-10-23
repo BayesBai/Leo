@@ -1,0 +1,141 @@
+{
+  "scope": "HTML图文制作、渠道独立20秒视频及恢复/门禁；安全汇总，不含实际HTTP响应或私有稿件",
+  "finalFullTest": {
+    "command": "npm test",
+    "total": 308,
+    "passed": 308,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 179407.799577
+  },
+  "developmentFailureRecord": {
+    "firstFullRunTotal": 290,
+    "firstFullRunFailed": 2,
+    "initialRunPassed": false,
+    "resolvedAndCoveredByFinalRun": true,
+    "note": "首轮失败记录保留，不计作通过；中间阶段用例数不替代最终308项。"
+  },
+  "finalBuild": {
+    "command": "npm run build",
+    "passed": true,
+    "durationSeconds": 3.76,
+    "warnings": [
+      "Mock lazy chunk 569.27kB size warning; no build failure"
+    ]
+  },
+  "diffCheck": {
+    "command": "git diff --check",
+    "passed": true
+  },
+  "finalTargeted": {
+    "total": 10,
+    "passed": 10,
+    "scope": [
+      "export gates",
+      "restart",
+      "history",
+      "queue"
+    ]
+  },
+  "offlineCoverage": [
+    "actual local HTML image rendering",
+    "static/video shared page limits",
+    "cross-render-job image single-flight",
+    "durable unknown dispatch prevents automatic paid replay",
+    "explicit HTML background regeneration without Canva",
+    "cancellation cleanup",
+    "version/source/expiry binding",
+    "Range 206/416",
+    "revocation after damaged cover attachment"
+  ],
+  "syntheticFullVideo": {
+    "synthetic": true,
+    "elapsedMs": 77612,
+    "bytes": 776699,
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "frameCount": 600,
+    "durationSeconds": 20,
+    "videoCodec": "h264",
+    "pixelFormat": "yuv420p",
+    "audioStreams": 0,
+    "sha256": "b56b1f9474506707720db0c5b910ce2f439fdb3ddcb599b1fd7072b437396419",
+    "visuallySampledFrames": 8,
+    "modelCalls": 0,
+    "platformAcceptance": false
+  },
+  "savedReviewedContentLocalRerender": {
+    "realPreviouslyReviewedCopy": true,
+    "newModelCalls": 0,
+    "xiaohongshu": {
+      "images": 5,
+      "elapsedMs": 16711,
+      "reviewStatus": "needs_attention",
+      "succeeded": true
+    },
+    "wechat": {
+      "articleHtml": true,
+      "cover": true,
+      "elapsedMs": 5002,
+      "reviewStatus": "needs_attention",
+      "succeeded": true
+    },
+    "videoAttempt": {
+      "succeeded": false,
+      "elapsedMs": 668,
+      "code": "VIDEO_COPY_TOO_LONG",
+      "modelCalls": 0,
+      "staticOutputPreserved": true,
+      "videoBundleCreated": false
+    }
+  },
+  "localRestartReadback": {
+    "performedWithActiveJobs": 0,
+    "jobsStatus": 200,
+    "jobCount": 3,
+    "activeJobs": 0,
+    "historyStatus": 200,
+    "historyCount": 2,
+    "savedXhsImagesReadable": 5,
+    "failedVideoCodePreserved": "VIDEO_COPY_TOO_LONG",
+    "videoBundleCreated": false
+  },
+  "frontend": {
+    "modes": [
+      "desktop default viewport",
+      "390x844 mobile"
+    ],
+    "mockOnly": true,
+    "channelSwitchDidNotOverwriteSelection": true,
+    "videoPlaybackDecodedDurationSeconds": 20,
+    "horizontalOverflowObserved": false,
+    "wechatMobileArticleScreenshotBlank": true,
+    "wechatArticleAxContentPresent": true,
+    "wechatMobileArticleVisualPassed": false,
+    "note": "公众号离屏iframe全页截图空白原因未确证；不是新增previewURL拦截请求失败，dataHTML与前版相同。"
+  },
+  "notVerified": [
+    "WeChat platform paste",
+    "social platform publishing",
+    "real ima",
+    "gpt-image-2.5 gateway availability",
+    "Canva end-to-end OAuth/import/edit/export acceptance"
+  ],
+  "realExternalCalls": {
+    "paid": 0,
+    "textModel": 0,
+    "imageModel": 0,
+    "canvaDesign": 0
+  },
+  "configuration": {
+    "envChanged": false,
+    "keysChanged": false,
+    "credentialsIncluded": false
+  },
+  "gitOperations": {
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  }
+}

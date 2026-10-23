@@ -1,0 +1,77 @@
+{
+  "version": "2026-10-23-155111",
+  "createdAt": "2026-10-23T15:51:11+08:00",
+  "previousVersion": "2026-10-23-152544",
+  "task": "ima知识库接入检查、隐藏终端录入与部署准备",
+  "apiConclusion": "ima已核对，无接口变更；相对上一归档同步并行工作区既有可选usage.generatedImages扩展",
+  "tests": [
+    {
+      "command": "node --import tsx --import ./tests/setup.ts --test tests/knowledge.test.ts",
+      "passed": 9,
+      "failed": 0,
+      "scope": "独立临时合成知识库、假凭证、模拟ima脚本，无真实外网"
+    },
+    {
+      "command": "node --import tsx --import ./tests/setup.ts --test tests/configure-ima.test.ts",
+      "passed": 9,
+      "failed": 0,
+      "scope": "临时合成工程、mock隐藏输入、dotenv实际解析、权限/取消/配置保留"
+    }
+  ],
+  "additionalChecks": [
+    "python3 scripts/configure-ima.py --help",
+    "git check-ignore .env.local",
+    "git check-attr text filter -- docs/api/README.md",
+    "只读对照最新交接与server/index.ts、server/schemas.ts、shared/types.ts和ima流程",
+    "纯内存复现并修复旧值尾反斜杠吞无关配置问题"
+  ],
+  "realCredentialValuesRead": false,
+  "realEnvironmentFileChanged": false,
+  "externalImaRequests": 0,
+  "modelRequests": 0,
+  "serverRestarted": false,
+  "deployed": false,
+  "notExecuted": [
+    "真实ima连接和产品事实/图片取证",
+    "文本/生图调用",
+    "全量npm test",
+    "TypeScript全量检查",
+    "生产构建",
+    "浏览器流程",
+    "服务器/SSH/DNS/反向代理更改",
+    "Git暂存、提交或推送"
+  ],
+  "parallelWorkingTreeChanges": [
+    ".env.example",
+    "README.md",
+    "docs/setup/visual-integrations.md",
+    "scripts/configure-visual.py",
+    "scripts/verify-visual-workflow.ts",
+    "server/design/README.md",
+    "server/image-provider.ts",
+    "server/job-store.ts",
+    "server/jobs.ts",
+    "server/poster-workflow.ts",
+    "server/visual-workflow.ts",
+    "shared/types.ts",
+    "src/api/mock.ts",
+    "tests/frontend-workflow-api.test.ts",
+    "tests/html-workflow.test.ts",
+    "tests/image-provider.test.ts",
+    "tests/poster-http.test.ts",
+    "tests/poster-workflow.test.ts",
+    "tests/setup.ts",
+    "tests/visual-workflow.test.ts"
+  ],
+  "limitations": [
+    "configured只检查非空；verify仅读库元数据",
+    "目标服务器凭证注入、网络和配额尚未实测",
+    "公网身份/Host/Origin与完整渲染容器仍待部署阶段适配",
+    "只覆盖当前产品目录及支持文本格式，不自动同步任意ima产品"
+  ],
+  "gitOperations": {
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  }
+}

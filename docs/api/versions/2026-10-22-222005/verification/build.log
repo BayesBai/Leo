@@ -1,0 +1,19 @@
+
+> huawei-pc-marketing-agent-demo@0.1.0 build
+> tsc --noEmit && vite build
+
+vite v6.4.4 building for production...
+transforming...
+✓ 1614 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.64 kB │ gzip:   0.45 kB
+dist/assets/index-CkmR_rTs.css  206.72 kB │ gzip:  73.73 kB
+dist/assets/index-BA_nkOsm.js   428.92 kB │ gzip: 139.98 kB
+dist/assets/mock-4J08BPa9.js    538.13 kB │ gzip: 225.63 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 9.81s

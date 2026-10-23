@@ -1,0 +1,95 @@
+{
+  "reviewedAtBeijing": "2026-10-22T19:07:17+08:00",
+  "baseline": "17bd7c9262d584ba21795c0604eb993110a56038",
+  "scope": [
+    "server/index.ts",
+    "server/schemas.ts",
+    "shared/types.ts",
+    "server/jobs.ts",
+    "server/job-store.ts",
+    "server/state-store.ts",
+    "server/history.ts",
+    "server/outlines.ts",
+    "server/pipeline.ts",
+    "server/model.ts",
+    "server/knowledge.ts",
+    "server/render/index.ts",
+    "server/connections.ts",
+    "server/fair-limiter.ts"
+  ],
+  "findings": [
+    {
+      "priority": "P2",
+      "status": "fixed",
+      "title": "Legacy outline generation did not prevent concurrent outline mutations",
+      "preFixEvidence": {
+        "isolatedSyntheticKnowledge": true,
+        "fakeModelOnly": true,
+        "generatingStatus": 200,
+        "editDuringGenerationStatus": 200,
+        "editBodyVersion": 2
+      },
+      "fix": "unlockedOutline checks activeOutlineOperations as well as queued/running Job usage; PUT, confirm, revise and HTTP retry share this check."
+    },
+    {
+      "priority": "P2",
+      "status": "fixed",
+      "title": "Retry bypassed the same-outline Job exclusion",
+      "preFixEvidence": {
+        "isolatedFakeExecutor": true,
+        "hasOutlineUseBeforeRetry": true,
+        "retriedStatus": "running",
+        "nextStatus": "running",
+        "concurrentSameOutlineExecutions": 2
+      },
+      "fix": "JobQueue submit and retry share assertOutlineAvailable; retry also rejects its own still-attached worker; HTTP retry checks legacy SSE usage."
+    }
+  ],
+  "verification": [
+    {
+      "command": "node --import tsx --import ./tests/setup.ts --test tests/jobs.test.ts tests/outline-concurrency.test.ts",
+      "exitCode": 0,
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 7736.458742,
+      "coverage": [
+        "same-outline running Job",
+        "same-outline queued Job",
+        "cancelled Job still cleaning",
+        "retry worker still attached",
+        "legacy SSE PUT/confirm/revise/Job-retry conflicts",
+        "completion and cancellation unlock",
+        "successful retry resumes"
+      ],
+      "note": "Final target run after the test union-spread typing fix: 16 passed, 0 failed, 0 skipped. An earlier test attempt exposed cross-scenario checkpoint-cache reuse; synthetic audiences were separated before the passing runs."
+    },
+    {
+      "command": "node --import tsx --import ./tests/setup.ts --test tests/jobs-http.test.ts tests/frontend-workflow-api.test.ts tests/workflow.test.ts && git diff --check",
+      "exitCode": 0,
+      "passed": 33,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 6302.181305
+    },
+    {
+      "command": "npm run check",
+      "exitCode": 2,
+      "note": "Initial check found union-spread typing in the added test; corrected to an explicit generate input. Parent agent runs the final full build including tsc after the correction; no post-correction standalone tsc claimed here."
+    }
+  ],
+  "files": {
+    "server/index.ts": "f53d7eafec91ce9bb96d395ecd632140ffcb3b83cbcf9c3ef127b3fca60e88e6",
+    "server/job-store.ts": "01c1c6fa9f5e3afa2af5b06f0efb56ab769998a76cc0296598b524598dcb51ee",
+    "tests/jobs.test.ts": "74bcbc8844b893ffa3d04f3762eef11c38b9b7112ab95250036a1c30807b4d61",
+    "tests/outline-concurrency.test.ts": "3d769e73bb701aae7d4ba1c92ca484d4f38bafc903d5ed53defe2674ee38ce96"
+  },
+  "boundaries": {
+    "realModelRequests": 0,
+    "realImaRequests": 0,
+    "privateKnowledgeUsed": false,
+    "fullTests": "Parent agent handles final full suite/build.",
+    "archives": "No archive created by review subagent.",
+    "gitCommitOrPush": "Not performed by review subagent."
+  }
+}

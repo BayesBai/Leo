@@ -7,7 +7,7 @@ import { listProducts } from '../server/knowledge.js';
 import { createOutline, confirmOutline, confirmedOutline } from '../server/outlines.js';
 import { runPipeline } from '../server/pipeline.js';
 import { getRenderAsset, getRunBundles, publishRunBundles, renderRun } from '../server/render/index.js';
-import { markPreview } from '../server/render/preview-watermark.js';
+import { renderWechatArticle } from '../server/render/wechat.js';
 
 async function run(): Promise<RunResult> {
   const product = (await listProducts())[0];
@@ -18,13 +18,13 @@ async function run(): Promise<RunResult> {
 const request = (result: RunResult) => ({ runId: result.id, revision: result.revision, platform: 'moments' as const, selectedTitleIndex: 0, templateId: 'moments-square' });
 const denied = (error: unknown) => !!error && typeof error === 'object' && 'status' in error && error.status === 409;
 
-test('pending preview is marked, cannot download, caches without renewing expiry, then atomically releases new handles', async () => {
+test('pending preview has clean bytes, cannot download, caches without renewing expiry, then atomically releases new handles', async () => {
   const result = await run(), input = request(result);
   const preview = await renderRun(result, input, undefined, { publication: 'preview' });
   assert.equal(preview.publication, 'preview'); assert.equal(preview.copyText, ''); assert.equal(preview.zipUrl, undefined);
   assert.ok(preview.artifacts.every(a => !a.downloadUrl));
   const oldHandle = preview.artifacts[0].id;
-  const marked = await getRenderAsset(oldHandle); assert.ok(marked.data.length > 1000);
+  const marked = await getRenderAsset(oldHandle); assert.ok(marked.data.length > 0);
   await assert.rejects(getRenderAsset(oldHandle, true), denied);
   const cached = await renderRun(result, input, undefined, { publication: 'preview' });
   assert.equal(cached.id, preview.id); assert.equal(cached.expiresAt, preview.expiresAt);
@@ -34,8 +34,8 @@ test('pending preview is marked, cannot download, caches without renewing expiry
   const bundles = await publishRunBundles(result), released = bundles.find(b => b.id === preview.id)!;
   assert.equal(released.publication, 'released'); assert.equal(released.expiresAt, preview.expiresAt);
   assert.ok(released.copyText); assert.ok(released.zipUrl); assert.notEqual(released.artifacts[0].id, oldHandle);
-  const clean = await getRenderAsset(released.artifacts[0].id, true); assert.notDeepEqual(clean.data, marked.data);
-  // A previously disclosed URL must remain marked and unexportable even after publication.
+  const clean = await getRenderAsset(released.artifacts[0].id, true); assert.deepEqual(clean.data, marked.data);
+  // A previously disclosed preview URL remains unexportable even after publication.
   await assert.rejects(getRenderAsset(oldHandle, true), denied);
   assert.deepEqual((await getRenderAsset(oldHandle)).data, marked.data);
   const zip = await getRenderAsset(released.zipUrl!.split('/').pop()!.split('?')[0], true);
@@ -66,7 +66,8 @@ test('expired render cache is not reused and resource reads never extend origina
   } finally { Date.now = original; }
 });
 
-test('rich text preview embeds server-side visible review mark', async () => {
-  const data = await markPreview(Buffer.from('<!doctype html><body><p>正文</p></body>'), 'wechat-richtext', '审核中，仅供预览');
-  assert.match(data.toString(), /审核中，仅供预览/); assert.match(data.toString(), /position:fixed/);
+test('rich text contains exact content and no review watermark or footer', async () => {
+  const result=await run();const draft={...result.drafts[0],platform:'wechat' as const,images:[]};
+  const html=await renderWechatArticle(draft,draft.titles[0],[],{id:'wechat-editorial',platform:'wechat',name:'test',width:1200,height:510},'审核中，仅供预览');
+  assert.doesNotMatch(html,/审核中|发布前复核|检查通过|本地资料/);assert.match(html,/section/);
 });

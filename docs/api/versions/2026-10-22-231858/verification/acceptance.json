@@ -1,0 +1,61 @@
+{
+  "status": "final",
+  "createdAt": "2026-10-22T23:18:58+08:00",
+  "previousVersion": "2026-10-22-230042",
+  "sourceCommit": "d12b55b8026138dd65c887f400a7fc0152a9baa8",
+  "sourceBranch": "frontend/workbench",
+  "task": "Canva Client Secret-only local configuration command",
+  "apiConclusion": "已核对，无接口变更；frontend requires no new adaptation.",
+  "initialContractSourceByteComparison": {
+    "server/index.ts": true,
+    "server/schemas.ts": true,
+    "shared/types.ts": true,
+    "server/integrations/canva.ts": true
+  },
+  "implementation": "Frozen canva-secret CLI mode and setup guide; only two source snapshots changed.",
+  "currentRoundValidation": {
+    "syntheticCliTests": {
+      "status": "passed",
+      "source": "canva_backend actual temporary synthetic-copy validation, reported by root",
+      "legalSecretUpdate": true,
+      "exportAndNormalDuplicateSecretAssignmentsDeduplicated": true,
+      "invalidInputClassesDoNotModifyFile": 15,
+      "otherLinesAndCrlfPreserved": true,
+      "missingFinalSeparatorOnlyAddsLf": true,
+      "mode600": true,
+      "secretAbsentFromStdoutAndStderr": true,
+      "mockAndRealNoTtyRefused": true,
+      "realPtyHiddenInput": true,
+      "legacyModesSmoke": [
+        "image",
+        "canva",
+        "all"
+      ],
+      "pyCompile": "passed",
+      "aggregateTestCount": "not fabricated"
+    },
+    "full279OrPrior10Rerun": false,
+    "productionBuild": "Not rerun; CLI/documentation-only task.",
+    "realEnvChanged": false,
+    "serviceRestarted": false,
+    "oauthModelDesignOrPublicRequests": 0,
+    "node279Or10Rerun": false,
+    "newRealSecretConfigured": false
+  },
+  "bindingSemantics": "Client Secret participates in the local binding fingerprint; reload and account reauthorization are required before the new Secret is used for code exchange. Saving alone does not prove MCP500 fixed.",
+  "archiveAgentCredentialFilesRead": false,
+  "gitOperations": "No staging, commit or push.",
+  "changedSourceSnapshots": [
+    "docs/setup/visual-integrations.md",
+    "scripts/configure-visual.py"
+  ],
+  "sourceSnapshotCount": 155,
+  "runtimeMcpFixConfirmed": false,
+  "rootIndependentCredentialScan": {
+    "source": "Root independent exact-match scan of final content; current credentials read in memory only, no values output or changes. Archive/CLI-test agents did not read actual credential files.",
+    "finalContentMatches": 0,
+    "filesScannedBeforeSealing": 168,
+    "archiveAgentCredentialFilesRead": false
+  },
+  "finalizedAt": "2026-10-22T23:24:23+08:00"
+}

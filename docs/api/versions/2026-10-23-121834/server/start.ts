@@ -1,0 +1,14 @@
+import dotenv from 'dotenv';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
+dotenv.config({ path: path.join(root, '.env.local'), override: false });
+dotenv.config({ path: path.join(root, '.env'), override: false });
+const { createApp } = await import('./index.js');
+const { closeStateStore } = await import('./state-store.js');
+const host = process.env.HOST || '127.0.0.1'; const port = Number(process.env.PORT) || 3000;
+const app = await createApp({ production: process.argv.includes('--production') || process.env.NODE_ENV === 'production' });
+const server = app.listen(port, host);
+server.once('listening', () => console.log(`知序 · http://${host === '0.0.0.0' ? 'localhost' : host}:${port}`));
+server.on('error', (error: NodeJS.ErrnoException) => { console.error(error.code === 'EADDRINUSE' ? `端口 ${port} 已占用。` : '后端启动失败，请检查本机配置。'); closeStateStore(); process.exitCode = 1; });
+for (const signal of ['SIGINT', 'SIGTERM'] as const) process.once(signal, () => { server.closeAllConnections(); server.close(() => { closeStateStore(); process.exit(0); }); });

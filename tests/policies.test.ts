@@ -38,7 +38,7 @@ test('platform draft structures, images, titles and CTA materially differ', () =
   const { brief, evidence } = fixture();
   const drafts = generate(brief, evidence);
   assert.deepEqual(drafts.map(d => d.images.length), [4, 3, 2, 1]);
-  assert.deepEqual(Object.values(PLATFORM_POLICIES).map(p => [p.minImages, p.maxImages]), [[3, 6], [2, 4], [1, 3], [1, 1]]);
+  assert.deepEqual(Object.values(PLATFORM_POLICIES).map(p => [p.minImages, p.maxImages]), [[1, 6], [1, 4], [1, 3], [1, 1]]);
   assert.equal(drafts[2].blocks.length, 1);
   assert.ok(drafts[3].blocks.length <= 3);
   assert.notDeepEqual(drafts[0].titles, drafts[1].titles);
@@ -129,9 +129,9 @@ test('same name with a different OS remains a different product evidence set', (
 test('source mismatch cannot pass as live ima; same-model image shortage stays explicit', () => {
   const { brief, evidence } = fixture();
   const requested = { ...brief, knowledgeSource: 'ima' as const };
-  evidence.images = evidence.images.slice(0, 1);
+  evidence.images = [];
   const drafts = generate(requested, evidence);
-  assert.ok(drafts.every(d => d.images.length === 1));
+  assert.ok(drafts.every(d => d.images.length === 0));
   const result = reviewDrafts(requested, evidence, drafts);
   assert.equal(result.status, 'blocked');
   assert.ok(result.issues.some(i => i.message.includes('知识来源')));

@@ -4,8 +4,17 @@ import { randomUUID } from 'node:crypto';
 import type { ModelCallRecord, Platform } from '../shared/types.js';
 import { FairLimiter } from './fair-limiter.js';
 
-export class ModelError extends Error {
-  constructor(message: string, public code = 'MODEL_ERROR', public upstreamStatus?: number, public outcomeUnknown = false, public retryable = true) { super(message); this.name = 'ModelError'; }
+export type ProviderErrorCategory = 'authentication' | 'quota' | 'rate_limit' | 'capacity' | 'protocol' | 'unknown';
+export interface ProviderErrorDetails {
+  category?: ProviderErrorCategory; providerCode?: string; providerType?: string;
+  providerMessage?: string; requestId?: string; diagnosticId?: string;
+}
+export class ModelError extends Error implements ProviderErrorDetails {
+  category?: ProviderErrorCategory; providerCode?: string; providerType?: string;
+  providerMessage?: string; requestId?: string; diagnosticId?: string;
+  constructor(message: string, public code = 'MODEL_ERROR', public upstreamStatus?: number, public outcomeUnknown = false, public retryable = true, details: ProviderErrorDetails = {}) {
+    super(message); this.name = 'ModelError'; Object.assign(this, details);
+  }
 }
 
 export const DEFAULT_MODEL_BASE_URL = 'https://relay.nccnxta.cn/v1';
@@ -71,11 +80,58 @@ export function parseModelJson(text: string): unknown {
   catch { throw new ModelError('模型未返回完整 JSON，已停止使用该输出。', 'MODEL_JSON'); }
 }
 
-function redact(message: string, requestKey?: string): string {
-  for (const key of [requestKey, process.env.LLM_API_KEY]) {
+/** Persist only a bounded, printable explanation; never provider request bodies or credentials. */
+export function redactProviderText(message: string, requestKey?: string): string {
+  for (const key of [requestKey, process.env.LLM_API_KEY, process.env.IMAGE_API_KEY, process.env.CANVA_CLIENT_SECRET, process.env.CANVA_ACCESS_TOKEN, process.env.CANVA_REFRESH_TOKEN]) {
     if (key) message = message.split(key).join('[redacted]');
   }
-  return message.replace(/sk-[a-zA-Z0-9_-]{8,}/g, '[redacted]').slice(0, 250);
+  return message.replace(/https?:\/\/[^\s<>"']+/gi, '[url redacted]')
+    .replace(/\bBearer\s+[^\s,;"']+/gi, 'Bearer [redacted]')
+    .replace(/\bsk-[a-zA-Z0-9._~+\/-]{5,}={0,2}/g, '[redacted]')
+    .replace(/((?:api[-_ ]?key|client[-_ ]?secret|access[-_ ]?token|refresh[-_ ]?token)\s*[=:]\s*)[^\s,;"']+/gi, '$1[redacted]')
+    .replace(/[\u0000-\u001f\u007f]/g, ' ').slice(0, 500);
+}
+const redact = redactProviderText;
+
+function safeProviderId(value: unknown, requestKey?: string): string | undefined {
+  if (typeof value !== 'string' && typeof value !== 'number') return;
+  const original = String(value), safe = redact(original, requestKey);
+  return safe === original && /^[a-zA-Z0-9_.:-]{1,120}$/.test(safe) ? safe : undefined;
+}
+
+/** An HTTP 200 can still carry a paid-service error. Unknown results are never safe to replay. */
+export function providerBusinessError(data: unknown, options: { status?: number; requestId?: string; requestKey?: string; code?: string; label?: string } = {}): ModelError | undefined {
+  if (!record(data)) return;
+  const failed = data.error != null && data.error !== false || data.success === false;
+  if (!failed) return;
+  const detail = record(data.error) ? data.error : data;
+  const rawMessage = typeof detail.message === 'string' ? detail.message : typeof data.error === 'string' ? data.error : '';
+  const providerCode = safeProviderId(detail.code ?? data.code, options.requestKey);
+  const providerType = safeProviderId(detail.type, options.requestKey);
+  const marker = `${providerCode || ''} ${providerType || ''}`.toLowerCase();
+  let category: ProviderErrorCategory = 'unknown';
+  if ([401, 403].includes(options.status || 0) || /invalid[_-]?(?:api[_-]?)?key|authentication|unauthorized|permission[_-]denied|access[_-]denied|invalid[_-]token/.test(marker)
+    || /^(?:invalid|incorrect|missing) (?:api[ -]?)?key\b|^unauthorized\b|^authentication failed\b/i.test(rawMessage)) category = 'authentication';
+  else if (/insufficient[_-](?:quota|balance|credit)|quota[_-]exceeded|billing|credit[_-]balance/.test(marker)
+    || /^(?:insufficient (?:quota|balance|credits?)|quota exceeded|余额不足|额度不足)/i.test(rawMessage)) category = 'quota';
+  else if (options.status === 429 || /rate[_-]limit|too[_-]many[_-]requests|throttl/.test(marker) || /^rate limit\b|^too many requests\b/i.test(rawMessage)) category = 'rate_limit';
+  else if (/server[_-]overloaded|capacity|account[_-](?:pool[_-])?exhausted|service[_-]unavailable/.test(marker)
+    || /^All available accounts exhausted[.!]?$/i.test(rawMessage.trim())) category = 'capacity';
+  else if (/invalid[_-]request|model[_-]not[_-]found|unsupported|bad[_-]request|protocol/.test(marker)) category = 'protocol';
+  const hints: Record<ProviderErrorCategory, string> = {
+    authentication: '密钥或模型权限校验失败，请检查当前网关凭证和模型授权。',
+    quota: '服务商报告额度或余额不足，请检查账号额度。',
+    rate_limit: '服务商报告限流，请稍后主动重试。',
+    capacity: '服务商报告当前模型的可用账号池或容量已耗尽，请联系网关服务商恢复线路。',
+    protocol: '服务商拒绝当前模型或请求协议，请检查模型标识和网关兼容性。',
+    unknown: '服务商返回未知业务错误，结果不确定；主动重试可能再次产生消耗。',
+  };
+  const diagnosticId = randomUUID();
+  return new ModelError(`${options.label || '模型服务'}：${hints[category]}（诊断号 ${diagnosticId}）`, options.code || 'MODEL_PROVIDER', options.status,
+    category === 'unknown', !['authentication', 'quota', 'protocol'].includes(category), {
+      category, providerCode, providerType, providerMessage: rawMessage ? redact(rawMessage, options.requestKey) : undefined,
+      requestId: safeProviderId(detail.request_id ?? detail.requestId ?? data.request_id ?? data.requestId ?? options.requestId, options.requestKey), diagnosticId,
+    });
 }
 
 /** Enforce the response limit while reading, rather than after buffering a whole body. */
@@ -123,9 +179,10 @@ async function exhaustedModelAccounts(response: Response): Promise<boolean> {
   } finally { await reader.cancel().catch(() => {}); reader.releaseLock(); }
 }
 
-function choiceFrom(data: unknown): Record<string, unknown> | undefined {
+function choiceFrom(data: unknown, observer?: StreamObserver): Record<string, unknown> | undefined {
   if (!record(data)) throw new ModelError('中转站响应不是有效的 Chat Completions 对象。', 'MODEL_PROTOCOL');
-  if (data.error) throw new ModelError('模型服务返回业务错误，请稍后重试。', 'MODEL_PROVIDER');
+  const businessError = providerBusinessError(data, { status: observer?.status, requestId: observer?.requestId, requestKey: observer?.requestKey });
+  if (businessError) throw businessError;
   if (!Array.isArray(data.choices)) throw new ModelError('中转站响应缺少 Chat Completions choices 字段。', 'MODEL_PROTOCOL');
   // A final usage chunk can have no choices. Other choices must never enter choice zero.
   return data.choices.find((choice: unknown) => record(choice) && choice.index === 0)
@@ -150,7 +207,7 @@ function checkFinishReason(reason: unknown): boolean {
   return true;
 }
 
-interface StreamObserver { onChunk?: () => void; onContent?: () => void; onUsage?: (value: unknown) => void }
+interface StreamObserver { onChunk?: () => void; onContent?: () => void; onUsage?: (value: unknown) => void; status?: number; requestKey?: string; requestId?: string }
 /** Only final-answer text enters JSON validation; reasoning and tool data never do. */
 export async function readChatCompletionStream(response: Response, onActivity?: (characters: number) => void, observer?: StreamObserver): Promise<string> {
   if (!response.body) throw new ModelError('模型流式响应为空。', 'MODEL_EMPTY');
@@ -166,7 +223,9 @@ export async function readChatCompletionStream(response: Response, onActivity?: 
     try { data = JSON.parse(payload); }
     catch { throw new ModelError('模型流式事件不是有效 JSON。', 'MODEL_PROTOCOL'); }
     if (record(data) && data.usage) observer?.onUsage?.(data.usage);
-    const choice = choiceFrom(data);
+    let choice: Record<string, unknown> | undefined;
+    try { choice = choiceFrom(data, observer); }
+    catch (error) { if (error instanceof ModelError && text.length) error.outcomeUnknown = true; throw error; }
     if (!choice) return;
     if (choice.delta !== undefined && !record(choice.delta)) throw new ModelError('模型流式正文格式无效。', 'MODEL_PROTOCOL');
     const content = checkTextMessage(record(choice.delta) ? choice.delta : {});
@@ -260,6 +319,7 @@ export async function callModel(system: string, user: string, options: ModelOpti
     let lastChunk = start, idle = 0, dispatched = false, retry = false, retryMs = 0;
     const emit = () => context?.onCall?.(structuredClone(call));
     const observe: StreamObserver = {
+      requestKey: apiKey,
       onChunk: () => { const now = Date.now(); idle = Math.max(idle, now - lastChunk); lastChunk = now; },
       onContent: () => { call.firstContentMs ??= Date.now() - start; },
       onUsage: value => { call.usage = tokenUsage(value); },
@@ -274,12 +334,14 @@ export async function callModel(system: string, user: string, options: ModelOpti
           messages: [{ role: 'system', content: system }, { role: 'user', content: user }] }), signal,
       });
       call.firstResponseMs = Date.now() - start; call.upstreamStatus = response.status;
+      observe.status = response.status;
       const requestId = response.headers.get('x-request-id') || response.headers.get('request-id') || response.headers.get('cf-ray');
       if (requestId) {
         const safe = redact(requestId, apiKey);
-        if (/^[a-zA-Z0-9_.:-]{1,120}$/.test(safe) && !safe.includes('redacted')) call.requestId = safe;
+        if (/^[a-zA-Z0-9_.:-]{1,120}$/.test(safe) && !safe.includes('redacted')) call.requestId = observe.requestId = safe;
       }
-      if (await exhaustedModelAccounts(response)) throw new ModelError('模型接口返回 HTTP 503：服务商报告当前模型的可用账号池已耗尽，请联系网关服务商恢复该模型线路。', 'MODEL_CAPACITY', 503, false, true);
+      if (await exhaustedModelAccounts(response)) throw new ModelError('模型接口返回 HTTP 503：服务商报告当前模型的可用账号池已耗尽，请联系网关服务商恢复该模型线路。', 'MODEL_CAPACITY', 503, false, true,
+        { category: 'capacity', requestId: call.requestId, diagnosticId: randomUUID(), providerMessage: 'All available accounts exhausted' });
       if (!response.ok) {
         await response.body?.cancel().catch(() => {});
         const hint = response.status === 401 || response.status === 403 ? '请检查密钥和该模型的调用权限。'
@@ -287,7 +349,8 @@ export async function callModel(system: string, user: string, options: ModelOpti
           : [504, 524].includes(response.status) ? '上游处理超时，结果不确定；主动重试可能再次产生消耗。' : '请检查模型服务状态与协议配置。';
         retry = response.status === 429 && budget.used < budget.max;
         retryMs = Math.min(3000, Math.max(500, Number(response.headers.get('retry-after')) * 1000 || 1000));
-        throw new ModelError(`模型接口返回 HTTP ${response.status}。${hint}`, 'MODEL_HTTP', response.status, response.status >= 500, ![401, 403].includes(response.status));
+        throw new ModelError(`模型接口返回 HTTP ${response.status}。${hint}`, 'MODEL_HTTP', response.status, response.status >= 500, ![401, 403].includes(response.status),
+          { category: [401, 403].includes(response.status) ? 'authentication' : response.status === 429 ? 'rate_limit' : 'unknown', requestId: call.requestId, diagnosticId: randomUUID() });
       }
       let text: string;
       if (response.headers.get('content-type')?.toLowerCase().includes('text/event-stream')) {
@@ -297,7 +360,7 @@ export async function callModel(system: string, user: string, options: ModelOpti
         let data: unknown;
         try { data = JSON.parse(body); } catch { throw new ModelError('中转站返回了非 JSON 响应，请确认 Chat Completions 协议可用。', 'MODEL_PROTOCOL'); }
         if (record(data) && data.usage) observe.onUsage?.(data.usage);
-        const choice = choiceFrom(data);
+        const choice = choiceFrom(data, observe);
         if (!choice || !record(choice.message)) throw new ModelError('中转站响应缺少 Chat Completions message 字段。', 'MODEL_PROTOCOL');
         text = checkTextMessage(choice.message);
         if (text) observe.onContent?.();
@@ -314,6 +377,8 @@ export async function callModel(system: string, user: string, options: ModelOpti
       else if (error instanceof ModelError) {
         if (error.code === 'MODEL_STREAM_INCOMPLETE') error.outcomeUnknown = true;
         error.upstreamStatus ??= call.upstreamStatus;
+        error.requestId ??= call.requestId;
+        call.requestId ??= error.requestId;
       } else if (dispatched) failure = new ModelError(`模型连接失败：${redact(error instanceof Error ? error.message : '网络异常', apiKey)}；结果不确定，主动重试可能再次产生消耗。`, 'MODEL_NETWORK', call.upstreamStatus, true, true);
       call.outcome = failure instanceof ModelError && failure.outcomeUnknown ? 'unknown' : 'failed';
       call.code = failure instanceof ModelError ? failure.code : 'STATE_ERROR';

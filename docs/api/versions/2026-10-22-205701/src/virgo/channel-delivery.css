@@ -1,0 +1,13 @@
+.channel-delivery-panel .vd-copy h4,.channel-delivery-panel .vd-canva h4{margin:0 0 10px;font-size:16px;font-weight:600;line-height:26px}
+.channel-delivery-panel .vd-copy p{margin:0;max-width:72ch;white-space:pre-wrap;overflow-wrap:anywhere}
+.channel-delivery-panel .vd-artifacts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;gap:24px 20px}
+.channel-delivery-panel .vr-artifact-article{grid-column:1/-1}
+.channel-delivery-panel .vd-image-link{display:block;max-width:100%;border-radius:8px;overflow:hidden;outline-offset:4px;background:#e6ddd4}
+.channel-delivery-panel .vd-image-link img{display:block;width:100%;height:auto;object-fit:contain}
+.channel-delivery-panel .vd-image-link:focus-visible,.channel-delivery-panel a.vr-button:focus-visible{outline:2px solid var(--vr-ink);outline-offset:4px}
+.channel-delivery-panel .vd-canva{padding-top:20px;border-top:1px solid #cdc3bb}
+.channel-delivery-panel .vr-caption svg{vertical-align:-3px;flex-shrink:0}
+.channel-delivery-panel .vr-artifact-caption .vr-text-button{align-self:flex-start}
+@media(max-width:760px){.channel-delivery-panel .vd-artifacts{grid-template-columns:minmax(0,1fr)}.channel-delivery-panel .vr-render-actions{align-items:stretch}.channel-delivery-panel .vr-render-actions .vr-button{flex-basis:100%}.channel-delivery-panel .vr-heading{align-items:flex-start}.channel-delivery-panel .vr-heading h3{font-size:20px;line-height:30px}.channel-delivery-panel .vr-version{white-space:normal;text-align:right}}
+
+.channel-delivery-panel .vd-copy summary{cursor:pointer;font-weight:600;line-height:1.6;padding:8px 0}.channel-delivery-panel .vd-copy[open] summary{margin-bottom:12px}

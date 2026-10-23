@@ -1,0 +1,12 @@
+[
+  { "id": "pc-118b291c71a454a8", "name": "HUAWEI MateBook Pro S", "system": "HarmonyOS 6.1", "category": "鸿蒙电脑", "folderName": "HUAWEI MateBook Pro S" },
+  { "id": "pc-e2ef2fa0bf44cc5a", "name": "HUAWEI MateBook 14（鸿蒙版）", "system": "HarmonyOS 6", "category": "鸿蒙电脑", "folderName": "HUAWEI MateBook 14" },
+  { "id": "pc-fdf32ec030de68d1", "name": "HUAWEI MateBook Fold 非凡大师", "system": "HarmonyOS 6.1", "category": "鸿蒙电脑", "folderName": "HUAWEI MateBook Fold 非凡大师" },
+  { "id": "pc-8cba57c221cce0ee", "name": "HUAWEI MateBook Pro", "system": "HarmonyOS 6.1", "category": "鸿蒙电脑", "folderName": "HUAWEI MateBook Pro" },
+  { "id": "pc-6f015c39b4f75fe3", "name": "HUAWEI MateBook 14 酷睿 Ultra", "system": "Windows 11 家庭版 / Linux V20 版", "category": "MateBook 电脑", "folderName": "MateBook 14 酷睿 Ultra" },
+  { "id": "pc-93ffec7e48802257", "name": "HUAWEI MateBook D 14 2024", "system": "Windows 11 家庭版 / Linux V20 版", "category": "MateBook 电脑", "folderName": "MateBook D 14" },
+  { "id": "pc-84b0077c54a59ddf", "name": "HUAWEI MateBook D 16 2024", "system": "Windows 11 家庭版 / Linux V20 版", "category": "MateBook 电脑", "folderName": "MateBook D 16" },
+  { "id": "pc-b4ad7b8c685a9c72", "name": "HUAWEI MateBook D 16 SE 版 2024", "system": "Windows 11 64 位 家庭中文版 / Linux V20 版", "category": "MateBook 电脑", "folderName": "MateBook D 16 SE 版" },
+  { "id": "pc-cdff8aa3dd9ea16e", "name": "HUAWEI MateBook GT 14", "system": "Windows 11 家庭版 / Linux V20 版", "category": "MateBook 电脑", "folderName": "MateBook GT 系列" },
+  { "id": "pc-297621f50bc49f42", "name": "HUAWEI MateBook X Pro 酷睿 Ultra 微绒典藏版", "system": "Windows 11 家庭版 / Linux 版", "category": "MateBook 电脑", "folderName": "MateBook X系列" }
+]

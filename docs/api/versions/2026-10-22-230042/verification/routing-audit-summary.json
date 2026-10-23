@@ -1,0 +1,51 @@
+{
+  "source": "Root sanitized runtime/saved configuration audit; archive agent did not read the original configuration or credentials.",
+  "savedConfiguration": {
+    "bypassChinaRules": 8,
+    "domainStrategy": "AsIs",
+    "canvaHostsChecked": 4,
+    "matchingSavedDomainRules": 0,
+    "matchingCheckedLocalLists": false,
+    "checkedLocalLists": [
+      "CN",
+      "PRIVATE",
+      "GOOGLE"
+    ],
+    "dedicatedCanvaDirectOrBlockRuleFound": false
+  },
+  "operatingSystemRouteObservation": {
+    "ipv4DefaultInterface": "en0",
+    "ipv6DefaultInterface": "en0",
+    "sampledXrayPeerCount": 3,
+    "sampledPeerRoutesInterface": "en0",
+    "tunRecaptureEvidenceFound": false,
+    "guiTunSavedEnabled": true,
+    "guiSettingProvesEffectiveRuntimeTun": false
+  },
+  "runtimeEvidenceLimits": {
+    "workingBinConfigsDirectoryEmpty": true,
+    "runtimeJsonNoLongerPresent": true,
+    "firstOutboundOrderKnown": false,
+    "accessLogEnabled": false,
+    "logLevel": "warning",
+    "effectiveOutboundTagConfirmed": false,
+    "remoteProxyChainConfirmed": false
+  },
+  "interpretation": {
+    "staticIpReputationExcluded": false,
+    "allRuntimeRoutingEffectsExcluded": false,
+    "changeGlobalRoutesJustifiedByCurrentEvidence": false
+  },
+  "officialSources": [
+    "https://xtls.github.io/config/routing.html",
+    "https://xtls.github.io/config/outbound.html"
+  ],
+  "privateDataOmitted": [
+    "node identifiers",
+    "proxy URLs",
+    "egress addresses",
+    "credentials",
+    "raw configuration",
+    "session state"
+  ]
+}

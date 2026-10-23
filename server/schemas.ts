@@ -12,7 +12,14 @@ export const outlineVersionSchema = z.object({ version: z.number().int().min(1) 
 export const outlineEditSchema = z.object({ version: z.number().int().min(1), platforms: z.array(outlinePlatformSchema).min(1).max(4) }).strict();
 export const outlineReviseSchema = z.object({ version: z.number().int().min(1), instructions: z.string().trim().min(1).max(2000) }).strict();
 export const renderRequestSchema = z.object({ runId: z.string().min(1).max(100), revision: z.number().int().min(1),
-  platform: platformSchema, selectedTitleIndex: z.number().int().min(0).max(2).default(0), templateId: z.string().min(1).max(80) }).strict();
+  platform: platformSchema, selectedTitleIndex: z.number().int().min(0).max(2).default(0), templateId: z.string().min(1).max(80),
+  deliveryId: z.string().uuid().optional(), visualMode: z.enum(['local', 'canva', 'html', 'poster-image']).optional(), canvaSync: z.boolean().optional(), regenerateVisual:z.boolean().optional() }).strict().superRefine((value,ctx)=>{
+    if(value.visualMode==='poster-image' && (value.platform!=='poster'||!value.deliveryId))ctx.addIssue({code:z.ZodIssueCode.custom,message:'整图海报仅支持已保存的海报渠道交付。',path:['visualMode']});
+  });
+export const posterApprovalSchema = z.object({
+  bundleId:z.string().uuid(),artifactId:z.string().uuid(),sha256:z.string().regex(/^[a-f0-9]{64}$/),
+  checks:z.object({text:z.boolean(),product:z.boolean(),facts:z.boolean()}).strict(),
+}).strict();
 export const connectionSettingsSchema = z.object({
   baseUrl: z.string().url().max(300).optional(), model: z.string().trim().min(1).max(100).optional(),
   apiKey: z.string().trim().max(500).optional(), imaClientId: z.string().trim().max(300).optional(),
@@ -37,6 +44,7 @@ export const jobSubmitSchema = z.intersection(z.object({ idempotencyKey: z.strin
   z.object({ kind: z.literal('outline-revise'), outlineId: z.string().min(1).max(100), version: z.number().int().min(1), instructions: z.string().trim().min(1).max(2000), platforms: z.array(platformSchema).min(1).max(4).optional(), idempotencyKey: z.string() }).strict(),
   z.object({ kind: z.literal('generate'), outlineId: z.string().min(1).max(100), version: z.number().int().min(1), renders: z.array(z.object({ platform: platformSchema, templateId: z.string().min(1).max(80), selectedTitleIndex: z.number().int().min(0).max(2).default(0) }).strict()).min(1).max(4).optional(), idempotencyKey: z.string() }).strict(),
   z.object({ kind: z.literal('render'), request: renderRequestSchema, idempotencyKey: z.string() }).strict(),
+  z.object({ kind: z.literal('video'), deliveryId: z.string().uuid(), idempotencyKey: z.string() }).strict(),
 ]));
 
 export const strategySchema = z.object({

@@ -1,0 +1,36 @@
+{
+  "notice": "These unchanged optional upstream reference files accompany the skill source snapshot for readable relative links. Runtime executes only project-adapted rules; reference files do not enable CLI, publishing or other image backends.",
+  "files": [
+    {
+      "path": "meitu-poster/references/meitu-cli-guide.md",
+      "source": "https://raw.githubusercontent.com/meitu/meitu-skills/95e563c0a695094403ccf77eb8fe7bd8bb58939c/skills/meitu-poster/references/meitu-cli-guide.md",
+      "purpose": "archive-only optional upstream reference; not part of runtime rule manifest"
+    },
+    {
+      "path": "meitu-poster/references/industry-styles.md",
+      "source": "https://raw.githubusercontent.com/meitu/meitu-skills/95e563c0a695094403ccf77eb8fe7bd8bb58939c/skills/meitu-poster/references/industry-styles.md",
+      "purpose": "archive-only optional upstream reference; not part of runtime rule manifest"
+    },
+    {
+      "path": "meitu-poster/references/memory-protocol.md",
+      "source": "https://raw.githubusercontent.com/meitu/meitu-skills/95e563c0a695094403ccf77eb8fe7bd8bb58939c/skills/meitu-poster/references/memory-protocol.md",
+      "purpose": "archive-only optional upstream reference; not part of runtime rule manifest"
+    },
+    {
+      "path": "meitu-poster/references/poster-analyse.md",
+      "source": "https://raw.githubusercontent.com/meitu/meitu-skills/95e563c0a695094403ccf77eb8fe7bd8bb58939c/skills/meitu-poster/references/poster-analyse.md",
+      "purpose": "archive-only optional upstream reference; not part of runtime rule manifest"
+    },
+    {
+      "path": "baoyu-skills/references/codex-imagegen.md",
+      "source": "https://raw.githubusercontent.com/JimLiu/baoyu-skills/1567581c26ec29f4216c6e6835415bf30343b0e3/skills/baoyu-xhs-images/references/codex-imagegen.md",
+      "purpose": "archive-only optional upstream reference; not part of runtime rule manifest"
+    }
+  ],
+  "layoutAliases": {
+    "baoyu-skills/SKILL.md": "Exact copy of baoyu-xhs-images-SKILL.md for the unchanged reference file ../SKILL.md link. Runtime manifest remains unchanged."
+  },
+  "exampleLinkPlaceholders": [
+    "baoyu-markdown-to-html-SKILL.md uses literal src and url as Markdown example placeholders; these are not resource references."
+  ]
+}

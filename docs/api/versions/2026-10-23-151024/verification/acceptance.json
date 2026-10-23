@@ -1,0 +1,193 @@
+{
+  "scope": "独立渠道交付、整图海报三项核对、独立视频短稿/审稿及旧外部设计搁置；仅安全汇总",
+  "finalFullTest": {
+    "command": "npm test",
+    "total": 341,
+    "passed": 341,
+    "failed": 0,
+    "skipped": 0,
+    "durationMs": 250140.1
+  },
+  "latestTargeted": {
+    "total": 11,
+    "passed": 11,
+    "failed": 0,
+    "skipped": 0,
+    "scope": [
+      "Mock/real VIDEO_REVIEW_BLOCKED consistency",
+      "poster manual approval and immutable pointers",
+      "saved alternate-title poster readability without expiry revival",
+      "video failed/cancelled new-key alias",
+      "explicit retry rebinding current static layout while reusing script calls"
+    ],
+    "afterFullSuiteLiteralErrorCodeUpdate": true,
+    "fullSuiteRepeatedAfterLiteralUpdate": false,
+    "imageProvider": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "scope": "HTTP403 non-JSON Cloudflare access-block classification and image-provider safety",
+      "afterFullSuiteDiagnosticChange": true
+    }
+  },
+  "check": {
+    "command": "npm run check",
+    "exitCode": 0
+  },
+  "finalBuild": {
+    "command": "npm run build",
+    "passed": true,
+    "durationSeconds": 3.64,
+    "warnings": [
+      "Mock lazy chunk 660.78kB size warning"
+    ]
+  },
+  "diffCheck": {
+    "command": "git diff --check",
+    "passed": true
+  },
+  "frontend": {
+    "mockOnly": true,
+    "viewports": [
+      "1440x1000",
+      "390x844"
+    ],
+    "posterNativeFixture": {
+      "width": 1024,
+      "height": 1536,
+      "synthetic": true
+    },
+    "posterSingleSection": true,
+    "posterPublishingCopyAbsent": true,
+    "posterApprovalDisabledUntilThreeChecks": true,
+    "posterFormalDownloadsAfterApproval": true,
+    "momentsSingleCopyAndOriginalImages": true,
+    "noDuplicatePublishingCopyOnVisualPanels": true,
+    "settingsExternalDesignEntryAbsent": true,
+    "videoScriptReviewExpandable": true,
+    "nativeVideoDecoded": {
+      "width": 240,
+      "height": 426,
+      "durationSeconds": 20,
+      "synthetic": true
+    },
+    "mobileWidths": [
+      {
+        "channel": "moments",
+        "viewport": 390,
+        "scrollWidth": 390
+      },
+      {
+        "channel": "wechat",
+        "viewport": 390,
+        "scrollWidth": 390
+      },
+      {
+        "channel": "xiaohongshu",
+        "viewport": 390,
+        "scrollWidth": 390
+      }
+    ],
+    "pageErrors": 0,
+    "wechatMobileBodyVisualAcceptance": false,
+    "note": "检查工作台结构、按钮与原生视频；不据此宣称微信平台粘贴或真实产品视觉通过。取消/失败恢复末轮采用协议及状态回归，未额外创建付费任务。"
+  },
+  "realAcceptance": {
+    "poster": {
+      "succeeded": false,
+      "imageHttpAttempts": 1,
+      "upstreamStatus": 403,
+      "responseFormat": "non-JSON HTML",
+      "imageElapsedMs": 1854,
+      "jobElapsedMs": 4168,
+      "automaticRetries": 0,
+      "newCandidateCreated": false,
+      "humanApproved": false,
+      "observedOriginalCode": "IMAGE_HTTP",
+      "usage": "unknown",
+      "postObservationDiagnostic": "IMAGE_GATEWAY_BLOCKED",
+      "diagnosticVerifiedOfflineOnly": true,
+      "imageRetriedAfterDiagnostic": false,
+      "note": "Gateway front-door rejection does not establish key invalidity or model availability."
+    },
+    "uncredentialedGatewayCheck": {
+      "requests": 1,
+      "imageRequests": 0,
+      "upstreamStatus": 403,
+      "responseType": "text/html",
+      "server": "cloudflare",
+      "pageTitle": "Attention Required! | Cloudflare",
+      "credentialUsed": false,
+      "conclusion": "gateway front-door rejection observed; key/model cause not proven"
+    },
+    "video": {
+      "succeeded": true,
+      "endToEndIncludingStaticRerenderElapsedMs": 118748,
+      "staticRerenderElapsedMs": 19991,
+      "staticRerenderModelCalls": 0,
+      "scriptAndReviewPassed": true,
+      "textModelCalls": 2,
+      "textHttpAttempts": 2,
+      "scriptElapsedMs": 12894,
+      "reviewElapsedMs": 5402,
+      "textUpstreamStatuses": [
+        200,
+        200
+      ],
+      "repairCalls": 0,
+      "newImageCalls": 0,
+      "videoModelCalls": 0,
+      "reviewStatus": "passed",
+      "downloadStatus": 200,
+      "bytes": 940689,
+      "sha256": "cc318486e8b17816bd3ae4e266b4e8428219b2f39496372968b14f52d50c3120",
+      "ffprobe": {
+        "width": 1080,
+        "height": 1920,
+        "fps": 30,
+        "frameCount": 600,
+        "durationSeconds": 20,
+        "videoCodec": "h264",
+        "pixelFormat": "yuv420p",
+        "audioStreams": 0
+      },
+      "visuallySampledFrames": 6,
+      "textOverflowObserved": false,
+      "productAspectRatioPreserved": true,
+      "platformPublishingAccepted": false
+    },
+    "restart": {
+      "serviceLoadedFinalSource": true,
+      "automaticRequestsAfterRestart": 0,
+      "videoRangeStatus": 206,
+      "contentRange": "bytes 0-1023/940689",
+      "bodyBytes": 1024
+    }
+  },
+  "notVerified": [
+    "WeChat platform paste",
+    "social platform publishing",
+    "real ima",
+    "successful gpt-image-2.5 poster generation through current gateway",
+    "human verification of real poster text/product/facts"
+  ],
+  "configuration": {
+    "envChanged": false,
+    "keysChanged": false,
+    "credentialsIncluded": false
+  },
+  "gitOperations": {
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "realExternalCalls": {
+    "textHttpAttempts": 2,
+    "imageHttpAttempts": 1,
+    "unauthenticatedModelCatalogGet": 1,
+    "newVideoModelCalls": 0,
+    "externalDesignCalls": 0,
+    "chargeAmounts": "unknown; no amount inferred from HTTP status"
+  }
+}

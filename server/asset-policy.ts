@@ -1,8 +1,8 @@
 import type { EvidenceBundle, Platform } from '../shared/types.js';
 
 export const IMAGE_POLICIES: Record<Platform, { name: string; min: number; max: number }> = {
-  wechat: { name: '公众号', min: 2, max: 4 },
-  xiaohongshu: { name: '小红书', min: 3, max: 6 },
+  wechat: { name: '公众号', min: 1, max: 4 },
+  xiaohongshu: { name: '小红书', min: 1, max: 6 },
   moments: { name: '朋友圈', min: 1, max: 3 },
   poster: { name: '门店海报', min: 1, max: 1 },
 };

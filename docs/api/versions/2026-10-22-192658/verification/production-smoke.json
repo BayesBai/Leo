@@ -1,0 +1,66 @@
+{
+  "mode": "production+synthetic-test-knowledge",
+  "externalRequests": 0,
+  "checks": [
+    {
+      "url": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "nonempty": true
+    },
+    {
+      "url": "/api/status",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "nonempty": true
+    },
+    {
+      "url": "/api/products",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "nonempty": true
+    },
+    {
+      "url": "/api/task-options",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "nonempty": true
+    },
+    {
+      "url": "/api/render-templates",
+      "status": 200,
+      "contentType": "application/json; charset=utf-8",
+      "nonempty": true
+    },
+    {
+      "url": "/virgo/wheat-workbench-poster.webp",
+      "status": 200,
+      "contentType": "image/webp",
+      "nonempty": true
+    },
+    {
+      "url": "/api/not-found",
+      "status": 404,
+      "contentType": "application/json; charset=utf-8",
+      "nonempty": true
+    },
+    {
+      "url": "/virgo/wheat-workbench-loop.mp4",
+      "status": 206,
+      "rangeBytes": 1024
+    },
+    {
+      "url": "/api/jobs",
+      "method": "POST",
+      "body": "{}",
+      "status": 400
+    },
+    {
+      "url": "/api/connections/settings",
+      "method": "POST",
+      "crossSite": true,
+      "status": 403
+    }
+  ],
+  "passed": true
+}

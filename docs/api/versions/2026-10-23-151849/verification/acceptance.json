@@ -1,0 +1,66 @@
+{
+  "version": "2026-10-23-151849",
+  "createdAt": "2026-10-23T15:18:49+08:00",
+  "type": "planning-and-static-document-verification",
+  "apiConclusion": "已核对，无接口变更",
+  "previousVersion": "2026-10-23-151024",
+  "serverProfile": {
+    "provider": "阿里云",
+    "region": "杭州",
+    "cpuCores": 2,
+    "memoryGiB": 2,
+    "reportedBandwidthMbps": 200,
+    "verifiedOnServer": false
+  },
+  "deploymentStatus": "not_deployed",
+  "sourceChecks": {
+    "previousArchiveChecksums": "passed",
+    "previousCheckedSourcesMatch": "passed"
+  },
+  "notExecuted": [
+    "unit tests",
+    "typecheck",
+    "build",
+    "container build/run",
+    "app/browser run",
+    "server inspection",
+    "SSH",
+    "DNS changes",
+    "TLS issuance",
+    "real model calls",
+    "load test"
+  ],
+  "priorAcceptanceReference": "../../2026-10-23-151024/verification/acceptance.json",
+  "priorAcceptanceIsNotCurrentVerification": true,
+  "knownLimits": [
+    "no application user authentication/isolation",
+    "Host/Origin reverse proxy adaptation pending",
+    "Docker rendering runtime incomplete",
+    "2GiB capacity untested",
+    "existing image gateway 403 unresolved",
+    "personal site management unknown"
+  ],
+  "gitOperations": {
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "checks": {
+    "relativeMarkdownLinks": "passed",
+    "JSONSyntax": "passed",
+    "HTTPVariables": "passed",
+    "checkedSources": "passed",
+    "sourceSnapshots": "passed",
+    "previousArchiveIntegrity": "passed",
+    "protectedOriginalsUnchanged": "passed",
+    "gitDiffCheck": "passed",
+    "docsTextAttribute": "unset (-text)",
+    "rootReadmeFixedEntry": "passed"
+  },
+  "omittedOptionalSnapshots": [
+    "server/design/vendor/baoyu-skills/baoyu-markdown-to-html-SKILL.md",
+    "server/design/vendor/baoyu-skills/baoyu-xhs-images-SKILL.md",
+    "server/design/vendor/meitu-poster/SKILL.md",
+    "server/design/vendor/ui-animation/SKILL.md"
+  ]
+}

@@ -1,3 +1,8 @@
+import type { PosterApproval } from './poster';
+import type { VideoScript, VideoScriptReview } from './video';
+export type { PosterApproval, PosterApprovalInput } from './poster';
+export type { VideoScript, VideoScriptReview } from './video';
+
 export const PLATFORMS = ['xiaohongshu', 'wechat', 'moments', 'poster'] as const;
 export type Platform = typeof PLATFORMS[number];
 export type KnowledgeSource = 'local' | 'ima';
@@ -95,7 +100,7 @@ export interface HistoryItem extends HistoryMetadata {
   platforms: Platform[]; createdAt: string; updatedAt: string; version?: number; revision?: number;
   reviewStatus?: ReviewReport['status'];
 }
-export interface RunDetail { result: RunResult; outlineSnapshot?: OutlineResult; history: HistoryMetadata; renderBundles: RenderBundle[] }
+export interface RunDetail { result: RunResult; outlineSnapshot?: OutlineResult; history: HistoryMetadata; renderBundles: RenderBundle[]; deliveries?: ChannelDelivery[] }
 export interface TaskOptions {
   operatorRole: 'salesperson'; operatorLabel: string;
   scenarios: { id: string; label: string; audienceSuggestions: string[]; focusSuggestions: string[] }[];
@@ -103,48 +108,82 @@ export interface TaskOptions {
   platforms: { id: Platform; label: string; minImages: number; maxImages: number }[];
 }
 export interface RenderTemplate { id: string; platform: Platform; name: string; width: number; height: number }
-export interface RenderRequest { runId: string; revision: number; platform: Platform; selectedTitleIndex: number; templateId: string }
+export interface RenderRequest { runId: string; revision: number; platform: Platform; selectedTitleIndex: number; templateId: string; deliveryId?: string; visualMode?: 'local' | 'canva' | 'html' | 'poster-image'; canvaSync?: boolean; regenerateVisual?: boolean }
 export interface RenderArtifact {
-  id: string; role: 'article' | 'cover' | 'card' | 'poster'; format: 'wechat-richtext' | 'png';
+  id: string; role: 'article' | 'cover' | 'card' | 'poster' | 'video'; format: 'wechat-richtext' | 'png' | 'original' | 'mp4';
   previewUrl: string; downloadUrl?: string; width?: number; height?: number;
-  sourceImageIds: string[]; factIds: string[]; name: string;
+  sourceImageIds: string[]; factIds: string[]; name: string; durationSeconds?: number; fps?: number; frameCount?: number;
 }
 export interface RenderBundle {
   id: string; runId: string; revision: number; selectedTitleIndex: number; platform: Platform;
   templateId: string; artifacts: RenderArtifact[]; reviewStatus: ReviewReport['status'];
   warnings: string[]; copyText: string; zipUrl?: string; expiresAt: string;
   publication?: 'preview' | 'released' | 'blocked';
+  rendererVersion?: number; deliveryId?: string; externalDesigns?: ExternalDesign[]; creativeAssets?: CreativeAsset[];
+  kind?: 'static' | 'video';
+  sourceFingerprint?: string;
+  posterApproval?: PosterApproval;
+}
+
+/** Partial channels are independent deliveries, never partial RunResult objects. */
+export interface ChannelDelivery {
+  id: string; runId: string; jobId?: string; platform: Platform; revision: number;
+  createdAt: string; updatedAt: string; expiresAt: string; product: Product;
+  brief: Brief; draft: Draft; review: ReviewReport; outline: { id: string; version: number };
+  status: 'ready' | 'blocked' | 'visual_pending'; copyText: string; bundle?: RenderBundle;
+  evidenceStatus: HistoryMetadata['evidenceStatus']; externalDesigns?: ExternalDesign[]; videoBundle?: RenderBundle;
+  posterApproval?: PosterApproval;
+}
+export interface ExternalDesign {
+  id: string; editUrl: string; platform: Platform; status: 'imported' | 'verified' | 'exported' | 'changed';
+  contentHash?: string; syncedAt?: string; expiresAt?: string;
+}
+export interface CreativeAsset {
+  id: string; kind: 'generated-visual'; platform: Platform; model: string; provider: string;
+  promptHash: string; skillVersion: string; sourceImageIds: string[]; sha256: string;
+  createdAt: string; expiresAt: string;
+}
+export interface CanvaConnectionStatus { configured: boolean; connected: boolean; message: string; redirectUri?: string }
+/** Safe diagnostics for a failed read-only Canva connection preflight. */
+export interface CanvaVerificationError {
+  message: string; code: string; diagnosticId: string; phase?: string;
+  upstreamStatus?: number; providerCode?: string; requestId?: string; retryable: boolean; outcomeUnknown: boolean;
 }
 
 export type JobStatus = 'queued' | 'running' | 'failed' | 'interrupted' | 'cancelled' | 'completed';
-export type JobStage = 'retrieve' | 'outline' | 'write' | 'review' | 'repair' | 'recheck' | 'render' | 'publish';
+export type JobStage = 'retrieve' | 'outline' | 'write' | 'review' | 'repair' | 'recheck' | 'design' | 'image' | 'compose' | 'canva_import' | 'canva_edit' | 'canva_export' | 'render' | 'publish' | 'storyboard' | 'video_script' | 'video_review' | 'video_repair' | 'video_recheck' | 'video_render' | 'video_encode';
 export interface JobError {
   message: string; code: string; stage: JobStage; platform?: Platform;
   upstreamStatus?: number; retryable: boolean; outcomeUnknown: boolean;
+  category?: string; providerCode?: string; providerType?: string; providerMessage?: string; requestId?: string; diagnosticId?: string;
 }
 export interface ModelCallRecord {
   id: string; stage: string; platform?: Platform; attempt: number;
   queuedAt: string; startedAt?: string; endedAt?: string; queueMs?: number;
   firstResponseMs?: number; firstContentMs?: number; maxIdleMs?: number; totalMs?: number;
-  upstreamStatus?: number; requestId?: string; usage?: { promptTokens?: number; completionTokens?: number; totalTokens?: number };
+  upstreamStatus?: number; requestId?: string; usage?: { promptTokens?: number; completionTokens?: number; totalTokens?: number; generatedImages?: number };
   outcome: 'dispatched' | 'succeeded' | 'failed' | 'unknown'; code?: string;
 }
 export type JobInput =
   | { kind: 'outline'; brief: Brief }
   | { kind: 'outline-revise'; outlineId: string; version: number; instructions: string; platforms?: Platform[] }
   | { kind: 'generate'; outlineId: string; version: number; renders?: { platform: Platform; templateId: string; selectedTitleIndex: number }[] }
-  | { kind: 'render'; request: RenderRequest };
+  | { kind: 'render'; request: RenderRequest }
+  | { kind: 'video'; deliveryId: string };
 export type JobSubmit = JobInput & { idempotencyKey: string };
 export interface JobChannel {
   platform: Platform; status: JobStatus; stage: JobStage; error?: JobError;
   preview?: { draft: Draft; review: ReviewReport; bundle?: RenderBundle };
+  deliveryId?: string; delivery?: ChannelDelivery; progress?: { completedFrames: number; totalFrames: number };
+  videoScript?: VideoScript; videoScriptReview?: VideoScriptReview;
 }
 export interface BackgroundJob {
   id: string; idempotencyKey: string; kind: JobInput['kind']; status: JobStatus;
   createdAt: string; updatedAt: string; expiresAt: string;
-  input: JobInput; model: { name: string; baseUrl: string };
+  deliveryVersion?: 1; input: JobInput; model: { name: string; baseUrl: string };
   channels: JobChannel[]; calls: ModelCallRecord[]; error?: JobError;
-  outline?: OutlineResult; result?: RunResult; renderBundles: RenderBundle[];
+  outline?: OutlineResult; result?: RunResult; renderBundles: RenderBundle[]; videoBundle?: RenderBundle;
+  videoScript?: VideoScript; videoScriptReview?: VideoScriptReview;
   /** List/event summaries omit bulky terminal/queued outputs; GET by id always returns full detail. */
   detailOmitted?: boolean; summary?: { productName: string; scene: string; audience: string };
 }
@@ -153,6 +192,8 @@ export interface AppStatus {
   model: { configured: boolean; name: string; baseUrl: string };
   ima: { configured: boolean; verified: boolean; kbName: string; accountLabel: string; message: string; verifiedAt?: string };
   local: { available: boolean; productCount: number; imageCount: number };
+  image?: { configured: boolean; name: string; baseUrl: string };
+  canva?: CanvaConnectionStatus;
 }
 export interface StreamEvent {
   type: 'progress' | 'result' | 'error' | 'needs_input';

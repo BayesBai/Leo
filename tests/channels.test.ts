@@ -84,11 +84,12 @@ test('new compositions produce distinct actual PNGs from identical content, pres
   await assert.rejects(renderStorePoster(draft('poster'), '模拟', images, template('poster'), '模拟', '模拟', aborted), { name: 'AbortError' });
 });
 
-test('XHS cover, checklist and closing pages are visually different and form one complete sequence', async () => {
+test('XHS cover and useful information pages form a sequence without a generic closing page', async () => {
   const d = draft('xiaohongshu'); d.blocks.push({ ...d.blocks[0], id: 'b2', heading: '再确认' });
   const pages = planXhs(d, d.titles[0], images);
-  assert.deepEqual(pages.map(p => p.kind), ['cover', 'checklist', 'checklist', 'closing']);
+  assert.deepEqual(pages.map(p => p.kind), ['cover', 'checklist', 'checklist']);
   const pngs = await renderXhs(pages, template('xiaohongshu'), '纯模拟 · 待复核', '模拟机型');
   const samples = await Promise.all([pngs[0], pngs[1], pngs.at(-1)!].map(png => sharp(png).resize(1, 1).removeAlpha().raw().toBuffer()));
-  assert.ok(!samples[0].equals(samples[1]) && !samples[1].equals(samples[2]));
+  assert.ok(!samples[0].equals(samples[1]));
+  assert.ok(pages.at(-1)!.text.includes(d.cta));
 });

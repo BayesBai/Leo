@@ -6,7 +6,14 @@ import { assertEvidenceCurrent, captureEvidenceBinding, restoreEvidenceBinding, 
 import { confirmedOutline, createOutline, getOutline, outlineRevisionPlatforms, publicOutline, reviseOutline, validateOutline, WorkflowError } from './outlines.js';
 import { assembleChannelRun, channelPipelineSignature, parseBrief, publicResult, reusableEvidence, runChannelPipeline, type ChannelCheckpoint } from './pipeline.js';
 import { getSavedRun, saveRun } from './history.js';
-import { publishRunBundles, renderRun, renderTemplates, validateRender } from './render/index.js';
+import { saveDelivery, deliveryRenderSource, updateDeliveryBundle, hydrateJobDeliveries, deliveryDetail } from './deliveries.js';
+import { renderVisualDelivery } from './visual-workflow.js';
+import { renderPosterDelivery } from './poster-workflow.js';
+import { assertCurrentRenderRequest, externalDesignPaused } from './integrations/paused.js';
+import { getRunBundles, renderRun, renderTemplates, validateRender } from './render/index.js';
+import { executeVideoJob, videoSource } from './video-workflow.js';
+import { videoScriptFingerprint } from './video-script.js';
+import { imageConfigurationHash } from './image-binding.js';
 
 const configurationHash = () => withModelExecution({ config: undefined }, () => digest({ ...modelConfig(), credential: process.env.LLM_API_KEY || '' }));
 function currentEvidence(outline: OutlineResult, binding?: EvidenceBinding) {
@@ -28,7 +35,9 @@ function outlineIdentityCurrent(record: StoredJob, insideRevision = false) {
 function templateRequest(record: StoredJob, platform: Platform): RenderRequest {
   const input = record.job.input;
   const selected = input.kind === 'generate' ? input.renders?.find(r => r.platform === platform) : undefined;
-  return { runId: record.runId, revision: 1, platform, selectedTitleIndex: selected?.selectedTitleIndex || 0, templateId: selected?.templateId || renderTemplates.find(t => t.platform === platform)!.id };
+  return { runId: record.runId, revision: 1, platform, selectedTitleIndex: selected?.selectedTitleIndex || 0, templateId: selected?.templateId || renderTemplates.find(t => t.platform === platform)!.id,
+    ...((record.rendererMode==='html'||record.rendererMode==='html-v2')&&['wechat','xiaohongshu'].includes(platform)?{visualMode:'html' as const}:{}),
+    ...(record.rendererMode==='html-v2'&&platform==='poster'?{visualMode:'poster-image' as const}:{}) };
 }
 function channelResult(record: StoredJob, cp: ChannelCheckpoint): RunResult {
   const outline = record.snapshot!;
@@ -37,6 +46,8 @@ function channelResult(record: StoredJob, cp: ChannelCheckpoint): RunResult {
 }
 async function executeJob(record: StoredJob, ctx: JobContext) {
   const { job } = record; const input = job.input;
+  if(input.kind==='video'){await executeVideoJob(record,ctx,{configurationHash});return;}
+  if(input.kind==='render')assertCurrentRenderRequest(input.request);
   const config = snapshotModelConfig();
   await withModelExecution({ jobId: job.id, config, onCall: ctx.call, beforeDispatch: () => {
     ctx.signal.throwIfAborted();
@@ -81,16 +92,20 @@ async function executeJob(record: StoredJob, ctx: JobContext) {
       return;
     }
     if (input.kind === 'render') {
-      const saved = getSavedRun(input.request.runId, true);
+      const saved = { result: input.request.deliveryId ? deliveryRenderSource(input.request.deliveryId) : getSavedRun(input.request.runId, true).result };
       if (saved.result.revision !== input.request.revision) throw new WorkflowError(409, '正文版本不一致，请载入最新记录。');
       const channel = job.channels[0]; channel.status = 'running'; channel.stage = 'render'; ctx.save();
-      const bundle = await renderRun(saved.result, input.request, ctx.signal); job.renderBundles = [bundle]; channel.status = 'completed'; ctx.save(); return;
+      const bundle = input.request.visualMode==='poster-image' ? await renderPosterDelivery(saved.result,input.request,record,ctx) : input.request.visualMode==='html' ? await renderVisualDelivery(saved.result, input.request, record, ctx) : await renderRun(saved.result, input.request, ctx.signal, { expiresAt: input.request.deliveryId ? getRunBundles(saved.result.id).filter(b=>b.platform===input.request.platform).sort((a,b)=>Date.parse(a.expiresAt)-Date.parse(b.expiresAt))[0]?.expiresAt : undefined });
+      if (input.request.deliveryId) { channel.deliveryId = input.request.deliveryId; channel.delivery = updateDeliveryBundle(input.request.deliveryId, bundle); }
+      job.renderBundles = [bundle]; channel.status = 'completed'; ctx.save(); return;
     }
     outlineIdentityCurrent(record);
     const outline = record.snapshot!; currentEvidence(outline, record.binding as EvidenceBinding | undefined);
     await Promise.all(job.channels.map(async channel => {
       if (channel.status === 'completed') return;
       try {
+        const plannedRequest=templateRequest(record,channel.platform);
+        if(outline.brief.mode==='live'&&channel.platform!=='moments'&&!plannedRequest.visualMode)throw externalDesignPaused();
         channel.status = 'running'; delete channel.error; ctx.save();
         const signature = channelPipelineSignature(outline, channel.platform);
         const cacheKey = digest({ signature, config: record.configHash, binding: record.binding });
@@ -120,7 +135,15 @@ async function executeJob(record: StoredJob, ctx: JobContext) {
         if (completed.rechecked) ctx.acknowledge('recheck', channel.platform);
         channel.preview = { draft: completed.draft!, review: completed.review!, bundle: channel.preview?.bundle };
         channel.stage = 'render'; ctx.save(); currentEvidence(outline, record.binding as EvidenceBinding | undefined);
-        const bundle = await renderRun(channelResult(record, completed), templateRequest(record, channel.platform), ctx.signal, { publication: 'preview' });
+        const delivery = saveDelivery({ runId: record.runId, jobId: job.id, outline, draft: completed.draft!, review: completed.review! });
+        channel.deliveryId = delivery.id; channel.delivery = delivery; ctx.save();
+        const request = { ...templateRequest(record, channel.platform), deliveryId: delivery.id };
+        const source = deliveryRenderSource(delivery.id);
+        const bundle = request.visualMode==='poster-image'
+          ? await renderPosterDelivery(source,request,record,ctx)
+          : request.visualMode==='html' ? await renderVisualDelivery(source, request, record, ctx)
+          : await renderRun(source, request, ctx.signal);
+        channel.delivery = updateDeliveryBundle(delivery.id, bundle);
         channel.preview.bundle = bundle; job.renderBundles = [...job.renderBundles.filter(b => b.platform !== channel.platform), bundle];
         channel.status = 'completed'; ctx.save();
       } catch (error) {
@@ -135,8 +158,8 @@ async function executeJob(record: StoredJob, ctx: JobContext) {
       const result = assembleChannelRun(outline, checkpoints, record.runId);
       // A complete run exists only after every selected channel has a final review.
       if (!job.result) { saveRun(result, outline.evidence, outline); job.result = publicResult(result); ctx.save(); }
-      job.renderBundles = await publishRunBundles(job.result, ctx.signal);
-      for (const channel of job.channels) if (channel.preview) channel.preview.bundle = job.renderBundles.find(b => b.platform === channel.platform);
+      // Independent deliveries retain each channel's own review and export gate.
+      job.renderBundles = job.channels.flatMap(channel => channel.preview?.bundle ? [channel.preview.bundle] : []);
       ctx.save();
     }
   });
@@ -148,14 +171,21 @@ export function jobs() {
 }
 export function submitJob(submission: JobSubmit): BackgroundJob {
   const { idempotencyKey, ...rawInput } = submission;
-  const input = rawInput as JobInput; const queue = jobs();
+  const input = rawInput as JobInput;
+  if(input.kind==='render')assertCurrentRenderRequest(input.request);
+  const queue = jobs();
   if (input.kind === 'outline') input.brief = parseBrief(input.brief);
   const existing = queue.findSubmission(idempotencyKey, input); if (existing) return existing;
   const config = modelConfig(); const model = { name: config.name, baseUrl: config.baseUrl };
   if (input.kind === 'outline') { input.brief = parseBrief(input.brief); return queue.submit(idempotencyKey, input, model, input.brief.platforms); }
+  if(input.kind==='video') {
+    const {delivery,source,fingerprint,expiresAt}=videoSource(input.deliveryId),textFingerprint=videoScriptFingerprint(source);
+    const retained=queue.recoverVideoSubmission(idempotencyKey,input,textFingerprint,fingerprint);if(retained)return retained;
+    return queue.submit(idempotencyKey,input,model,[delivery.platform],{checkpoints:{videoMode:'script-v2',videoTextFingerprint:textFingerprint,videoSource:{fingerprint,expiresAt,retrySequence:0}}});
+  }
   if (input.kind === 'render') {
-    const saved = getSavedRun(input.request.runId, true); validateRender(saved.result, input.request);
-    return queue.submit(idempotencyKey, input, model, [input.request.platform]);
+    const source = input.request.deliveryId ? deliveryRenderSource(input.request.deliveryId) : getSavedRun(input.request.runId, true).result; validateRender(source, input.request);
+    return queue.submit(idempotencyKey, input, model, [input.request.platform], (['html','poster-image'].includes(input.request.visualMode||'') ? { imageConfigHash: imageConfigurationHash() } : {}));
   }
   if (queue.hasOutlineUse(input.outlineId)) throw new WorkflowError(409, '此大纲已有待完成任务，请先查看该任务或显式停止。');
   const outline = input.kind === 'generate' ? confirmedOutline(input.outlineId, input.version) : getOutline(input.outlineId, input.version);
@@ -166,7 +196,7 @@ export function submitJob(submission: JobSubmit): BackgroundJob {
   }
   if (input.kind === 'outline-revise' && input.platforms?.some(p => !outline.brief.platforms.includes(p))) throw new WorkflowError(400, '修改渠道必须来自此大纲。');
   const platforms = input.kind === 'outline-revise' ? outlineRevisionPlatforms(input.instructions, outline.brief.platforms, input.platforms) : outline.brief.platforms;
-  const submitted = queue.submit(idempotencyKey, input, model, platforms, { snapshot: publicOutline(outline), binding: captureEvidenceBinding(outline.evidence) });
+  const submitted = queue.submit(idempotencyKey, input, model, platforms, { snapshot: publicOutline(outline), binding: captureEvidenceBinding(outline.evidence),...(input.kind==='generate'?{rendererMode:'html-v2' as const,...(outline.brief.platforms.some(platform=>platform!=='moments')?{imageConfigHash:imageConfigurationHash()}:{})}:{}) });
   // The immutable snapshot is public immediately, even before a worker starts.
   return { ...submitted, outline: publicOutline(outline) };
 }

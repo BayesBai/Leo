@@ -1,0 +1,81 @@
+{
+  "version": "2026-10-23-160001",
+  "createdAt": "2026-10-23T16:00:01+08:00",
+  "previousVersion": "2026-10-23-155558",
+  "task": "用户隐藏录入后加载ima配置并执行真实连接与一个型号图文取证",
+  "apiConclusion": "已核对，无接口变更",
+  "configuration": {
+    "localFilePermissions": "600",
+    "clientPresent": true,
+    "keyPresent": true,
+    "aliasesConsistent": true,
+    "inheritedCredentialConflict": false,
+    "credentialsReadOnlyInsidePrivateProcess": true,
+    "credentialValuesPrintedOrArchived": false,
+    "environmentFileModifiedByAgent": false
+  },
+  "runtime": {
+    "pendingJobsBeforeSettings": 0,
+    "settingsHttpStatus": 200,
+    "imaSettingsApplied": true,
+    "verifyHttpStatus": 200,
+    "metadataVerified": true,
+    "finalStatusHttpStatus": 200,
+    "finalConfigured": true,
+    "finalVerified": true,
+    "serverRestarted": false,
+    "textOrImageSettingsUpdated": false
+  },
+  "realEvidence": {
+    "succeeded": true,
+    "samples": 1,
+    "sourceMode": "ima",
+    "factCount": 10,
+    "imageCount": 6,
+    "allFactsFromIma": true,
+    "allImagesBoundToProduct": true,
+    "sourceMatches": true,
+    "imageBytesAndMimeVerified": true,
+    "imageDimensionsVerified": true,
+    "imageFormats": [
+      "image/jpeg"
+    ],
+    "evidenceCurrentCheckPassed": true,
+    "localKnowledgeFallbackDisabled": true,
+    "stateDirectoryIsolated": true,
+    "temporaryWorkingDirectoryUsed": true,
+    "privateTemporaryFilesRemoved": true,
+    "visualProductAppearanceManuallyVerified": false
+  },
+  "requests": {
+    "externalImaAndMediaReadOccurred": true,
+    "exactExternalRequestCount": "not instrumented; no numeric total claimed",
+    "metadataVerificationRuns": 2,
+    "existingServerSettingsPosts": 1,
+    "existingServerVerifyPosts": 1,
+    "textModelCalls": 0,
+    "imageGenerationCalls": 0,
+    "businessJobsCreated": 0
+  },
+  "testsRun": false,
+  "typecheckRun": false,
+  "buildRun": false,
+  "historicalVerificationNotRepeated": {
+    "imaMockAndCliTests": "18 passed in 2026-10-23-155111; historical only",
+    "imageMigrationTestsAndRealPoster": "previous-image-acceptance.json; historical only"
+  },
+  "notVerified": [
+    "其他产品型号",
+    "未来读取配额/续期后的权限",
+    "人工核对产品外观/事实销售适用条件",
+    "文案/生图/视频流程",
+    "云服务器出网与凭证注入",
+    "公网身份/Host/Origin/渲染容器",
+    "正式部署"
+  ],
+  "gitOperations": {
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  }
+}

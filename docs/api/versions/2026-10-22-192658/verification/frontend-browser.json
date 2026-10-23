@@ -1,0 +1,197 @@
+{
+  "task": "frontend functional review and browser-local Mock smoke checks",
+  "startedAt": "2026-10-22T11:04:10.569Z",
+  "finishedAt": "2026-10-22T11:05:37.753Z",
+  "readOnlyProjectReview": true,
+  "projectFilesModified": false,
+  "environment": {
+    "server": "isolated static Vite development server",
+    "baseUrl": "http://127.0.0.1:9768",
+    "browser": "Playwright Chromium 1248 headless",
+    "desktopViewport": {
+      "width": 1440,
+      "height": 1000
+    },
+    "mobileViewport": {
+      "width": 390,
+      "height": 844
+    },
+    "apiTransport": "browser-local createMockTransport only; no API calls dispatched to real server",
+    "unrelatedServer9756": "untouched"
+  },
+  "checks": [
+    {
+      "name": "desktop four-channel editable outline, dirty guard, save v2, confirmation, drawer focus",
+      "passed": true,
+      "elapsedMs": 4250,
+      "outlineTabs": 4,
+      "savedVersion": 2
+    },
+    {
+      "name": "desktop four-channel generation, final bundles, channel switching, ZIP download and history restore",
+      "passed": true,
+      "elapsedMs": 5664,
+      "outputs": [
+        {
+          "channel": "微信公众号",
+          "iframe": 1,
+          "images": 0
+        },
+        {
+          "channel": "小红书",
+          "iframe": 0,
+          "images": 1
+        },
+        {
+          "channel": "朋友圈",
+          "iframe": 0,
+          "images": 1
+        },
+        {
+          "channel": "门店海报",
+          "iframe": 0,
+          "images": 1
+        }
+      ],
+      "downloadBytes": 8582,
+      "historyRunRestored": true
+    },
+    {
+      "name": "failed job preserves sibling previews, warns about unknown consumption, retry reaches delivery",
+      "passed": true,
+      "elapsedMs": 8222,
+      "beforeRetryExportControls": 0,
+      "retryCompleted": true
+    },
+    {
+      "name": "blocked final review disables text and visual exports",
+      "passed": true,
+      "elapsedMs": 4781,
+      "disabledExports": [
+        "body copy",
+        "markdown",
+        "ZIP",
+        "rendered copy"
+      ]
+    },
+    {
+      "name": "mobile workflow, delivery view switching and task drawer",
+      "passed": true,
+      "elapsedMs": 4983,
+      "viewport": {
+        "width": 390,
+        "client": 390,
+        "scroll": 390,
+        "video": 0
+      }
+    },
+    {
+      "name": "empty catalog fails closed and no submission enabled",
+      "passed": true,
+      "elapsedMs": 2232
+    },
+    {
+      "name": "slow background generation does not steal new-task navigation; task-center reopening restores delivery",
+      "passed": true,
+      "elapsedMs": 23007,
+      "newTaskInputPreserved": true,
+      "backgroundCompletionDidNotNavigate": true,
+      "taskDetailRestored": true
+    }
+  ],
+  "checkCount": 7,
+  "passed": true,
+  "confirmedFrontendBugs": [],
+  "unhandledPageErrors": [],
+  "externalNetworkAttempts": [],
+  "inspectedFiles": [
+    {
+      "path": "AGENTS.md",
+      "sha256": "dabfdf0a3ad1b6cc3b03afe550152d37be2a724d8f3655fc624ab5515b4d0d55"
+    },
+    {
+      "path": "docs/api/README.md",
+      "sha256": "e0831c0736f742975e856a83cb003fc8d0f117432c64f7a50e9d76f91ed9e226"
+    },
+    {
+      "path": "docs/api/versions/2026-10-22-175136/frontend-handoff.md",
+      "sha256": "cba6946ca977b14eed6375b40fce5b5c260d5b368bef79654c20fac57b554bf9"
+    },
+    {
+      "path": "server/index.ts",
+      "sha256": "f53d7eafec91ce9bb96d395ecd632140ffcb3b83cbcf9c3ef127b3fca60e88e6"
+    },
+    {
+      "path": "server/schemas.ts",
+      "sha256": "ad931c16bedd7ee98d7a75676203bf2637ba0c704084c927faf223c6a78b6643"
+    },
+    {
+      "path": "shared/types.ts",
+      "sha256": "86959b96525636d026eac293dd7a23efd59e880f2fa52194687ff507b9046ab3"
+    },
+    {
+      "path": "src/WorkflowApp.tsx",
+      "sha256": "4bda551c6d3d2ec8f09e3888adfca59189659b7ea1da1b81902954d05d54b38f"
+    },
+    {
+      "path": "src/api/client.ts",
+      "sha256": "b5f78de53599144d3d418f46ead64da2260dd2e4cf39861d797d836e5cd0858e"
+    },
+    {
+      "path": "src/api/mock.ts",
+      "sha256": "0bf129786798d1036429637788d432e5fce0f66cd2cb50c174b78e5c60f5fcf5"
+    },
+    {
+      "path": "src/BackgroundTasks.tsx",
+      "sha256": "cce20eef464477e3e02dd6c7b88f643ecf7230123be84f688c362c6338f87b34"
+    },
+    {
+      "path": "src/job-state.ts",
+      "sha256": "072773ab617bf62a1ffea6b321e8d14d3e038b420657ab1959033676680f6552"
+    },
+    {
+      "path": "src/RenderPanel.tsx",
+      "sha256": "772c731ca50ed275b37a18d2fecd4daec6b03da5d5b1aa24ee509299f3403801"
+    },
+    {
+      "path": "src/TaskForm.tsx",
+      "sha256": "7b73b7aa7834c7f2401d2a36c072208f99b4356dc75556f63d3e09b597618032"
+    },
+    {
+      "path": "src/ChannelComparison.tsx",
+      "sha256": "5a601a4c1ec193e783fb9b7bca2551bbec16abeb7df17cb9ea3f82b863010ace"
+    },
+    {
+      "path": "src/virgo/OutlinePage.tsx",
+      "sha256": "2e189b85cba72bebff3831930c3e19dbaa4bec5c0208f47a136ab032a05232d2"
+    },
+    {
+      "path": "src/virgo/Controls.tsx",
+      "sha256": "e389feea9d391ed7883ab1f40b429a06bc805c7cea76af4d7d81a4d46de0cf4b"
+    },
+    {
+      "path": "src/virgo/WorkbenchBackground.tsx",
+      "sha256": "bf1fc14715c567f21281595491e808a1a308a385ede3fb1cce69d26f42965937"
+    },
+    {
+      "path": "src/virgo/workbench-focus.ts",
+      "sha256": "4920f1381e061a23641b59972ed34b1792b253c8606bd4fb6dc58407a89eae14"
+    }
+  ],
+  "scope": "Reviewed frontend Job submit/idempotent reconciliation, compact snapshot detail retention, selection ownership, editable outline save/confirm gates, render identity, publication/export restrictions, task input constraints and history integration against shared/types.ts, server/schemas.ts and server/index.ts. Browser cases cover actual React UI behavior with pure fixtures.",
+  "limitations": [
+    "No real model or ima calls and no paid services",
+    "No durable real-backend refresh/restart validation by this frontend subtask",
+    "No platform publishing, real Clipboard permission, provider billing verification or visual/accessibility certification",
+    "Mobile check uses a 390px browser viewport, not a physical mobile device",
+    "Initial smoke harness had two selector mistakes (collapsed editor and incorrect task drawer title); corrected and all six scenarios were rerun successfully. The initial failure artifact is harness-only and not a product defect.",
+    "Full npm test and production build were run by the main agent, not repeated or counted in these seven browser checks."
+  ],
+  "temporaryEvidence": [
+    "/tmp/hackson-frontend-smoke.mjs",
+    "/tmp/hackson-frontend-smoke.json",
+    "/tmp/hackson-frontend-background-smoke.mjs",
+    "/tmp/hackson-frontend-background-smoke.json",
+    "/tmp/hackson-frontend-smoke-initial-harness-errors.json"
+  ]
+}

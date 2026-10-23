@@ -47,16 +47,19 @@ test('background jobs survive subscription and submit connection closure; a new 
   assert.equal(complete.outline?.platforms.length, 4); assert.ok(snapshots.length > 0);
 });
 
-test('first channel preview arrives before slowest channel, with no final result or exports', async () => {
+test('first channel delivers before slowest channel without pretending a partial set is a final result', async () => {
   const client = createWorkflowClient(createMockTransport('ok', { latencyMs: 10 })); const outline = await confirmed(client);
   const job = await client.submitJob({ kind: 'generate', outlineId: outline.id, version: outline.version, idempotencyKey: crypto.randomUUID() });
   const partial = await until(detail(client, job.id), job => job.renderBundles.length > 0);
   assert.equal(partial.status, 'running'); assert.equal(partial.result, undefined);
   assert.ok(partial.channels.some(channel => channel.status !== 'completed'));
-  assert.ok(partial.renderBundles.every(bundle => bundle.publication === 'preview' && !bundle.zipUrl && bundle.copyText === '' && bundle.artifacts.every(artifact => !artifact.downloadUrl)));
+  assert.ok(partial.renderBundles.every(bundle => bundle.publication === 'released' && bundle.deliveryId && bundle.zipUrl && bundle.copyText && bundle.artifacts.every(artifact => artifact.downloadUrl)));
+  assert.equal((await client.apiFetch(partial.renderBundles[0].zipUrl!)).status, 200);
+  const firstIds=partial.renderBundles.map(bundle=>bundle.id);
   const complete = await until(detail(client, job.id), job => job.status === 'completed');
   assert.equal(complete.result?.drafts.length, 4); assert.equal(complete.renderBundles.length, 4);
-  assert.ok(complete.renderBundles.every(bundle => bundle.publication === 'released' && bundle.zipUrl));
+  assert.ok(complete.renderBundles.every(bundle => bundle.platform === 'poster' ? bundle.publication === 'preview' && bundle.posterApproval?.status === 'pending' && !bundle.zipUrl : bundle.publication === 'released' && bundle.zipUrl));
+  assert.ok(firstIds.every(id=>complete.renderBundles.some(bundle=>bundle.id===id)), 'whole-job completion must reuse already delivered assets');
 });
 
 test('failed channel retry preserves successful channel and completed writing checkpoints', async () => {
@@ -75,7 +78,7 @@ test('failed channel retry preserves successful channel and completed writing ch
   assert.deepEqual(complete.channels.filter(channel => successful.some(saved => saved.platform === channel.platform)).map(channel => channel.preview!.draft.id), originalDraftIds);
 });
 
-test('explicit cancel affects only one job and blocked final review retains the global export gate', async () => {
+test('explicit cancel affects only one job and a blocked channel retains its own export gate', async () => {
   const client = createWorkflowClient(createMockTransport('blocked', { latencyMs: 5 })); const outline = await confirmed(client);
   const cancelled = await client.submitJob({ kind: 'generate', outlineId: outline.id, version: outline.version, idempotencyKey: crypto.randomUUID() });
   const other = await client.submitJob({ kind: 'outline', brief, idempotencyKey: crypto.randomUUID() });
@@ -85,7 +88,16 @@ test('explicit cancel affects only one job and blocked final review retains the 
   const blocked = await client.submitJob({ kind: 'generate', outlineId: outline.id, version: outline.version, idempotencyKey: crypto.randomUUID() });
   const complete = await until(detail(client, blocked.id), job => job.status === 'completed');
   assert.equal(complete.result?.review.status, 'blocked');
-  assert.ok(complete.renderBundles.every(bundle => bundle.publication === 'blocked' && !bundle.zipUrl && bundle.artifacts.every(artifact => !artifact.downloadUrl)));
+  const blocking=complete.result!.review.issues.filter(issue=>issue.severity==='error');
+  for(const bundle of complete.renderBundles){
+    const blocked=blocking.some(issue=>!issue.platform||issue.platform===bundle.platform);
+    assert.equal(bundle.publication,blocked?'blocked':bundle.platform==='poster'?'preview':'released');
+    if(blocked){assert.equal(bundle.zipUrl,undefined);assert.equal(bundle.copyText,'');assert.ok(bundle.artifacts.every(artifact=>!artifact.downloadUrl));}
+    else if(bundle.platform==='poster'){assert.equal(bundle.posterApproval?.status,'pending');assert.equal(bundle.zipUrl,undefined);}
+    else{assert.ok(bundle.zipUrl);assert.equal((await client.apiFetch(bundle.zipUrl!)).status,200);}
+  }
+  assert.ok(complete.renderBundles.some(bundle=>bundle.publication==='blocked'));
+  assert.ok(complete.renderBundles.some(bundle=>bundle.publication==='released'));
 });
 
 test('unknown submission without a matching persistent key is never automatically resubmitted', async () => {
@@ -121,12 +133,14 @@ test('compact terminal events invalidate stale detail and keep the exact hydrate
   assert.equal(mergeJobSnapshot([full], [{ ...initial, detailOmitted: true, updatedAt: '2000-01-01T00:00:00Z' }])[0], full);
 });
 
-test('released render identity supersedes pending assets and cannot regress on an older preview snapshot', async () => {
+test('independent assets retain identity at final completion and released identity cannot regress to a legacy preview', async () => {
   const client = createWorkflowClient(createMockTransport('ok', { latencyMs: 4 })); const outline = await confirmed(client);
   const job = await client.submitJob({ kind: 'generate', outlineId: outline.id, version: outline.version, idempotencyKey: crypto.randomUUID() });
   const partial = await until(detail(client, job.id), job => job.renderBundles.length > 0); const preview = partial.renderBundles[0];
   const complete = await until(detail(client, job.id), job => job.status === 'completed'); const released = complete.renderBundles.find(bundle => bundle.platform === preview.platform)!;
-  assert.notEqual(released.id, preview.id);
-  assert.deepEqual(mergeJobBundles([preview], [released]), [released]);
-  assert.deepEqual(mergeJobBundles([released], [preview]), [released]);
+  assert.equal(released.id, preview.id);
+  assert.equal(released.expiresAt,preview.expiresAt);
+  const legacyPreview={...preview,id:'legacy-preview-handle',publication:'preview' as const,zipUrl:undefined,copyText:'',artifacts:preview.artifacts.map(({downloadUrl:_,...artifact})=>artifact)};
+  assert.deepEqual(mergeJobBundles([legacyPreview], [released]), [released]);
+  assert.deepEqual(mergeJobBundles([released], [legacyPreview]), [released]);
 });

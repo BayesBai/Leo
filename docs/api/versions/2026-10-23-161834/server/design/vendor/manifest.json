@@ -1,0 +1,135 @@
+[
+  {
+    "path": "canvas-design/SKILL.md",
+    "repository": "https://github.com/anthropics/skills",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "sourcePath": "skills/canvas-design/SKILL.md",
+    "sha256": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b"
+  },
+  {
+    "path": "canvas-design/LICENSE.txt",
+    "repository": "https://github.com/anthropics/skills",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "sourcePath": "skills/canvas-design/LICENSE.txt",
+    "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362"
+  },
+  {
+    "path": "meitu-poster/SKILL.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/SKILL.md",
+    "sha256": "af81720e69e0080a9ae32dbfb456553a1da0bcfdc52327524977a39034660942"
+  },
+  {
+    "path": "meitu-poster/LICENSE",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "LICENSE",
+    "sha256": "94b7b936e1206de388f3b8bb094c51efc340c682ea064594d0435b49b9aba211"
+  },
+  {
+    "path": "baoyu-skills/baoyu-xhs-images-SKILL.md",
+    "repository": "https://github.com/JimLiu/baoyu-skills",
+    "commit": "1567581c26ec29f4216c6e6835415bf30343b0e3",
+    "sourcePath": "skills/baoyu-xhs-images/SKILL.md",
+    "sha256": "17bf5498641cc60cb98f0cc15fbea27fd42777d119a39fb54fd6418840442bba"
+  },
+  {
+    "path": "baoyu-skills/baoyu-markdown-to-html-SKILL.md",
+    "repository": "https://github.com/JimLiu/baoyu-skills",
+    "commit": "1567581c26ec29f4216c6e6835415bf30343b0e3",
+    "sourcePath": "skills/baoyu-markdown-to-html/SKILL.md",
+    "sha256": "f4a5bb1697f9387557897a9c58b6406765728089a8d84cfbb6c40a93c3d136f7"
+  },
+  {
+    "path": "baoyu-skills/LICENSE",
+    "repository": "https://github.com/JimLiu/baoyu-skills",
+    "commit": "1567581c26ec29f4216c6e6835415bf30343b0e3",
+    "sourcePath": "LICENSE",
+    "sha256": "601839401f6ce68b7a8aec0f7ba247ab8ef0848113378220bec4b2615cc84ee7"
+  },
+  {
+    "path": "meitu-poster/references/design-constraints.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/references/design-constraints.md",
+    "sha256": "d90a339f003edecc2734558f1fea7351325a919c8523c2a17842e2d603a71b16"
+  },
+  {
+    "path": "meitu-poster/references/creative-framework.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/references/creative-framework.md",
+    "sha256": "c728c09658bb9cce58345d96b0de67cebac8e883768642578db897b737839f29"
+  },
+  {
+    "path": "meitu-poster/references/output-formats.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/references/output-formats.md",
+    "sha256": "4ab98ecd5772350b114e7920b99783e4216f3c14e7103303c91598945edeb486"
+  },
+  {
+    "path": "premium-animations/SKILL.md",
+    "repository": "https://github.com/filipe-dev-macae/premium-animations",
+    "commit": "da3a868899f50c35a56456fe45a2993f41d00598",
+    "sourcePath": "SKILL.md",
+    "sha256": "902e71bd41bd8131f09e00a6bfbca46892a2373d6a437d9f3a0fa904452c7538"
+  },
+  {
+    "path": "premium-animations/LICENSE",
+    "repository": "https://github.com/filipe-dev-macae/premium-animations",
+    "commit": "da3a868899f50c35a56456fe45a2993f41d00598",
+    "sourcePath": "LICENSE",
+    "sha256": "85a5ee3747e5951928011fd9aa1b5671365e4625015a0e4feaa0aba4748cd0c6"
+  },
+  {
+    "path": "ui-animation/SKILL.md",
+    "repository": "https://github.com/LukasStrickler/ai-dev-atelier",
+    "commit": "251d639e182925a8c77bd651414bb92ddce23ffa",
+    "sourcePath": "content/skills/ui-animation/SKILL.md",
+    "sha256": "c5ca95323a352d988f4936c29f25b726656e395738417a241f47b3cc67141149"
+  },
+  {
+    "path": "ui-animation/LICENSE",
+    "repository": "https://github.com/LukasStrickler/ai-dev-atelier",
+    "commit": "251d639e182925a8c77bd651414bb92ddce23ffa",
+    "sourcePath": "LICENSE",
+    "sha256": "ee8ca5a39d76d75e75781d240393bbeee8d08033227052c4c09af6089a9a6f7b"
+  },
+  {
+    "path": "gsap-skills/gsap-core-SKILL.md",
+    "repository": "https://github.com/greensock/gsap-skills",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "sourcePath": "skills/gsap-core/SKILL.md",
+    "sha256": "3887b47e050ab5afbe2a9a820f23d39fa02ab785e06a343be44c6f91d84d12b3"
+  },
+  {
+    "path": "gsap-skills/gsap-timeline-SKILL.md",
+    "repository": "https://github.com/greensock/gsap-skills",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "sourcePath": "skills/gsap-timeline/SKILL.md",
+    "sha256": "1a8b0f39cc4be3ed3d834b89672e4ae2f151b901dc3450bebf10bbc45379fe02"
+  },
+  {
+    "path": "gsap-skills/LICENSE",
+    "repository": "https://github.com/greensock/gsap-skills",
+    "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+    "sourcePath": "LICENSE",
+    "sha256": "51b04b06556662dd817e8f4aa6d06bc7139dc73739e1319a7233cfde3e147b90"
+  },
+  {
+    "path": "html-animation/SKILL.md",
+    "repository": "https://github.com/drewharvey/claude-html-animation-skill",
+    "commit": "a259265a0d36e5300d43ba2e4cb4fb43cc466fe0",
+    "sourcePath": "SKILL.md",
+    "sha256": "713694b88b39d92aa769cd3aa0016a5b563b81028216353ec98dbe5b38a056e3"
+  },
+  {
+    "path": "html-animation/LICENSE",
+    "repository": "https://github.com/drewharvey/claude-html-animation-skill",
+    "commit": "a259265a0d36e5300d43ba2e4cb4fb43cc466fe0",
+    "sourcePath": "LICENSE",
+    "sha256": "e2ee91175deeeb8e286b0e4ce825c1c87d7c4734b3240e33b92758caf2005710"
+  }
+]

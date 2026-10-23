@@ -1,0 +1,238 @@
+{
+  "status": "final",
+  "previousVersion": "2026-10-22-205701",
+  "initialKnownFacts": {
+    "canvaOAuth": "User completed authorization; root read-only check reports connected=true.",
+    "paidCalls": "None launched yet at task creation."
+  },
+  "offlineValidation": {
+    "status": "passed",
+    "targeted": {
+      "passed": 31,
+      "failed": 0
+    },
+    "typeCheck": "passed",
+    "initialFullSuite": {
+      "passed": 254,
+      "failed": 1,
+      "reason": "Chromium page load timeout; no provider request.",
+      "originalLogArchived": false,
+      "source": "Root observed result; original full log not retained. No fabricated log."
+    },
+    "affectedFileRerun": {
+      "passed": 6,
+      "failed": 0
+    },
+    "testConcurrency": 2,
+    "runtimeConcurrencyChanged": false,
+    "source": "Root report, cross-checked final offline test summary; frozen source snapshots.",
+    "finalFullSuite": {
+      "passed": 257,
+      "failed": 0,
+      "skipped": 0,
+      "cancelled": 0,
+      "durationMs": 73216.638403,
+      "testConcurrency": 2
+    },
+    "productionBuild": {
+      "status": "passed",
+      "sequentialAfterFullTests": true,
+      "includesTypeCheck": true,
+      "warning": "Existing Vite chunk size warning only.",
+      "source": "Root final report and safe build log; built in 3.14s.",
+      "bundlerDurationMs": 3140
+    },
+    "newAcceptanceScript": {
+      "prepared": true,
+      "offlineFakeApiRecoveryCheck": "passed per root report",
+      "realPaidRun": false
+    },
+    "logFiles": [
+      "offline-tests.log",
+      "build.log"
+    ]
+  },
+  "realReadOnlyPreflight": {
+    "status": "failed_initial_attempt",
+    "durationMs": 2237,
+    "localHttpStatus": 502,
+    "reportedCode": "CANVA_PROVIDER",
+    "reportedOutcome": "Initial generic response described uncertainty; later phase-aware diagnostics distinguish read-only preflight from uncertain design mutations.",
+    "cause": "Pending diagnosis; generic local error does not identify the exact upstream cause.",
+    "designSideEffects": {
+      "imports": 0,
+      "edits": 0,
+      "exports": 0
+    },
+    "paidImageCalls": 0,
+    "paidTextCalls": 0
+  },
+  "realFourChannelAcceptance": {
+    "status": "not started; resource-bound OAuth connected but MCP initialize fails",
+    "reason": "Both native and official SDK read-only initialize fail before tools/list, so the single paid four-channel group was not started.",
+    "newResourceCodeExchangeExecuted": true,
+    "oldOAuthAndRestDoNotProveNewAuthorization": true,
+    "paidTextCalls": 0,
+    "paidImageCalls": 0,
+    "canvaImportCalls": 0,
+    "canvaContentReadCalls": 0,
+    "canvaEditCalls": 0,
+    "canvaExportCalls": 0,
+    "desktopAndMobileRealQualityAcceptance": "not run"
+  },
+  "notice": "Only explicitly sanitized summaries may be archived. Never copy local state, product originals, auth URLs, tokens, signed exports or raw paid responses.",
+  "realReadOnlyDiagnosis": {
+    "status": "rest_passed_mcp_initialize_failed",
+    "restMetadataRead": {
+      "status": 200,
+      "savedUserDesignMetadata": false
+    },
+    "mcpInitialize": {
+      "testedProtocolVersions": [
+        "2025-03-26",
+        "2025-06-18",
+        "2025-11-25"
+      ],
+      "upstreamStatus": 500,
+      "providerCode": "internal_error",
+      "safeProviderMessage": "Unknown error occurred",
+      "toolsListReached": false,
+      "cause": "Not established. At this earlier check canonical-resource reauthorization had not happened; it was subsequently completed and still failed. See resourcePreflight and officialMcpSdkComparison."
+    },
+    "oauth": "still_connected",
+    "paidImageCalls": 0,
+    "paidTextCalls": 0,
+    "canvaImportCalls": 0,
+    "canvaEditCalls": 0,
+    "canvaExportCalls": 0,
+    "safetySemantics": {
+      "readOnlyProvider5xxRetryable": true,
+      "readOnlyOutcomeUnknown": false,
+      "automaticRetry": false
+    },
+    "authorizationGeneration": "legacy OAuth before resource target binding"
+  },
+  "apiChange": {
+    "kind": "additive_error_diagnostics_and_oauth_binding_behavior",
+    "route": "POST /api/integrations/canva/verify",
+    "note": "No new routes; success shape and message fallback remain compatible. Legacy OAuth requires one-time resource-bound reauthorization.",
+    "fields": [
+      "message",
+      "code",
+      "diagnosticId",
+      "phase?",
+      "upstreamStatus?",
+      "providerCode?",
+      "requestId?",
+      "retryable",
+      "outcomeUnknown"
+    ]
+  },
+  "afterUserPortalConfirmation": {
+    "checkedAt": "2026-10-22T21:42:07+08:00",
+    "durationMs": 2185,
+    "localHttpStatus": 502,
+    "upstreamStatus": 500,
+    "providerCode": "internal_error",
+    "phase": "mcp.initialize",
+    "toolsListReached": false,
+    "mcpToggleConfirmedEnabledByUser": true,
+    "configurationPlaceholderOrDuplicateReported": false,
+    "privateDiagnosticFileNotCopied": true
+  },
+  "resourceAuthorization": {
+    "canonicalResource": "https://api.canva.com/connect/v1/mcp",
+    "authorizationVersion": "mcp-resource-v1",
+    "includedAt": [
+      "authorize",
+      "authorization_code_exchange",
+      "refresh_token_exchange"
+    ],
+    "fingerprintBinds": [
+      "resource",
+      "authorizationVersion",
+      "scopes"
+    ],
+    "legacyTokenAction": "preserved but not upgraded/refreshed or treated as connected",
+    "legacyPendingAction": "preserved but old callback rejected",
+    "runtimeAfterReload": {
+      "configured": true,
+      "connected": false,
+      "historicalStateBeforeUserReauthorization": true
+    },
+    "userReauthorization": "completed; root confirmed current resource-bound OAuth connected=true",
+    "fixDoesNotGuaranteeUpstream500Resolution": true,
+    "latestRuntime": {
+      "configured": true,
+      "connected": true
+    }
+  },
+  "sourceFreeze": "Root confirmed all implementation/guide sources frozen; official SDK probe did not modify business code.",
+  "gitOperations": "No staging, commit or push.",
+  "resourcePreflight": {
+    "checkedAt": "2026-10-22T21:57:50.949+08:00",
+    "durationMs": 2416,
+    "localHttpStatus": 502,
+    "upstreamStatus": 500,
+    "providerCode": "internal_error",
+    "phase": "mcp.initialize",
+    "outcomeUnknown": false,
+    "diagnosticId": "31d48e1b-52fc-43d1-9fbb-751c914c165c",
+    "toolsListReached": false,
+    "source": "Root explicitly sanitized summary; raw diagnostic JSON not copied.",
+    "unauthenticatedControl": {
+      "httpStatus": 401,
+      "protectedResourceMetadata": "canonical MCP resource matched"
+    },
+    "cause": "Not established after application/configuration checks and independent official SDK initialize comparison.",
+    "paidTextCalls": 0,
+    "paidImageCalls": 0,
+    "canvaImportCalls": 0,
+    "canvaEditCalls": 0,
+    "canvaExportCalls": 0
+  },
+  "configurationReadOnlyChecks": {
+    "clientIdMatchesUserSuppliedForCurrentRound": true,
+    "inheritedShellClientIdOverridePresent": false,
+    "inheritedShellClientSecretOverridePresent": false,
+    "fallbackEnvFilePresent": false,
+    "envLocalPlaceholderOrDuplicateFound": false,
+    "wrongConfigFileOrInheritedOverrideEvidenceFound": false,
+    "scope": "Boolean conclusions supplied by root; actual identifiers and environment values omitted."
+  },
+  "finalizedAt": "2026-10-22T22:09:32+08:00",
+  "officialMcpSdkComparison": {
+    "sdk": "@modelcontextprotocol/sdk",
+    "sdkVersion": "1.32.1",
+    "protocolVersion": "2025-11-25",
+    "startedAt": "2026-10-22T22:07:13.403+08:00",
+    "httpDurationMs": 1211,
+    "totalElapsedMs": 1270,
+    "requestCount": 1,
+    "httpStatus": 500,
+    "sdkCode": 500,
+    "providerCodeExtracted": false,
+    "phase": "mcp.initialize",
+    "initializeCompleted": false,
+    "toolsListReached": false,
+    "businessToolCalls": 0,
+    "authorizationAttempted": false,
+    "authRefreshAttempted": false,
+    "credentialMode": "existing-access-token-memory-only",
+    "safeResultFile": "canva-sdk-comparison.json",
+    "interpretation": "Same initialize failure with an independent official SDK; root cause remains unconfirmed. No claim that all failures originate in Canva or that credentials are invalid."
+  },
+  "finalConclusion": {
+    "canvaConfigured": true,
+    "canonicalResourceOAuthConnected": true,
+    "mcpInitialized": false,
+    "reasonObserved": "initialize HTTP 500 with both native client and official SDK",
+    "serverRootCauseEstablished": false,
+    "canvaWorkflowAccepted": false,
+    "fourChannelRealAcceptanceCompleted": false,
+    "paidCalls": 0,
+    "designMutationCalls": 0,
+    "furtherAutomaticAuthorizationOrPaidProbes": false,
+    "supportRequestAutomaticallySent": false
+  }
+}

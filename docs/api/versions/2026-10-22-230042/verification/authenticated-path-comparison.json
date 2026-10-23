@@ -1,0 +1,50 @@
+{
+  "source": "Root sanitized actual observations; no raw output, token or proxy configuration copied.",
+  "windowStart": "2026-10-22T23:02:54.737+08:00",
+  "windowEnd": "2026-10-22T23:03:00.642+08:00",
+  "sameExistingUnexpiredToken": true,
+  "authorizationVersion": "mcp-discovery-v2",
+  "initializeBodyBytes": 173,
+  "fileContentIncluded": false,
+  "programPaths": [
+    {
+      "label": "no-explicit-proxy",
+      "meansPhysicalDirectConnection": false,
+      "restMetadata": {
+        "httpStatus": 200,
+        "elapsedMs": 986,
+        "cloudflarePop": "HKG"
+      },
+      "mcpInitialize": {
+        "httpStatus": 500,
+        "providerCode": "internal_error",
+        "elapsedMs": 1208,
+        "cloudflarePop": "HKG"
+      }
+    },
+    {
+      "label": "explicit-existing-local-http-proxy",
+      "proxyUrlOmitted": true,
+      "restMetadata": {
+        "httpStatus": 200,
+        "elapsedMs": 1726,
+        "cloudflarePop": "IAD"
+      },
+      "mcpInitialize": {
+        "httpStatus": 500,
+        "providerCode": "internal_error",
+        "elapsedMs": 1974,
+        "cloudflarePop": "EWR"
+      }
+    }
+  ],
+  "authenticatedReadOnlyHttpRequests": 4,
+  "oauthRefreshRequests": 0,
+  "newAccountAuthorizationRequests": 0,
+  "modelRequests": 0,
+  "designRequests": 0,
+  "toolsListReached": false,
+  "cloudflarePopIsExitIpOrCountry": false,
+  "popDifferenceProvesIpDrift": false,
+  "networkOrGrantRootCauseExcluded": false
+}

@@ -1,0 +1,38 @@
+{
+  "analysisResolution": [
+    160,
+    100
+  ],
+  "frames": 282,
+  "adjacentMeanAbsoluteDifferenceMedian": 0.354125,
+  "adjacentMeanAbsoluteDifferenceMax": 1.0460625,
+  "loopSeamMeanAbsoluteDifference": 1.0321875,
+  "maxAdjacentMeanLumaChange": 0.32874999999999943,
+  "lumaRange": [
+    67.69075,
+    69.1613125
+  ],
+  "containerAtoms": [
+    {
+      "type": "ftyp",
+      "offset": 0,
+      "bytes": 32
+    },
+    {
+      "type": "moov",
+      "offset": 32,
+      "bytes": 4106
+    },
+    {
+      "type": "free",
+      "offset": 4138,
+      "bytes": 8
+    },
+    {
+      "type": "mdat",
+      "offset": 4146,
+      "bytes": 3231309
+    }
+  ],
+  "note": "Frame samples and pixel bounds supplement actual three-loop browser playback; they do not certify absence of all artifacts."
+}

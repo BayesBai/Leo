@@ -1,0 +1,22 @@
+{
+  "baseUrl": "http://127.0.0.1:3000",
+  "frontendHttp": 200,
+  "statusHttp": 200,
+  "productsHttp": 200,
+  "jobsHttp": 200,
+  "model": {
+    "configured": true,
+    "name": "gpt-6.1-sol",
+    "baseUrl": "https://relay.nccnxta.cn/v1"
+  },
+  "imaConfigured": false,
+  "local": {
+    "available": true,
+    "productCount": 10,
+    "imageCount": 53
+  },
+  "listedProducts": 10,
+  "pendingJobs": 0,
+  "realModelCalls": 0,
+  "realImaCalls": 0
+}

@@ -1,0 +1,202 @@
+{
+  "checkedAt": "2026-10-21T17:34:17.780Z",
+  "endpoint": "https://relay.nccnxta.cn/v1/chat/completions",
+  "model": "gpt-6.1-sol",
+  "source": "local",
+  "success": true,
+  "imaCalled": false,
+  "stages": [
+    {
+      "phase": "status",
+      "elapsedMs": 1350
+    },
+    {
+      "phase": "outline",
+      "elapsedMs": 173281
+    },
+    {
+      "phase": "outline-revise",
+      "elapsedMs": 63448
+    },
+    {
+      "phase": "confirm",
+      "elapsedMs": 38
+    },
+    {
+      "phase": "generate",
+      "elapsedMs": 174387
+    },
+    {
+      "phase": "render-xiaohongshu",
+      "elapsedMs": 25497
+    },
+    {
+      "phase": "render-wechat",
+      "elapsedMs": 2769
+    },
+    {
+      "phase": "render-moments",
+      "elapsedMs": 1153
+    },
+    {
+      "phase": "render-poster",
+      "elapsedMs": 721
+    }
+  ],
+  "local": {
+    "available": true,
+    "productCount": 10,
+    "imageCount": 53
+  },
+  "outlineBindingVerified": true,
+  "reviewExecuted": true,
+  "repairExecuted": true,
+  "reviewStatus": "needs_attention",
+  "reviewedBy": "rules+model",
+  "draftCount": 4,
+  "issues": [
+    {
+      "severity": "warning",
+      "category": "source",
+      "target": "source",
+      "resolution": "manual_review"
+    },
+    {
+      "severity": "warning",
+      "category": "source",
+      "target": "source",
+      "resolution": "manual_review"
+    },
+    {
+      "severity": "warning",
+      "category": "source",
+      "target": "source",
+      "resolution": "manual_review"
+    }
+  ],
+  "renders": [
+    {
+      "platform": "xiaohongshu",
+      "artifacts": [
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 247371,
+          "downloadHttp": 200,
+          "downloadBytes": 247371,
+          "width": 1080,
+          "height": 1440
+        },
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 173275,
+          "downloadHttp": 200,
+          "downloadBytes": 173275,
+          "width": 1080,
+          "height": 1440
+        },
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 191721,
+          "downloadHttp": 200,
+          "downloadBytes": 191721,
+          "width": 1080,
+          "height": 1440
+        },
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 113937,
+          "downloadHttp": 200,
+          "downloadBytes": 113937,
+          "width": 1080,
+          "height": 1440
+        },
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 100052,
+          "downloadHttp": 200,
+          "downloadBytes": 100052,
+          "width": 1080,
+          "height": 1440
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 784462
+      },
+      "downloadGateVerified": false
+    },
+    {
+      "platform": "wechat",
+      "artifacts": [
+        {
+          "format": "wechat-richtext",
+          "http": 200,
+          "bytes": 2105345,
+          "downloadHttp": 200,
+          "downloadBytes": 2105345
+        },
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 223714,
+          "downloadHttp": 200,
+          "downloadBytes": 223714,
+          "width": 1200,
+          "height": 900
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 1822628
+      },
+      "downloadGateVerified": false
+    },
+    {
+      "platform": "moments",
+      "artifacts": [
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 223114,
+          "downloadHttp": 200,
+          "downloadBytes": 223114,
+          "width": 1080,
+          "height": 1080
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 209874
+      },
+      "downloadGateVerified": false
+    },
+    {
+      "platform": "poster",
+      "artifacts": [
+        {
+          "format": "png",
+          "http": 200,
+          "bytes": 290028,
+          "downloadHttp": 200,
+          "downloadBytes": 290028,
+          "width": 1080,
+          "height": 1920
+        }
+      ],
+      "zip": {
+        "http": 200,
+        "bytes": 257875
+      },
+      "downloadGateVerified": false
+    }
+  ],
+  "workflowCompleted": true,
+  "publicationPassed": false,
+  "exportAllowed": true,
+  "elapsedMs": 442657
+}

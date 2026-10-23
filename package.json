@@ -7,7 +7,7 @@
     "dev": "tsx server/start.ts",
     "build": "tsc --noEmit && vite build",
     "start": "tsx server/start.ts --production",
-    "test": "node --import tsx --import ./tests/setup.ts --test tests/*.test.ts",
+    "test": "node --import tsx --import ./tests/setup.ts --test --test-concurrency=2 tests/*.test.ts",
     "check": "tsc --noEmit",
     "setup:render": "node scripts/setup-render.mjs",
     "demo:render": "tsx scripts/render-demo.ts"
@@ -24,10 +24,12 @@
     "jsdom": "27.4.0",
     "lucide-react": "^0.468.0",
     "playwright": "1.64.1",
+    "pptxgenjs": "^4.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "satori": "0.62.0",
     "sharp": "0.35.5",
+    "undici": "7.30.1",
     "zod": "^3.24.1"
   },
   "devDependencies": {

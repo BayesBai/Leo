@@ -1,0 +1,18 @@
+✔ MCP failures retain a labelled CF-Ray fallback without exposing secrets or overriding native request IDs (7.682194ms)
+✔ Canva preflight HTTP diagnostics expose stage and safe error metadata without provider body or credentials (170.280146ms)
+✔ Canva resource policy allows exact official domains and genuine subdomains (3.677712ms)
+✔ Canva resource policy rejects forged boundaries, non-HTTPS, credentials and dangerous addresses (1.01245ms)
+✔ Canva transport stays direct by default and leaves the global dispatcher unchanged (6.036334ms)
+✔ explicit local proxy supplies one reusable per-request dispatcher without logging configuration (4.382326ms)
+✔ proxy settings are read dynamically; disabling only affects subsequent Canva requests (2.430606ms)
+✔ invalid/remote proxy settings fail before fetch with no raw value in safe errors (2.803344ms)
+✔ Canva transport rejects foreign destinations before dispatch and keeps public redirects manual (0.759753ms)
+✔ proxy errors do not trigger retries or silent direct fallback (1.063625ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4553.352045

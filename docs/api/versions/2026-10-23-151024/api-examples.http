@@ -1,0 +1,427 @@
+# 2026-10-23-151024 当前完整协议：HTML图文、独立视频与整图海报/独立短稿与兼容旧队列/JSON/SSE；所有ID与文案均为纯模拟。
+# 不要运行全部：verify/live/replan会产生真实调用，settings会修改后端内存。
+# 先GET目录并执行真实任务，再从实际响应复制ID与完整platforms；不要将模拟ID提交到真实接口。
+@baseUrl = http://127.0.0.1:3000
+@productId = REPLACE_WITH_CATALOG_PRODUCT_ID
+@outlineId = REPLACE_WITH_OUTLINE_ID
+@outlineVersion = 1
+@runId = REPLACE_WITH_RUN_ID
+@revision = 1
+@assetHandle = 00000000-0000-0000-0000-000000000000
+@renderHandle = 00000000-0000-0000-0000-000000000000
+@deliveryId = 11111111-1111-4111-8111-111111111111
+# deliveryId 是纯模拟UUID，真实请求必须替换为响应中的id。
+
+### 状态：配置存在不代表真实连接/生成已经验证
+GET {{baseUrl}}/api/status
+
+### 产品目录：必须使用返回的product.id，不能直接提交名称
+GET {{baseUrl}}/api/products
+
+### 销售员场景、客户建议、目标、购买阶段与各渠道源图上下限
+GET {{baseUrl}}/api/task-options
+
+### 安全空配置样例：不包含密钥；已有配置原值保留
+# 新relay默认base为https://relay.nccnxta.cn/v1，模型gpt-6.1-sol。
+# 更换服务origin必须同时提供该服务新密钥；实际密钥由操作者在本机终端配置，不写本文件。
+POST {{baseUrl}}/api/connections/settings
+Content-Type: application/json
+
+{}
+
+### 模型连接验证：真实调用，有用量；返回有效文本不等于完整业务成功
+POST {{baseUrl}}/api/connections/model/verify
+Content-Type: application/json
+
+{}
+
+### ima连接验证：真实请求；不代表后续读取额度足够
+POST {{baseUrl}}/api/connections/verify
+Content-Type: application/json
+
+{}
+
+### 四渠道大纲：本地规则演示不调用模型，仍需足够的授权本地素材
+# 公众号1–4张原图、小红书1–6张原图、朋友圈1–3张原图、海报1张原图。小红书成品仍3–6页，AI背景不算源图。
+# 取证缺少渠道最低图片数会422，尚未调用大纲模型；请调整渠道或补素材。
+# live+local使用新relay；live+ima还会真实取证；demo+ima拒绝。
+POST {{baseUrl}}/api/outlines
+Content-Type: application/json
+
+{
+  "productId": "{{productId}}",
+  "audience": "纯模拟客户",
+  "scene": "纯模拟到店选购咨询",
+  "goal": "到店体验",
+  "buyingStage": "对比选择",
+  "platforms": ["wechat", "xiaohongshu", "moments", "poster"],
+  "instructions": "纯模拟任务说明：不虚构价格、促销、排名或亲测经历。",
+  "mode": "demo",
+  "knowledgeSource": "local"
+}
+
+### 当前最新版大纲：含history.expiresAt/evidenceStatus及可选interrupted
+GET {{baseUrl}}/api/outlines/{{outlineId}}
+
+### 完整保存形状：仅展示四渠道结构，必须以GET中的完整platforms及有效引用替换
+# 下方mock-fact/mock-image均为模拟引用，直接提交会400，不是有效运行数据。
+# 平台集合与原Brief必须一一对应；保存成功后version+1，重新editing，撤销确认。
+PUT {{baseUrl}}/api/outlines/{{outlineId}}
+Content-Type: application/json
+
+{
+  "version": {{outlineVersion}},
+  "platforms": [
+    {
+      "platform": "wechat", "title": "纯模拟：把日常任务整理成到店问题", "angle": "纯模拟解释型角度", "intro": "纯模拟导语意图，不含产品事实。",
+      "sections": [
+        {"id": "mock-w1", "heading": "先说需求", "points": ["纯模拟写作要点"], "factIds": []},
+        {"id": "mock-w2", "heading": "再核对依据", "points": ["请替换为真实大纲已有事实"], "factIds": ["mock-fact-1"]},
+        {"id": "mock-w3", "heading": "带着问题去确认", "points": ["纯模拟行动建议"], "factIds": []}
+      ],
+      "imageIds": ["mock-image-1", "mock-image-2"], "cta": "纯模拟：带上自己的任务清单。"
+    },
+    {
+      "platform": "xiaohongshu", "title": "纯模拟：收藏一份提问清单", "angle": "纯模拟清单型角度", "intro": "纯模拟收藏导语。",
+      "sections": [
+        {"id": "mock-x1", "heading": "清单第一项", "points": ["请替换为实际依据"], "factIds": ["mock-fact-1"]},
+        {"id": "mock-x2", "heading": "补齐自己的问题", "points": ["纯模拟到店提问"], "factIds": []}
+      ],
+      "imageIds": ["mock-image-1", "mock-image-2", "mock-image-3"], "cta": "纯模拟：补充你的任务。"
+    },
+    {
+      "platform": "moments", "title": "纯模拟：聊聊日常的安排", "angle": "纯模拟自然聊天", "intro": "纯模拟开场，不虚构已发生咨询。",
+      "sections": [{"id": "mock-m1", "heading": "今天聊这一点", "points": ["请替换为有效大纲要点"], "factIds": ["mock-fact-1"]}],
+      "imageIds": ["mock-image-1"], "cta": "纯模拟：欢迎交流。"
+    },
+    {
+      "platform": "poster", "title": "纯模拟：把任务带到现场", "angle": "纯模拟短主张", "intro": "纯模拟副标题。",
+      "sections": [{"id": "mock-p1", "heading": "核对要点", "points": ["请替换为可支持的事实与完整条件"], "factIds": ["mock-fact-1"]}],
+      "imageIds": ["mock-image-1"], "cta": "纯模拟：到店核对。"
+    }
+  ]
+}
+
+### AI修改：version必须当前；demo仅支持精简，live会真实调用统一模型
+POST {{baseUrl}}/api/outlines/{{outlineId}}/revise
+Content-Type: application/json
+
+{"version": {{outlineVersion}}, "instructions": "精简"}
+
+### 确认已保存当前版：不增加version；图片越界422、旧版本409、来源失效410
+POST {{baseUrl}}/api/outlines/{{outlineId}}/confirm
+Content-Type: application/json
+
+{"version": {{outlineVersion}}}
+
+### 已确认当前版写正文：SSE progress/result/error/needs_input；应用HTTP200不等于生成成功
+POST {{baseUrl}}/api/generate-from-outline
+Content-Type: application/json
+Accept: text/event-stream
+
+{"outlineId": "{{outlineId}}", "version": {{outlineVersion}}}
+
+### 最近七天历史：{items:[HistoryItem]}，只含摘要；读取不续期或调用模型
+GET {{baseUrl}}/api/history
+
+### 历史正文详情：{result,outlineSnapshot?,history,renderBundles}
+# history.evidenceStatus=refresh_required时原文可读，但不能继续生成或新排版。
+# outlineSnapshot可能是旧版，只读；不能把后续最新版大纲当作该作品使用的版本。
+GET {{baseUrl}}/api/runs/{{runId}}
+
+### 八个受控模板
+GET {{baseUrl}}/api/render-templates
+
+### 同一run/revision分别排版：公众号HTML与1200×510横向封面；旧同步接口为本地排版，专业视觉用Job
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "wechat", "selectedTitleIndex": 0, "templateId": "wechat-editorial"}
+
+### 小红书：同一run必须包含该渠道，3–6张1080×1440成品
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "xiaohongshu", "selectedTitleIndex": 0, "templateId": "xhs-cream"}
+
+### 朋友圈：直接交付文案与1–3张原始图片，format=original，不生成文字卡或生图
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "moments", "selectedTitleIndex": 0, "templateId": "moments-square"}
+
+### 朋友圈兼容旧模板ID：同样返回真实原图尺寸，不再制作竖版文字卡
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "moments", "selectedTitleIndex": 0, "templateId": "moments-portrait"}
+
+### 兼容旧local海报：既有1080×1920本机样式；新工作台不再采用，整图使用poster-image Job
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "poster", "selectedTitleIndex": 0, "templateId": "poster-paper"}
+
+### 原图：使用实际响应URL，此处保留全零模拟句柄，通常404
+GET {{baseUrl}}/api/assets/{{assetHandle}}
+
+### 成品预览：实际URL来自RenderBundle；全零模拟句柄返回410
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}
+
+### 成品下载：blocked真实成品为409；本模拟句柄因不存在而410
+# ZIP也走相同路由；成品固定30分钟，正文保存7天不延长成品期限。
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}?download=1
+
+### 兼容：旧规则示例RunResult，非新大纲，不自动代表确认过
+GET {{baseUrl}}/api/sample
+
+### 兼容：旧直接生成SSE；新前端不能借此绕过大纲确认
+POST {{baseUrl}}/api/generate
+Content-Type: application/json
+Accept: text/event-stream
+
+{"productId": "{{productId}}", "audience": "纯模拟客户", "scene": "纯模拟咨询", "platforms": ["moments"], "mode": "demo", "knowledgeSource": "local"}
+
+### 兼容：旧正文修订SSE，需历史仍在7天且来源当前有效
+POST {{baseUrl}}/api/revise
+Content-Type: application/json
+Accept: text/event-stream
+
+{"runId": "{{runId}}", "instructions": "精简文案", "platforms": ["moments"]}
+
+### 负向：缺必要任务字段422 needs_input，不触发模型
+POST {{baseUrl}}/api/outlines
+Content-Type: application/json
+
+{"platforms": ["moments"]}
+
+### 负向：任意HTML输入拒绝400，不生成占位成品
+POST {{baseUrl}}/api/render
+Content-Type: application/json
+
+{"runId": "{{runId}}", "revision": {{revision}}, "platform": "moments", "selectedTitleIndex": 0, "templateId": "moments-square", "html": "纯模拟不支持字段"}
+
+### 负向：跨站来源403，配置不会改变
+POST {{baseUrl}}/api/connections/settings
+Origin: https://untrusted.invalid
+Content-Type: application/json
+
+{}
+
+### 负向：非允许Host的只读请求也403
+GET {{baseUrl}}/api/history
+Host: untrusted.invalid
+
+# 浏览器正常请求使用相对/api和同源代理，不复制上面的负向Origin/Host。
+# 取消用AbortController；取消后配置仍可能短暂409，等后端异步清理结束。
+# history.interrupted只提示上次中断，不自动再次调用模型。
+
+# 上游明确报告模型账号池耗尽时，模型验证/大纲仍沿用现有500与{message}错误外壳，
+# message明确说明服务商容量问题，本次不会立即重试；勿将已配置或目录200当作生成成功。
+
+
+### 后台大纲（纯模拟参数，请替换已获授权的真实产品ID）
+# @name outlineJob
+POST {{baseUrl}}/api/jobs
+Content-Type: application/json
+
+{"kind":"outline","idempotencyKey":"mock-outline-request-001","brief":{"productId":"mock-product-id","audience":"模拟客户","scene":"模拟场景","platforms":["moments"],"mode":"demo","knowledgeSource":"local"}}
+
+### 查看队列摘要（queued/terminal含detailOmitted；选中后GET详情）
+GET {{baseUrl}}/api/jobs
+
+### 提交响应丢失先按原key核对，不要盲目新建
+GET {{baseUrl}}/api/jobs?idempotencyKey=mock-outline-request-001
+
+### 任务详情（替换为返回id；勿把Mock句柄提交真实服务）
+GET {{baseUrl}}/api/jobs/mock-job-id
+
+### 任务全局SSE，仅订阅，不会取消后台执行
+GET {{baseUrl}}/api/jobs/events
+Accept: text/event-stream
+
+### 人工确认原大纲（确认不自动生成）
+POST {{baseUrl}}/api/outlines/mock-outline-id/confirm
+Content-Type: application/json
+
+{"version":1}
+
+### 指定渠道AI修改
+POST {{baseUrl}}/api/jobs
+Content-Type: application/json
+
+{"kind":"outline-revise","idempotencyKey":"mock-revise-request-001","outlineId":"mock-outline-id","version":1,"instructions":"精简朋友圈正文意图","platforms":["moments"]}
+
+### 确认后加入写作、独立审稿与排版队列
+POST {{baseUrl}}/api/jobs
+Content-Type: application/json
+
+{"kind":"generate","idempotencyKey":"mock-generate-request-001","outlineId":"mock-confirmed-outline-id","version":1,"renders":[{"platform":"moments","templateId":"moments-square","selectedTitleIndex":0}]}
+
+### 对已终审完整稿件另排版
+POST {{baseUrl}}/api/jobs
+Content-Type: application/json
+
+{"kind":"render","idempotencyKey":"mock-render-request-001","request":{"runId":"mock-run-id","revision":1,"platform":"moments","templateId":"moments-square","selectedTitleIndex":0}}
+
+### 显式停止（断开订阅不会停止）
+POST {{baseUrl}}/api/jobs/mock-job-id/cancel
+Content-Type: application/json
+
+{}
+
+### 仅失败或中断步骤续跑；结果不确定时可能再次计费
+POST {{baseUrl}}/api/jobs/mock-failed-job-id/retry
+Content-Type: application/json
+
+{}
+
+### 未终审无审核标签的受控预览可读，强行下载应409（仅为无效模拟句柄）
+GET {{baseUrl}}/api/render-assets/mock-preview-handle?download=1
+
+
+### 并发负向：旧SSE生成占用同一大纲时确认应409（不新增模型请求）
+# 先在另一连接启动 /api/generate-from-outline，保持任务运行；outlineId/version替换为其真实返回值。
+# 该请求必须等待生成完成或取消清理结束后才能成功；PUT保存与/revise同样受保护。
+POST {{baseUrl}}/api/outlines/{{outlineId}}/confirm
+Content-Type: application/json
+
+{"version": {{outlineVersion}}}
+
+### 并发负向：同大纲另有排队/运行/取消清理任务，或旧SSE生成时，失败任务retry应409
+# 仅作手工负向验收；不自动批量执行、不新建重复任务。释放占用后由用户主动重试。
+POST {{baseUrl}}/api/jobs/mock-failed-job-id/retry
+Content-Type: application/json
+
+{}
+
+
+### 历史读取的可选独立交付扩展：默认不返回deliveries以兼容旧调用
+GET {{baseUrl}}/api/history?includeDeliveries=1
+
+### 完整历史稿件与渠道交付；来源变化仍可阅读
+GET {{baseUrl}}/api/runs/{{runId}}?includeDeliveries=1
+
+### 旧完整稿件惰性建立单渠道交付，不请求文案模型
+GET {{baseUrl}}/api/runs/{{runId}}/deliveries/wechat
+
+### 独立渠道：{delivery}；blocked禁止下载，visual_pending保留成功文案
+GET {{baseUrl}}/api/deliveries/{{deliveryId}}
+
+### 清理旧成品/本地重新排版：202 {job}；零文案模型调用
+# 有效旧资源迁移沿用原expiresAt，使用新句柄；过期需主动操作，不自动续期。
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/rerender
+Content-Type: application/json
+
+{"idempotencyKey":"mock-clean-render-001","visualMode":"local"}
+
+### 已搁置的外部设计接口：全部410 EXTERNAL_DESIGN_PAUSED，零外呼
+GET {{baseUrl}}/api/integrations/canva
+
+### 旧授权入口已搁置，不再返回authorizationUrl
+POST {{baseUrl}}/api/integrations/canva/connect
+Content-Type: application/json
+
+{}
+
+### 旧同步已搁置，不能触发编辑/导出
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/canva/sync
+Content-Type: application/json
+
+{"idempotencyKey":"mock-paused-sync-001"}
+
+### 新整图海报：live及生图配置就绪才派发，202；一张原生1024x1536
+# 不传产品参考图片；仅preview，无download/ZIP，需下面三项人工核对。
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/rerender
+Content-Type: application/json
+
+{"idempotencyKey":"mock-poster-image-001","visualMode":"poster-image"}
+
+### 主动重新生成整张海报：可能再次计费，成功后重置人工核对
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/rerender
+Content-Type: application/json
+
+{"idempotencyKey":"mock-poster-new-image-001","visualMode":"poster-image","regenerateVisual":true}
+
+### 核对本版：全部值必须从当前posterApproval原始指针读取；此处全是模拟
+# 200 {delivery}，bundleId不变，approval.artifactId仍是原preview；正式PNG新handle。
+# 无续期，旧preview直接?download=1仍409，不可把正式新artifact.id当作核对指针。
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/poster/approve
+Content-Type: application/json
+
+{"bundleId":"88888888-8888-4888-8888-888888888888","artifactId":"99999999-9999-4999-8999-999999999999","sha256":"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb","checks":{"text":true,"product":true,"facts":true}}
+
+# 生图不提供可绕过队列/检查点的裸转发浏览器API。后端使用：
+# IMAGE_BASE_URL=https://relay.styxgate.top/v1 + /images/generations
+# IMAGE_MODEL=gpt-image-2.5，精确原样发送；Key通过本机隐藏输入命令配置。
+# 本文件不包含任何可用Key、Client Secret、OAuth code、私有产品或签名访问地址。
+
+
+
+### HTML 单渠道重排：复用正文、审核及有效背景，无需 Canva；202 {job}
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/rerender
+Content-Type: application/json
+
+{"idempotencyKey":"mock-html-rerender-001","visualMode":"html","templateId":"wechat-editorial"}
+
+### 显式重新生成背景并 HTML 排版：会调用生图服务，不要求 Canva
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/rerender
+Content-Type: application/json
+
+{"idempotencyKey":"mock-html-new-background-001","visualMode":"html","regenerateVisual":true,"templateId":"xhs-cream"}
+
+### 后台 HTML 排版：同样保留原文和原审核，不接收任意 HTML
+POST {{baseUrl}}/api/jobs
+Content-Type: application/json
+
+{"idempotencyKey":"mock-html-job-001","kind":"render","request":{"runId":"{{runId}}","revision":{{revision}},"platform":"xiaohongshu","selectedTitleIndex":0,"templateId":"xhs-cream","deliveryId":"{{deliveryId}}","visualMode":"html"}}
+
+### 新增视频：须有有效 released 图文且当前来源有效；立即202 {job}
+# kind=video固定20秒/30fps/1080x1920，不接收提示词/HTML/额外模型参数。
+POST {{baseUrl}}/api/deliveries/{{deliveryId}}/video
+Content-Type: application/json
+
+{"idempotencyKey":"mock-video-001"}
+
+### 等价统一队列提交；同key同输入复用，独立短稿+审稿正常2个文本节点，必要修订/复审最多4个
+# 同delivery/文本指纹失败、中断或取消v2再POST只alias原job、不派发。必须显式POST /api/jobs/:id/retry。
+# 显式retry可在相同文本指纹时重绑重排后的有效图文；首次执行途中版本变化仍409。
+POST {{baseUrl}}/api/jobs
+Content-Type: application/json
+
+{"kind":"video","deliveryId":"{{deliveryId}}","idempotencyKey":"mock-video-001"}
+
+### 响应丢失先查相同key，不自动重发；取详情后读取独立videoBundle
+GET {{baseUrl}}/api/jobs?idempotencyKey=mock-video-001
+
+### 交付详情含独立bundle(静态)与videoBundle；读取不续期
+GET {{baseUrl}}/api/deliveries/{{deliveryId}}
+
+### MP4普通预览，Content-Type:video/mp4，Accept-Ranges:bytes
+# 全零只是模拟，不存在时410；必须用真实响应中的video.previewUrl替换。
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}
+
+### MP4合法单段Range为206，Content-Range/Content-Length对应区间
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}
+Range: bytes=0-1023
+
+### MP4尾部1024字节，206
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}
+Range: bytes=-1024
+
+### MP4非法多段Range：有效句柄时416 + Content-Range:bytes */size
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}
+Range: bytes=0-3,8-12
+
+### MP4正式下载先检查渠道门禁；阻断409，不被Range绕过
+GET {{baseUrl}}/api/render-assets/{{renderHandle}}?download=1
+Range: bytes=0-1023
+
+### 视频错误示例（注释，不执行）
+# 410 {"message":"纯模拟：图文成品已过期或尚未交付，请重新排版后生成视频。"}
+# 409 {"message":"纯模拟：排队期间图文或设计版本已变化，请为当前交付重新创建视频。"}
+# 海报若返回Cloudflare类403非JSON，使用IMAGE_GATEWAY_BLOCKED；不据此认定Key失效/模型不可用，也不自动再次生图。
+# 新job.error可为VIDEO_REVIEW_BLOCKED、VIDEO_SCRIPT_SOURCE/版本错误、VIDEO_RUNTIME_MISSING、VIDEO_LOCAL_TIMEOUT。
+# 旧VIDEO_COPY_TOO_LONG不retry，另用新key提交video。短稿审核失败不影响图文；本地编码retry复用成功短稿及审核。
+# 视频失败只影响视频任务；ChannelDelivery.bundle和既有图文下载仍保留。
+# 不要运行整文件：模型验证/AI修改/生成/显式背景重生可能产生真实消耗，整图海报也会真实计费，旧外部设计端点只返回410。

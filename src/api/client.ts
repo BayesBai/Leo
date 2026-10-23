@@ -117,11 +117,13 @@ export function createWorkflowClient(transport: Transport) {
   }
   function validJob(value: unknown): value is BackgroundJob {
     return record(value) && typeof value.id === 'string' && typeof value.updatedAt === 'string' && typeof value.idempotencyKey === 'string'
-      && ['outline', 'outline-revise', 'generate', 'render'].includes(String(value.kind)) && ['queued', 'running', 'failed', 'interrupted', 'cancelled', 'completed'].includes(String(value.status))
+      && ['outline', 'outline-revise', 'generate', 'render', 'video'].includes(String(value.kind)) && ['queued', 'running', 'failed', 'interrupted', 'cancelled', 'completed'].includes(String(value.status))
       && record(value.input) && Array.isArray(value.channels) && Array.isArray(value.renderBundles);
   }
   async function submitJob(input: JobSubmit, signal?: AbortSignal): Promise<BackgroundJob> {
-    try { const response = await api<{ job: BackgroundJob }>('/api/jobs', 'POST', input, signal); if (!validJob(response.job)) throw new ApiError('任务提交响应不完整。', 'protocol'); return response.job; }
+    const url = input.kind === 'video' ? `/api/deliveries/${encodeURIComponent(input.deliveryId)}/video` : '/api/jobs';
+    const body = input.kind === 'video' ? { idempotencyKey: input.idempotencyKey } : input;
+    try { const response = await api<{ job: BackgroundJob }>(url, 'POST', body, signal); if (!validJob(response.job)) throw new ApiError('任务提交响应不完整。', 'protocol'); return response.job; }
     catch (error) {
       // A lost acknowledgement must be reconciled by its persistent key before another paid submission.
       if (!(error instanceof ApiError) || !['network', 'protocol', 'incomplete'].includes(error.kind)) throw error;

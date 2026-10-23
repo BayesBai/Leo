@@ -1,0 +1,16 @@
+{
+  "pauseDuringSlowSubmission": {
+    "activeTaskVisible": false,
+    "buttonDisabled": false,
+    "buttonLabel": "恢复背景",
+    "currentTime": 3.06059,
+    "paused": true
+  },
+  "resumeAfterSlowCompletion": {
+    "activeTaskVisible": false,
+    "buttonDisabled": false,
+    "buttonLabel": "暂停背景",
+    "paused": false
+  },
+  "note": "Mouse pause worked while submission fields disabled. Initial fast mock Space during auto-navigation had no observed pause; corrected focus policy and real-DOM regression added separately."
+}

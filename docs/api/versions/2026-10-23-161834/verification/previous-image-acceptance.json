@@ -1,0 +1,242 @@
+{
+  "scope": "默认生图切火山方舟官方Seedream5.0pro；文本模型不变、DTO兼容及可选usage.generatedImages扩展",
+  "testGroups": [
+    {
+      "name": "root unit",
+      "total": 43,
+      "passed": 43,
+      "failed": 0,
+      "components": {
+        "textModel": 28,
+        "configurationScript": 3,
+        "imageAdapter": 12
+      }
+    },
+    {
+      "name": "HTML + jobs HTTP + queue integration",
+      "total": 26,
+      "passed": 26,
+      "failed": 0,
+      "durationMs": 117131
+    },
+    {
+      "name": "workflow",
+      "total": 25,
+      "passed": 25,
+      "failed": 0
+    },
+    {
+      "name": "workflow late regression",
+      "total": 3,
+      "passed": 3,
+      "failed": 0
+    },
+    {
+      "name": "cache config binding",
+      "total": 2,
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "name": "frontend workflow API",
+      "total": 20,
+      "passed": 20,
+      "failed": 0
+    }
+  ],
+  "groupCountsMayOverlap": true,
+  "fullSuiteRun": false,
+  "typecheck": {
+    "command": "npm run check",
+    "passed": true,
+    "finalBuildAlsoRunsTsc": true
+  },
+  "finalBuild": {
+    "command": "npm run build",
+    "passed": true,
+    "durationSeconds": 4.72,
+    "warnings": [
+      "Mock lazy chunk 660.81kB size warning"
+    ]
+  },
+  "diffCheck": {
+    "command": "git diff --check",
+    "passed": true
+  },
+  "runtimePublicStatus": {
+    "image": {
+      "configured": true,
+      "name": "doubao-seedream-5-0-pro-260628",
+      "baseUrl": "https://ark.cn-beijing.volces.com/api/v3",
+      "timeoutMs": 300000
+    },
+    "text": {
+      "name": "gpt-6.1-sol",
+      "baseUrl": "https://relay.nccnxta.cn/v1"
+    },
+    "newBackendLoaded": true,
+    "keyValuesReadOrIncluded": false
+  },
+  "configuration": {
+    "envLocalChangedByUserThroughHiddenInput": true,
+    "credentialsWrittenByAgent": false,
+    "keyReadOrOutputByAgent": false,
+    "credentialsIncluded": false
+  },
+  "realAcceptance": {
+    "succeeded": true,
+    "scope": "single real Seedream poster API response and pending-approval download gate",
+    "jobElapsedMs": 50254,
+    "imageHttpAttempts": 1,
+    "imageHttpElapsedMs": 49531,
+    "upstreamStatus": 200,
+    "outcome": "succeeded",
+    "model": "doubao-seedream-5-0-pro-260628",
+    "baseUrl": "https://ark.cn-beijing.volces.com/api/v3",
+    "image": {
+      "format": "png",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 3098999,
+      "sha256": "44f477cb3bc59f4e26d67abc5c4f6f6b343c32c80d10a4627f9ff409b8b61b34"
+    },
+    "usage": {
+      "completionTokens": 6144,
+      "totalTokens": 6144,
+      "generatedImages": 1
+    },
+    "inputUsage": "not provided; unknown",
+    "priceInferred": false,
+    "previewStatus": 200,
+    "posterApprovalStatus": "pending",
+    "formalDownloadBeforeApprovalStatus": 409,
+    "humanApprovalPerformed": false,
+    "originalResourceTtlMinutes": 30,
+    "ttlExtendedByReadingOrApproval": false,
+    "visualInspection": {
+      "imageDecodable": true,
+      "containsChineseAndProductComposition": true,
+      "exactTextVerified": false,
+      "modelAppearanceVerified": false,
+      "factsAndQualifiersManuallyApproved": false
+    },
+    "automaticRetries": 0,
+    "secondImageGenerated": false,
+    "newTextModelCalls": 0,
+    "newVideoJobs": 0,
+    "newExternalDesignCalls": 0,
+    "privateImagesTextTaskIdsLinksOrRawResponsesIncluded": false
+  },
+  "notVerified": [
+    "human verification of poster exact Chinese/product model appearance/facts and qualifiers",
+    "social publishing",
+    "WeChat platform paste",
+    "real ima",
+    "deployment"
+  ],
+  "legacyHistory": {
+    "cloudflareAppliesToPreviousProviderOnly": true,
+    "old403DoesNotEstablishArkState": true,
+    "deploymentStatus": "not_deployed"
+  },
+  "gitOperations": {
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "archiveRebasedOnParallelVersion": "2026-10-23-155111",
+  "ima18TestsNotCountedAsThisTask": true,
+  "previousImaTask": {
+    "sourceVersion": "2026-10-23-155111",
+    "originalRecordFile": "verification/ima-previous-acceptance.json",
+    "notCurrentTaskVerification": true,
+    "originalRecord": {
+      "version": "2026-10-23-155111",
+      "createdAt": "2026-10-23T15:51:11+08:00",
+      "previousVersion": "2026-10-23-152544",
+      "task": "ima知识库接入检查、隐藏终端录入与部署准备",
+      "apiConclusion": "ima已核对，无接口变更；相对上一归档同步并行工作区既有可选usage.generatedImages扩展",
+      "tests": [
+        {
+          "command": "node --import tsx --import ./tests/setup.ts --test tests/knowledge.test.ts",
+          "passed": 9,
+          "failed": 0,
+          "scope": "独立临时合成知识库、假凭证、模拟ima脚本，无真实外网"
+        },
+        {
+          "command": "node --import tsx --import ./tests/setup.ts --test tests/configure-ima.test.ts",
+          "passed": 9,
+          "failed": 0,
+          "scope": "临时合成工程、mock隐藏输入、dotenv实际解析、权限/取消/配置保留"
+        }
+      ],
+      "additionalChecks": [
+        "python3 scripts/configure-ima.py --help",
+        "git check-ignore .env.local",
+        "git check-attr text filter -- docs/api/README.md",
+        "只读对照最新交接与server/index.ts、server/schemas.ts、shared/types.ts和ima流程",
+        "纯内存复现并修复旧值尾反斜杠吞无关配置问题"
+      ],
+      "realCredentialValuesRead": false,
+      "realEnvironmentFileChanged": false,
+      "externalImaRequests": 0,
+      "modelRequests": 0,
+      "serverRestarted": false,
+      "deployed": false,
+      "notExecuted": [
+        "真实ima连接和产品事实/图片取证",
+        "文本/生图调用",
+        "全量npm test",
+        "TypeScript全量检查",
+        "生产构建",
+        "浏览器流程",
+        "服务器/SSH/DNS/反向代理更改",
+        "Git暂存、提交或推送"
+      ],
+      "parallelWorkingTreeChanges": [
+        ".env.example",
+        "README.md",
+        "docs/setup/visual-integrations.md",
+        "scripts/configure-visual.py",
+        "scripts/verify-visual-workflow.ts",
+        "server/design/README.md",
+        "server/image-provider.ts",
+        "server/job-store.ts",
+        "server/jobs.ts",
+        "server/poster-workflow.ts",
+        "server/visual-workflow.ts",
+        "shared/types.ts",
+        "src/api/mock.ts",
+        "tests/frontend-workflow-api.test.ts",
+        "tests/html-workflow.test.ts",
+        "tests/image-provider.test.ts",
+        "tests/poster-http.test.ts",
+        "tests/poster-workflow.test.ts",
+        "tests/setup.ts",
+        "tests/visual-workflow.test.ts"
+      ],
+      "limitations": [
+        "configured只检查非空；verify仅读库元数据",
+        "目标服务器凭证注入、网络和配额尚未实测",
+        "公网身份/Host/Origin与完整渲染容器仍待部署阶段适配",
+        "只覆盖当前产品目录及支持文本格式，不自动同步任意ima产品"
+      ],
+      "gitOperations": {
+        "staged": false,
+        "committed": false,
+        "pushed": false
+      }
+    }
+  },
+  "version": "2026-10-23-155558",
+  "createdAt": "2026-10-23T15:55:58+08:00",
+  "previousVersion": "2026-10-23-155111",
+  "omittedOptionalSnapshots": [
+    "server/design/vendor/baoyu-skills/baoyu-markdown-to-html-SKILL.md",
+    "server/design/vendor/baoyu-skills/baoyu-xhs-images-SKILL.md",
+    "server/design/vendor/meitu-poster/SKILL.md",
+    "server/design/vendor/ui-animation/SKILL.md"
+  ],
+  "deploymentPlanPreservedSha256": "387b97bfbcd475a8821ac06a38578de7caf5a22223551c76d3160e186152b0c4",
+  "legacyCloudflareHistoryPreservedSha256": "65525a262f05d39bf8e21f30d82738e5ca11d6f70f8a8e2bf12c156b565dcaa2"
+}

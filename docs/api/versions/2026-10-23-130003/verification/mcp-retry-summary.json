@@ -1,0 +1,234 @@
+{
+  "generatedAt": "2026-10-23T04:59:08.398097+00:00",
+  "task": "当前授权重试Canva MCP并缩小病因",
+  "conclusion": "MCP仍未接通；有效令牌关联的Canva MCP入口处理路径返回500，应用/账号授权映射、权限能力或服务端内部错误仍需Canva日志确认。",
+  "interfaceChanged": false,
+  "sourceChanged": false,
+  "environmentChanged": false,
+  "counts": {
+    "directDiagnosticCanvaHttp": 15,
+    "publicMetadataGet": 4,
+    "oauthRefresh": 1,
+    "oauthAuthorizationCodeExchange": 0,
+    "restDesignMetadataGet": 1,
+    "restTokenIntrospection": 2,
+    "mcpInitialize": 5,
+    "mcpServerDiscover": 1,
+    "mcpToolsListWithoutSession": 1,
+    "mcpInitializeWithValidToken": 3,
+    "mcpInitializeNegativeControls": 2,
+    "modelRequests": 0,
+    "imageRequests": 0,
+    "designMutations": 0
+  },
+  "productionVerify": {
+    "mode": "调用生产verifyCanvaConnection函数，非HTTP verify路由",
+    "status": "failed",
+    "elapsedMs": 6189,
+    "error": {
+      "message": "Canva 返回业务错误，请根据诊断号检查连接。",
+      "code": "CANVA_PROVIDER",
+      "status": 502,
+      "diagnosticId": "dbe65038-f5aa-4030-b009-a18871c2dea3",
+      "phase": "mcp.initialize",
+      "upstreamStatus": 500,
+      "providerCode": "internal_error",
+      "requestId": "cf-ray:a4ee1e5bbb2124ca-IAD",
+      "retryable": true,
+      "outcomeUnknown": false
+    },
+    "refreshSucceeded": true,
+    "connectionIdentityPreserved": true
+  },
+  "introspection": {
+    "active": true,
+    "clientMatchesConfig": true,
+    "timeValid": true,
+    "scopes": [
+      "design:content:read",
+      "design:content:write",
+      "design:meta:read"
+    ],
+    "source": "Canva official introspection, documented client field; first comparison discarded and a corrected read-only request performed"
+  },
+  "requests": [
+    {
+      "phase": "oauth.discovery",
+      "startedAt": "2026-10-23T04:49:56.973Z",
+      "method": "GET",
+      "path": "/.well-known/oauth-protected-resource/connect/v1/mcp",
+      "status": 200,
+      "elapsedMs": 1709,
+      "cfRay": "a4ee1e40cb17c488-IAD"
+    },
+    {
+      "phase": "oauth.discovery",
+      "startedAt": "2026-10-23T04:49:58.698Z",
+      "method": "GET",
+      "path": "/.well-known/oauth-authorization-server",
+      "status": 200,
+      "elapsedMs": 1672,
+      "cfRay": "a4ee1e4b6c375774-IAD"
+    },
+    {
+      "phase": "oauth.refresh",
+      "startedAt": "2026-10-23T04:50:00.408Z",
+      "method": "POST",
+      "path": "/auth/v1/oauth/token",
+      "status": 200,
+      "elapsedMs": 473,
+      "cfRay": "a4ee1e4d4c6dc488-IAD"
+    },
+    {
+      "phase": "rest.preflight",
+      "startedAt": "2026-10-23T04:50:00.912Z",
+      "method": "GET",
+      "path": "/rest/v1/designs",
+      "status": 200,
+      "elapsedMs": 361,
+      "cfRay": "a4ee1e507b46c488-IAD"
+    },
+    {
+      "phase": "initialize",
+      "startedAt": "2026-10-23T04:50:01.276Z",
+      "method": "POST",
+      "path": "/connect/v1/mcp",
+      "status": 500,
+      "elapsedMs": 1873,
+      "protocol": "2025-03-26",
+      "bodyBytes": 168,
+      "providerCode": "internal_error",
+      "message": "Unknown error occurred",
+      "cfRay": "a4ee1e5bbb2124ca-IAD"
+    },
+    {
+      "phase": "initialize-no-authorization",
+      "mode": "no-authorization",
+      "elapsedMs": 4361,
+      "curlExit": 0,
+      "bodyBytes": 168,
+      "status": 401,
+      "httpVersion": "2",
+      "cfRay": "a4ee20354cd63c2f-IAD"
+    },
+    {
+      "phase": "initialize-synthetic-invalid-token",
+      "mode": "synthetic-invalid-token",
+      "elapsedMs": 1728,
+      "curlExit": 0,
+      "bodyBytes": 168,
+      "status": 401,
+      "httpVersion": "2",
+      "cfRay": "a4ee2040bed8202d-IAD",
+      "providerCode": "invalid_token",
+      "responseKeys": [
+        "error",
+        "error_description"
+      ]
+    },
+    {
+      "phase": "initialize-current-valid-token",
+      "mode": "current-valid-token",
+      "elapsedMs": 1729,
+      "curlExit": 0,
+      "bodyBytes": 168,
+      "status": 500,
+      "httpVersion": "2",
+      "cfRay": "a4ee204aba31ca5f-IAD",
+      "providerCode": "internal_error",
+      "message": "Unknown error occurred",
+      "responseKeys": [
+        "error",
+        "message"
+      ]
+    },
+    {
+      "phase": "token-introspection",
+      "startedAt": "2026-10-23T04:53:22.930Z",
+      "status": 200,
+      "elapsedMs": 1777,
+      "cfRay": "a4ee2347be7b2552-IAD",
+      "active": true,
+      "scope": [
+        "design:content:read",
+        "design:content:write",
+        "design:meta:read"
+      ],
+      "timeValid": true
+    },
+    {
+      "phase": "modern-server-discover",
+      "startedAt": "2026-10-23T04:53:24.713Z",
+      "status": 500,
+      "elapsedMs": 397,
+      "providerCode": "internal_error",
+      "message": "Unknown error occurred",
+      "cfRay": "a4ee234a3da42552-IAD"
+    },
+    {
+      "phase": "token-introspection-client-check",
+      "startedAt": "2026-10-23T04:55:25.547Z",
+      "status": 200,
+      "elapsedMs": 1711,
+      "cfRay": "a4ee26461a2ab098-IAD",
+      "active": true,
+      "clientMatchesConfig": true,
+      "scope": [
+        "design:content:read",
+        "design:content:write",
+        "design:meta:read"
+      ],
+      "timeValid": true
+    },
+    {
+      "phase": "initialize-no-explicit-proxy",
+      "startedAt": "2026-10-23T04:56:58.590Z",
+      "status": 500,
+      "elapsedMs": 1309,
+      "providerCode": "internal_error",
+      "message": "Unknown error occurred",
+      "cfRay": "a4ee2887ef3829a5-LAX"
+    },
+    {
+      "phase": "tools-list-without-session-diagnostic",
+      "startedAt": "2026-10-23T04:58:12.848Z",
+      "status": 500,
+      "elapsedMs": 1889,
+      "providerCode": "internal_error",
+      "message": "Unknown error occurred",
+      "cfRay": "a4ee2a5c6decf36e-IAD",
+      "protocol": "2025-11-25"
+    }
+  ],
+  "extraPublicMetadata": {
+    "getCount": 2,
+    "bothHttp200": true,
+    "endpointsUnchanged": true
+  },
+  "limitations": [
+    "有效token500与阴性401强烈缩小范围，不能证明Canva全部服务故障，亦不能精确区分凭证校验内部、应用grant映射与MCP初始化。",
+    "最新协议server/discover也500，未取得协商结果；未认定Canva支持2026-07-28。",
+    "tools/list单独探针未带session，仅用于诊断；不作为生产跳过initialize的实现。",
+    "本地JWT未验签，仅辅助；aud是https://api.canva.com，不将它与canonical MCP URL不等直接判错。",
+    "无显式应用代理并不保证物理直连；CF-Ray后缀仅代表Cloudflare POP，不等于出口IP。",
+    "当前工具未能打开Canva开发门户，未独立核对用户此前已确认开启的MCP设置。",
+    "Canva状态页显示全系统Operational，未据此证明MCP应用链路健康。"
+  ],
+  "runtime": {
+    "serverStarted": 1,
+    "url": "http://127.0.0.1:3000",
+    "getCanvaStatus": 200,
+    "configured": true,
+    "connected": true,
+    "getJobs": 200,
+    "activeJobs": 0,
+    "connectionStatusMeaning": "stored OAuth grant only; MCP preflight failed"
+  },
+  "validation": {
+    "offlineTestsRun": false,
+    "buildRun": false,
+    "reason": "未修改业务代码；本轮验证为实际有界网络探针与归档一致性核对"
+  },
+  "supportContacted": false,
+  "gitCommitPush": false
+}

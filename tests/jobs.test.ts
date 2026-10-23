@@ -250,3 +250,58 @@ test('retry waits until its own failed worker has detached before resuming', asy
     f.queue.retry(id); await until(() => f.queue.get(id).status === 'completed'); assert.equal(tries, 2);
   } finally { stop(); f.cleanup(); }
 });
+
+test('suspended external-design jobs never dispatch after restart or through retry, preserving paid uncertainty', async()=>{
+  let count=0;const f=fixture(async()=>{count++;});
+  try {
+    const old=f.queue.submit('paused-old-job',input('legacy'),model,['poster']);f.queue.close();
+    const record=f.store.get<StoredJob>('jobs',old.id)!;
+    record.job.kind='render';record.job.input={kind:'render',request:{runId:'old-run',revision:1,platform:'poster',selectedTitleIndex:0,templateId:'poster-paper',visualMode:'canva'}};
+    record.job.status='running';record.job.channels[0].status='running';record.job.channels[0].stage='canva_import';record.pendingPaid={oldPaid:{stage:'image',platform:'poster'}};
+    f.store.set('jobs',old.id,record);
+    const recovered=new JobQueue(f.store,async()=>{count++;},()=> 'config-v1');
+    try {
+      recovered.start();await new Promise(r=>setTimeout(r,15));const paused=recovered.get(old.id);
+      assert.equal(count,0);assert.equal(paused.status,'failed');assert.equal(paused.error?.code,'EXTERNAL_DESIGN_PAUSED');assert.equal(paused.error?.outcomeUnknown,true);
+      assert.throws(()=>recovered.retry(old.id),(e:any)=>e.status===410&&e.code==='EXTERNAL_DESIGN_PAUSED');
+      assert.throws(()=>recovered.submit('paused-new-job',record.job.input,model,['poster']),(e:any)=>e.status===410);
+      assert.deepEqual(f.store.get<StoredJob>('jobs',old.id)?.pendingPaid,record.pendingPaid);
+    } finally {recovered.close();}
+  } finally {f.cleanup();}
+});
+
+test('a legacy live generator with pending external poster cannot resume through the generic retry route',async()=>{
+ let count=0;const f=fixture(async()=>{count++;});
+ try{
+  const old=f.queue.submit('legacy-generator',input('old-outline'),model,['poster']);f.queue.close();
+  const record=f.store.get<StoredJob>('jobs',old.id)!;const now=new Date().toISOString();
+  const product={id:'synthetic-product',name:'纯模拟机型',system:'模拟系统',category:'测试',description:'仅用于队列恢复',imageCount:0};
+  const brief={productId:product.id,audience:'测试',scene:'测试恢复',goal:'测试',buyingStage:'测试',platforms:['poster' as const],instructions:'',mode:'live' as const,knowledgeSource:'local' as const};
+  record.snapshot={id:'old-outline',version:1,status:'confirmed',createdAt:now,confirmedAt:now,brief,product,evidence:{product,facts:[],images:[],sources:[],retrievedAt:now,sourceMode:'local',warnings:[]},platforms:[],warnings:[]};
+  record.rendererMode='html';record.job.status='queued';f.store.set('jobs',old.id,record);
+  const recovered=new JobQueue(f.store,async()=>{count++;},()=> 'config-v1');
+  try{recovered.start();await new Promise(r=>setTimeout(r,15));assert.equal(count,0);assert.equal(recovered.get(old.id).error?.code,'EXTERNAL_DESIGN_PAUSED');assert.throws(()=>recovered.retry(old.id),(e:any)=>e.status===410);}finally{recovered.close();}
+ }finally{f.cleanup();}
+});
+
+test('fresh video keys retain failed or cancelled v2 paid checkpoints and require explicit continuation',async()=>{
+ let attempts=0,writes=0,reviews=0;
+ const f=fixture(async(record,ctx)=>{
+  attempts++;const platform='xiaohongshu' as const;
+  const call=(id:string,stage:string,outcome:ModelCallRecord['outcome']):ModelCallRecord=>({id,stage,platform,attempt:1,queuedAt:new Date().toISOString(),outcome});
+  if(!record.checkpoints.videoScript){writes++;ctx.call(call('write','video_script','dispatched'));record.checkpoints.videoScript={sourceFingerprint:'same-text',script:{title:'纯模拟已付费短稿'}};ctx.call(call('write','video_script','succeeded'));ctx.acknowledge('video_script',platform);ctx.save();}
+  record.job.channels[0].stage='video_review';reviews++;ctx.call(call(`review-${attempts}`,'video_review','dispatched'));
+  if(attempts===1){ctx.call(call('review-1','video_review','unknown'));throw Object.assign(new Error('synthetic response lost'),{outcomeUnknown:true});}
+  ctx.call(call('review-2','video_review','succeeded'));ctx.acknowledge('video_review',platform);record.job.channels[0].status='completed';ctx.save();
+ });
+ try{
+  const video:JobInput={kind:'video',deliveryId:'11111111-1111-4111-8111-111111111111'};
+  const original=f.queue.submit('first-video-key',video,model,['xiaohongshu'],{checkpoints:{videoMode:'script-v2',videoTextFingerprint:'same-text',videoSource:{fingerprint:'old-layout',expiresAt:new Date(Date.now()+60000).toISOString()}}});
+  await until(()=>f.queue.get(original.id).status==='failed');
+  const retained=f.queue.recoverVideoSubmission('new-video-key',video,'same-text','new-layout');assert.equal(retained?.id,original.id);assert.equal(retained?.error?.outcomeUnknown,true);assert.equal(writes,1);assert.equal(reviews,1);assert.equal(attempts,1);
+  assert.equal(f.queue.findSubmission('new-video-key',video)?.id,original.id);
+  assert.equal(f.queue.recoverVideoSubmission('changed-video-key',video,'different-text','different-layout'),undefined);
+  f.queue.cancel(original.id);assert.equal(f.queue.recoverVideoSubmission('cancelled-video-key',video,'same-text','new-layout')?.id,original.id);
+  f.queue.retry(original.id);await until(()=>f.queue.get(original.id).status==='completed');assert.equal(writes,1);assert.equal(reviews,2);assert.equal(attempts,2);assert.deepEqual(f.store.get<StoredJob>('jobs',original.id)?.pendingPaid,{});
+ }finally{f.cleanup();}
+});

@@ -1,0 +1,24 @@
+{
+  "recordedAt": "2026-10-22T21:15:54+08:00",
+  "source": "Root agent final read-only check after restarting the main service from frozen code.",
+  "baseUrl": "http://127.0.0.1:3000",
+  "http": {
+    "status": 200,
+    "jobs": 200
+  },
+  "pendingJobs": 0,
+  "text": {
+    "model": "gpt-6.1-sol",
+    "baseUrl": "https://relay.nccnxta.cn/v1"
+  },
+  "image": {
+    "model": "gpt-image-2.5",
+    "configured": true
+  },
+  "canva": {
+    "configured": false,
+    "connected": false
+  },
+  "paidCallsThisSmokeCheck": 0,
+  "limitations": "Service status and configuration are not evidence of paid model availability, OAuth completion or real design quality."
+}

@@ -1,0 +1,217 @@
+{
+  "status": "final",
+  "createdAt": "2026-10-22T22:20:05+08:00",
+  "previousVersion": "2026-10-22-212720",
+  "task": "Canva official Troubleshooting/Access audit and connection repair",
+  "sourceCommit": "d12b55b8026138dd65c887f400a7fc0152a9baa8",
+  "sourceBranch": "frontend/workbench",
+  "codeChanges": "Frozen Canva-only proxy transport, shared URL boundary, dynamic MCP OAuth discovery, bounded resource-v1 refresh migration, CF-Ray fallback and per-tool id/design_id candidate validation.",
+  "apiConclusion": "Compatible behavioral interface change, no new routes or DTO fields: connect can fail during discovery; verify can explicitly upgrade an eligible grant; requestId can carry a cf-ray: source prefix.",
+  "previousRoundFacts": {
+    "fullOfflineTestsPassed": 257,
+    "countedAsThisRoundRerun": false,
+    "resourceBoundOAuthConnected": true,
+    "nativeMcpInitialize": "HTTP 500",
+    "officialSdkInitialize": "HTTP 500",
+    "serverRootCauseEstablished": false,
+    "reference": "../../2026-10-22-212720/README.md"
+  },
+  "currentRoundValidation": {
+    "offlineTests": {
+      "passed": 276,
+      "failed": 0,
+      "skipped": 0,
+      "durationMs": 80119,
+      "source": "Root report; full suite before additional CF-Ray/schema checks.",
+      "label": "Intermediate full suite before final CF-Ray/schema additions; not the final total."
+    },
+    "typeCheck": "passed",
+    "productionBuild": {
+      "status": "passed",
+      "exitCode": 0,
+      "includesTypeCheck": true,
+      "viteModules": 1614,
+      "viteDurationMs": 9810,
+      "warning": "Existing Mock bundle >500kB only."
+    },
+    "paidRequests": 0,
+    "realProtocolRequests": "Public metadata discovery; one successful explicit grant upgrade; REST 200; native and official SDK new-token MCP initialize both 500.",
+    "targetedHttpAndTransport": {
+      "passed": 10,
+      "failed": 0,
+      "overlapsFullSuite": true
+    },
+    "configurationScriptSyntheticValidation": {
+      "status": "passed",
+      "syntax": "passed",
+      "invalidInputsRejectWithoutWrite": 7,
+      "validPortOnlyChangesProxy": true,
+      "blankDisablesProxy": true,
+      "retainsOtherConfiguration": true,
+      "mode600": true,
+      "secretsNotPrinted": true,
+      "realCredentialFileTouched": false
+    },
+    "canvaVisualHttpTargeted": {
+      "passed": 46,
+      "failed": 0,
+      "overlapsFullSuite": true
+    },
+    "finalFullSuite": {
+      "passed": 279,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 102798.139852,
+      "workerConcurrency": 2
+    },
+    "safeLogs": [
+      "offline-tests.log",
+      "offline-tests-before-final.log",
+      "build.log"
+    ]
+  },
+  "privacy": "Only safe test/build logs and root-sanitized protocol summaries included. No raw output/session/env/local-state/private originals/auth links/signed URLs copied.",
+  "gitOperations": "No staging, commit or push.",
+  "currentRoundEvidence": {
+    "systemProxyEnabled": true,
+    "nodeProxyEnvironmentPresent": false,
+    "directAuthorizationMetadataHttpStatus": 302,
+    "directRedirectKind": "regional redirect; private Location not archived",
+    "existingLocalProxyAuthorizationMetadataHttpStatus": 200,
+    "discoveredTokenEndpoint": "https://api.canva.com/auth/v1/oauth/token",
+    "discoveredPkce": "S256",
+    "productionTransportMetadata": {
+      "httpStatus": 200,
+      "elapsedMs": 1682,
+      "credentialRequests": 0
+    },
+    "productionDiscovery": {
+      "status": "succeeded",
+      "elapsedMs": 3329,
+      "credentialRequests": 0
+    },
+    "oldTokenViaProxyInitialize": {
+      "httpStatus": 500,
+      "providerCode": "internal_error",
+      "elapsedMs": 1944,
+      "credentialUpgradePerformed": false
+    },
+    "interpretation": "Proxy alone did not resolve old-token initialization; previous static-token SDK failure does not exclude incorrect OAuth endpoints."
+  },
+  "credentialMigration": {
+    "version": "mcp-discovery-v2",
+    "eligibleGrant": "Exact same authorized mcp-resource-v1 app/scopes/resource only",
+    "realDispatch": "One explicit verify on the reloaded main service; refresh at discovered auth/v1 endpoint succeeded.",
+    "unknownGrantResultReplay": false,
+    "refreshRequests": 1,
+    "realGrantUpgradeStatus": "succeeded before REST preflight and MCP initialize",
+    "newAccountConsentPerformed": false
+  },
+  "upgradedMainServicePreflight": {
+    "checkedAt": "2026-10-22T22:36:51.898+08:00",
+    "totalElapsedMs": 6210,
+    "localHttpStatus": 502,
+    "phase": "mcp.initialize",
+    "upstreamStatus": 500,
+    "providerCode": "internal_error",
+    "outcomeUnknown": false,
+    "diagnosticId": "ccbb5365-121a-4973-8b9f-e367b7d20b52",
+    "refreshRequests": 1,
+    "refreshSucceeded": true,
+    "restPreflightHttpStatus": 200,
+    "toolsListReached": false,
+    "paidTextCalls": 0,
+    "paidImageCalls": 0,
+    "designMutationCalls": 0,
+    "source": "Root sanitized report; private raw diagnostic file not copied."
+  },
+  "privacyNoteCredentialCounting": "Discovery had zero credential requests; the later explicit verify rotated an existing grant once. The whole round is not purely read-only or credential-free.",
+  "officialSdkNewTokenComparison": {
+    "source": "Root explicitly sanitized summary; no raw output/session file copied.",
+    "sdk": "@modelcontextprotocol/sdk",
+    "sdkVersion": "1.32.1",
+    "protocolVersion": "2025-11-25",
+    "startedAt": "2026-10-22T22:40:55.958+08:00",
+    "credentialAuthorizationVersion": "mcp-discovery-v2",
+    "credentialMode": "current access token in memory only",
+    "transport": "production canvaFetch through configured local proxy; proxy URL omitted",
+    "requestCount": 1,
+    "method": "POST",
+    "phase": "mcp.initialize",
+    "httpStatus": 500,
+    "providerCode": "internal_error",
+    "httpElapsedMs": 1821,
+    "totalElapsedMs": 1849,
+    "initializeCompleted": false,
+    "toolsListReached": false,
+    "oauthRefreshCalls": 0,
+    "newAuthorizationCalls": 0,
+    "businessToolCalls": 0,
+    "paidCalls": 0,
+    "cloudflareCfRay": "a4e9429d1df8c07b-IAD",
+    "traceMeaning": "Cloudflare CF-Ray edge trace identifier, not a Canva-native request ID.",
+    "rootCauseEstablished": false
+  },
+  "newTokenSdkDoesNotResolveRootCause": true,
+  "currentRuntimeReadOnlyStatus": {
+    "configured": true,
+    "connected": true,
+    "activeJobs": 0,
+    "envLocalMode": "0600",
+    "doesNotProveMcpSuccess": true
+  },
+  "diagnosticTraceCompatibility": {
+    "requestIdFieldUnchanged": true,
+    "prefersSafeNativeRequestId": true,
+    "cloudflareFallbackPrefix": "cf-ray:",
+    "cloudflareIsCanvaNativeRequestId": false,
+    "secretsAndUrlRejected": true
+  },
+  "sourceFreeze": "Root confirmed all source/guide implementations frozen; fresh snapshots checked against current source.",
+  "liveToolDesignIdentifierCompatibility": {
+    "perToolDeclaredFields": [
+      "id",
+      "design_id"
+    ],
+    "completeCandidateArgumentValidation": true,
+    "sharedBy": [
+      "preflight",
+      "content-read",
+      "start-editing",
+      "png-export"
+    ],
+    "remoteFailureAliasRetry": false,
+    "newOfflineCases": 2,
+    "realToolDiscoveryCompleted": false
+  },
+  "finalizedAt": "2026-10-22T22:53:09+08:00",
+  "postRestartRuntime": {
+    "configured": true,
+    "connected": true,
+    "activeJobs": 0,
+    "modelRequestsDispatched": 0,
+    "designRequestsDispatched": 0,
+    "doesNotProveMcpAcceptance": true
+  },
+  "finalConclusion": {
+    "localProxyAndOAuthDiscoveryGapsCorrected": true,
+    "oneExplicitGrantRefreshSucceeded": true,
+    "nativeNewTokenMcpInitialize": "HTTP 500/internal_error",
+    "officialSdkNewTokenMcpInitialize": "HTTP 500/internal_error",
+    "serverRootCauseEstablished": false,
+    "toolsListReached": false,
+    "canvaWorkflowAccepted": false,
+    "fourChannelRealAcceptanceExecuted": false,
+    "oauthRefreshRequests": 1,
+    "newUserAuthorizationRequests": 0,
+    "paidTextCalls": 0,
+    "paidImageCalls": 0,
+    "designMutationCalls": 0,
+    "supportTicketAutomaticallySent": false,
+    "tokenClaimsDecoded": false,
+    "mcpAudienceEffectivenessProven": false,
+    "rest200DoesNotProveMcpAudience": true,
+    "applicationGrantCapabilityOrPlatformCauseExcluded": false
+  }
+}

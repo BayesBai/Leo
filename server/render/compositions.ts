@@ -30,7 +30,7 @@ export async function renderStorePoster(draft: Draft, title: string, images: Ren
   signal?.throwIfAborted(); assertEmbeddedImages(images);
   const ink = template.id.includes('ink'), bg = ink ? '#162d43' : '#fff4e0', fg = ink ? '#ffffff' : '#182f43', accent = ink ? '#ffdc85' : '#9e452f';
   return rasterize(template, size => box({ width: template.width, height: template.height, padding: 56, gap: 24, fontFamily: 'Noto', fontSize: size, lineHeight: 1.48, background: bg, color: fg },
-    box({ flexDirection: 'row', justifyContent: 'space-between', fontSize: 22, letterSpacing: 3, color: accent }, text('知序 · 门店提案'), text('STORE EDITION')),
+    box({ flexDirection: 'row', justifyContent: 'space-between', fontSize: 22, letterSpacing: 3, color: accent }, text(product), text('')),
     text(title, { fontSize: Math.min(88, size * 2.4), fontWeight: 700, lineHeight: 1.2, marginTop: 12 }),
     text(draft.intro, { fontSize: Math.max(25, size), color: accent }),
     text(product, { fontSize: 27 }),
@@ -40,7 +40,7 @@ export async function renderStorePoster(draft: Draft, title: string, images: Ren
       text(block.text, { fontSize: size }))),
     text(draft.cta, { marginTop: 'auto', background: accent, color: ink ? '#172b3e' : '#ffffff', padding: 24, fontSize: size + 2, fontWeight: 700 }),
     ...(draft.tags.length ? [text(draft.tags.map(t => `#${t}`).join(' '), { fontSize: 20 })] : []),
-    text(marker, { fontSize: 20, color: ink ? '#b3c7d8' : '#6e6d67' })), [36, 32, 28, 24, 21], signal);
+    ), [36, 32, 28, 24, 21], signal);
 }
 
 /** Moments: a store conversation and photo collage; the complete copy is also exported separately. */
@@ -50,23 +50,22 @@ export async function renderMomentsCard(draft: Draft, title: string, images: Ren
   const photoWidth = Math.floor((988 - (images.length - 1) * 12) / Math.max(1, images.length));
   return rasterize(template, size => box({ width: template.width, height: template.height, background: '#f0f6f3', padding: 46, gap: 20, color: '#203e35', fontFamily: 'Noto', lineHeight: 1.5 },
     box({ flexDirection: 'row', gap: 16, alignItems: 'center' }, text('知', { width: 54, height: 54, background: '#2d6b53', color: 'white', alignItems: 'center', justifyContent: 'center', fontSize: 30, borderRadius: 12 }),
-      box({ gap: 3 }, text('知序 · 门店日常', { fontSize: 25, fontWeight: 700 }), text(product, { fontSize: 20, color: '#647d72' }))),
+      box({ gap: 3 }, text(product, { fontSize: 25, fontWeight: 700 }), text(product, { fontSize: 20, color: '#647d72' }))),
     text(title, { fontSize: size * 1.5, fontWeight: 700 }),
     text(draft.intro, { fontSize: size }),
     box({ flexDirection: 'row', gap: 12, height: tall ? 380 : 290 }, ...images.map(image => box({ width: photoWidth, height: tall ? 380 : 290, background: '#ffffff', borderRadius: 18, alignItems: 'center', justifyContent: 'center', padding: 10 }, picture(image, photoWidth - 20, tall ? 350 : 260)))),
     ...draft.blocks.map(block => box({ background: '#ffffff', padding: 22, borderRadius: 20, gap: 10 }, text(block.heading, { fontSize: Math.max(21, size - 3), fontWeight: 700, color: '#38745c' }), text(block.text, { fontSize: size }))),
     text(draft.cta, { padding: 18, borderLeft: '4px solid #5c967a', fontSize: size, color: '#3e6654' }),
     ...(draft.tags.length ? [text(draft.tags.map(t => `#${t}`).join(' '), { fontSize: 20 })] : []),
-    text(marker, { marginTop: 'auto', fontSize: 18, color: '#778c82' })), [32, 28, 24, 21, 18], signal);
+    ), [32, 28, 24, 21, 18], signal);
 }
 
-/** Editorial cover: asymmetric two-column journal composition, unrelated to the poster/feed trees. */
+/** WeChat article cover is a landscape composition with distinct editable analogues in the PPTX. */
 export async function renderEditorialCover(title: string, images: RenderImage[], template: RenderTemplate, marker: string, product: string, signal?: AbortSignal) {
   signal?.throwIfAborted(); assertEmbeddedImages(images);
-  return rasterize(template, size => box({ width: template.width, height: template.height, padding: 58, background: '#fbf8f0', color: '#28373f', fontFamily: 'Noto', gap: 36 },
-    box({ flexDirection: 'row', justifyContent: 'space-between', borderBottom: '2px solid #28373f', paddingBottom: 20, fontSize: 23, letterSpacing: 3 }, text('知序 / 选购观察'), text('PC JOURNAL')),
-    box({ flexDirection: 'row', gap: 34, alignItems: 'center', height: 530 },
-      box({ width: 500, gap: 28, borderLeft: '8px solid #c76b44', paddingLeft: 28 }, text('从问题开始，而后选择', { fontSize: 22, color: '#a05d40' }), text(title, { fontSize: size, lineHeight: 1.35, fontWeight: 700 }), text(product, { fontSize: 24, color: '#6c7a7a' })),
-      box({ width: 550, height: 490, background: '#e8edeb', alignItems: 'center', justifyContent: 'center' }, ...images.slice(0, 1).map(image => picture(image, 520, 450)))),
-    text(marker, { fontSize: 20, color: '#7a817c', marginTop: 'auto' })), [58, 50, 43, 36], signal);
+  const compact = template.height <= 630;
+  return rasterize(template, size => box({ width: template.width, height: template.height, padding: compact ? 42 : 58, background: '#f3eee3', color: '#213e39', fontFamily: 'Noto', justifyContent: 'center' },
+    box({ flexDirection: 'row', gap: compact ? 28 : 34, alignItems: 'center', height: compact ? template.height - 84 : 530 },
+      box({ width: compact ? 510 : 500, gap: 22, borderLeft: '7px solid #be643e', paddingLeft: 28 }, text(product, { fontSize: 23, color: '#6a756b' }), text(title, { fontSize: size, lineHeight: 1.32, fontWeight: 700 })),
+      box({ width: compact ? 550 : 520, height: compact ? 360 : 490, alignItems: 'center', justifyContent: 'center' }, ...images.slice(0, 1).map(image => picture(image, compact ? 530 : 500, compact ? 340 : 450))))), compact ? [58, 52, 46, 40, 34] : [58, 50, 43, 36], signal);
 }

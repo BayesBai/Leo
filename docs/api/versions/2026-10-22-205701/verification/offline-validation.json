@@ -1,0 +1,103 @@
+{
+  "version": "2026-10-22-205701",
+  "checkedAt": "2026-10-22T21:13:22+08:00",
+  "timeZone": "Asia/Shanghai",
+  "source": "Final results confirmed by the root agent; all offline tests use synthetic isolated data.",
+  "fullSuite": {
+    "command": "npm test",
+    "status": "passed",
+    "tests": 244,
+    "passed": 244,
+    "failed": 0,
+    "skipped": 0,
+    "evidence": "full-tests.log"
+  },
+  "typeCheck": {
+    "command": "npm run check",
+    "status": "passed",
+    "evidence": "Root final verification; npm run build also executes tsc --noEmit."
+  },
+  "productionBuild": {
+    "command": "npm run build",
+    "status": "passed",
+    "evidence": "production-build.log",
+    "warnings": [
+      "Pure Mock lazy chunk is about 538 KB; Vite emits the existing >500 KB size warning."
+    ]
+  },
+  "targetedChecks": [
+    {
+      "group": "Frontend workflow and API",
+      "tests": 30,
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "frontend-tests.log"
+    },
+    {
+      "group": "History and channel delivery",
+      "tests": 6,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "history-delivery-tests.log"
+    }
+  ],
+  "countingNote": "Targeted checks overlap the full suite; do not add them to claim more than 244 distinct tests.",
+  "interfaceDetection": {
+    "status": "passed",
+    "runs": 1,
+    "result": [],
+    "evidence": "impeccable.json"
+  },
+  "manualNarrowMock": {
+    "status": "passed",
+    "widthPx": 340,
+    "method": "CUA real browser; simulated backend only",
+    "scenario": [
+      "Four-channel mock outline",
+      "Human confirmation",
+      "Queue submission",
+      "Independent Xiaohongshu and Moments deliveries",
+      "Moments source image and channel download controls"
+    ],
+    "confirmationScreenshot": "mock-moments-narrow.png",
+    "limitations": "This proves narrow-screen interaction with Mock data, not real product layout, desktop quality, real provider availability or OAuth."
+  },
+  "manualDesktopAndRealProductQuality": {
+    "status": "not_completed",
+    "reason": "Requires real authorized Canva exports and actual product/text layer inspection; not marked passed."
+  },
+  "imageGatewayReadOnlyDiscovery": {
+    "method": "GET",
+    "path": "/v1/models",
+    "status": 403,
+    "paidImageCalls": 0,
+    "conclusion": "Directory access was rejected; this does not establish whether the Images endpoint or exact model alias succeeds or fails."
+  },
+  "realImageGeneration": {
+    "status": "not_run",
+    "paidImageCalls": 0,
+    "reason": "Image Key was configured by the user, but no paid generation acceptance was executed."
+  },
+  "realCanvaAcceptance": {
+    "status": "not_run",
+    "reason": "Developer-app credentials and OAuth were not ready; no real layered import, MCP content read/edit transaction, export or font/product-layer acceptance occurred."
+  },
+  "realTextAcceptance": {
+    "status": "not_run_in_this_task"
+  },
+  "realIma": {
+    "status": "not_run_not_in_this_round"
+  },
+  "gitOperations": {
+    "staged": false,
+    "committed": false,
+    "pushed": false
+  },
+  "runtimeSmoke": {
+    "status": "passed",
+    "evidence": "runtime-smoke.json",
+    "description": "Frozen-source local restart; status/jobs200, no pending jobs, no paid calls."
+  }
+}

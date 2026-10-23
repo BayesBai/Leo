@@ -118,3 +118,19 @@ test('pruning expired ima media and render bundles removes their physical files 
   assert.equal(stateStore().get('renderAssets', 'expired'), undefined); assert.equal(stateStore().get('renderAssets', 'anotherExpired'), undefined); assert.ok(stateStore().get('renderAssets', 'fresh'));
   assert.equal(existsSync(path.join(renderDirectory(), expiredGroup)), false); assert.equal(existsSync(path.join(renderDirectory(), freshGroup, 'synthetic.png')), true);
 }));
+
+test('poster request guards, material metadata and independent video scripts keep original seven-day expiry',()=>isolatedState(()=>{
+ const now=Date.now(),oldGroup=randomUUID(),freshGroup=randomUUID(),future=now+60000;
+ stateStore().update(b=>{
+  b.posterRequests={old:{expiresAt:now-1,state:'dispatched'},fresh:{expiresAt:future,state:'dispatched'}};
+  b.posterMaterials={old:{asset:{createdAt:new Date(now-HISTORY_TTL-1).toISOString()}},fresh:{asset:{createdAt:new Date(now).toISOString()}}};
+  b.videoScripts={old:{expiresAt:new Date(now-1).toISOString(),checkpoint:{stage:'ready'}},fresh:{expiresAt:new Date(future).toISOString(),checkpoint:{stage:'ready'}}};
+  b.renderBundles={[oldGroup]:{expiresAt:new Date(now-1).toISOString()},[freshGroup]:{expiresAt:new Date(future).toISOString()}};
+  b.posterPackages={[oldGroup]:{design:{synthetic:true}},[freshGroup]:{design:{synthetic:true}}};
+ });
+ pruneHistory();
+ for(const bucket of ['posterRequests','posterMaterials','videoScripts']){assert.equal(stateStore().get(bucket,'old'),undefined);assert.ok(stateStore().get(bucket,'fresh'));}
+ assert.equal(stateStore().get('posterPackages',oldGroup),undefined);assert.ok(stateStore().get('posterPackages',freshGroup));
+ assert.equal(stateStore().get<{expiresAt:number}>('posterRequests','fresh')?.expiresAt,future);
+ assert.equal(stateStore().get<{expiresAt:string}>('videoScripts','fresh')?.expiresAt,new Date(future).toISOString());
+}));

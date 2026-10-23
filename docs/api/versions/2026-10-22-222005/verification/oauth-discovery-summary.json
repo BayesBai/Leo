@@ -1,0 +1,24 @@
+{
+  "source": "Root sanitized production-discovery report; no raw network output copied.",
+  "systemProxyEnabled": true,
+  "nodeProxyEnvironmentPresent": false,
+  "directAuthorizationMetadataHttpStatus": 302,
+  "directRegionalRedirectObserved": true,
+  "redirectLocationOmitted": true,
+  "productionCanvaProxyMetadata": {
+    "httpStatus": 200,
+    "elapsedMs": 1682
+  },
+  "productionDiscovery": {
+    "status": "succeeded",
+    "elapsedMs": 3329,
+    "credentialRequests": 0
+  },
+  "discoveredTokenEndpoint": "https://api.canva.com/auth/v1/oauth/token",
+  "pkceMethod": "S256",
+  "canonicalResourceValidated": true,
+  "proxyAddressOmitted": true,
+  "interpretation": "Public discovery success is separate from the later explicit refresh and from failing MCP initialization.",
+  "metadataIssuerAndEndpointPolicyValidated": true,
+  "tokenAudienceClaimsInterpreted": false
+}

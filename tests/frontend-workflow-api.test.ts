@@ -1,7 +1,7 @@
 import test, { afterEach } from 'node:test';
 import assert from 'node:assert/strict';
 import { unzipSync, strFromU8 } from 'fflate';
-import type { AppStatus, Brief, HistoryItem, OutlineResult, Platform, Product, RenderBundle, RenderTemplate, RunDetail, RunResult, TaskOptions } from '../shared/types.js';
+import type { AppStatus, BackgroundJob, Brief, CanvaConnectionStatus, ChannelDelivery, HistoryItem, OutlineResult, Platform, Product, RenderBundle, RenderTemplate, RunDetail, RunResult, TaskOptions } from '../shared/types.js';
 import { ApiError, createWorkflowClient } from '../src/api/client.js';
 import { createMockTransport, mockScenario, type MockScenario } from '../src/api/mock.js';
 import fixture from '../src/api/fixtures/frontend.mock.json';
@@ -21,6 +21,11 @@ async function render(c: Client, result: RunResult, platform: Platform, template
   const template = fixture.renderTemplates.templates.find(t => t.platform === platform)!;
   return c.api<RenderBundle>('/api/render', 'POST', { runId: result.id, revision: result.revision, platform, selectedTitleIndex: 0, templateId: templateId || template.id });
 }
+async function finished(c:Client,id:string){
+  const until=Date.now()+4000;
+  do{const {job}=await c.api<{job:BackgroundJob}>(`/api/jobs/${id}`);if(!['queued','running'].includes(job.status))return job;await new Promise(resolve=>setTimeout(resolve,5));}while(Date.now()<until);
+  throw new Error('Mock background delivery did not finish');
+}
 
 test('mock query parsing is explicit, safe in Node, and supports workflow failure scenarios', () => {
   assert.equal(mockScenario(''), null);
@@ -37,8 +42,11 @@ test('mock boots complete workflow catalogs and isolates credential settings and
   ]);
   assert.equal(products.products.length, 1); assert.match(products.products[0].name, /占位/);
   assert.equal(before.local.available, true); assert.equal(before.model.configured, false); assert.equal(before.ima.verified, false);
+  assert.deepEqual(before.image,{configured:false,name:'doubao-seedream-5-0-pro-260628',baseUrl:'https://ark.cn-beijing.volces.com/api/v3'});
+  assert.deepEqual(before.model,fixture.status.model,'changing the image provider does not change the text model configuration');
   assert.equal(options.platforms.length, 4); assert.equal(templates.templates.length, 8);
-  assert.equal(templates.templates.find(t => t.platform === 'wechat')?.height, 900);
+  assert.equal(templates.templates.find(t => t.platform === 'wechat')?.height, 510);
+  assert.ok(options.platforms.every(platform=>platform.minImages===1));
   assert.deepEqual(await c.api('/api/connections/settings', 'POST', { apiKey: 'test-secret-never-saved', imaApiKey: 'test-secret-never-saved', model: 'not-a-model' }), before);
   assert.deepEqual(await c.api('/api/connections/verify', 'POST', {}), before);
   assert.equal((await c.api<{ verified: boolean }>('/api/connections/model/verify', 'POST', {})).verified, false);
@@ -91,13 +99,17 @@ test('mock four-channel artifacts have real PNG bytes, correct output counts and
   const c = client(); const result = await run(c);
   for (const platform of result.brief.platforms) {
     const bundle = await render(c, result, platform);
-    assert.equal(bundle.artifacts.length, platform === 'wechat' ? 2 : platform === 'xiaohongshu' ? 3 : 1);
+    assert.equal(bundle.artifacts.length, platform === 'wechat' ? 2 : platform === 'xiaohongshu' ? 3 : platform==='moments'?Math.min(3,result.drafts.find(d=>d.platform===platform)!.images.length):1);
     assert.equal(bundle.runId, result.id); assert.equal(bundle.revision, result.revision); assert.equal(bundle.platform, platform);
-    for (const artifact of bundle.artifacts.filter(a => a.format === 'png')) {
+    for (const artifact of bundle.artifacts.filter(a => a.format === 'png'||a.format==='original')) {
       const response = await c.apiFetch(artifact.downloadUrl!); assert.equal(response.headers.get('Content-Type'), 'image/png');
       const bytes = new Uint8Array(await response.arrayBuffer());
       assert.deepEqual([...bytes.slice(0, 8)], [137, 80, 78, 71, 13, 10, 26, 10]);
       const view = new DataView(bytes.buffer); assert.equal(view.getUint32(16), artifact.width); assert.equal(view.getUint32(20), artifact.height);
+      if(artifact.format==='original'){
+        const source=result.evidence.images.find(image=>image.id===artifact.sourceImageIds[0])!;
+        assert.deepEqual(bytes,new Uint8Array(await(await c.apiFetch(source.url)).arrayBuffer()));
+      }
     }
     const zipResponse = await c.apiFetch(bundle.zipUrl!);
     assert.equal(zipResponse.headers.get('Content-Type'), 'application/zip');
@@ -116,13 +128,15 @@ test('mock blocks downloads and copy payloads when review is blocked', async () 
   assert.equal((await c.apiFetch('/__mock/resources/unknown')).status, 410);
 });
 
-test('mock portrait moments template matches declared PNG dimensions', async () => {
+test('mock moments templates preserve selected original PNG bytes and native dimensions', async () => {
   const c = client(); const result = await run(c, { ...brief(), platforms: ['moments'] });
   const bundle = await render(c, result, 'moments', 'moments-portrait');
   const artifact = bundle.artifacts[0];
   const bytes = await (await c.apiFetch(artifact.previewUrl)).arrayBuffer(); const view = new DataView(bytes);
-  assert.equal(artifact.width, 1080); assert.equal(artifact.height, 1440);
-  assert.equal(view.getUint32(16), 1080); assert.equal(view.getUint32(20), 1440);
+  assert.equal(artifact.format,'original');assert.ok(bundle.artifacts.length>=1&&bundle.artifacts.length<=3);
+  const source=result.evidence.images.find(image=>image.id===artifact.sourceImageIds[0])!;
+  assert.deepEqual(new Uint8Array(bytes),new Uint8Array(await(await c.apiFetch(source.url)).arrayBuffer()));
+  assert.equal(view.getUint32(16),artifact.width); assert.equal(view.getUint32(20),artifact.height);
 });
 
 test('mock exposes needs_input, empty products, stream errors and disconnection without successful results', async () => {
@@ -147,23 +161,25 @@ test('mock conflict is recoverable by loading the new version and expiry require
 test('mock rejects insufficient images, stale render versions and invalid templates', async () => {
   const c = client('insufficient-images');
   await assert.rejects(create(c), structuredError(422, 'http'));
+  for(const platform of ['moments','poster','wechat','xiaohongshu'] as Platform[])await assert.rejects(create(c,{...brief(),platforms:[platform]}),structuredError(422,'http'));
   assert.deepEqual(await c.api('/api/history'), { items: [] });
-  const result = await run(c, { ...brief(), platforms: ['poster'] });
-  await assert.rejects(render(c, { ...result, revision: 2 }, 'poster'), structuredError(409, 'conflict'));
-  await assert.rejects(render(c, result, 'poster', 'xhs-cream'), structuredError(400, 'http'));
-  assert.equal((await render(c, result, 'poster')).artifacts.length, 1);
+  const available=client();const result = await run(available, { ...brief(), platforms: ['poster'] });
+  await assert.rejects(render(available, { ...result, revision: 2 }, 'poster'), structuredError(409, 'conflict'));
+  await assert.rejects(render(available, result, 'poster', 'xhs-cream'), structuredError(400, 'http'));
+  assert.equal((await render(available, result, 'poster')).artifacts.length, 1);
 });
 
 test('mock validates channel image bounds before saving or confirming an outline', async () => {
   const c = client(); const outline = await create(c);
   const invalid = structuredClone(outline);
-  invalid.platforms.find(p => p.platform === 'wechat')!.imageIds = [outline.evidence.images[0].id];
+  invalid.platforms.find(p => p.platform === 'wechat')!.imageIds = [];
   await assert.rejects(save(c, invalid), structuredError(422, 'http'));
   invalid.platforms = structuredClone(outline.platforms);
   invalid.platforms.find(p => p.platform === 'poster')!.imageIds = outline.evidence.images.slice(0, 2).map(i => i.id);
   await assert.rejects(save(c, invalid), structuredError(422, 'http'));
   assert.deepEqual(await c.api(`/api/outlines/${outline.id}`), outline);
-  assert.equal((await confirm(c, outline)).status, 'confirmed');
+  const minimal=structuredClone(outline);minimal.platforms.forEach(platform=>{platform.imageIds=[outline.evidence.images[0].id];});
+  const saved=await save(c,minimal);assert.equal((await confirm(c,saved)).status,'confirmed');
 });
 
 test('mock history restores original run snapshots and unexpired artifacts independently of later outline edits', async () => {
@@ -238,4 +254,41 @@ test('real client rejects mismatched four-channel result sets and preserves HTTP
   await assert.rejects(c.generateFromOutline(value.outline.id, value.outline.version, new AbortController().signal, () => {}), error => error instanceof ApiError && error.kind === 'protocol');
   const stale = createWorkflowClient(async () => new Response(JSON.stringify({ message: '版本已更新' }), { status: 409, headers: { 'Content-Type': 'application/json' } }));
   await assert.rejects(stale.api('/api/outlines/id', 'PUT', {}), structuredError(409, 'conflict'));
+});
+
+test('mock channel deliveries keep their own gate and opt-in history, while the legacy full-set route stays blocked',async()=>{
+  const c=client('blocked');const result=await run(c);
+  const blocked=(await c.api<{delivery:ChannelDelivery}>(`/api/runs/${result.id}/deliveries/xiaohongshu`)).delivery;
+  const passed=(await c.api<{delivery:ChannelDelivery}>(`/api/runs/${result.id}/deliveries/moments`)).delivery;
+  assert.equal(blocked.status,'blocked');assert.equal(blocked.copyText,'');assert.notEqual(passed.review.status,'blocked');assert.ok(passed.copyText);
+  const key=crypto.randomUUID();const submit=()=>c.api<{job:BackgroundJob}>(`/api/deliveries/${passed.id}/rerender`,'POST',{idempotencyKey:key,visualMode:'local'});
+  const first=await submit();assert.equal((await submit()).job.id,first.job.id);
+  const complete=await finished(c,first.job.id);assert.equal(complete.status,'completed');assert.equal(complete.renderBundles[0].publication,'released');
+  assert.equal((await c.apiFetch(complete.renderBundles[0].zipUrl!)).status,200);
+  assert.equal((await render(c,result,'moments')).zipUrl,undefined,'old full-set rendering retains its legacy aggregate gate');
+  const ordinary=await c.api<Record<string,unknown>>('/api/history');assert.equal('deliveries'in ordinary,false);
+  const history=await c.api<{deliveries:ChannelDelivery[]}>('/api/history?includeDeliveries=1');assert.equal(history.deliveries.length,2);
+  const detail=await c.api<RunDetail>(`/api/runs/${result.id}?includeDeliveries=1`);assert.equal(detail.deliveries?.length,2);
+  await assert.rejects(c.api(`/api/deliveries/${passed.id}/rerender`,'POST',{idempotencyKey:key,visualMode:'canva'}),structuredError(410,'expired'));
+});
+
+test('mock suspends old external-editor endpoints and modes without network or new jobs',async()=>{
+  let network=0;globalThis.fetch=async()=>{network++;throw new Error('external forbidden');};const stages:string[]=[];
+  const c=createWorkflowClient(createMockTransport('ok',{latencyMs:0,canvaConnected:true,imageConfigured:true,onStage:(_id,_p,stage)=>stages.push(stage)}));
+  assert.equal((await c.api<AppStatus>('/api/status')).canva,undefined);
+  for(const [path,method]of [['/api/integrations/canva','GET'],['/api/integrations/canva/connect','POST'],['/api/integrations/canva/verify','POST'],['/api/integrations/canva/disconnect','POST']] as const) await assert.rejects(c.api(path,method,method==='POST'?{}:undefined),structuredError(410,'expired'));
+  const result=await run(c);const d=(await c.api<{delivery:ChannelDelivery}>(`/api/runs/${result.id}/deliveries/wechat`)).delivery;
+  const {job}=await c.api<{job:BackgroundJob}>(`/api/deliveries/${d.id}/rerender`,'POST',{idempotencyKey:crypto.randomUUID(),visualMode:'html'});const complete=await finished(c,job.id);const prior=complete.renderBundles[0];
+  await assert.rejects(c.api(`/api/deliveries/${d.id}/canva/sync`,'POST',{idempotencyKey:crypto.randomUUID()}),structuredError(410,'expired'));
+  await assert.rejects(c.api(`/api/deliveries/${d.id}/rerender`,'POST',{idempotencyKey:crypto.randomUUID(),visualMode:'canva'}),structuredError(410,'expired'));
+  assert.equal((await c.apiFetch(prior.zipUrl!)).status,200);assert.equal(stages.some(stage=>stage.startsWith('canva_')),false);assert.equal(network,0);
+});
+
+test('mock missing image credentials fails only explicit HTML background work and keeps reviewed copy',async()=>{
+  const stages:string[]=[];const c=createWorkflowClient(createMockTransport('ok',{latencyMs:0,onStage:(_id,_p,stage)=>stages.push(stage)}));
+  const result=await run(c);const d=(await c.api<{delivery:ChannelDelivery}>(`/api/runs/${result.id}/deliveries/wechat`)).delivery;
+  const {job}=await c.api<{job:BackgroundJob}>(`/api/deliveries/${d.id}/rerender`,'POST',{idempotencyKey:crypto.randomUUID(),visualMode:'html',regenerateVisual:true});const failed=await finished(c,job.id);
+  assert.equal(failed.status,'failed');assert.equal(failed.error?.code,'IMAGE_NOT_CONFIGURED');assert.equal(failed.error?.retryable,true);
+  const saved=(await c.api<{delivery:ChannelDelivery}>(`/api/deliveries/${d.id}`)).delivery;assert.equal(saved.draft.id,d.draft.id);assert.ok(saved.copyText);assert.notEqual(saved.review.status,'blocked');
+  assert.equal(stages.includes('write'),false);assert.equal(stages.some(stage=>stage.startsWith('canva_')),false);
 });

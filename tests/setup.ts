@@ -21,6 +21,8 @@ process.env.LLM_BASE_URL = 'https://relay.nccnxta.cn/v1';
 process.env.LLM_MODEL = 'gpt-6.1-sol';
 process.env.LLM_TIMEOUT_MS = '180000';
 delete process.env.LLM_THINKING;
+for (const name of ['IMAGE_API_KEY','CANVA_CLIENT_ID','CANVA_CLIENT_SECRET','CANVA_REDIRECT_URI','CANVA_PROXY_URL']) delete process.env[name];
+process.env.IMAGE_BASE_URL='https://ark.cn-beijing.volces.com/api/v3'; process.env.IMAGE_MODEL='doubao-seedream-5-0-pro-260628';
 process.env.IMA_CLIENT_ID = process.env.IMA_OPENAPI_CLIENTID = 'test-only-ima-client';
 process.env.IMA_API_KEY = process.env.IMA_OPENAPI_APIKEY = 'test-only-ima-key';
 process.env.IMA_KB_NAME = '纯模拟测试知识库';

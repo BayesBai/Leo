@@ -12,7 +12,7 @@ export const taskOptions: TaskOptions = {
     { id: 'holiday_marketing', label: '节日营销', audienceSuggestions: ['送礼人群', '家庭购机人群'], focusSuggestions: ['礼赠', '家庭场景', '选择建议'] },
   ],
   goals: ['到店体验', '私信咨询', '产品种草', '选购参考', '预约演示'], buyingStages: ['初步了解', '对比选择', '购买决策'],
-  platforms: [ { id: 'wechat', label: '公众号', minImages: 2, maxImages: 4 },
-    { id: 'xiaohongshu', label: '小红书', minImages: 3, maxImages: 6 },
+  platforms: [ { id: 'wechat', label: '公众号', minImages: 1, maxImages: 4 },
+    { id: 'xiaohongshu', label: '小红书', minImages: 1, maxImages: 6 },
     { id: 'moments', label: '门店朋友圈', minImages: 1, maxImages: 3 }, { id: 'poster', label: '门店海报', minImages: 1, maxImages: 1 } ],
 };

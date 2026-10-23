@@ -4,15 +4,15 @@ import type { BackgroundJob, JobInput, JobStage, JobStatus, Platform, RenderBund
 import { api, mockLabel, submitJob, subscribeJobs } from './api';
 import { Button } from './virgo/Controls';
 import './virgo/background-tasks.css';
-import { mergeJobSnapshot } from './job-state';
+import { canRetryJob, mergeJobSnapshot, oldVideoNeedsNewJob, visibleJobError } from './job-state';
 
 export const jobSelectionKey = `zhixu:job-selection:${mockLabel || 'real'}`;
 export const pendingSubmissionKey = `zhixu:job-pending:${mockLabel || 'real'}`;
 export const activeJob = (job: BackgroundJob) => job.status === 'queued' || job.status === 'running';
 export const jobStatusLabel: Record<JobStatus, string> = { queued: '等待执行', running: '正在处理', failed: '有步骤失败', interrupted: '执行已中断', cancelled: '已停止', completed: '已完成' };
-const stageLabels: Record<JobStage, string> = { retrieve: '读取资料', outline: '策划方案', write: '写作', review: '独立审稿', repair: '定向返修', recheck: '复审', render: '排版', publish: '整组终审' };
+export const stageLabels: Record<JobStage, string> = { retrieve: '读取资料', outline: '策划方案', write: '写作', review: '独立审稿', repair: '定向返修', recheck: '复审', design:'设计简报',image:'生成视觉',compose:'分层制作',canva_import:'旧外部设计已搁置',canva_edit:'旧外部设计已搁置',canva_export:'旧外部设计已搁置',render: '排版', publish: '渠道交付', storyboard: '编排视频分镜', video_script: '撰写视频短稿', video_review: '独立审核短稿', video_repair: '定向修订短稿', video_recheck: '复审视频短稿', video_render: '渲染视频画面', video_encode: '编码视频' };
 const platformLabels: Record<Platform, string> = { xiaohongshu: '小红书', wechat: '公众号', moments: '朋友圈', poster: '门店海报' };
-export const jobTitle = (job: BackgroundJob) => ({ outline: '策划营销方案', 'outline-revise': 'AI 调整方案', generate: '写作、审稿与排版', render: '生成视觉成品' })[job.kind];
+export const jobTitle = (job: BackgroundJob) => ({ outline: '策划营销方案', 'outline-revise': 'AI 调整方案', generate: '写作、审稿与排版', render: '生成视觉成品', video: '制作渠道短视频' })[job.kind];
 export function rememberJob(id: string | null) { try { if (id) localStorage.setItem(jobSelectionKey, id); else localStorage.removeItem(jobSelectionKey); } catch { /* Backend state remains available. */ } }
 
 
@@ -72,7 +72,7 @@ export function useBackgroundJobs() {
 
 export function TaskCenter({ jobs, selectedId, connected, loading, error, pending, onOpen, onAction, compact = false }: {
   jobs: BackgroundJob[]; selectedId: string | null; connected: boolean; loading: boolean; error: string; pending: string[];
-  onOpen: (job: BackgroundJob) => void; onAction: (job: BackgroundJob, action: 'cancel' | 'retry') => void; compact?: boolean;
+  onOpen: (job: BackgroundJob) => void; onAction: (job: BackgroundJob, action: 'cancel' | 'retry' | 'new-video') => void; compact?: boolean;
 }) {
   const ordered = [...jobs].sort((a, b) => Number(activeJob(b)) - Number(activeJob(a)) || b.createdAt.localeCompare(a.createdAt));
   return <section className={`task-center${compact ? ' task-center-compact' : ''}`} aria-label="后台任务">
@@ -83,9 +83,9 @@ export function TaskCenter({ jobs, selectedId, connected, loading, error, pendin
     <ol className="task-list">{ordered.map(job => <li className={`task-item task-${job.status}`} key={job.id} aria-current={selectedId === job.id ? 'true' : undefined}>
       <div className="task-item-heading">{job.status === 'running' ? <LoaderCircle className="spin" size={18} aria-hidden="true" /> : job.status === 'queued' ? <Clock3 size={18} aria-hidden="true" /> : job.status === 'completed' ? <CheckCircle2 size={18} aria-hidden="true" /> : <CircleX size={18} aria-hidden="true" />}<strong>{jobTitle(job)}</strong><span>{jobStatusLabel[job.status]}</span></div>
       <p>{job.outline?.product.name || job.result?.product.name || job.summary?.productName || (job.input.kind === 'outline' ? job.input.brief.audience : '')} {job.outline?.brief.scene || job.summary?.scene || ''}</p>
-      <ul className="task-channel-list">{job.channels.map(channel => <li key={channel.platform}><span>{platformLabels[channel.platform]}</span><span>{stageLabels[channel.stage]} · {jobStatusLabel[channel.status]}</span></li>)}</ul>
-      {job.error && <p className="task-error" role="status">{job.error.message}{job.error.outcomeUnknown && ' 上游可能已产生消耗；主动重试可能再次计费。'}</p>}
-      <div className="task-item-actions"><Button variant="ghost" onClick={() => onOpen(job)}>查看任务<ArrowRight size={15} /></Button>{activeJob(job) && <Button disabled={pending.includes(job.id)} onClick={() => onAction(job, 'cancel')}><Square size={14} />停止此任务</Button>}{['failed', 'interrupted'].includes(job.status) && job.error?.retryable !== false && <Button disabled={pending.includes(job.id)} onClick={() => onAction(job, 'retry')}><RotateCcw size={15} />重试失败步骤{job.error?.outcomeUnknown ? '（可能再次计费）' : ''}</Button>}</div>
+      <ul className="task-channel-list">{job.channels.map(channel => <li key={channel.platform}><span>{platformLabels[channel.platform]}</span><span>{stageLabels[channel.stage]} · {jobStatusLabel[channel.status]}{channel.progress && ` · ${channel.progress.completedFrames}/${channel.progress.totalFrames} 帧`}</span></li>)}</ul>
+      {job.error && <p className="task-error" role="status">{job.error.platform ? `${platformLabels[job.error.platform]} · ${stageLabels[job.error.stage]}：` : ''}{visibleJobError(job)}{job.error.diagnosticId && `（诊断号 ${job.error.diagnosticId}）`}{job.error.outcomeUnknown && ' 上游可能已产生消耗；主动重试可能再次计费。'}</p>}
+      <div className="task-item-actions"><Button variant="ghost" onClick={() => onOpen(job)}>查看任务<ArrowRight size={15} /></Button>{activeJob(job) && <Button disabled={pending.includes(job.id)} onClick={() => onAction(job, 'cancel')}><Square size={14} />停止此任务</Button>}{canRetryJob(job) && <Button disabled={pending.includes(job.id)} onClick={() => onAction(job, 'retry')}><RotateCcw size={15} />{job.status === 'cancelled' ? '继续视频制作' : '重试失败步骤'}{job.error?.outcomeUnknown || job.calls.some(call=>call.outcome==='unknown') ? '（可能再次计费）' : ''}</Button>}{oldVideoNeedsNewJob(job) && <Button disabled={pending.includes(job.id)} onClick={() => onAction(job, 'new-video')}>按新版流程制作视频</Button>}</div>
     </li>)}</ol>
   </section>;
 }

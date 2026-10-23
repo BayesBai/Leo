@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-10-23T04:18:15.738Z",
+  "intent": "public-metadata-update-check-only",
+  "credentialRequests": 0,
+  "oauthExchanges": 0,
+  "paidCalls": 0,
+  "designMutations": 0,
+  "requests": [
+    {
+      "host": "api.canva.com",
+      "path": "/.well-known/oauth-protected-resource/connect/v1/mcp",
+      "status": 200,
+      "elapsedMs": 1835
+    },
+    {
+      "host": "www.canva.com",
+      "path": "/.well-known/oauth-authorization-server",
+      "status": 200,
+      "elapsedMs": 1684
+    }
+  ],
+  "status": "passed",
+  "metadata": {
+    "resource": "https://api.canva.com/connect/v1/mcp",
+    "issuer": "https://www.canva.com",
+    "authorizationEndpoint": "https://www.canva.com/api/oauth/authorize",
+    "tokenEndpoint": "https://api.canva.com/auth/v1/oauth/token",
+    "tokenAuthMethod": "client_secret_basic",
+    "pkceMethod": "S256",
+    "fingerprint": "e0f7beddf27327a37fcc086b70a97a7040cc847ea53ba3c619ef630efd16fd95"
+  },
+  "matchesPreviousPublicFingerprint": true
+}

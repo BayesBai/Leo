@@ -1,0 +1,11 @@
+{
+  "stage": "static-awaiting-user-review",
+  "sourceFiles": {
+    "src/virgo/workbench.css": "c0e6ba77a0fd3b553db7bf99ae1836f1b0e727a2a119ccba5517767476d1797c",
+    "src/virgo/landing.css": "d3c7b6457d1c633a843e86fbe6a3e5e6d5ecaa215149a1148661910478bd8d5f",
+    "src/virgo/VirgoLanding.tsx": "e4caed48e2c42c1efdd452ddb91e0494074c98c5c25de9180316c73cb0fa28c8"
+  },
+  "videoGenerationSubmitted": false,
+  "creditsConsumedByThisTask": 0,
+  "budgetFromPriorRead": 100
+}

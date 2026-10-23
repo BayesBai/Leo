@@ -1,0 +1,38 @@
+✔ background submit reconciles a lost acknowledgement without dispatching twice (72.81757ms)
+✔ background jobs survive subscription and submit connection closure; a new client restores by ID (43.845843ms)
+✔ first channel delivers before slowest channel without pretending a partial set is a final result (483.628375ms)
+✔ failed channel retry preserves successful channel and completed writing checkpoints (228.086502ms)
+✔ explicit cancel affects only one job and a blocked channel retains its own export gate (260.023058ms)
+✔ unknown submission without a matching persistent key is never automatically resubmitted (0.73154ms)
+✔ lost acknowledgement reconciles an active logical job returned under an alias key (28.91633ms)
+✔ compact terminal events invalidate stale detail and keep the exact hydrated revision (43.014242ms)
+✔ independent assets retain identity at final completion and released identity cannot regress to a legacy preview (153.118272ms)
+✔ mock query parsing is explicit, safe in Node, and supports workflow failure scenarios (1.596385ms)
+✔ mock boots complete workflow catalogs and isolates credential settings and verification (381.063465ms)
+✔ mock saves versioned outlines, invalidates confirmation, and binds four-channel generation to the snapshot (63.327323ms)
+✔ mock filters channels consistently for a subset and rejects foreign product or fact IDs (46.707612ms)
+✔ mock four-channel artifacts have real PNG bytes, correct output counts and safe downloadable ZIPs (108.660459ms)
+✔ mock blocks downloads and copy payloads when review is blocked (64.747749ms)
+✔ mock moments templates preserve selected original PNG bytes and native dimensions (54.740139ms)
+✔ mock exposes needs_input, empty products, stream errors and disconnection without successful results (129.308427ms)
+✔ mock conflict is recoverable by loading the new version and expiry requires a new outline (60.184531ms)
+✔ mock rejects insufficient images, stale render versions and invalid templates (92.615014ms)
+✔ mock validates channel image bounds before saving or confirming an outline (64.048681ms)
+✔ mock history restores original run snapshots and unexpired artifacts independently of later outline edits (117.434028ms)
+✔ mock keeps seven-day history read-only when evidence expires and never extends artifact or history expiry (61.069315ms)
+✔ mock cancellation stops pending generation and preserves the confirmed outline (132.718298ms)
+✔ mock cancellation before a JSON mutation leaves the saved outline untouched (134.154711ms)
+✔ real client cancels a silent open stream immediately and classifies transport failures (10.192216ms)
+✔ real client rejects mismatched four-channel result sets and preserves HTTP error metadata (3.270566ms)
+✔ mock channel deliveries keep their own gate and opt-in history, while the legacy full-set route stays blocked (69.144472ms)
+✔ mock Canva connection, visual reuse, explicit regeneration and sync stay local and preserve original expiry (520.821491ms)
+✔ mock missing image credentials fails only the visual step and keeps independently reviewed copy (79.047626ms)
+✔ mock changed Canva content revokes its previous asset handles without blocking another channel (92.02398ms)
+ℹ tests 30
+ℹ suites 0
+ℹ pass 30
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2848.242893

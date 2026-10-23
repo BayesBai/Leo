@@ -1,0 +1,14 @@
+✔ passed Moments exports independently when a sibling poster is blocked; images retain original bytes (1602.610116ms)
+✔ new article output has no review labels while preserving factual conditions and separate provenance (967.652428ms)
+✔ explicit cleanup of a valid legacy preview uses saved copy and original source, new handles and original expiry without a model request (522.400394ms)
+✔ revoking changed Canva text or product layers closes already issued artifact and ZIP downloads (240.044591ms)
+✔ HTTP restart restores seven-day history, exact approved snapshot, original assets and downloadable artifacts (18635.458148ms)
+✔ changed local evidence becomes read-only while history stays readable and fresh planning bypasses stale catalog (3256.949822ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 22972.948538

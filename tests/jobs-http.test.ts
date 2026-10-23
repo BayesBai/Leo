@@ -13,7 +13,7 @@ async function waitJob(base: string, id: string, check: (j: BackgroundJob) => bo
 }
 const json = (body: unknown) => ({ method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
 
-test('Job HTTP workflow: durable submit, disconnected subscription, snapshot binding, previews, global gate and failed-review-only resume', async () => {
+test('Job HTTP workflow: durable submit, disconnected subscription, snapshot binding, independent delivery and failed-review-only resume without image credentials', async () => {
   const native = globalThis.fetch; const app = await createApp({ apiOnly: true }); const server = app.listen(0, '127.0.0.1'); await once(server, 'listening');
   const base = `http://127.0.0.1:${(server.address() as { port: number }).port}`;
   let releaseSlow = () => {};
@@ -61,20 +61,21 @@ test('Job HTTP workflow: durable submit, disconnected subscription, snapshot bin
     const early = await waitJob(base, queued.id, j => !!j.channels.find(c => c.platform === 'moments')?.preview?.bundle);
     assert.equal(early.result, undefined); assert.equal(early.status, 'running');
     const bundle = early.channels.find(c => c.platform === 'moments')!.preview!.bundle!;
-    assert.equal(bundle.publication, 'preview'); assert.equal(bundle.zipUrl, undefined); assert.equal(bundle.copyText, '');
-    for (const a of bundle.artifacts) { assert.equal(a.downloadUrl, undefined); assert.equal((await fetch(base + a.previewUrl)).status, 200); assert.equal((await fetch(base + a.previewUrl + '?download=1')).status, 409); }
+    assert.equal(bundle.publication, 'released'); assert.ok(bundle.zipUrl); assert.ok(bundle.copyText);
+    for (const a of bundle.artifacts) { assert.ok(a.downloadUrl); assert.equal((await fetch(base + a.previewUrl)).status, 200); assert.equal((await fetch(base + a.previewUrl + '?download=1')).status, 200); }
     releaseSlow();
     const failed = await waitJob(base, queued.id); assert.equal(failed.status, 'failed'); assert.equal(failed.result, undefined);
     assert.equal(failed.channels.find(c => c.platform === 'poster')?.error?.upstreamStatus, 524); assert.equal(failed.channels.find(c => c.platform === 'poster')?.error?.outcomeUnknown, true);
     assert.equal(writes, 2); assert.equal(reviews, 2); failReview = false;
     assert.equal((await fetch(`${base}/api/jobs/${queued.id}/retry`, json({}))).status, 200);
-    const completed = await waitJob(base, queued.id); assert.equal(completed.status, 'completed'); assert.equal(writes, 2); assert.equal(reviews, 3);
+    const completed = await waitJob(base, queued.id); assert.equal(completed.status, 'failed');
+    assert.equal(completed.channels.find(c=>c.platform==='poster')?.error?.code,'IMAGE_NOT_CONFIGURED'); assert.equal(writes, 2); assert.equal(reviews, 3);
     assert.equal(completed.result?.drafts.length, 2); assert.equal(completed.result?.outline?.version, planned.version);
     const blocked = completed.result!.review.status === 'blocked';
-    assert.equal(completed.renderBundles.length, 2);
+    assert.equal(completed.renderBundles.length, 1);
     for (const b of completed.renderBundles) { assert.equal(b.publication, blocked ? 'blocked' : 'released'); for (const a of b.artifacts) { assert.equal((await fetch(base + a.previewUrl)).status, 200); assert.equal((await fetch(base + a.previewUrl + '?download=1')).status, blocked ? 409 : 200); } }
     // Old pending preview handles never turn into clean downloads during promotion.
-    for (const a of bundle.artifacts) assert.equal((await fetch(base + a.previewUrl + '?download=1')).status, 409);
+    for (const a of bundle.artifacts) assert.equal((await fetch(base + a.previewUrl + '?download=1')).status, 200);
     assert.equal(completed.calls.length, 5); assert.equal(completed.calls.filter(c => c.stage === 'write').length, 2);
     assert.ok(!JSON.stringify(stateStore().entries('jobs')).includes(process.env.LLM_API_KEY!));
     const list = await fetch(`${base}/api/jobs`); const listed = (await list.json()).jobs.find((j: BackgroundJob) => j.id === queued.id);

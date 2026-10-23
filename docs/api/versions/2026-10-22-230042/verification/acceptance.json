@@ -1,0 +1,255 @@
+{
+  "status": "final",
+  "createdAt": "2026-10-22T23:00:42+08:00",
+  "previousVersion": "2026-10-22-222005",
+  "task": "Read-only Canva initialize failure, SDK/status/file-size and proxy-routing diagnosis",
+  "sourceCommit": "d12b55b8026138dd65c887f400a7fc0152a9baa8",
+  "sourceBranch": "frontend/workbench",
+  "apiConclusion": "已核对，无接口变更。HTTP routes, schemas, DTOs and current Canva behavior match previous archive; frontend requires no new adaptation.",
+  "initialContractSourceByteComparison": {
+    "server/index.ts": true,
+    "server/schemas.ts": true,
+    "shared/types.ts": true,
+    "server/integrations/canva.ts": true,
+    "server/integrations/canva-http.ts": true,
+    "server/integrations/canva-oauth.ts": true,
+    "server/integrations/canva-transport.ts": true,
+    "shared/canva-url.ts": true
+  },
+  "previousRoundTests": {
+    "passed": 279,
+    "countedAsCurrentRoundRerun": false,
+    "reference": "../../2026-10-22-222005/README.md"
+  },
+  "currentRoundValidation": {
+    "offlineTests": {
+      "targetedPassed": 10,
+      "failed": 0,
+      "cancelled": 0,
+      "skipped": 0,
+      "durationMs": 4553.352045,
+      "exitCode": 0,
+      "scope": "canva-transport + HTTP diagnostics",
+      "full279Rerun": false,
+      "log": "offline-targeted.log"
+    },
+    "productionBuild": "Not rerun; no source change.",
+    "externalRequests": {
+      "publicMetadataHttpRequests": 4,
+      "authenticatedReadOnlyHttpRequests": 4,
+      "totalDiagnosticHttpRequests": 8,
+      "oauthRefreshRequests": 0,
+      "newAccountAuthorizationRequests": 0,
+      "modelRequests": 0,
+      "designRequests": 0,
+      "source": "Root actual report; archive agent no requests.",
+      "countScope": "Only diagnostic probes directly from this machine to Canva; excludes localhost GET connection status and web research tools."
+    }
+  },
+  "archiveAgentScope": {
+    "businessSourceWrites": 0,
+    "credentialFilesRead": false,
+    "externalRequests": 0,
+    "modelDesignAuthorizationCalls": 0,
+    "sourceReads": "Only non-secret repository code and sanitized summaries; no credential files."
+  },
+  "evidencePolicy": "No raw output/session/env, credentials, private material, actual proxy URL/egress IP, auth URL or signed URL copied.",
+  "gitOperations": "No staging, commit or push.",
+  "referenceApplicability": {
+    "completed": true,
+    "source": "canva_backend research final report; archive agent performed no public requests.",
+    "document": "issue-applicability.md",
+    "microsoftIssuesAreDifferentProduct": true,
+    "openhandsIssuesAreDifferentDependencyOrFailureLayer": true,
+    "happyIssueIsLocalServerReuseNotCurrentClient": true,
+    "canvaRemoteSimilarBugOrGrantCapabilityExcluded": false,
+    "newIndependentOAuthVerified": false
+  },
+  "publicNetworkMatrix": {
+    "requestCount": 4,
+    "credentialRequests": 0,
+    "noExplicitProxy": {
+      "authorizationServerMetadataHttpStatus": 302,
+      "regionalRedirectObserved": true,
+      "protectedResourceMetadataHttpStatus": 200,
+      "cloudflarePopLabels": [
+        "LAX",
+        "HKG"
+      ]
+    },
+    "explicitExistingLocalHttpProxy": {
+      "authorizationServerMetadataHttpStatus": 200,
+      "expectedOfficialMetadataObserved": true,
+      "protectedResourceMetadataHttpStatus": 200,
+      "cloudflarePopLabels": [
+        "IAD"
+      ]
+    },
+    "cloudflarePopIsExitIpGeolocation": false,
+    "rawReportCopied": false,
+    "authenticatedMatrixStatus": "completed; see authenticated-path-comparison.json"
+  },
+  "authenticatedPathComparison": {
+    "source": "Root sanitized actual observations; no raw output, token or proxy configuration copied.",
+    "windowStart": "2026-10-22T23:02:54.737+08:00",
+    "windowEnd": "2026-10-22T23:03:00.642+08:00",
+    "sameExistingUnexpiredToken": true,
+    "authorizationVersion": "mcp-discovery-v2",
+    "initializeBodyBytes": 173,
+    "fileContentIncluded": false,
+    "programPaths": [
+      {
+        "label": "no-explicit-proxy",
+        "meansPhysicalDirectConnection": false,
+        "restMetadata": {
+          "httpStatus": 200,
+          "elapsedMs": 986,
+          "cloudflarePop": "HKG"
+        },
+        "mcpInitialize": {
+          "httpStatus": 500,
+          "providerCode": "internal_error",
+          "elapsedMs": 1208,
+          "cloudflarePop": "HKG"
+        }
+      },
+      {
+        "label": "explicit-existing-local-http-proxy",
+        "proxyUrlOmitted": true,
+        "restMetadata": {
+          "httpStatus": 200,
+          "elapsedMs": 1726,
+          "cloudflarePop": "IAD"
+        },
+        "mcpInitialize": {
+          "httpStatus": 500,
+          "providerCode": "internal_error",
+          "elapsedMs": 1974,
+          "cloudflarePop": "EWR"
+        }
+      }
+    ],
+    "authenticatedReadOnlyHttpRequests": 4,
+    "oauthRefreshRequests": 0,
+    "newAccountAuthorizationRequests": 0,
+    "modelRequests": 0,
+    "designRequests": 0,
+    "toolsListReached": false,
+    "cloudflarePopIsExitIpOrCountry": false,
+    "popDifferenceProvesIpDrift": false,
+    "networkOrGrantRootCauseExcluded": false
+  },
+  "runtimeProxySavedConfigAudit": {
+    "source": "Root sanitized runtime/saved configuration audit; archive agent did not read the original configuration or credentials.",
+    "savedConfiguration": {
+      "bypassChinaRules": 8,
+      "domainStrategy": "AsIs",
+      "canvaHostsChecked": 4,
+      "matchingSavedDomainRules": 0,
+      "matchingCheckedLocalLists": false,
+      "checkedLocalLists": [
+        "CN",
+        "PRIVATE",
+        "GOOGLE"
+      ],
+      "dedicatedCanvaDirectOrBlockRuleFound": false
+    },
+    "operatingSystemRouteObservation": {
+      "ipv4DefaultInterface": "en0",
+      "ipv6DefaultInterface": "en0",
+      "sampledXrayPeerCount": 3,
+      "sampledPeerRoutesInterface": "en0",
+      "tunRecaptureEvidenceFound": false,
+      "guiTunSavedEnabled": true,
+      "guiSettingProvesEffectiveRuntimeTun": false
+    },
+    "runtimeEvidenceLimits": {
+      "workingBinConfigsDirectoryEmpty": true,
+      "runtimeJsonNoLongerPresent": true,
+      "firstOutboundOrderKnown": false,
+      "accessLogEnabled": false,
+      "logLevel": "warning",
+      "effectiveOutboundTagConfirmed": false,
+      "remoteProxyChainConfirmed": false
+    },
+    "interpretation": {
+      "staticIpReputationExcluded": false,
+      "allRuntimeRoutingEffectsExcluded": false,
+      "changeGlobalRoutesJustifiedByCurrentEvidence": false
+    },
+    "officialSources": [
+      "https://xtls.github.io/config/routing.html",
+      "https://xtls.github.io/config/outbound.html"
+    ],
+    "privateDataOmitted": [
+      "node identifiers",
+      "proxy URLs",
+      "egress addresses",
+      "credentials",
+      "raw configuration",
+      "session state"
+    ]
+  },
+  "rootIndependentCredentialScan": {
+    "source": "Root independent exact-match scan; archive agent did not read credential files.",
+    "draftMatches": 0,
+    "finalContentMatches": 0,
+    "filesScannedBeforeSealing": 173,
+    "secretValuesPrinted": false
+  },
+  "currentRuntimeReadOnlyChecks": {
+    "stateFileMode": "0600",
+    "persistentAccessTokenPresent": true,
+    "refreshingMarker": false,
+    "configured": true,
+    "connected": true,
+    "configurationChanged": false,
+    "sourceChanged": false,
+    "proxyNodeOrTunChanged": false,
+    "processRestarted": false,
+    "oauthRefreshed": false,
+    "doesNotProveMcpAudience": true
+  },
+  "sourceComparison": {
+    "sourceSnapshotCount": 155,
+    "allByteEqualToPreviousArchive": true,
+    "businessSourceChanges": 0,
+    "interfaceChanges": 0,
+    "configurationChanges": 0
+  },
+  "finalConclusion": {
+    "referencedIssuePatchesDirectlyApplicable": false,
+    "fileSizeTriggeredThisInitializeFailure": false,
+    "initializeRequestBodyBytes": 173,
+    "fileContentSent": false,
+    "noExplicitProxyIsGuaranteedPhysicalDirect": false,
+    "cloudflarePopProvesEgressLocationOrIpDrift": false,
+    "staticIpReputationFullyExcluded": false,
+    "runtimeRouteOrRemoteChainFullyKnown": false,
+    "canvaRemoteOrGrantRootCauseExcluded": false,
+    "canvaMcpAccepted": false,
+    "globalRoutingChangeJustifiedByCurrentEvidence": false,
+    "httpDiagnosticRequests": 8,
+    "oauthRefreshRequests": 0,
+    "newAuthorizationRequests": 0,
+    "modelRequests": 0,
+    "designRequests": 0,
+    "configurationChanged": false,
+    "sourceChanged": false,
+    "httpDiagnosticRequestCountScope": "Direct-to-Canva probes only; excludes localhost API reads and web documentation/research."
+  },
+  "sourceFreeze": "No business source/interface/config changes this task; all 155 archived source snapshots match previous archive and current source.",
+  "finalizedContentAt": "2026-10-22T23:08:40+08:00",
+  "publicDocumentationObservation": {
+    "source": "Root web reads during this task; not local diagnostic HTTP probes.",
+    "statusPage": "https://www.canvastatus.com/",
+    "overallStatus": "All Systems Operational",
+    "connectApi": "Operational",
+    "canvaAiPlatform": "Operational",
+    "provesEveryMcpApplicationHealthy": false,
+    "quickstart": "https://www.canva.dev/docs/apps/quickstart/",
+    "officialRemoteMcpUrlUnchanged": true,
+    "countedInLocalEightHttpProbes": false
+  },
+  "finalizedAt": "2026-10-22T23:11:24+08:00"
+}

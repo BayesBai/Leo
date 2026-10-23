@@ -1,0 +1,7 @@
+.channel-comparison{margin:24px 0;border:1px solid #d9dfd4;border-radius:16px;padding:22px;background:#fafbf7}
+.channel-comparison>summary{cursor:pointer;font-weight:700;font-size:18px}.channel-comparison>p{color:#667466;font-size:13px;margin:12px 0 20px}
+.channel-compare-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.channel-compare-card{min-width:0;background:#fff;border-top:5px solid #ac6448;border-radius:8px;padding:18px;overflow-wrap:anywhere}
+.compare-xiaohongshu{border-color:#e7ac43;background:#fffdf0}.compare-moments{border-color:#42866a;background:#f1f7f3}.compare-poster{border-color:#243e58;background:#edf1f6}
+.channel-compare-card>button{font-size:15px;font-weight:700;padding:0;background:transparent;border:0;text-align:left}.channel-compare-card>small{display:block;color:#798173;font-size:11px;line-height:1.8;margin:8px 0 18px}
+.channel-compare-card h3{font-size:18px;line-height:1.6;margin:0 0 14px}.channel-compare-card p,.channel-compare-card li,.channel-compare-card blockquote{font-size:13px;line-height:1.9}.channel-compare-card ol{padding-left:19px;margin:16px 0}.channel-compare-card blockquote{margin:0;padding:12px 0;border-top:1px solid #dce1d8}.channel-compare-card footer{font-size:11px;color:#7c867a;margin-top:14px}
+@media(max-width:1200px){.channel-compare-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.channel-compare-grid{grid-template-columns:1fr}.channel-comparison{padding:15px}}

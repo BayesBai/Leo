@@ -6,8 +6,8 @@ import satori, { type SatoriNode } from 'satori';
 import sharp from 'sharp';
 import type { Draft, RenderTemplate } from '../../shared/types.js';
 import { WorkflowError } from '../outlines.js';
-import type { Browser } from 'playwright';
-import { FairLimiter } from '../fair-limiter.js';
+import { withRenderPage } from './browser-pool.js';
+export { closeRenderRuntime } from './browser-pool.js';
 
 const directory = fileURLToPath(new URL('.', import.meta.url));
 export const fontFile = path.join(directory, 'fonts/NotoSansSC.ttf');
@@ -16,7 +16,7 @@ let boldFontPromise: Promise<Buffer> | undefined;
 const font = () => fontPromise ||= readFile(fontFile);
 export const escapeHtml = (text: string) => text.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 export interface RenderImage { id: string; uri: string; name: string; width: number; height: number }
-export interface CardPage { heading: string; text: string; factIds: string[]; images: RenderImage[]; role: 'cover' | 'card' | 'poster'; kind?: 'cover' | 'checklist' | 'closing' }
+export interface CardPage { heading: string; text: string; factIds: string[]; images: RenderImage[]; role: 'cover' | 'card' | 'poster'; kind?: 'cover' | 'checklist' | 'closing' | 'steps' | 'focus' | 'comparison' }
 export function assertEmbeddedImages(images: RenderImage[]) {
   if (images.some(image => !/^data:image\/png;base64,[a-zA-Z0-9+/]+={0,2}$/.test(image.uri))) throw new WorkflowError(422, '排版只接受已解析的嵌入式 PNG 产品图片。');
 }
@@ -27,15 +27,36 @@ export function fillXhsTemplate(template: string, values: Record<string, string>
     return values[key];
   });
 }
+/** Paginate complete approved blocks; no rewritten text and no stock closing page. */
 export function planXhs(draft: Draft, title: string, images: RenderImage[]): CardPage[] {
-  const perPage = Math.ceil(draft.blocks.length / 4);
   const pages: CardPage[] = [{ heading: title, text: draft.intro, factIds: [], images: images.slice(0, 1), role: 'cover', kind: 'cover' }];
-  for (let i = 0; i < draft.blocks.length; i += perPage) {
-    const blocks = draft.blocks.slice(i, i + perPage);
-    pages.push({ heading: blocks[0].heading || '选购参考', text: blocks.map((b, n) => (n && b.heading ? `${b.heading}\n` : '') + b.text).join('\n\n'), factIds: [...new Set(blocks.flatMap(b => b.factIds))], images: [], role: 'card', kind: 'checklist' });
+  const blocks = draft.blocks.map(block => ({ ...block }));
+  // A short one-block post still needs two useful information pages. Split only at
+  // an existing sentence/paragraph boundary where possible; retain every character.
+  if (blocks.length === 1) {
+    const source = blocks[0]; const characters = Array.from(source.text);
+    const midpoint = Math.ceil(characters.length / 2);
+    const boundaries = [...source.text.matchAll(/[。！？；\n]/g)].map(match => match.index! + 1).filter(index => index > 0 && index < source.text.length);
+    const split = boundaries.length ? boundaries.reduce((best, value) => Math.abs(value - source.text.length / 2) < Math.abs(best - source.text.length / 2) ? value : best) : characters.slice(0, midpoint).join('').length;
+    if (split > 0 && split < source.text.length) blocks.splice(0, 1, { ...source, text: source.text.slice(0, split) }, { ...source, heading: `${source.heading} · 续`, text: source.text.slice(split) });
   }
-  images.slice(1).forEach((image, i) => pages[1 + i % (pages.length - 1)].images.push(image));
-  pages.push({ heading: '你的清单，还差哪一项？', text: [draft.cta, draft.tags.map(t => `#${t.replace(/^#/, '')}`).join(' ')].filter(Boolean).join('\n\n'), factIds: [], images: [], role: 'card', kind: 'closing' });
+  if (!blocks.length || blocks.length === 1) throw new WorkflowError(422, '小红书内容不足以形成封面及两页信息卡，请在大纲中补充真实信息后重新确认。');
+  const targetGroups = Math.min(5, Math.max(2, blocks.length <= 3 ? blocks.length : Math.ceil(blocks.length / 2)));
+  const groups: typeof blocks[] = [];
+  let cursor = 0;
+  for (let index = 0; index < targetGroups; index++) {
+    const take = Math.ceil((blocks.length - cursor) / (targetGroups - index));
+    groups.push(blocks.slice(cursor, cursor + take)); cursor += take;
+  }
+  groups.forEach((group, index) => {
+    const content = group.map((block, blockIndex) => (blockIndex && block.heading ? `${block.heading}\n` : '') + block.text).join('\n\n');
+    const action = index === groups.length - 1 ? [draft.cta, draft.tags.map(tag => `#${tag.replace(/^#/, '')}`).join(' ')].filter(Boolean).join('\n\n') : '';
+    pages.push({ heading: group[0].heading, text: [content, action].filter(Boolean).join('\n\n'), factIds: [...new Set(group.flatMap(block => block.factIds))], images: [], role: 'card', kind: 'checklist' });
+  });
+  // Images are actual originals. Repeating the main visual is a deliberate series
+  // anchor and never creates synthetic evidence or an extra image-model call.
+  images.slice(1).forEach((image, index) => pages[1 + index % groups.length].images.push(image));
+  if (images.length === 1) pages[1].images.push(images[0]);
   return pages;
 }
 export function planMoments(draft: Draft, title: string, images: RenderImage[]): CardPage[] {
@@ -60,13 +81,12 @@ export async function renderSatori(page: CardPage, template: RenderTemplate, mar
     const text = (value: string, extra = {}) => h('div', { style: { boxSizing: 'border-box', display: 'flex', flexShrink: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word', ...extra } }, value);
     const svg = await satori(h('div', { style: { boxSizing: 'border-box', display: 'flex', flexDirection: 'column', padding: poster ? 74 : 58, gap: poster ? 32 : 22,
       width: template.width, height: template.height, background: dark ? '#202d34' : '#f5f1e9', color: dark ? '#f8f5ef' : '#253731', fontFamily: 'Noto', fontSize: size, lineHeight: 1.5 } },
-      text('知序  /  HUAWEI PC', { fontSize: 25, letterSpacing: 4, color: dark ? '#b8caba' : '#717d6c' }),
+      text(product, { fontSize: 25, letterSpacing: 1, color: dark ? '#b8caba' : '#717d6c' }),
       text(page.heading, { fontSize: Math.min(poster ? 82 : 65, size * 1.8), lineHeight: 1.28, fontWeight: 700 }),
       text(product, { fontSize: 27, color: dark ? '#d7b898' : '#8b6345' }),
       ...page.images.map(image => h('div', { style: { boxSizing: 'border-box', display: 'flex', flexShrink: 0, justifyContent: 'center', borderRadius: 24, padding: 18, background: '#ffffff', height: poster ? 530 : template.height > 1080 ? 410 : 300 } },
         h('img', { src: image.uri, width: 860, height: poster ? 494 : template.height > 1080 ? 374 : 264, style: { objectFit: 'contain' } }))),
       text(page.text, { fontSize: size }),
-      text(marker, { fontSize: 22, marginTop: 'auto', borderTop: `1px solid ${dark ? '#687770' : '#d2d8ce'}`, paddingTop: 18, color: dark ? '#bdc8bf' : '#747c72' }),
     ), { width: template.width, height: template.height, fonts: [{ name: 'Noto', data, weight: 400 }, { name: 'Noto', data: bold, weight: 700 }], onNodeDetected: node => nodes.push(node) });
     const overflow = nodes.filter(n => !(n.top >= -1 && n.left >= -1 && n.top + n.height <= template.height - 24 && n.left + n.width <= template.width + 1 || n.type === 'div' && n.width === template.width && n.height === template.height));
     if (process.env.RENDER_DEBUG === '1' && overflow.length) console.log('layout bounds', size, overflow.map(n => ({ type: n.type, x: n.left, y: n.top, w: n.width, h: n.height })));
@@ -76,70 +96,24 @@ export async function renderSatori(page: CardPage, template: RenderTemplate, mar
   }
   throw new WorkflowError(422, '当前图版放不下完整文字。请在大纲中精简内容后重新确认，未截断任何事实或限定条件。');
 }
-let warmBrowser: Promise<Browser> | undefined;
-let liveBrowser: Browser | undefined;
-let browserUsers = 0;
-let browserIdle: ReturnType<typeof setTimeout> | undefined;
-const pageSlots = new FairLimiter(2);
-async function renderBrowser() {
-  clearTimeout(browserIdle);
-  process.env.PLAYWRIGHT_BROWSERS_PATH ||= path.resolve('.cache/ms-playwright');
-  if (!warmBrowser) {
-    warmBrowser = (async () => {
-      const { chromium } = await import('playwright');
-      const browser = await chromium.launch({ headless: true, ...(process.platform === 'darwin' ? { channel: 'chromium' } : {}) });
-      liveBrowser = browser;
-      browser.on('disconnected', () => { if (liveBrowser === browser) { liveBrowser = undefined; warmBrowser = undefined; } });
-      return browser;
-    })().catch(() => { warmBrowser = undefined; throw new WorkflowError(503, '缺少 Chromium 渲染运行时，请先运行 npm run setup:render。'); });
-  }
-  return warmBrowser;
-}
-export async function closeRenderRuntime() {
-  clearTimeout(browserIdle);
-  const browser = warmBrowser; warmBrowser = undefined;
-  if (browser) await (await browser.catch(() => undefined))?.close().catch(() => {});
-}
-function idleBrowser() {
-  if (browserUsers) return;
-  clearTimeout(browserIdle);
-  browserIdle = setTimeout(() => { if (!browserUsers) void closeRenderRuntime(); }, process.env.NODE_ENV === 'test' ? 100 : 30_000);
-  browserIdle.unref();
-}
 /** Upstream MIT card frame; contexts are isolated and all external network requests denied. */
 export async function renderXhs(pages: CardPage[], template: RenderTemplate, marker: string, product: string, signal?: AbortSignal): Promise<Buffer[]> {
   signal?.throwIfAborted(); pages.forEach(page => assertEmbeddedImages(page.images));
-  const browser = await renderBrowser();
-  browserUsers++;
-  let context: Awaited<ReturnType<Browser['newContext']>> | undefined;
-  const abort = () => { void context?.close().catch(() => {}); };
-  signal?.addEventListener('abort', abort, { once: true });
-  try {
-    signal?.throwIfAborted();
-    context = await browser.newContext({ viewport: { width: 1080, height: 1440 }, deviceScaleFactor: 1 });
-    await context.route('**/*', route => route.abort());
-    signal?.throwIfAborted();
-    const base = await readFile(path.join(directory, 'vendor/xhs-poster.html'), 'utf8');
-    const fontData = (await font()).toString('base64');
-    const outputs: Buffer[] = new Array(pages.length);
-    const owner = `xhs-${Date.now()}-${Math.random()}`;
-    const operations = pages.map(async (card, i) => {
-      const release = await pageSlots.acquire(owner, signal);
-      let page: Awaited<ReturnType<NonNullable<typeof context>['newPage']>> | undefined;
-      try {
-        signal?.throwIfAborted();
+  const base = await readFile(path.join(directory, 'vendor/xhs-poster.html'), 'utf8');
+  const fontData = (await font()).toString('base64');
+  const owner = `xhs-${Date.now()}-${Math.random()}`;
+  const operations = pages.map((card, i) => withRenderPage(owner, { width: 1080, height: 1440 }, signal, async page => {
         const kind = card.kind || (card.role === 'cover' ? 'cover' : 'checklist');
         const closing = kind === 'closing', cover = kind === 'cover';
-        page = await context!.newPage();
         const currentPage = page;
         let fit = false;
         for (const size of [36, 31, 26]) {
           let html = fillXhsTemplate(base, {
             BG_COLOR: closing ? '#173f4e' : cover ? template.id.includes('cream') ? '#ffe27a' : '#c8eedf' : '#fffef8', ACCENT_COLOR: '#e66749',
-            HEADER_BLOCK: `<div class="header"><span class="running-title">知序 · ${cover ? '选机清单 / 先收藏' : closing ? '评论区见 / YOUR NEXT STEP' : `清单 ${String(i).padStart(2, '0')} / CHECKLIST`}</span></div>`,
+            HEADER_BLOCK: `<div class="header"><span class="running-title">${escapeHtml(product)}</span></div>`,
             TITLE_BLOCK: `<div class="title-area"><h1>${escapeHtml(card.heading)}</h1></div>`,
             BODY_HTML: `<div class="page-kicker">${escapeHtml(product)}</div>${!cover ? `<p class="body-copy">${escapeHtml(card.text).replace(/\n/g, '<br>')}</p>` : ''}${card.images.length ? `<div class="products">${card.images.map(image => `<img src="${image.uri}" alt="${escapeHtml(image.name)}">`).join('')}</div>` : ''}${cover ? `<p class="body-copy">${escapeHtml(card.text).replace(/\n/g, '<br>')}</p>` : ''}`,
-            AVATAR_URI: '', SOURCE: escapeHtml(marker), PAGE_INFO: `${String(i + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`,
+            AVATAR_URI: '', SOURCE: '', PAGE_INFO: `${String(i + 1).padStart(2, '0')} / ${String(pages.length).padStart(2, '0')}`,
           });
           html = html.replace('</style>', `@font-face{font-family:RenderNoto;src:url(data:font/ttf;base64,${fontData}) format('truetype')} :root{--font:RenderNoto,sans-serif} .avatar{display:none}.title-area h1{font-size:${i === 0 ? size * 2.15 : size * 1.6}px;overflow-wrap:anywhere}.content p{font-size:${size}px;line-height:1.65;overflow-wrap:anywhere;white-space:normal}.title-area{margin-bottom:28px}.content{flex-shrink:0;min-height:0;overflow:visible}.products{display:flex;gap:16px;flex-shrink:0;align-items:center;justify-content:center;margin-bottom:28px;padding:18px;background:white;border-radius:22px}.products img{width:${Math.floor(880 / Math.max(1, card.images.length))}px;height:${i === 0 ? 490 : 280}px;object-fit:contain}.footer{margin-top:24px}.author-name{font-size:20px}.body-copy{margin:0} </style>`);
           html = html.replace(/<img class="avatar"[^>]*>/g, '').replace('</style>', '.title-area h1{line-height:1.5;padding:2px 0 8px} </style>');
@@ -150,8 +124,8 @@ export async function renderXhs(pages: CardPage[], template: RenderTemplate, mar
             .page-kicker{font-size:23px;line-height:1.5;margin-bottom:24px;color:${closing ? '#bcdacd' : '#687c6c'}}
             .body-copy{font-size:${size}px!important;line-height:1.6!important;color:${closing ? '#fffdf1' : '#243e34'}!important;background:${closing ? '#265466' : cover ? 'transparent' : '#f0f4e9'};padding:${cover ? 0 : 26}px;border-radius:${closing ? 30 : 10}px;${!cover && !closing ? 'border-left:7px solid #e66749;' : ''}}
             .products{margin:0 0 24px;padding:${cover ? 28 : 12}px;background:${cover ? '#fffdf0' : '#ffffff'};border-radius:${cover ? 48 : 20}px;${cover ? 'border:3px solid #233f34;' : ''}}
-            .products img{height:${cover ? 450 : 210}px;width:${Math.floor(880 / Math.max(1, card.images.length)) - (cover ? 20 : 10)}px}
-            .footer{border-top-color:${closing ? '#527581' : '#becbb9'};padding-top:20px}.author-name,.page-info{color:${closing ? '#bed9cf' : '#687d6e'}!important}
+            .products img{height:${cover ? 520 : 340}px;width:${Math.floor(880 / Math.max(1, card.images.length)) - (cover ? 20 : 10)}px}
+            .footer{border-top:0;padding-top:12px}.author{display:none}.author-name,.page-info{color:${closing ? '#bed9cf' : '#687d6e'}!important}
           `;
           html = html.replace('</style>', () => channelCss + '</style>');
           await currentPage.setContent(html, { waitUntil: 'load', timeout: 20_000 });
@@ -167,15 +141,13 @@ export async function renderXhs(pages: CardPage[], template: RenderTemplate, mar
             });
           });
           if (!fit && process.env.RENDER_DEBUG === '1') console.log('xhs bounds', size, await currentPage.evaluate(() => Array.from(document.querySelectorAll('.content,.footer,.body-copy,h1,.products')).map(e => { const r = e.getBoundingClientRect(); return { class: e.className, y: r.y, bottom: r.bottom, right: r.right, scroll: e.scrollHeight, client: e.clientHeight }; })));
-          if (fit) { outputs[i] = await currentPage.screenshot({ type: 'png' }); break; }
+          if (fit) return await currentPage.screenshot({ type: 'png' });
         }
-        if (!fit) throw new WorkflowError(422, `第 ${i + 1} 页文字超出小红书卡片容量。请精简对应大纲或增加段落后重新确认；内容未被截断。`);
-      } finally { await page?.close().catch(() => {}); release(); }
-    });
-    // Await every page cleanup before closing its context, even if one page failed.
-    const results = await Promise.allSettled(operations);
-    const failure = results.find((result): result is PromiseRejectedResult => result.status === 'rejected');
-    if (failure) throw failure.reason;
-    signal?.throwIfAborted(); return outputs;
-  } finally { signal?.removeEventListener('abort', abort); await context?.close().catch(() => {}); browserUsers--; idleBrowser(); }
+        throw new WorkflowError(422, `第 ${i + 1} 页文字超出小红书卡片容量。请精简对应大纲或增加段落后重新确认；内容未被截断。`);
+  }));
+  const results = await Promise.allSettled(operations);
+  const failure = results.find((result): result is PromiseRejectedResult => result.status === 'rejected');
+  if (failure) throw failure.reason;
+  signal?.throwIfAborted();
+  return results.map(result => (result as PromiseFulfilledResult<Buffer>).value);
 }

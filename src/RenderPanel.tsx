@@ -1,7 +1,8 @@
+import { ChannelDeliveryPanel } from './ChannelDeliveryPanel';
 import { useEffect, useId, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, Check, Copy, Download, Image as ImageIcon, LoaderCircle, Maximize2, RefreshCw, X } from 'lucide-react';
-import type { BackgroundJob, RenderRequest, Draft, RenderArtifact, RenderBundle, RenderTemplate, RunResult } from '../shared/types';
-import { apiFetch, ApiError, mockLabel } from './api';
+import type { ChannelDelivery, BackgroundJob, RenderRequest, Draft, RenderArtifact, RenderBundle, RenderTemplate, RunResult } from '../shared/types';
+import { api, apiFetch, ApiError, mockLabel } from './api';
 import './virgo/render-panel.css';
 
 const emptyBundles: RenderBundle[] = [];
@@ -17,9 +18,18 @@ type RenderPanelProps = {
   jobs: BackgroundJob[];
   onEnqueue: (request: RenderRequest) => Promise<BackgroundJob | undefined>;
   onCancel: (job: BackgroundJob) => void;
+  onDelivery?: (delivery: ChannelDelivery) => void;
+  onJob?: (job: BackgroundJob) => void;
 };
 
-export function RenderPanel({ result, draft, titleIndex, templates, restoredBundles = emptyBundles, allowRender = true, parentBusy = false, onBundle, jobs, onEnqueue, onCancel }: RenderPanelProps) {
+export function RenderPanel({ result, draft, titleIndex, templates, restoredBundles = emptyBundles, allowRender = true, parentBusy = false, onBundle, jobs, onEnqueue, onCancel, onDelivery, onJob }: RenderPanelProps) {
+  const [delivery,setDelivery]=useState<ChannelDelivery|null>(null);
+  const deliveryCallback = useRef(onDelivery); deliveryCallback.current = onDelivery;
+  const relatedJobs = jobs.filter(job => job.input.kind === 'render' && job.input.request.runId === result.id && job.input.request.platform === draft.platform || job.input.kind === 'video' && (job.input.deliveryId === delivery?.id || job.channels.some(channel => channel.delivery?.runId === result.id && channel.platform === draft.platform))).map(job => `${job.id}:${job.updatedAt}`).join('|');
+  useEffect(()=>{ const controller=new AbortController();
+    void api<{delivery:ChannelDelivery}>(`/api/runs/${encodeURIComponent(result.id)}/deliveries/${draft.platform}`,'GET',undefined,controller.signal).then(r=>{if(!controller.signal.aborted){setDelivery(r.delivery);deliveryCallback.current?.(r.delivery);}}).catch(()=>{if(!controller.signal.aborted)setDelivery(null);});
+    return()=>controller.abort();
+  },[result.id,result.revision,draft.platform,relatedJobs]);
   const available = templates.filter(item => item.platform === draft.platform);
   const orderedBundles = [...restoredBundles].sort((a, b) => Number(a.publication === 'preview') - Number(b.publication === 'preview') || Date.parse(b.expiresAt) - Date.parse(a.expiresAt));
   const restored = orderedBundles.find(item => item.runId === result.id && item.revision === result.revision && item.platform === draft.platform && item.selectedTitleIndex === titleIndex && item.reviewStatus === result.review.status && Date.parse(item.expiresAt) > Date.now());
@@ -98,7 +108,7 @@ export function RenderPanel({ result, draft, titleIndex, templates, restoredBund
     if (parentBusy || !allowRender || !template || busy) return;
     const submittedIdentity = identity; setSubmitting(true); setError(''); setMessage('');
     try {
-      await onEnqueue({ runId: result.id, revision: result.revision, platform: draft.platform, selectedTitleIndex: titleIndex, templateId: template });
+      await onEnqueue({ runId: result.id, revision: result.revision, platform: draft.platform, selectedTitleIndex: titleIndex, templateId: template, ...(['wechat', 'xiaohongshu'].includes(draft.platform) ? { visualMode: 'html' as const } : {}) });
       if (currentIdentity.current === submittedIdentity) setMessage('已加入后台排版队列，可以切换渠道或离开此页。');
     } catch (reason) {
       if (currentIdentity.current === submittedIdentity) setError(reason instanceof ApiError && reason.status === 410 ? '当前来源或正文已过期。正文仍可阅读，请返回任务重新策划后再生成成品。' : reason instanceof Error ? reason.message : '排版任务未提交，请重试。');
@@ -164,6 +174,8 @@ export function RenderPanel({ result, draft, titleIndex, templates, restoredBund
   const downloadUrl = visibleBundle?.zipUrl || activeArtifact?.downloadUrl;
   const downloadName = visibleBundle?.zipUrl ? 'Virgo-成品与来源.zip' : activeArtifact?.name || 'Virgo-成品';
 
+  if (delivery) return <ChannelDeliveryPanel delivery={delivery} showPublishingCopy={['moments', 'poster'].includes(draft.platform)} showReview={false} renderTemplates={templates} jobs={jobs} titleIndex={titleIndex} onUpdated={next=>{setDelivery(next);deliveryCallback.current?.(next);}} onEnqueueRender={onEnqueue} onJob={onJob} />;
+  if (draft.platform === 'poster') return <section className="virgo-render-panel" aria-labelledby={headingId}><h3 id={headingId}>门店海报</h3><p className="vr-notice">正在读取本渠道交付记录。若持续无法载入，请重新打开这份记录后查看海报及人工核对项。</p>{activeArtifact?.format !== 'wechat-richtext' && activeArtifact && <figure className="vr-artifact"><img src={activeArtifact.previewUrl} alt="历史海报预览" width={activeArtifact.width} height={activeArtifact.height} /></figure>}</section>;
   return <section className="virgo-render-panel" aria-labelledby={headingId} aria-busy={busy}>
     <div className="vr-heading"><h3 id={headingId} ref={heading} tabIndex={-1}>视觉成品</h3>{visibleBundle && <span className="vr-version">正文 v{visibleBundle.revision}</span>}</div>
     <fieldset className="vr-templates" disabled={busy || parentBusy}>
@@ -176,8 +188,8 @@ export function RenderPanel({ result, draft, titleIndex, templates, restoredBund
     </fieldset>
     {!available.length && <p className="vr-notice">此渠道暂无可用模板，请检查服务连接后重试。</p>}
     {!allowRender && <p className="vr-notice vr-notice-warning" role="status">历史来源需要重新获取，暂时不能生成新成品。未到期的已有成品仍可查看与使用。</p>}
-    {blocked && <p className="vr-notice vr-notice-error" role="status">审核阻断：仅提供带标记预览，复制和下载已关闭。请返回大纲修改后重新生成。</p>}
-    {result.review.status === 'needs_attention' && <p className="vr-notice vr-notice-warning">有待确认项。请核实审核提示，再决定是否使用成品。</p>}
+    {blocked && <p className="vr-notice vr-notice-error" role="status">审核阻断：仅供查看，复制和下载已关闭。请返回大纲修改后重新生成。</p>}
+    {result.review.status === 'needs_attention' && <p className="vr-notice vr-notice-warning">内容可交付，另有发布提醒。请按具体提示核对来源或销售版本；无需再点击确认。</p>}
     {error && <p className="vr-notice vr-notice-error" role="alert">{error}</p>}
     {message && <p className="vr-notice vr-notice-success" role="status">{message}</p>}
 
@@ -197,7 +209,7 @@ export function RenderPanel({ result, draft, titleIndex, templates, restoredBund
         <button className="vr-button vr-button-primary" type="button" disabled={exportDisabled || !downloadUrl} onClick={() => downloadUrl && void download(downloadUrl, downloadName)}><Download size={18} aria-hidden="true" />下载成品{visibleBundle?.zipUrl && <span className="vr-sr-only">整组 ZIP，含来源与审核</span>}</button>
       </div>
       <div className="vr-secondary-actions">
-        <button className="vr-text-button" type="button" disabled={exportDisabled} onClick={() => void copy(false)}><Copy size={16} aria-hidden="true" />复制文案</button>
+        {draft.platform === 'moments' && <button className="vr-text-button" type="button" disabled={exportDisabled} onClick={() => void copy(false)}><Copy size={16} aria-hidden="true" />复制文案</button>}
         {draft.platform === 'wechat' && <button className="vr-text-button" type="button" disabled={exportDisabled || !artifacts.some(item => item.format === 'wechat-richtext')} onClick={() => void copy(true)}><Copy size={16} aria-hidden="true" />复制公众号排版</button>}
         {visibleBundle?.zipUrl && <button className="vr-text-button" type="button" disabled={exportDisabled || !activeArtifact.downloadUrl} onClick={() => activeArtifact.downloadUrl && void download(activeArtifact.downloadUrl, activeArtifact.name)}><Download size={16} aria-hidden="true" />下载此文件</button>}
       </div>
@@ -215,7 +227,7 @@ export function RenderPanel({ result, draft, titleIndex, templates, restoredBund
       const bounds = event.currentTarget.getBoundingClientRect();
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setZoom(null);
     }}>
-      <header className="vr-dialog-header"><div><h3 id={dialogHeadingId}>{zoom?.name || '成品完整预览'}</h3><p id={dialogDescriptionId}>{blocked ? '审核阻断，仅供查看带标记预览。' : '查看成品细节，按 Escape 或关闭按钮返回。'}</p></div><button ref={dialogClose} className="vr-dialog-close" type="button" aria-label="关闭大图" onClick={() => setZoom(null)}><X size={22} /></button></header>
+      <header className="vr-dialog-header"><div><h3 id={dialogHeadingId}>{zoom?.name || '成品完整预览'}</h3><p id={dialogDescriptionId}>{blocked ? '审核阻断，仅供查看。' : '查看成品细节，按 Escape 或关闭按钮返回。'}</p></div><button ref={dialogClose} className="vr-dialog-close" type="button" aria-label="关闭大图" onClick={() => setZoom(null)}><X size={22} /></button></header>
       <div className="vr-dialog-content">{zoom && (zoom.format === 'wechat-richtext' ? <iframe title={`${zoom.name}完整排版预览`} src={zoom.previewUrl} sandbox="" /> : <img src={zoom.previewUrl} alt={zoom.name} />)}</div>
     </dialog>
   </section>;

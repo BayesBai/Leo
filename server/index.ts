@@ -7,7 +7,7 @@ import type { AppStatus, Brief, EvidenceBundle, OutlineResult, RunResult, Stream
 import { getAsset, getImaStatus, getLocalStats, listProducts, verifyIma, assertEvidenceCurrent } from './knowledge.js';
 import { callModel, modelConfig } from './model.js';
 import { InputRequiredError, parseBrief, publicResult, revisionPlatforms, runPipeline } from './pipeline.js';
-import { jobSubmitSchema, outlineEditSchema, outlineReviseSchema, outlineVersionSchema, platformSchema, renderRequestSchema } from './schemas.js';
+import { jobSubmitSchema, outlineEditSchema, outlineReviseSchema, outlineVersionSchema, platformSchema, posterApprovalSchema, renderRequestSchema } from './schemas.js';
 import { confirmedOutline, confirmOutline, createOutline, getOutline, publicOutline, reviseOutline, saveOutline, WorkflowError } from './outlines.js';
 import { initializeConnectionPolicy, updateConnections } from './connections.js';
 import { taskOptions } from './task-options.js';
@@ -15,6 +15,10 @@ import { getRenderAsset, renderRun, renderTemplates } from './render/index.js';
 import { getSavedRun, historyItems, pruneHistory, runDetail, saveRun } from './history.js';
 import { stateStore, markOperation, finishOperation } from './state-store.js';
 import { jobs, submitJob } from './jobs.js';
+import { hydrateJobDeliveries, deliveryDetail, deliveryRenderSource, deliveriesForRun, revokeDelivery, allDeliveries, saveDelivery } from './deliveries.js';
+import { imageConfig } from './image-provider.js';
+import { approvePosterDelivery } from './poster-workflow.js';
+import { assertCurrentRenderRequest, externalDesignPaused } from './integrations/paused.js';
 
 const root = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 let activeRuns = 0;
@@ -24,7 +28,7 @@ const activeOutlineOperations = new Set<string>();
 
 async function status(): Promise<AppStatus> {
   const { configured, name, baseUrl } = modelConfig();
-  return { model: { configured, name, baseUrl }, ima: getImaStatus(), local: await getLocalStats() };
+  return { model: { configured, name, baseUrl }, ima: getImaStatus(), local: await getLocalStats(), image: imageConfig() };
 }
 
 function safeError(error: unknown): string {
@@ -35,7 +39,7 @@ function safeError(error: unknown): string {
   let message = error instanceof z.ZodError
     ? error.issues.map(issue => `${issue.path.join('.') || '输入'}：${issue.code === 'invalid_enum_value' ? '值不在允许的选项中。' : issue.code === 'unrecognized_keys' ? '包含不支持的字段。' : issue.message}`).join('；')
     : error instanceof Error ? error.message : '操作失败，请重试。';
-  for (const variable of ['LLM_API_KEY', 'IMA_OPENAPI_APIKEY', 'IMA_OPENAPI_CLIENTID', 'IMA_API_KEY', 'IMA_CLIENT_ID']) {
+  for (const variable of ['LLM_API_KEY', 'IMA_OPENAPI_APIKEY', 'IMA_OPENAPI_CLIENTID', 'IMA_API_KEY', 'IMA_CLIENT_ID', 'IMAGE_API_KEY', 'CANVA_CLIENT_SECRET']) {
     const value = process.env[variable];
     if (value && value.length > 3) message = message.split(value).join('[已隐藏]');
   }
@@ -110,21 +114,51 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
     try { await verifyIma(controller.signal); res.json(await status()); } catch (error) { if (!controller.signal.aborted) next(error); }
   }));
   app.get('/api/task-options', (_req, res) => { res.json(taskOptions); });
-  app.get('/api/history', (_req, res, next) => { try { pruneHistory(); res.json({ items: historyItems() }); } catch (error) { next(error); } });
-  app.get('/api/runs/:id', (req, res, next) => { try { res.json(runDetail(String(req.params.id))); } catch (error) { next(error); } });
+  app.get('/api/history', (req, res, next) => { try { pruneHistory(); res.json({ items: historyItems(), ...(req.query.includeDeliveries==='1'?{deliveries:allDeliveries()}: {}) }); } catch (error) { next(error); } });
+  app.get('/api/runs/:id', (req, res, next) => { try { res.json(runDetail(String(req.params.id), req.query.includeDeliveries === '1')); } catch (error) { next(error); } });
   app.post('/api/jobs', (req, res, next) => { try { const input = jobSubmitSchema.parse(req.body); if ('outlineId' in input && activeOutlineOperations.has(input.outlineId)) throw new WorkflowError(409, '此大纲正在被原生成接口使用，请先完成或停止原任务。'); res.status(202).json({ job: submitJob(input) }); } catch (error) { next(error); } });
-  app.get('/api/jobs', (req, res, next) => { try { const key = req.query.idempotencyKey; if (key !== undefined && (typeof key !== 'string' || key.length > 120)) throw new WorkflowError(400, '幂等键格式无效。'); res.json({ jobs: queue.list(key, true) }); } catch (error) { next(error); } });
+  app.get('/api/jobs', (req, res, next) => { try { const key = req.query.idempotencyKey; if (key !== undefined && (typeof key !== 'string' || key.length > 120)) throw new WorkflowError(400, '幂等键格式无效。'); res.json({ jobs: queue.list(key, true).map(hydrateJobDeliveries) }); } catch (error) { next(error); } });
   app.get('/api/jobs/events', (_req, res) => {
     res.status(200).set({ 'Content-Type': 'text/event-stream; charset=utf-8', 'Cache-Control': 'no-cache, no-transform', Connection: 'keep-alive', 'X-Accel-Buffering': 'no' }); res.flushHeaders();
     let pending = false;
-    const send = () => { if (!res.destroyed && !res.writableEnded) { if (res.writableLength > 4 * 1024 * 1024) { res.end(); return; } res.write(`data: ${JSON.stringify({ type: 'snapshot', jobs: queue.list(undefined, true) })}\n\n`); } };
+    const send = () => { if (!res.destroyed && !res.writableEnded) { if (res.writableLength > 4 * 1024 * 1024) { res.end(); return; } res.write(`data: ${JSON.stringify({ type: 'snapshot', jobs: queue.list(undefined, true).map(hydrateJobDeliveries) })}\n\n`); } };
     const unsubscribe = queue.subscribe(() => { if (!pending) { pending = true; queueMicrotask(() => { pending = false; send(); }); } });
     const heartbeat = setInterval(() => { if (!res.destroyed) res.write(': heartbeat\n\n'); }, 15_000); send();
     res.once('close', () => { clearInterval(heartbeat); unsubscribe(); });
   });
-  app.get('/api/jobs/:id', (req, res, next) => { try { res.json({ job: queue.get(String(req.params.id)) }); } catch (error) { next(error); } });
+  app.get('/api/jobs/:id', (req, res, next) => { try { res.json({ job: hydrateJobDeliveries(queue.get(String(req.params.id))) }); } catch (error) { next(error); } });
   app.post('/api/jobs/:id/cancel', (req, res, next) => { try { res.json({ job: queue.cancel(String(req.params.id)) }); } catch (error) { next(error); } });
   app.post('/api/jobs/:id/retry', (req, res, next) => { try { const job = queue.get(String(req.params.id)); if ('outlineId' in job.input) unlockedOutline(job.input.outlineId); res.json({ job: queue.retry(job.id) }); } catch (error) { next(error); } });
+  app.get('/api/runs/:id/deliveries/:platform', (req,res,next)=>{try{
+    const platform=platformSchema.parse(req.params.platform), id=String(req.params.id);
+    let d=deliveriesForRun(id).find(d=>d.platform===platform);
+    if(!d){const saved=getSavedRun(id); const draft=saved.result.drafts.find(d=>d.platform===platform);
+      if(!draft || !saved.outlineSnapshot) throw new WorkflowError(410,'旧稿缺少可恢复的大纲快照，请重新策划。');
+      const issues=saved.result.review.issues.filter(i=>!i.platform||i.platform===platform);
+      const review={...saved.result.review,issues,status:issues.some(i=>i.severity==='error')?'blocked' as const:issues.some(i=>i.severity==='warning')?'needs_attention' as const:'passed' as const};
+      d=saveDelivery({runId:id,outline:saved.outlineSnapshot,draft,review,createdAt:saved.result.createdAt});
+    } res.json({delivery:d});
+  }catch(e){next(e);} });
+  app.get('/api/deliveries/:id', (req,res,next)=> { try { res.json({delivery:deliveryDetail(String(req.params.id))}); } catch(e){next(e);} });
+  app.post('/api/deliveries/:id/rerender', (req,res,next)=> { try {
+    const input=z.object({idempotencyKey:z.string().min(8).max(120),visualMode:z.enum(['local','canva','html','poster-image']).default('local'),regenerateVisual:z.boolean().optional(),templateId:z.string().max(80).optional()}).strict().parse(req.body);
+    const d=deliveryDetail(String(req.params.id));
+    res.status(202).json({job:submitJob({kind:'render',idempotencyKey:input.idempotencyKey,request:{runId:d.runId,revision:d.revision,platform:d.platform,selectedTitleIndex:0,templateId:input.templateId || renderTemplates.find(t=>t.platform===d.platform)!.id,deliveryId:d.id,visualMode:input.visualMode,regenerateVisual:input.regenerateVisual}})});
+  }catch(e){next(e);} });
+  app.post('/api/deliveries/:id/video',(req,res,next)=>{try{
+    const {idempotencyKey}=z.object({idempotencyKey:z.string().min(8).max(120)}).strict().parse(req.body);
+    const input=jobSubmitSchema.parse({kind:'video',deliveryId:String(req.params.id),idempotencyKey});
+    if(input.kind!=='video')throw new WorkflowError(400,'视频任务输入无效。');
+    res.status(202).json({job:submitJob(input)});
+  }catch(error){next(error);} });
+  app.post('/api/deliveries/:id/poster/approve', async (req,res,next)=>{try{
+    const input=posterApprovalSchema.parse(req.body);
+    res.json({delivery:await approvePosterDelivery(String(req.params.id),input)});
+  }catch(error){next(error);}});
+  // Suspended integration routes never touch OAuth credentials or a remote service.
+  const paused:express.RequestHandler=(_req,res)=>{const error=externalDesignPaused();res.status(error.status).json({message:error.message,code:error.code,retryable:false,outcomeUnknown:false});};
+  app.all('/api/deliveries/:id/canva/sync',paused);
+  app.use('/api/integrations/canva',paused);
   app.post('/api/connections/settings', async (req, res, next) => {
     try {
       if (activeOperations || queue.hasPending()) throw new WorkflowError(409, '请等待运行与排队任务完成，或显式停止后再修改接入配置。');
@@ -151,9 +185,11 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
   app.post('/api/render', operation(async (req, res, next) => {
     const controller = new AbortController(); res.once('close', () => { if (!res.writableEnded) controller.abort(); });
     try {
-      const input = renderRequestSchema.parse(req.body); const saved = getSavedRun(input.runId);
+      const input = renderRequestSchema.parse(req.body); assertCurrentRenderRequest(input);
+      if(input.visualMode==='poster-image')throw new WorkflowError(400,'整图海报需通过后台任务接口生成，不能使用同步排版接口。');
+      const saved = input.deliveryId ? {result:deliveryRenderSource(input.deliveryId)} : getSavedRun(input.runId);
       if (saved.result.revision !== input.revision) throw new WorkflowError(409, '正文版本不一致，请使用当前结果。');
-      assertEvidenceCurrent(saved.canonicalEvidence);
+      assertEvidenceCurrent('canonicalEvidence' in saved ? saved.canonicalEvidence : saved.result.evidence);
       res.json(await renderRun(saved.result, input, controller.signal));
     } catch (error) { if (!controller.signal.aborted) next(error); }
   }));
@@ -163,6 +199,18 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
       res.setHeader('Content-Type', asset.type);
       if (req.query.download === '1') res.setHeader('Content-Disposition', `attachment; filename="artifact.${asset.extension}"; filename*=UTF-8''${encodeURIComponent(asset.name)}`);
       if (asset.type.startsWith('text/html')) res.setHeader('Content-Security-Policy', "default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; frame-ancestors 'self'");
+      if(asset.type==='video/mp4') {
+        res.setHeader('Accept-Ranges','bytes');
+        const range=req.get('range');
+        if(range) {
+          const match=/^bytes=(\d*)-(\d*)$/.exec(range);
+          const size=asset.data.length;
+          let start=match?.[1]?Number(match[1]):0,end=match?.[2]?Number(match[2]):size-1;
+          if(match&&!match[1]&&match[2]) {start=Math.max(0,size-Number(match[2]));end=size-1;}
+          if(!match||!match[1]&&!match[2]||!Number.isSafeInteger(start)||!Number.isSafeInteger(end)||start<0||start>=size||end<start||!match[1]&&Number(match[2])<=0) {res.setHeader('Content-Range',`bytes */${size}`);res.status(416).end();return;}
+          end=Math.min(end,size-1);res.setHeader('Content-Range',`bytes ${start}-${end}/${size}`);res.setHeader('Content-Length',String(end-start+1));res.status(206).send(asset.data.subarray(start,end+1));return;
+        }
+      }
       res.send(asset.data);
     } catch (error) { next(error); }
   });
@@ -273,6 +321,9 @@ export async function createApp(options: { production?: boolean; apiOnly?: boole
   app.use((error: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
     if (res.headersSent) { res.end(); return; }
     if (error instanceof InputRequiredError) { res.status(422).json({ type: 'needs_input', message: error.message, fields: error.fields }); return; }
+    if(error instanceof WorkflowError && 'code' in error && typeof error.code==='string' && /^[A-Z][A-Z0-9_]{1,80}$/.test(error.code)) {
+      res.status(error.status).json({message:safeError(error),code:error.code,...('retryable' in error&&typeof error.retryable==='boolean'?{retryable:error.retryable}:{}),...('outcomeUnknown' in error&&typeof error.outcomeUnknown==='boolean'?{outcomeUnknown:error.outcomeUnknown}:{})});return;
+    }
     const suppliedStatus = error && typeof error === 'object' && 'status' in error ? Number(error.status) : 500;
     res.status(error instanceof z.ZodError ? 400 : Number.isInteger(suppliedStatus) && suppliedStatus >= 400 && suppliedStatus <= 599 ? suppliedStatus : 500).json({ message: safeError(error) });
   });

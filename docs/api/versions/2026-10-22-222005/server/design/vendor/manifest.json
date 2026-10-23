@@ -1,0 +1,72 @@
+[
+  {
+    "path": "canvas-design/SKILL.md",
+    "repository": "https://github.com/anthropics/skills",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "sourcePath": "skills/canvas-design/SKILL.md",
+    "sha256": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b"
+  },
+  {
+    "path": "canvas-design/LICENSE.txt",
+    "repository": "https://github.com/anthropics/skills",
+    "commit": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+    "sourcePath": "skills/canvas-design/LICENSE.txt",
+    "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362"
+  },
+  {
+    "path": "meitu-poster/SKILL.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/SKILL.md",
+    "sha256": "af81720e69e0080a9ae32dbfb456553a1da0bcfdc52327524977a39034660942"
+  },
+  {
+    "path": "meitu-poster/LICENSE",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "LICENSE",
+    "sha256": "94b7b936e1206de388f3b8bb094c51efc340c682ea064594d0435b49b9aba211"
+  },
+  {
+    "path": "baoyu-skills/baoyu-xhs-images-SKILL.md",
+    "repository": "https://github.com/JimLiu/baoyu-skills",
+    "commit": "1567581c26ec29f4216c6e6835415bf30343b0e3",
+    "sourcePath": "skills/baoyu-xhs-images/SKILL.md",
+    "sha256": "17bf5498641cc60cb98f0cc15fbea27fd42777d119a39fb54fd6418840442bba"
+  },
+  {
+    "path": "baoyu-skills/baoyu-markdown-to-html-SKILL.md",
+    "repository": "https://github.com/JimLiu/baoyu-skills",
+    "commit": "1567581c26ec29f4216c6e6835415bf30343b0e3",
+    "sourcePath": "skills/baoyu-markdown-to-html/SKILL.md",
+    "sha256": "f4a5bb1697f9387557897a9c58b6406765728089a8d84cfbb6c40a93c3d136f7"
+  },
+  {
+    "path": "baoyu-skills/LICENSE",
+    "repository": "https://github.com/JimLiu/baoyu-skills",
+    "commit": "1567581c26ec29f4216c6e6835415bf30343b0e3",
+    "sourcePath": "LICENSE",
+    "sha256": "601839401f6ce68b7a8aec0f7ba247ab8ef0848113378220bec4b2615cc84ee7"
+  },
+  {
+    "path": "meitu-poster/references/design-constraints.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/references/design-constraints.md",
+    "sha256": "d90a339f003edecc2734558f1fea7351325a919c8523c2a17842e2d603a71b16"
+  },
+  {
+    "path": "meitu-poster/references/creative-framework.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/references/creative-framework.md",
+    "sha256": "c728c09658bb9cce58345d96b0de67cebac8e883768642578db897b737839f29"
+  },
+  {
+    "path": "meitu-poster/references/output-formats.md",
+    "repository": "https://github.com/meitu/meitu-skills",
+    "commit": "95e563c0a695094403ccf77eb8fe7bd8bb58939c",
+    "sourcePath": "skills/meitu-poster/references/output-formats.md",
+    "sha256": "4ab98ecd5772350b114e7920b99783e4216f3c14e7103303c91598945edeb486"
+  }
+]

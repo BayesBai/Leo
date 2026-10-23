@@ -55,7 +55,7 @@ test('outline image bounds are enforced before model work and before saving or c
   process.env.LLM_API_KEY = 'mock-only-image-preflight';
   globalThis.fetch = async () => { calls++; throw new Error('不应调用模型'); };
   try {
-    const sparse = { ...structuredClone(evidence), images: evidence.images.slice(0, 2) };
+    const sparse = { ...structuredClone(evidence), images: [] };
     await assert.rejects(createOutline({ ...brief, mode: 'live', platforms: ['xiaohongshu'] }, undefined, { evidence: sparse }), (error: any) => error.status === 422);
     await assert.rejects(runPipeline({ ...brief, mode: 'live', platforms: ['xiaohongshu'] }, undefined, { evidence: sparse }), (error: any) => error.status === 422);
     assert.equal(calls, 0);
@@ -252,7 +252,7 @@ test('HTTP workflow enforces confirmation/version, keeps old SSE contract and pr
     assert.equal((await fetch(base + '/api/render-assets/00000000-0000-0000-0000-000000000000')).status, 410);
   } finally { await new Promise<void>((resolve, reject) => server.close(error => error ? reject(error) : resolve())); }
 });
-test('fixture render keeps blocked markers and denies downloads; attention ZIP carries safe provenance', async () => {
+test('fixture render keeps channel export gates and separate review provenance without visual labels', async () => {
   const real = (await listProducts()).find(p => /HarmonyOS|鸿蒙/.test(p.system))!;
   const outline = await createOutline({ ...brief, productId: real.id }); confirmOutline(outline.id, 1);
   const result = await runPipeline(outline.brief, undefined, { evidence: outline.evidence, outline: confirmedOutline(outline.id, 1) });
